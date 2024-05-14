@@ -2,15 +2,33 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "My Blog",
-  description: "A Blog site",
+  title: "next.js 中文文档",
+  description: "next.js 中文文档",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Docs', link: '/docs/' }
+      { text: '首页', link: '/' },
+      { text: '文档', link: '/docs/' }
     ],
-
+    outline: {
+      label: '页面导航',
+      level: [2, 3, 4]
+    },
+    docFooter: {
+      prev: '上一页',
+      next: '下一页'
+    },
+    lastUpdated: {
+      text: '最后更新于',
+      formatOptions: {
+        dateStyle: 'short',
+        timeStyle: 'medium'
+      }
+    },
+    returnToTopLabel: '回到顶部',
+    sidebarMenuLabel: '菜单',
+    darkModeSwitchLabel: '主题',
+    
     sidebar: [
       {
         text: 'Getting Started',
@@ -31,6 +49,7 @@ export default defineConfig({
         items: [
           {
             text: 'Routing',
+            collapsed: false,
             link: '/docs/app/building-your-application/routing/',
             items: [
               {
