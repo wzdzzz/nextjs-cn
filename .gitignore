@@ -2,4 +2,4 @@
 /.vitepress/dist/
 /folderStructure.json
 /submittedFiles.json
-.idea/
+.idea
