@@ -3,7 +3,7 @@ title: crossOrigin
 description: 使用 `crossOrigin` 选项为 `next/script` 生成的 `script` 标签添加一个 `crossOrigin` 标签。
 ---
 
-{/* 本文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 使用 `crossOrigin` 选项为 <AppOnly>[`next/script`](/docs/app/building-your-application/optimizing/scripts) 组件</AppOnly> <PagesOnly>[`next/script`](/docs/pages/building-your-application/optimizing/scripts) 和 [`next/head`](/docs/pages/api-reference/components/head) 组件</PagesOnly> 生成的所有 `<script>` 标签添加一个 [`crossOrigin` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)，并定义如何处理跨域请求。
 

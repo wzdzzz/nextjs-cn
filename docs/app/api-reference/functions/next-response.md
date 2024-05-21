@@ -3,7 +3,7 @@ title: NextResponse
 description: NextResponse的API参考文档。
 ---
 
-{/* 本文档的内容在应用和页面路由器之间共享。您可以使用`<PagesOnly>Content</PagesOnly>`组件添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 NextResponse在[Web Response API](https://developer.mozilla.org/docs/Web/API/Response)的基础上扩展了额外的便利方法。
 

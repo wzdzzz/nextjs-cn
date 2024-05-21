@@ -3,7 +3,7 @@ title: useReportWebVitals
 description: useReportWebVitals 函数的 API 参考。
 ---
 
-{/* 本文档的内容在应用和页面路由之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件来添加特定于页面路由的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 `useReportWebVitals` 钩子允许您报告 [核心 Web 指标](https://web.dev/vitals/)，并可以与您的分析服务结合使用。
 

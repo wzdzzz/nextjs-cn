@@ -4,7 +4,7 @@ nav_title: webpack
 description: 学习如何自定义 Next.js 使用的 webpack 配置
 ---
 
-{/* 本文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享内容都不应被包装在组件中。 */}
+# 自定义 Webpack 配置
 
 > **须知**：webpack 配置的更改不受 semver 规范的约束，因此请自行承担风险
 

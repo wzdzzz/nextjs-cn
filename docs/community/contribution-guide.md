@@ -59,7 +59,7 @@ VSCode具有内置的markdown预览器，你可以使用它在本地查看你的
 如果你有任何问题或需要在你的PR评论中进一步的帮助，请告诉我们。感谢你对Next.js文档的贡献，并成为我们社区的一部分！
 
 > **提示**：在提交你的PR之前运行`pnpm prettier-fix`来运行Prettier。
-# 文件结构
+## 文件结构
 
 文档使用**文件系统路由**。在[`/docs`](https://github.com/vercel/next.js/tree/canary/docs)中的每个文件夹和文件都代表一个路由段。这些段用于生成URL路径、导航和面包屑。
 
@@ -87,11 +87,11 @@ VSCode具有内置的markdown预览器，你可以使用它在本地查看你的
 
 要快速找到页面，您可以使用`⌘ + P`（Mac）或`Ctrl + P`（Windows）在VSCode中打开搜索栏。然后，输入您要查找的页面的slug。例如`defining-routes`
 
-> **为什么不使用清单？**
+> **为什么不使用清单(manifest)？**
 >
 > 我们考虑过使用清单文件（另一种流行的生成文档导航的方法），但我们发现清单很快就会与文件脱节。文件系统路由迫使我们思考文档的结构，感觉更符合Next.js的风格。
 
-# 元数据
+## 元数据
 
 每个页面在文件顶部都有一个元数据块，由三个破折号分隔。
 
@@ -133,7 +133,7 @@ related:
     - app/api-reference/components/image
 ---
 ```
-# `App` 和 `Pages` 文档
+## `App` 和 `Pages` 文档
 
 由于 **App Router** 和 **Pages Router** 中的大部分功能完全不同，它们的文档分别放在不同的部分（`02-app` 和 `03-pages`）。然而，它们之间也有一些共同的功能。
 
@@ -182,7 +182,8 @@ source: app/api-reference/components/link
 ```
 
 您可能会使用这些组件来展示示例和代码块。
-# Code Blocks
+
+## Code Blocks
 
 代码块应包含一个可复制粘贴的最小工作示例。这意味着代码应该能够在没有任何额外配置的情况下运行。
 
@@ -271,7 +272,7 @@ export default function Page() {
 }
 ```
 
-# Icons
+## Icons
 
 以下是文档中可用的图标：
 
@@ -281,13 +282,13 @@ export default function Page() {
 ```
 
 **输出：**
-
+暂不支持查看效果，可去[官方文档](https://nextjs.org/docs/community/contribution-guide#icons)查看效果。
 <Check size={18} />
 <Cross size={18} />
 
 我们不在文档中使用表情符号。
 
-# Notes
+## Notes
 
 对于重要但不关键的信息，请使用注释。注释是添加信息的好方法，不会分散用户对主要内容的注意力。
 
@@ -308,7 +309,6 @@ export default function Page() {
 >
 > - 我们还使用这种格式进行多行注释。
 > - 有时有多个项目值得了解或记住。
-# Related Links
 
 ## 相关链接
 
@@ -338,22 +338,18 @@ related:
 | `description`| 可选   | 卡片列表的描述。                                                                                                       |
 | `links`      | 必需   | 指向其他文档页面的链接列表。每个列表项应该是一个相对URL路径（不带前导斜杠）例如`app/api-reference/file-conventions/page` |
 
-## Diagrams
-
 ## 图表
 
 图表是解释复杂概念的好方法。我们使用[Figma](https://www.figma.com/)创建图表，遵循Vercel的设计指南。
 
 图表目前位于我们私有Next.js站点的`/public`文件夹中。如果您想更新或添加图表，请打开一个[GitHub issue](https://github.com/vercel/next.js/issues/new?assignees=&labels=template%3A+documentation&projects=&template=4.docs_request.yml&title=Docs%3A+)与您的想法。
 
-## Custom Components and HTML
-
 ## 自定义组件和HTML
 
 这些是文档中可用的React组件：`<Image />` (next/image), `<PagesOnly />`, `<AppOnly />`, `<Cross />`, 和 `<Check />`。我们不允许在文档中使用除了`<details>`标签之外的原始HTML。
 
 如果您有新组件的想法，请打开一个[GitHub issue](https://github.com/vercel/next.js/issues/new/choose)。
-# Style Guide
+## Style Guide
 
 ### 页面模板
 

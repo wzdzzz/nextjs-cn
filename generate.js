@@ -25,6 +25,7 @@ function convertData(inputData, parentName = '') {
     let newItem = {
       text: itemName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
       link: item.type === 'directory' ? `/docs/${linkPath}/` : extractPath(item.path),
+      collapsed: false
     };
 
     if (item.children) {

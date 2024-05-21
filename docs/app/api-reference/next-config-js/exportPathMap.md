@@ -4,7 +4,7 @@ nav_title: exportPathMap
 description: 使用 `next export` 时，自定义将被导出为 HTML 文件的页面。
 ---
 
-{/* 本文档的内容在应用和页面路由之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由的内容。任何共享内容都不应被包装在组件中。 */}
+
 
 > 此功能是 `next export` 的专属功能，目前为了支持 `pages` 的 `getStaticPaths` 或 `app` 的 `generateStaticParams`，已经 **弃用**。
 

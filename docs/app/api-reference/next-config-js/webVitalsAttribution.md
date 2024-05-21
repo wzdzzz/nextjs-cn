@@ -3,7 +3,7 @@ title: webVitalsAttribution
 description: 学习如何使用webVitalsAttribution选项来确定Web Vitals问题来源。
 ---
 
-{/* 此文档的内容在应用和页面路由器之间共享。您可以使用`<PagesOnly>Content</PagesOnly>`组件添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 在调试与Web Vitals相关的问题时，如果能够确定问题的源头，通常会很有帮助。
 例如，在累积布局偏移（CLS）的情况下，我们可能想要知道当发生最大单一布局偏移时，第一个发生偏移的元素是什么。

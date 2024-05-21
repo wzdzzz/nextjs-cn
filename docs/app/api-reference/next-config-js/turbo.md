@@ -4,7 +4,7 @@ nav_title: turbo
 description: 使用特定于 Turbopack 的选项配置 Next.js
 ---
 
-{/* 此文档的内容在应用和页面路由之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 Turbopack 可以定制以转换不同的文件并改变模块解析的方式。
 

@@ -114,15 +114,15 @@ Edge Runtime用于中间件，并支持以下API：
 | [`WebAssembly`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly)               | Provides access to WebAssembly                                                                                                                                                                       |
 
 
-# Next.js 特定 Polyfills
+## Next.js 特定 Polyfills
 
 - [`AsyncLocalStorage`](https://nodejs.org/api/async_context.html#class-asynclocalstorage)
 
-# 环境变量
+## 环境变量
 
 你可以使用 `process.env` 来访问 [环境变量](/docs/app/building-your-application/configuring/environment-variables)，这适用于 `next dev` 和 `next build`。
 
-# 不支持的 API
+## 不支持的 API
 
 Edge 运行时有一些限制，包括：
 

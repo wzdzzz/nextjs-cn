@@ -3,7 +3,7 @@ title: images
 description: Next.js图片加载器的自定义配置
 ---
 
-{/* 本文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件来添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 如果您想使用云服务提供商来优化图片，而不是使用 Next.js 内置的图片优化 API，您可以使用以下配置 `next.config.js`：
 

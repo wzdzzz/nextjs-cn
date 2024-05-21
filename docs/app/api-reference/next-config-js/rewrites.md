@@ -3,7 +3,7 @@ title: rewrites
 description: 在您的 Next.js 应用中添加重写。
 ---
 
-{/* 此文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 重写允许您将传入的请求路径映射到不同的目标路径。
 

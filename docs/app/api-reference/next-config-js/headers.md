@@ -3,7 +3,7 @@ title: headers
 description: 为你的 Next.js 应用添加自定义 HTTP 头部。
 ---
 
-{/* 本文档的内容在应用和页面路由器之间共享。你可以使用 `<PagesOnly>Content</PagesOnly>` 组件来添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 Headers 允许你在给定路径上对传入请求的响应设置自定义 HTTP 头部。
 

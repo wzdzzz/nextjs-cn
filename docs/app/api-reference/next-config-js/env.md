@@ -3,7 +3,7 @@ title: env
 description: 学习如何在构建时在您的 Next.js 应用程序中添加和访问环境变量。
 ---
 
-{/* 此文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件来添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 <AppOnly>
 

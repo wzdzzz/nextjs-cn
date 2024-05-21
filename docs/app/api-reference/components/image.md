@@ -2,6 +2,7 @@
 title: <Image>
 description: 使用内置的 `next/image` 组件优化 Next.js 应用中的图片。
 ---
+# Image
 
 <details>
   <summary>示例</summary>
@@ -243,7 +244,7 @@ quality={75} // {number 1-100}
 ```
 
 优化后的图像质量，介于 `1` 和 `100` 之间的整数，其中 `100` 是最佳质量，因此文件大小也最大。默认值为 `75`。
-## `priority`
+### `priority`
 
 ```js
 priority={false} // {false} | {true}
@@ -255,7 +256,7 @@ priority={false} // {false} | {true}
 
 仅当图片在页面折叠上方可见时才应使用。默认值为 `false`。
 
-## `placeholder`
+### `placeholder`
 
 ```js
 placeholder = 'empty' // "empty" | "blur" | "data:image/..."
@@ -278,11 +279,11 @@ placeholder = 'empty' // "empty" | "blur" | "data:image/..."
 - [尝试使用 `blurDataURL` 属性的颜色效果演示](https://image-component.nextjs.gallery/color)
 
 
-# 高级属性
+## 高级属性
 
 在某些情况下，您可能需要更高级的用法。`< Image />` 组件可选地接受以下高级属性。
 
-## `style`
+### `style`
 
 允许向底层图片元素传递 CSS 样式。
 
@@ -299,7 +300,7 @@ export default function ProfileImage() {
 
 请记住，所需的宽度和高度属性可以与您的样式交互。如果您使用样式来修改图片的宽度，您也应该将图片的高度样式设置为 `auto` 以保持其固有的纵横比，否则图片将会失真。
 
-## `onLoadingComplete`
+### `onLoadingComplete`
 
 <AppOnly>
 
@@ -330,6 +331,7 @@ export default function ProfileImage() {
 > **须知**：使用像 `onLoadingComplete` 这样接受函数的属性，需要使用 [客户端组件](/docs/app/building-your-application/rendering/client-components) 来序列化提供的函数。
 
 </AppOnly>
+
 ### `onLoad`
 
 ```jsx
@@ -451,7 +453,7 @@ module.exports = {
   src="/override.jpg"
 />
 ```
-## 图像属性
+### 图像属性
 
 `<Image />` 组件上的其他属性将传递给底层的 `img` 元素，除了以下属性：
 
@@ -575,6 +577,7 @@ export default function myImageLoader({ src, width, quality }) {
 > **须知**：自定义图片加载器文件，它接受一个函数，需要使用[客户端组件](/docs/app/building-your-application/rendering/client-components)来序列化提供的函数。
 
 </AppOnly>
+
 ## 高级
 
 以下配置适用于高级用例，通常并非必要。如果您选择配置下面的属性，您将覆盖 Next.js 默认值在未来更新中的任何更改。
@@ -639,6 +642,7 @@ module.exports = {
 >
 > - AVIF 通常编码时间比 WebP 长 20%，但压缩比 WebP 小 20%。这意味着第一次请求图片时，通常会更慢，然后后续的缓存请求会更快。
 > - 如果您在 Next.js 前面使用 Proxy/CDN 自行托管，您必须配置 Proxy 以转发 `Accept` 头部。
+
 ## 缓存行为
 
 以下是默认[loader](#loader)的缓存算法描述。对于所有其他loader，请参考您的云服务提供商的文档。

@@ -3,7 +3,7 @@ title: NextRequest
 description: NextRequest的API参考。
 ---
 
-{/* 本文档的内容在应用和页面路由器之间共享。您可以使用`<PagesOnly>内容</PagesOnly>`组件添加特定于页面路由器的内容。任何共享的内容都不应包裹在组件中。 */}
+
 
 NextRequest通过额外的便利方法扩展了[Web Request API](https://developer.mozilla.org/docs/Web/API/Request)。
 

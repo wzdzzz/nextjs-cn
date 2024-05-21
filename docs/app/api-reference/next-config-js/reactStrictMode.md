@@ -3,7 +3,7 @@ title: reactStrictMode
 description: Next.js 运行时现在符合严格模式，了解如何启用
 ---
 
-{/* 本文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 > **须知**：自 Next.js 13.4 起，默认情况下 `app` 路由器的严格模式为 `true`，因此上述配置仅对 `pages` 必要。您仍然可以通过设置 `reactStrictMode: false` 来禁用严格模式。
 

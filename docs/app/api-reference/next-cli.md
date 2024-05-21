@@ -212,7 +212,7 @@ next build --profile
 ```
 
 之后，您可以像在开发中一样使用分析器。
-# 生产环境部署
+## 生产环境部署
 
 `next start` 命令用于在生产模式下启动应用程序。首先，应该使用 [`next build`](#build) 命令对应用程序进行编译。
 
@@ -333,8 +333,7 @@ next lint -h
 ```
 
 输出应该像这样：
-# Terminal
-```
+```Terminal
 用法：next lint [directory] [options]
 
 为 `/src`、`/app`、`/pages`、`/components` 和 `/lib` 目录中的所有文件运行 ESLint。如果应用程序中尚未配置 ESLint，它还提供了一个引导式设置来安装任何所需的依赖项。

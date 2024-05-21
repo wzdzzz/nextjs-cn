@@ -3,7 +3,7 @@ title: TypeScript
 description: Next.js 默认报告 TypeScript 错误。在这里学习如何退出此行为。
 ---
 
-{/* 本文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>内容</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 当项目中存在 TypeScript 错误时，Next.js 会使您的 **生产构建** (`next build`) 失败。
 

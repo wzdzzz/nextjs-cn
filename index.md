@@ -3,23 +3,22 @@
 layout: home
 
 hero:
-  name: "My Blog"
-  text: "A Blog site"
-  tagline: My great project tagline
+  name: "Next.js 中文文档"
+  tagline: Next.js 是一个轻量级的 React 服务端渲染应用框架。
   actions:
     - theme: brand
-      text: "文档"
+      text: "Next-14 中文文档"
       link: /docs/
     - theme: alt
-      text: "文档"
-      link: /docs/
+      text: "英文文档"
+      link: https://nextjs.org/
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: 内置优化
+    details: 自动优化图片、字体和脚本，以提升用户体验和核心网页指标。
+  - title: 动态 HTML 流式传输
+    details: 立即从服务器流式传输用户界面，与应用路由和 React Suspense 集成。
+  - title: React 服务器组件
+    details: 添加组件，无需发送额外的客户端 JavaScript。采用 React 最新特性构建。
 ---
 

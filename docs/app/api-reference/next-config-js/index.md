@@ -3,7 +3,7 @@ title: next.config.js 配置选项
 description: 学习如何通过 next.config.js 配置你的应用程序。
 ---
 
-{/* 此文档的内容在应用和页面路由之间共享。你可以使用 `<PagesOnly>内容</PagesOnly>` 组件来添加特定于页面路由的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 Next.js 可以通过项目目录根（例如，`package.json` 旁边）的 `next.config.js` 文件进行配置，默认导出。
 

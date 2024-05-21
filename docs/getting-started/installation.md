@@ -70,11 +70,11 @@ npm install next@latest react@latest react-dom@latest
 - `build`：运行 [`next build`](/docs/app/api-reference/next-cli#build) 以构建应用程序以供生产使用。
 - `start`：运行 [`next start`](/docs/app/api-reference/next-cli#production) 以启动Next.js生产服务器。
 - `lint`：运行 [`next lint`](/docs/app/api-reference/next-cli#lint) 以设置Next.js的内置ESLint配置。
-# 创建目录
+### 创建目录
 
 Next.js 使用文件系统路由，这意味着你的应用程序中的路由是由你的文件结构决定的。
 
-## `app` 目录
+#### `app` 目录
 
 对于新应用程序，我们建议使用 [App Router](/docs/app)。此路由器允许你使用 React 的最新特性，并且是基于社区反馈对 [Pages Router](/docs/pages) 的演进。
 
@@ -126,7 +126,7 @@ export default function Page() {
 
 了解更多关于 [使用 App Router](/docs/app/building-your-application/routing/defining-routes)。
 
-## `pages` 目录（可选）
+#### `pages` 目录（可选）
 
 如果你更倾向于使用 Pages Router 而不是 App Router，你可以在项目的根目录创建一个 `pages/` 文件夹。
 
@@ -176,11 +176,11 @@ export default function Document() {
 
 > **须知**：尽管你可以在同一个项目中使用两种路由器，`app` 中的路由将优先于 `pages`。我们建议你在新项目中只使用一种路由器，以避免混淆。
 
-## `public` 文件夹（可选）
+#### `public` 文件夹（可选）
 
 创建一个 `public` 文件夹来存储静态资源，如图片、字体等。`public` 目录中的文件可以通过你的代码从基础 URL（`/`）开始引用。
 
-# 运行开发服务器
+## 运行开发服务器
 
 1. 运行 `npm run dev` 启动开发服务器。
 2. 访问 `http://localhost:3000` 查看你的应用程序。

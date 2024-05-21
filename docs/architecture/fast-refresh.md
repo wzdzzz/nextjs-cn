@@ -32,7 +32,8 @@ Fast Refresh尝试保留您正在编辑的组件中的本地React状态，但只
 - 匿名箭头函数如`export default () => <div />;`会导致Fast Refresh不保留本地组件状态。对于大型代码库，您可以使用我们的[`name-default-component` codemod](/docs/pages/building-your-application/upgrading/codemods#name-default-component)。
 
 随着您的代码库越来越多地转向函数组件和Hooks，您可以期望在更多情况下保留状态。
-# Tips
+
+## Tips
 
 - Fast Refresh 默认会保留函数组件（和 Hooks）中的 React 本地状态。
 - 有时，您可能想要 _强制_ 重置状态，并重新挂载组件。例如，如果您正在调整仅在挂载时发生的动画，这将非常方便。为此，您可以在正在编辑的文件中的任何位置添加 `// @refresh reset`。此指令仅限于该文件，并指示 Fast Refresh 在每次编辑时重新挂载该文件中定义的组件。
@@ -40,7 +41,7 @@ Fast Refresh尝试保留您正在编辑的组件中的本地React状态，但只
 - 请记住，导入是区分大小写的。当您的导入与实际文件名不匹配时，快速和完整刷新都可能失败。
   例如，`'./header'` 与 `'./Header'`。
 
-# Fast Refresh and Hooks
+## Fast Refresh and Hooks
 
 尽可能地，Fast Refresh 尝试在编辑之间保留组件的状态。特别是，`useState` 和 `useRef` 会保留它们的先前值，只要您不更改它们的参数或 Hook 调用的顺序。
 

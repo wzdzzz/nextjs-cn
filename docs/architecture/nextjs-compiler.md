@@ -67,7 +67,7 @@ module.exports = {
   },
 }
 ```
-# Jest
+### Jest
 
 Next.js 编译器会转译你的测试，并简化与 Next.js 一起配置 Jest 的过程，包括：
 
@@ -95,7 +95,7 @@ const customJestConfig = {
 module.exports = createJestConfig(customJestConfig)
 ```
 
-# Relay
+### Relay
 
 要启用 [Relay](https://relay.dev/) 支持：
 
@@ -115,7 +115,7 @@ module.exports = {
 
 > **须知**：在 Next.js 中，`pages` 目录中的所有 JavaScript 文件都被视为路由。因此，对于 `relay-compiler`，你需要在 `pages` 之外指定 `artifactDirectory` 配置设置，否则 `relay-compiler` 将在 `__generated__` 目录中生成文件，与源文件相邻，这个文件将被视为路由，这将破坏生产构建。
 
-# Remove React Properties
+### Remove React Properties
 
 允许移除 JSX 属性。这通常用于测试。类似于 `babel-plugin-react-remove-properties`。
 
@@ -141,7 +141,7 @@ module.exports = {
 }
 ```
 
-# Remove Console
+### Remove Console
 
 此转换允许在应用程序代码中（非 `node_modules`）移除所有 `console.*` 调用。类似于 `babel-plugin-transform-remove-console`。
 
@@ -167,7 +167,7 @@ module.exports = {
 }
 ```
 
-# Legacy Decorators
+### Legacy Decorators
 
 Next.js 将自动检测 `jsconfig.json` 或 `tsconfig.json` 中的 `experimentalDecorators`。旧版装饰器通常与 `mobx` 等旧版本的库一起使用。
 
@@ -183,7 +183,7 @@ Next.js 将自动检测 `jsconfig.json` 或 `tsconfig.json` 中的 `experimental
 }
 ```
 
-# importSource
+### importSource
 
 Next.js 将自动检测 `jsconfig.json` 或 `tsconfig.json` 中的 `jsxImportSource` 并应用它。这通常与 [Theme UI](https://theme-ui.com) 等库一起使用。
 
@@ -196,7 +196,7 @@ Next.js 将自动检测 `jsconfig.json` 或 `tsconfig.json` 中的 `jsxImportSou
   }
 }
 ```
-# Emotion
+### Emotion
 
 我们正在将 `@emotion/babel-plugin` 移植到 Next.js 编译器。
 
@@ -234,7 +234,7 @@ module.exports = {
 }
 ```
 
-# Minification
+### Minification
 
 自 v13 起，Next.js 默认使用 swc 编译器进行压缩。这比 Terser 快 7 倍。
 
@@ -246,7 +246,7 @@ module.exports = {
 }
 ```
 
-# Module Transpilation
+### Module Transpilation
 
 Next.js 可以自动转译和捆绑本地包（如 monorepos）或外部依赖（`node_modules`）中的依赖项。这取代了 `next-transpile-modules` 包。
 
@@ -256,13 +256,13 @@ module.exports = {
 }
 ```
 
-# Modularize Imports
+### Modularize Imports
 
 此选项已被 Next.js 13.5 中的 [`optimizePackageImports`](/docs/app/api-reference/next-config-js/optimizePackageImports) 取代。我们建议升级以使用不需要手动配置导入路径的新选项。
 
-# Experimental Features
+## Experimental Features
 
-## SWC Trace profiling
+### SWC Trace profiling
 
 您可以生成 SWC 的内部转换跟踪，以 chromium 的 [trace event format](https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/preview?mode=html#%21=)。
 
@@ -276,7 +276,7 @@ module.exports = {
 
 一旦启用，swc 将在 `.next/` 下生成名为 `swc-trace-profile-${timestamp}.json` 的跟踪。Chromium 的跟踪查看器（chrome://tracing/, https://ui.perfetto.dev/）或兼容的火焰图查看器（https://www.speedscope.app/）可以加载并可视化生成的跟踪。
 
-## SWC Plugins (Experimental)
+### SWC Plugins (Experimental)
 
 您可以配置 swc 的转换以使用 swc 的实验性插件支持，该插件以 wasm 编写，以自定义转换行为。
 
@@ -296,7 +296,7 @@ module.exports = {
 ```
 
 `swcPlugins` 接受一个元组数组来配置插件。插件的元组包含插件的路径和插件配置的对象。插件的路径可以是 npm 模块包名称或 `.wasm` 二进制文件的绝对路径本身。
-# Unsupported Features
+## Unsupported Features
 
 当您的应用程序包含一个 `.babelrc` 文件时，Next.js 将自动回退到使用 Babel 来转换单个文件。这确保了与利用自定义 Babel 插件的现有应用程序的向后兼容性。
 
@@ -312,10 +312,3 @@ module.exports = {
 | `v12.2.0` | 添加了对[SWC 插件](#swc-plugins-experimental)的实验性支持。                                                                                                                                     |
 | `v12.1.0` | 添加了对 Styled Components、Jest、Relay、Remove React Properties、Legacy Decorators、Remove Console 和 jsxImportSource 的支持。                                                                       |
 | `v12.0.0` | [引入](https://nextjs.org/blog/next-12)了 Next.js 编译器。                                                                                                                                          |
-
-## 须知
-
-- 当您的应用程序包含 `.babelrc` 文件时，Next.js 会自动回退到使用 Babel 来转换单个文件，以确保与现有应用程序的向后兼容性。
-- 如果您使用自定义 Babel 设置，请分享您的配置，以便 Next.js 团队能够更好地支持您的需求。
-- Next.js 正在不断更新，添加新特性和改进现有功能，例如模块转译、模块化导入、SWC Minifier 的稳定支持等。
-- Next.js 12.0.0 版本引入了 Next.js 编译器，这是一个重要的更新，为应用程序的性能和开发体验带来了显著提升。

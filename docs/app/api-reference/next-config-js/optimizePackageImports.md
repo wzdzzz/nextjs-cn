@@ -3,7 +3,7 @@ title: optimizePackageImports
 description: Next.js 配置选项 optimizePackageImports 的 API 参考
 ---
 
-{/* 此文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享内容都不应被包装在组件中。 */}
+
 
 一些包可以导出数百或数千个模块，这可能会在开发和生产中引起性能问题。
 

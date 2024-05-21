@@ -3,7 +3,7 @@ title: generateBuildId
 description: 配置构建ID，该ID用于识别当前正在提供服务的应用程序版本。
 ---
 
-{/* 本文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
+
 
 Next.js 在 `next build` 期间生成一个ID，以识别当前正在提供服务的应用程序版本。相同的构建应用于启动多个容器。
 

@@ -2,7 +2,7 @@
 
 Next.js 默认为每个页面生成 etags。在这里了解如何禁用 etag 生成。
 
-{/* 此文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享内容都不应包装在组件中。 */}
+
 
 Next.js 默认为每个页面生成 [etags](https://en.wikipedia.org/wiki/HTTP_ETag)。根据您的缓存策略，您可能想要为 HTML 页面禁用 etag 生成。
 

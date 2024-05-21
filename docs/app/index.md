@@ -2,7 +2,7 @@
 title: App Router
 description: 使用 Next.js 和 React 的最新功能构建应用程序，包括布局、服务器组件、Suspense 等。
 ---
-
+# App Router
 Next.js App Router 引入了一种新的应用程序构建模型，使用 React 的最新功能，如 [服务器组件](/docs/app/building-your-application/rendering/server-components)、[带有 Suspense 的流式传输](/docs/app/building-your-application/routing/loading-ui-and-streaming#streaming-with-suspense) 和 [服务器操作](/docs/app/building-your-application/data-fetching/server-actions-and-mutations)。
 
 通过 [创建你的第一个页面](/docs/app/building-your-application/routing/layouts-and-templates) 开始使用 App Router。

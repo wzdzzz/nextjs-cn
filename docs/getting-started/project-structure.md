@@ -41,7 +41,7 @@
 ## `app` 路由约定
 
 以下是用于在 [`app` 路由](/docs/app) 中定义路由和处理元数据的文件约定。
-# Routing Files
+### Routing Files
 
 | 说明 | 文件扩展名 | 用途 |
 | --- | --- | --- |
@@ -55,14 +55,14 @@
 | [`template`](/docs/app/api-reference/file-conventions/template) | `.js` `.jsx` `.tsx` | 重新渲染的布局 |
 | [`default`](/docs/app/api-reference/file-conventions/default) | `.js` `.jsx` `.tsx` | 平行路由回退页面 |
 
-# Nested Routes
+### Nested Routes
 
 | 说明 | 用途 |
 | --- | --- |
 | [`folder`](/docs/app/building-your-application/routing#route-segments) | 路由片段 |
 | [`folder/folder`](/docs/app/building-your-application/routing#nested-routes) | 嵌套路由片段 |
 
-# Dynamic Routes
+### Dynamic Routes
 
 | 说明 | 用途 |
 | --- | --- |
@@ -70,7 +70,7 @@
 | [`[...folder]`](/docs/app/building-your-application/routing/dynamic-routes#catch-all-segments) | 捕获所有路由片段 |
 | [`[[...folder]]`](/docs/app/building-your-application/routing/dynamic-routes#optional-catch-all-segments) | 可选的捕获所有路由片段 |
 
-# Route Groups and Private Folders
+### Route Groups and Private Folders
 
 | 说明 | 用途 |
 | --- | --- |
@@ -118,7 +118,7 @@
 ## `pages` 路由约定
 
 以下是用于定义 [`pages` 路由器](/docs/pages) 中路由的文件约定。
-# Special Files
+### Special Files
 
 |                                                                                                             |                     |                   |
 | ----------------------------------------------------------------------------------------------------------- | ------------------- | ----------------- |
@@ -128,7 +128,7 @@
 | [`404`](/docs/pages/building-your-application/routing/custom-error#404-page)                                | `.js` `.jsx` `.tsx` | 404错误页面      |
 | [`500`](/docs/pages/building-your-application/routing/custom-error#500-page)                                | `.js` `.jsx` `.tsx` | 500错误页面      |
 
-# Routes
+### Routes
 
 |                                                                                                |                     |             |
 | ---------------------------------------------------------------------------------------------- | ------------------- | ----------- |
@@ -139,7 +139,7 @@
 | [`index`](/docs/pages/building-your-application/routing/pages-and-layouts#index-routes)        | `.js` `.jsx` `.tsx` | 首页       |
 | [`file`](/docs/pages/building-your-application/routing/pages-and-layouts)                      | `.js` `.jsx` `.tsx` | 嵌套页面   |
 
-# Dynamic Routes
+### Dynamic Routes
 
 |                                                                                                                   |                     |                                  |
 | ----------------------------------------------------------------------------------------------------------------- | ------------------- | -------------------------------- |
