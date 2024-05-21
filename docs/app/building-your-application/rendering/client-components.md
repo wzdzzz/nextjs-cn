@@ -57,9 +57,9 @@ export default function Counter() {
 
 下面的图表显示，如果在未定义 `"use client"` 指令的情况下在嵌套组件（`toggle.js`）中使用 `onClick` 和 `useState`，将会导致错误。这是因为默认情况下，App Router中的所有组件都是服务器组件，这些API在服务器组件中不可用。通过在 `toggle.js` 中定义 `"use client"` 指令，您可以告诉React进入客户端边界，这些API在客户端边界中是可用的。
 
-<Image
+<img
   alt="使用客户端指令和网络边界"
-  srcLight="/docs/light/use-client-directive.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/use-client-directive.png&w=3840&q=75"
   srcDark="/docs/dark/use-client-directive.png"
   width="1600"
   height="1320"

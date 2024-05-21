@@ -1,17 +1,17 @@
 ---
-title: Custom App
-description: Control page initialization and add a layout that persists for all pages by overriding the default App component used by Next.js.
+title: 自定义应用
+description: 通过覆盖 Next.js 使用的默认 App 组件，控制页面初始化，并添加一个在所有页面中持久存在的布局。
 ---
 
-Next.js uses the `App` component to initialize pages. You can override it and control the page initialization and:
+Next.js 使用 `App` 组件来初始化页面。您可以覆盖它并控制页面初始化，并：
 
-- Create a shared layout between page changes
-- Inject additional data into pages
-- [Add global CSS](/docs/pages/building-your-application/styling)
+- 创建页面更改之间的共享布局
+- 向页面注入额外的数据
+- [添加全局 CSS](/docs/pages/building-your-application/styling)
 
-## Usage
+## 使用方法
 
-To override the default `App`, create the file `pages/_app` as shown below:
+要覆盖默认的 `App`，请按照以下方式创建 `pages/_app` 文件：
 
 ```tsx filename="pages/_app.tsx" switcher
 import type { AppProps } from 'next/app'
@@ -27,20 +27,20 @@ export default function MyApp({ Component, pageProps }) {
 }
 ```
 
-The `Component` prop is the active `page`, so whenever you navigate between routes, `Component` will change to the new `page`. Therefore, any props you send to `Component` will be received by the `page`.
+`Component` 属性是活动的 `page`，因此每当您在路由之间导航时，`Component` 将更改为新的 `page`。因此，您发送到 `Component` 的任何属性都将由 `page` 接收。
 
-`pageProps` is an object with the initial props that were preloaded for your page by one of our [data fetching methods](/docs/pages/building-your-application/data-fetching), otherwise it's an empty object.
+`pageProps` 是一个对象，其中包含我们的 [数据获取方法](/docs/pages/building-your-application/data-fetching) 为您的页面预加载的初始属性，否则它是一个空对象。
 
-> **Good to know**
+> **须知**
 >
-> - If your app is running and you added a custom `App`, you'll need to restart the development server. Only required if `pages/_app.js` didn't exist before.
-> - `App` does not support Next.js [Data Fetching methods](/docs/pages/building-your-application/data-fetching) like [`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props) or [`getServerSideProps`](/docs/pages/building-your-application/data-fetching/get-server-side-props).
+> - 如果您的应用程序正在运行，并且您添加了一个自定义的 `App`，则需要重新启动开发服务器。仅在之前不存在 `pages/_app.js` 时才需要。
+> - `App` 不支持 Next.js [数据获取方法](/docs/pages/building-your-application/data-fetching)，如 [`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props) 或 [`getServerSideProps`](/docs/pages/building-your-application/data-fetching/get-server-side-props)。
 
-## `getInitialProps` with `App`
+## `App` 中的 `getInitialProps`
 
-Using [`getInitialProps`](/docs/pages/api-reference/functions/get-initial-props) in `App` will disable [Automatic Static Optimization](/docs/pages/building-your-application/rendering/automatic-static-optimization) for pages without [`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props).
+在 `App` 中使用 [`getInitialProps`](/docs/pages/api-reference/functions/get-initial-props) 将禁用没有 [`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props) 的页面的 [自动静态优化](/docs/pages/building-your-application/rendering/automatic-static-optimization)。
 
-**We do not recommend using this pattern.** Instead, consider [incrementally adopting](/docs/app/building-your-application/upgrading/app-router-migration) the App Router, which allows you to more easily fetch data for [pages and layouts](/docs/app/building-your-application/routing/layouts-and-templates).
+**我们不建议使用此模式。** 相反，考虑逐步采用 App Router，这使您更容易为 [页面和布局](/docs/app/building-your-application/routing/layouts-and-templates) 获取数据。
 
 ```tsx filename="pages/_app.tsx" switcher
 import App, { AppContext, AppInitialProps, AppProps } from 'next/app'
@@ -54,7 +54,7 @@ export default function MyApp({
 }: AppProps & AppOwnProps) {
   return (
     <>
-      <p>Data: {example}</p>
+      <p>数据：{example}</p>
       <Component {...pageProps} />
     </>
   )
@@ -75,7 +75,7 @@ import App from 'next/app'
 export default function MyApp({ Component, pageProps, example }) {
   return (
     <>
-      <p>Data: {example}</p>
+      <p>数据：{example}</p>
       <Component {...pageProps} />
     </>
   )

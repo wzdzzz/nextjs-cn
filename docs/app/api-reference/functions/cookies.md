@@ -1,20 +1,20 @@
 ---
 title: cookies
-description: API Reference for the cookies function.
+description: cookies函数的API参考。
 related:
   title: Next Steps
-  description: For more information on what to do next, we recommend the following sections
+  description: 有关下一步操作的更多信息，我们推荐以下部分
   links:
     - app/building-your-application/data-fetching/server-actions-and-mutations
 ---
 
-The `cookies` function allows you to read the HTTP incoming request cookies from a [Server Component](/docs/app/building-your-application/rendering/server-components) or write outgoing request cookies in a [Server Action](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) or [Route Handler](/docs/app/building-your-application/routing/route-handlers).
+`cookies`函数允许您从一个[Server Component](/docs/app/building-your-application/rendering/server-components)读取HTTP传入请求的cookies，或者在[Server Action](/docs/app/building-your-application/data-fetching/server-actions-and-mutations)或[Route Handler](/docs/app/building-your-application/routing/route-handlers)中写入传出请求的cookies。
 
-> **Good to know**: `cookies()` is a **[Dynamic Function](/docs/app/building-your-application/rendering/server-components#server-rendering-strategies#dynamic-functions)** whose returned values cannot be known ahead of time. Using it in a layout or page will opt a route into **[dynamic rendering](/docs/app/building-your-application/rendering/server-components#dynamic-rendering)** at request time.
+> **须知**：`cookies()`是一个**[动态函数](/docs/app/building-your-application/rendering/server-components#server-rendering-strategies#dynamic-functions)**，其返回值无法提前知晓。在布局或页面中使用它将使路由在请求时选择**[动态渲染](/docs/app/building-your-application/rendering/server-components#dynamic-rendering)**。
 
 ## `cookies().get(name)`
 
-A method that takes a cookie name and returns an object with name and value. If a cookie with `name` isn't found, it returns `undefined`. If multiple cookies match, it will only return the first match.
+一个方法，它接受一个cookie名称并返回一个包含名称和值的对象。如果没有找到名为`name`的cookie，它返回`undefined`。如果多个cookie匹配，它只会返回第一个匹配项。
 
 ```jsx filename="app/page.js"
 import { cookies } from 'next/headers'
@@ -26,9 +26,10 @@ export default function Page() {
 }
 ```
 
+
 ## `cookies().getAll()`
 
-A method that is similar to `get`, but returns a list of all the cookies with a matching `name`. If `name` is unspecified, it returns all the available cookies.
+一个类似于`get`的方法，但它返回所有匹配`name`的cookie列表。如果未指定`name`，则返回所有可用的cookie。
 
 ```jsx filename="app/page.js"
 import { cookies } from 'next/headers'
@@ -37,16 +38,17 @@ export default function Page() {
   const cookieStore = cookies()
   return cookieStore.getAll().map((cookie) => (
     <div key={cookie.name}>
-      <p>Name: {cookie.name}</p>
-      <p>Value: {cookie.value}</p>
+      <p>名称：{cookie.name}</p>
+      <p>值：{cookie.value}</p>
     </div>
   ))
 }
 ```
 
+
 ## `cookies().has(name)`
 
-A method that takes a cookie name and returns a `boolean` based on if the cookie exists (`true`) or not (`false`).
+一个方法，它接受一个cookie名称并返回一个`boolean`，根据cookie是否存在（`true`）或不存在（`false`）。
 
 ```jsx filename="app/page.js"
 import { cookies } from 'next/headers'
@@ -58,11 +60,12 @@ export default function Page() {
 }
 ```
 
+
 ## `cookies().set(name, value, options)`
 
-A method that takes a cookie name, value, and options and sets the outgoing request cookie.
+一个方法，它接受一个cookie名称、值和选项，并设置传出请求的cookie。
 
-> **Good to know**: HTTP does not allow setting cookies after streaming starts, so you must use `.set()` in a [Server Action](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) or [Route Handler](/docs/app/building-your-application/routing/route-handlers).
+> **须知**：HTTP不允许在开始流式传输后设置cookie，因此您必须在[Server Action](/docs/app/building-your-application/data-fetching/server-actions-and-mutations)或[Route Handler](/docs/app/building-your-application/routing/route-handlers)中使用`.set()`。
 
 ```js filename="app/actions.js"
 'use server'
@@ -71,9 +74,9 @@ import { cookies } from 'next/headers'
 
 async function create(data) {
   cookies().set('name', 'lee')
-  // or
+  // 或
   cookies().set('name', 'lee', { secure: true })
-  // or
+  // 或
   cookies().set({
     name: 'name',
     value: 'lee',
@@ -82,16 +85,15 @@ async function create(data) {
   })
 }
 ```
+## 删除 Cookies
 
-,## Deleting cookies
+> **须知**：您只能在 [服务器操作](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) 或 [路由处理器](/docs/app/building-your-application/routing/route-handlers) 中删除 Cookies。
 
-> **Good to know**: You can only delete cookies in a [Server Action](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) or [Route Handler](/docs/app/building-your-application/routing/route-handlers).
-
-There are several options for deleting a cookie:
+删除 Cookies 有几种选项：
 
 ### `cookies().delete(name)`
 
-You can explicitly delete a cookie with a given name.
+您可以显式删除给定名称的 Cookies。
 
 ```js filename="app/actions.js"
 'use server'
@@ -105,7 +107,7 @@ async function delete(data) {
 
 ### `cookies().set(name, '')`
 
-Alternatively, you can set a new cookie with the same name and an empty value.
+或者，您可以设置一个同名的新 Cookies，值为空。
 
 ```js filename="app/actions.js"
 'use server'
@@ -117,11 +119,11 @@ async function delete(data) {
 }
 ```
 
-> **Good to know**: `.set()` is only available in a [Server Action](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) or [Route Handler](/docs/app/building-your-application/routing/route-handlers).
+> **须知**：`.set()` 只在 [服务器操作](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) 或 [路由处理器](/docs/app/building-your-application/routing/route-handlers) 中可用。
 
 ### `cookies().set(name, value, { maxAge: 0 })`
 
-Setting `maxAge` to 0 will immediately expire a cookie.
+将 `maxAge` 设置为 0 将立即过期 Cookies。
 
 ```js filename="app/actions.js"
 'use server'
@@ -135,7 +137,7 @@ async function delete(data) {
 
 ### `cookies().set(name, value, { expires: timestamp })`
 
-Setting `expires` to any value in the past will immediately expire a cookie.
+将 `expires` 设置为过去的任何值将立即过期 Cookies。
 
 ```js filename="app/actions.js"
 'use server'
@@ -148,10 +150,10 @@ async function delete(data) {
 }
 ```
 
-> **Good to know**: You can only delete cookies that belong to the same domain from which `.set()` is called. Additionally, the code must be executed on the same protocol (HTTP or HTTPS) as the cookie you want to delete.
+> **须知**：您只能删除与调用 `.set()` 操作的相同域中的 Cookies。此外，代码必须在与您想要删除的 Cookies 相同的协议（HTTP 或 HTTPS）上执行。
 
-## Version History
+## 版本历史
 
-| Version   | Changes               |
+| 版本   | 变更               |
 | --------- | --------------------- |
-| `v13.0.0` | `cookies` introduced. |
+| `v13.0.0` | 引入了 `cookies`。 |

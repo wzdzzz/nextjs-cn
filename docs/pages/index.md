@@ -1,8 +1,5 @@
----
-title: Pages Router
-description: Before Next.js 13, the Pages Router was the main way to create routes in Next.js with an intuitive file-system router.
----
+# Pages Router
 
-Before Next.js 13, the Pages Router was the main way to create routes in Next.js. It used an intuitive file-system router to map each file to a route. The Pages Router is still supported in newer versions of Next.js, but we recommend migrating to the new [App Router](/docs/app) to leverage React's latest features.
+在Next.js 13之前，页面路由器是Next.js中创建路由的主要方式。它使用直观的文件系统路由器将每个文件映射到一个路由。页面路由器在Next.js的较新版本中仍然得到支持，但我们建议迁移到新的[App Router](/docs/app)以利用React的最新功能。
 
-Use this section of the documentation for existing applications that use the Pages Router.
+使用本文档部分适用于使用页面路由器的现有应用程序。

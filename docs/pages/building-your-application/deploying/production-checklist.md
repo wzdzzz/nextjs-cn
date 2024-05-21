@@ -1,7 +1,7 @@
----
-title: Production Checklist
-description: Recommendations to ensure the best performance and user experience before taking your Next.js application to production.
-source: app/building-your-application/deploying/production-checklist
----
+# 生产清单
 
-{/* DO NOT EDIT. The content of this doc is generated from the source above. To edit the content of this page, navigate to the source page in your editor. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+**须知**：在将您的Next.js应用程序投入生产之前，以下是一些建议，以确保最佳性能和用户体验。
+
+源：app/building-your-application/deploying/production-checklist
+
+{/* 请勿编辑。此文档的内容是从上述来源生成的。要编辑此页面的内容，请在编辑器中导航到源页面。您可以使用`<PagesOnly>Content</PagesOnly>`组件添加特定于Pages Router的内容。任何共享内容都不应被包装在组件中。 */}

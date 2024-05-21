@@ -1,13 +1,12 @@
 ---
 title: httpAgentOptions
-description: Next.js will automatically use HTTP Keep-Alive by default. Learn more about how to disable HTTP Keep-Alive here.
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 本文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>内容</PagesOnly>` 组件来添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
 
-In Node.js versions prior to 18, Next.js automatically polyfills `fetch()` with [undici](/docs/architecture/supported-browsers#polyfills) and enables [HTTP Keep-Alive](https://developer.mozilla.org/docs/Web/HTTP/Headers/Keep-Alive) by default.
+在 Node.js 18 之前的版本中，Next.js 会自动使用 [undici](/docs/architecture/supported-browsers#polyfills) 来对 `fetch()` 进行多版本兼容处理，并默认启用 [HTTP Keep-Alive](https://developer.mozilla.org/docs/Web/HTTP/Headers/Keep-Alive)。
 
-To disable HTTP Keep-Alive for all `fetch()` calls on the server-side, open `next.config.js` and add the `httpAgentOptions` config:
+要为服务器端的所有 `fetch()` 调用禁用 HTTP Keep-Alive，请打开 `next.config.js` 并添加 `httpAgentOptions` 配置：
 
 ```js filename="next.config.js"
 module.exports = {

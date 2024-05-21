@@ -1,13 +1,13 @@
 ---
 title: optimizePackageImports
-description: API Reference for optimizePackageImports Next.js Config Option
+description: Next.js 配置选项 optimizePackageImports 的 API 参考
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 此文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享内容都不应被包装在组件中。 */}
 
-Some packages can export hundreds or thousands of modules, which can cause performance issues in development and production.
+一些包可以导出数百或数千个模块，这可能会在开发和生产中引起性能问题。
 
-Adding a package to `experimental.optimizePackageImports` will only load the modules you are actually using, while still giving you the convenience of writing import statements with many named exports.
+将一个包添加到 `experimental.optimizePackageImports` 将只加载您实际使用的模块，同时仍然为您提供使用许多命名导出编写导入语句的便利。
 
 ```js filename="next.config.js"
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
 }
 ```
 
-The following libraries are optimized by default:
+以下库默认进行了优化：
 
 - `lucide-react`
 - `date-fns`

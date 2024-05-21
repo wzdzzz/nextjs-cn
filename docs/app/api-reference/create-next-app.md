@@ -1,139 +1,132 @@
----
-title: create-next-app
-description: Create Next.js apps in one command with create-next-app.
----
+# create-next-app
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+`create-next-app` 是一个命令行工具，它可以帮助您快速开始构建一个新的 Next.js 应用程序，所有设置都为您配置好了。
 
-The easiest way to get started with Next.js is by using `create-next-app`. This CLI tool enables you to quickly start building a new Next.js application, with everything set up for you.
+您可以使用默认的 Next.js 模板创建新应用程序，或者使用 [官方 Next.js 示例](https://github.com/vercel/next.js/tree/canary/examples) 中的一个。
 
-You can create a new app using the default Next.js template, or by using one of the [official Next.js examples](https://github.com/vercel/next.js/tree/canary/examples).
+### 交互式
 
-### Interactive
+您可以通过运行以下命令以交互式方式创建新项目：
 
-You can create a new project interactively by running:
-
-```bash filename="Terminal"
+```bash filename="终端"
 npx create-next-app@latest
 ```
 
-```bash filename="Terminal"
+```bash filename="终端"
 yarn create next-app
 ```
 
-```bash filename="Terminal"
+```bash filename="终端"
 pnpm create next-app
 ```
 
-```bash filename="Terminal"
+```bash filename="终端"
 bun create next-app
 ```
 
-You will then be asked the following prompts:
+然后，系统会提示您回答以下问题：
 
-```txt filename="Terminal"
-What is your project named?  my-app
-Would you like to use TypeScript?  No / Yes
-Would you like to use ESLint?  No / Yes
-Would you like to use Tailwind CSS?  No / Yes
-Would you like to use `src/` directory?  No / Yes
-Would you like to use App Router? (recommended)  No / Yes
-Would you like to customize the default import alias (@/*)?  No / Yes
+```txt filename="终端"
+项目名称是什么？ my-app
+是否使用 TypeScript？ 否 / 是
+是否使用 ESLint？ 否 / 是
+是否使用 Tailwind CSS？ 否 / 是
+是否使用 `src/` 目录？ 否 / 是
+是否使用 App Router？（推荐） 否 / 是
+是否自定义默认导入别名 (@/*)？ 否 / 是
 ```
 
-Once you've answered the prompts, a new project will be created with the correct configuration depending on your answers.
+回答完这些问题后，将根据您的答案创建一个新项目，并配置正确的设置。
 
-### Non-interactive
+### 非交互式
 
-You can also pass command line arguments to set up a new project non-interactively.
+您还可以通过传递命令行参数以非交互式方式设置新项目。
 
-Further, you can negate default options by prefixing them with `--no-` (e.g. `--no-eslint`).
+此外，您可以通过在默认选项前加上 `--no-` 来否定默认选项（例如 `--no-eslint`）。
 
-See `create-next-app --help`:
+查看 `create-next-app --help`：
 
-```bash filename="Terminal"
-Usage: create-next-app <project-directory> [options]
+```bash filename="终端"
+用法：create-next-app <项目目录> [选项]
 
-Options:
-  -V, --version                        output the version number
+选项：
+  -V, --version                        输出版本号
   --ts, --typescript
 
-    Initialize as a TypeScript project. (default)
+    初始化为 TypeScript 项目。（默认）
 
   --js, --javascript
 
-    Initialize as a JavaScript project.
+    初始化为 JavaScript 项目。
 
   --tailwind
 
-    Initialize with Tailwind CSS config. (default)
+    带有 Tailwind CSS 配置初始化。（默认）
 
   --eslint
 
-    Initialize with ESLint config.
+    带有 ESLint 配置初始化。
 
   --app
 
-    Initialize as an App Router project.
+    作为 App Router 项目初始化。
 
   --src-dir
 
-    Initialize inside a `src/` directory.
+    在 `src/` 目录内初始化。
 
-  --import-alias <alias-to-configure>
+  --import-alias <要配置的别名>
 
-    Specify import alias to use (default "@/*").
+    指定要使用的导入别名（默认 "@/*"）。
 
   --empty
 
-    Initialize an empty project.
+    初始化一个空项目。
 
   --use-npm
 
-    Explicitly tell the CLI to bootstrap the app using npm
+    明确告诉 CLI 使用 npm 初始化应用程序
 
   --use-pnpm
 
-    Explicitly tell the CLI to bootstrap the app using pnpm
+    明确告诉 CLI 使用 pnpm 初始化应用程序
 
   --use-yarn
 
-    Explicitly tell the CLI to bootstrap the app using Yarn
+    明确告诉 CLI 使用 Yarn 初始化应用程序
 
   --use-bun
 
-    Explicitly tell the CLI to bootstrap the app using Bun
+    明确告诉 CLI 使用 Bun 初始化应用程序
 
-  -e, --example [name]|[github-url]
+  -e, --example [名称]|[github-url]
 
-    An example to bootstrap the app with. You can use an example name
-    from the official Next.js repo or a public GitHub URL. The URL can use
-    any branch and/or subdirectory
+    使用示例初始化应用程序。您可以使用官方 Next.js 仓库中的示例名称
+    或公共 GitHub URL。URL 可以使用任何分支和/或子目录
 
-  --example-path <path-to-example>
+  --example-path <示例路径>
 
-    In a rare case, your GitHub URL might contain a branch name with
-    a slash (e.g. bug/fix-1) and the path to the example (e.g. foo/bar).
-    In this case, you must specify the path to the example separately:
+    在极少数情况下，您的 GitHub URL 可能包含带有
+    斜杠的分支名称（例如 bug/fix-1）和示例的路径（例如 foo/bar）。
+    在这种情况下，您必须单独指定示例的路径：
     --example-path foo/bar
 
   --reset-preferences
 
-    Explicitly tell the CLI to reset any stored preferences
+    明确告诉 CLI 重置任何存储的偏好设置
 
   --skip-install
 
-    Explicitly tell the CLI to skip installing packages
+    明确告诉 CLI 跳过安装包
 
-  -h, --help                           output usage information
+  -h, --help                           输出使用信息
 ```
+### 使用 Create Next App 的理由
 
-,### Why use Create Next App?
+`create-next-app` 允许您在几秒钟内创建一个新的 Next.js 应用程序。它由 Next.js 的创建者官方维护，并包括许多好处：
 
-`create-next-app` allows you to create a new Next.js app within seconds. It is officially maintained by the creators of Next.js, and includes a number of benefits:
-
-- **Interactive Experience**: Running `npx create-next-app@latest` (with no arguments) launches an interactive experience that guides you through setting up a project.
-- **Zero Dependencies**: Initializing a project is as quick as one second. Create Next App has zero dependencies.
-- **Offline Support**: Create Next App will automatically detect if you're offline and bootstrap your project using your local package cache.
-- **Support for Examples**: Create Next App can bootstrap your application using an example from the Next.js examples collection (e.g. `npx create-next-app --example api-routes`) or any public GitHub repository.
-- **Tested**: The package is part of the Next.js monorepo and tested using the same integration test suite as Next.js itself, ensuring it works as expected with every release.
+- **交互式体验**：运行 `npx create-next-app@latest`（不带任何参数）会启动一个交互式体验，引导您完成项目的设置。
+- **零依赖**：初始化一个项目的速度可以快至一秒钟。Create Next App 没有依赖。
+- **离线支持**：Create Next App 将自动检测您是否处于离线状态，并使用您的本地包缓存引导您的项目。
+- **支持示例**：Create Next App 可以使用 Next.js 示例集合中的示例（例如 `npx create-next-app --example api-routes`）或任何公共 GitHub 存储库来引导您的应用程序。
+- **经过测试**：该包是 Next.js 单存储库的一部分，并使用与 Next.js 本身相同的集成测试套件进行测试，确保它与每个版本正常工作。

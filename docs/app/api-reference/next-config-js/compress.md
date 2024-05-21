@@ -1,20 +1,20 @@
 ---
-title: compress
-description: Next.js provides gzip compression to compress rendered content and static files, it only works with the server target. Learn more about it here.
+title: 压缩
+description: Next.js 提供了 gzip 压缩来压缩渲染内容和静态文件，它仅与服务器目标一起工作。在这里了解更多信息。
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 本文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>内容</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
 
-By default, Next.js uses `gzip` to compress rendered content and static files when using `next start` or a custom server. This is an optimization for applications that do not have compression configured. If compression is _already_ configured in your application via a custom server, Next.js will not add compression.
+默认情况下，Next.js 使用 `gzip` 来压缩使用 `next start` 或自定义服务器时的渲染内容和静态文件。这是一种针对没有配置压缩的应用程序的优化。如果压缩已经通过自定义服务器在您的应用程序中配置好了，Next.js 将不会添加压缩。
 
-> **Good to know:**
+> **须知：**
 >
-> - When hosting your application on [Vercel](https://vercel.com/docs/edge-network/compression), compression uses `brotli` first, then `gzip`.
-> - You can check if compression is enabled and which algorithm is used by looking at the [`Accept-Encoding`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding) (browser accepted options) and [`Content-Encoding`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding) (currently used) headers in the response.
+> - 当您在 [Vercel](https://vercel.com/docs/edge-network/compression) 上托管应用程序时，压缩首先使用 `brotli`，然后是 `gzip`。
+> - 您可以通过查看响应中的 [`Accept-Encoding`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding)（浏览器接受的选项）和 [`Content-Encoding`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)（当前使用的）头部来检查是否启用了压缩以及使用了哪种算法。
 
-## Disabling compression
+## 禁用压缩
 
-To disable **compression**, set the `compress` config option to `false`:
+要禁用 **压缩**，将 `compress` 配置选项设置为 `false`：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -22,14 +22,14 @@ module.exports = {
 }
 ```
 
-We do not recommend disabling compression unless you have compression configured on your server, as compression reduces bandwidth usage and improves the performance of your application.
+除非您已经在服务器上配置了压缩，否则我们不建议您禁用压缩，因为压缩可以减少带宽使用并提高应用程序的性能。
 
-## Changing the compression algorithm
+## 更改压缩算法
 
-To change your compression algorithm, you will need to configure your custom server and set the `compress` option to `false` in your `next.config.js` file.
+要更改您的压缩算法，您需要配置您的自定义服务器，并在您的 `next.config.js` 文件中将 `compress` 选项设置为 `false`。
 
-For example, you're using [nginx](https://www.nginx.com/) and want to switch to `brotli`, set the `compress` option to `false` to allow nginx to handle compression.
+例如，您正在使用 [nginx](https://www.nginx.com/) 并希望切换到 `brotli`，将 `compress` 选项设置为 `false` 以允许 nginx 处理压缩。
 
-> **Good to know:**
+> **须知：**
 >
-> - For Next.js applications on Vercel, compression is handled by the Vercel's Edge Network and not Next.js. See the [Vercel documentation](https://vercel.com/docs/edge-network/compression) for more information.
+> - 对于在 Vercel 上的 Next.js 应用程序，压缩由 Vercel 的边缘网络处理，而不是 Next.js。有关更多信息，请参见 [Vercel 文档](https://vercel.com/docs/edge-network/compression)。

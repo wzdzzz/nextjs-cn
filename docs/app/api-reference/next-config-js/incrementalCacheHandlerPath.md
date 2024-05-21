@@ -1,59 +1,55 @@
----
-title: Custom Next.js Cache Handler
-nav_title: cacheHandler
-description: Configure the Next.js cache used for storing and revalidating data to use any external service like Redis, Memcached, or others.
----
+# Custom Next.js Cache Handler
 
-In Next.js, the [default cache handler](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating) for the Pages and App Router uses the filesystem cache. This requires no configuration, however, you can customize the cache handler by using the `cacheHandler` field in `next.config.js`.
+在 Next.js 中，页面和应用程序路由的[默认缓存处理器](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating)使用文件系统缓存。这不需要任何配置，但是您可以通过在 `next.config.js` 中使用 `cacheHandler` 字段来自定义缓存处理器。
 
 ```js filename="next.config.js"
 module.exports = {
   cacheHandler: require.resolve('./cache-handler.js'),
-  cacheMaxMemorySize: 0, // disable default in-memory caching
+  cacheMaxMemorySize: 0, // 禁用默认的内存缓存
 }
 ```
 
-View an example of a [custom cache handler](/docs/app/building-your-application/deploying#configuring-caching) and learn more about implementation.
+查看[自定义缓存处理器](/docs/app/building-your-application/deploying#configuring-caching)的示例，并了解更多关于实现的信息。
 
-## API Reference
+## API 参考
 
-The cache handler can implement the following methods: `get`, `set`, and `revalidateTag`.
+缓存处理器可以实现以下方法：`get`、`set` 和 `revalidateTag`。
 
 ### `get()`
 
-| Parameter | Type     | Description                  |
-| --------- | -------- | ---------------------------- |
-| `key`     | `string` | The key to the cached value. |
+| 参数    | 类型     | 描述                           |
+| ------- | -------- | ------------------------------ |
+| `key`   | `string` | 缓存值的键。                  |
 
-Returns the cached value or `null` if not found.
+返回缓存的值，如果没有找到则返回 `null`。
 
 ### `set()`
 
-| Parameter | Type           | Description                      |
-| --------- | -------------- | -------------------------------- |
-| `key`     | `string`       | The key to store the data under. |
-| `data`    | Data or `null` | The data to be cached.           |
-| `ctx`     | `{ tags: [] }` | The cache tags provided.         |
+| 参数    | 类型           | 描述                             |
+| ------- | -------------- | -------------------------------- |
+| `key`   | `string`       | 存储数据的键。                 |
+| `data`  | 数据或 `null`  | 要缓存的数据。                 |
+| `ctx`   | `{ tags: [] }` | 提供的缓存标签。               |
 
-Returns `Promise<void>`.
+返回 `Promise<void>`。
 
 ### `revalidateTag()`
 
-| Parameter | Type     | Description                  |
-| --------- | -------- | ---------------------------- |
-| `tag`     | `string` | The cache tag to revalidate. |
+| 参数    | 类型     | 描述                           |
+| ------- | -------- | ------------------------------ |
+| `tag`   | `string` | 要重新验证的缓存标签。      |
 
-Returns `Promise<void>`. Learn more about [revalidating data](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating) or the [`revalidateTag()`](/docs/app/api-reference/functions/revalidateTag) function.
+返回 `Promise<void>`。了解更多关于[重新验证数据](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating)或 [`revalidateTag()`](/docs/app/api-reference/functions/revalidateTag) 函数的信息。
 
-**Good to know:**
+**须知：**
 
-- `revalidatePath` is a convenience layer on top of cache tags. Calling `revalidatePath` will call your `revalidateTag` function, which you can then choose if you want to tag cache keys based on the path.
+- `revalidatePath` 是缓存标签之上的便利层。调用 `revalidatePath` 将调用您的 `revalidateTag` 函数，然后您可以选择是否要根据路径标记缓存键。
 
-## Version History
+## 版本历史
 
-| Version   | Changes                                                                  |
-| --------- | ------------------------------------------------------------------------ |
-| `v14.1.0` | Renamed `cacheHandler` is stable.                                        |
-| `v13.4.0` | `incrementalCacheHandlerPath` (experimental) supports `revalidateTag`.   |
-| `v13.4.0` | `incrementalCacheHandlerPath` (experimental) supports standalone output. |
-| `v12.2.0` | `incrementalCacheHandlerPath` (experimental) is added.                   |
+| 版本     | 变更                                                                   |
+| -------- | ---------------------------------------------------------------------- |
+| `v14.1.0` | `cacheHandler` 重命名后稳定。                                        |
+| `v13.4.0` | `incrementalCacheHandlerPath`（实验性）支持 `revalidateTag`。        |
+| `v13.4.0` | `incrementalCacheHandlerPath`（实验性）支持独立输出。             |
+| `v12.2.0` | 添加了 `incrementalCacheHandlerPath`（实验性）。                      |

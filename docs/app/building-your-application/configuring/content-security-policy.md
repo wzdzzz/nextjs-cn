@@ -1,40 +1,39 @@
 ---
-title: Content Security Policy
-description: Learn how to set a Content Security Policy (CSP) for your Next.js application.
+title: 内容安全策略
+description: 学习如何为你的Next.js应用程序设置内容安全策略（CSP）。
 related:
   links:
     - app/building-your-application/routing/middleware
     - app/api-reference/functions/headers
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+# 内容安全策略
+[内容安全策略（CSP）](https://developer.mozilla.org/docs/Web/HTTP/CSP)对于保护你的Next.js应用程序免受各种安全威胁，如跨站脚本（XSS）、点击劫持和其他代码注入攻击非常重要。
 
-[Content Security Policy (CSP)](https://developer.mozilla.org/docs/Web/HTTP/CSP) is important to guard your Next.js application against various security threats such as cross-site scripting (XSS), clickjacking, and other code injection attacks.
-
-By using CSP, developers can specify which origins are permissible for content sources, scripts, stylesheets, images, fonts, objects, media (audio, video), iframes, and more.
+通过使用CSP，开发者可以指定内容源、脚本、样式表、图像、字体、对象、媒体（音频、视频）、iframes等的允许来源。
 
 <details>
-  <summary>Examples</summary>
+  <summary>示例</summary>
 
-- [Strict CSP](https://github.com/vercel/next.js/tree/canary/examples/with-strict-csp)
+- [严格CSP](https://github.com/vercel/next.js/tree/canary/examples/with-strict-csp)
 
 </details>
 
-## Nonces
 
-A [nonce](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/nonce) is a unique, random string of characters created for a one-time use. It is used in conjunction with CSP to selectively allow certain inline scripts or styles to execute, bypassing strict CSP directives.
+## 随机数（Nonces）
 
-### Why use a nonce?
+一个[随机数（nonce）](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/nonce)是为一次性使用而创建的唯一、随机的字符字符串。它与CSP一起使用，可以选择性地允许某些内联脚本或样式执行，绕过严格的CSP指令。
 
-Even though CSPs are designed to block malicious scripts, there are legitimate scenarios where inline scripts are necessary. In such cases, nonces offer a way to allow these scripts to execute if they have the correct nonce.
+### 为什么使用随机数？
 
-,### Adding a nonce with Middleware
+尽管CSP旨在阻止恶意脚本，但在某些合法场景中内联脚本是必要的。在这种情况下，随机数提供了一种允许这些脚本在具有正确随机数的情况下执行的方法。
+### 添加中间件中的nonce
 
-[Middleware](/docs/app/building-your-application/routing/middleware) enables you to add headers and generate nonces before the page renders.
+【中间件】(/docs/app/building-your-application/routing/middleware) 允许您在页面渲染之前添加头部并生成nonce。
 
-Every time a page is viewed, a fresh nonce should be generated. This means that you **must use dynamic rendering to add nonces**.
+每次查看页面时，都应该生成一个新的nonce。这意味着您**必须使用动态渲染来添加nonce**。
 
-For example:
+例如：
 
 ```ts filename="middleware.ts" switcher
 import { NextRequest, NextResponse } from 'next/server'
@@ -53,7 +52,7 @@ export function middleware(request: NextRequest) {
     frame-ancestors 'none';
     upgrade-insecure-requests;
 `
-  // Replace newline characters and spaces
+  // 替换换行字符和空格
   const contentSecurityPolicyHeaderValue = cspHeader
     .replace(/\s{2,}/g, ' ')
     .trim()
@@ -97,7 +96,7 @@ export function middleware(request) {
     frame-ancestors 'none';
     upgrade-insecure-requests;
 `
-  // Replace newline characters and spaces
+  // 替换换行字符和空格
   const contentSecurityPolicyHeaderValue = cspHeader
     .replace(/\s{2,}/g, ' ')
     .trim()
@@ -123,19 +122,19 @@ export function middleware(request) {
 }
 ```
 
-By default, Middleware runs on all requests. You can filter Middleware to run on specific paths using a [`matcher`](/docs/app/building-your-application/routing/middleware#matcher).
+默认情况下，中间件在所有请求上运行。您可以使用[`matcher`](/docs/app/building-your-application/routing/middleware#matcher)过滤中间件以在特定路径上运行。
 
-We recommend ignoring matching prefetches (from `next/link`) and static assets that don't need the CSP header.
+我们建议忽略匹配的预取（来自`next/link`）和不需要CSP头部的静态资源。
 
 ```ts filename="middleware.ts" switcher
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
+     * 匹配所有请求路径，除了以下以...开头的：
+     * - api (API路由)
+     * - _next/static (静态文件)
+     * - _next/image (图片优化文件)
+     * - favicon.ico (favicon文件)
      */
     {
       source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
@@ -152,11 +151,11 @@ export const config = {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
+     * 匹配所有请求路径，除了以下以...开头的：
+     * - api (API路由)
+     * - _next/static (静态文件)
+     * - _next/image (图片优化文件)
+     * - favicon.ico (favicon文件)
      */
     {
       source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
@@ -169,9 +168,10 @@ export const config = {
 }
 ```
 
-,### Reading the nonce
+须知：在实际部署时，确保您的服务器配置正确地将nonce传递给客户端。
+## 阅读随机数
 
-You can now read the nonce from a [Server Component](/docs/app/building-your-application/rendering/server-components) using [`headers`](/docs/app/api-reference/functions/headers):
+现在，你可以使用 [`headers`](/docs/app/api-reference/functions/headers) 从 [Server Component](/docs/app/building-your-application/rendering/server-components) 中读取随机数：
 
 ```tsx filename="app/page.tsx" switcher
 import { headers } from 'next/headers'
@@ -207,9 +207,9 @@ export default function Page() {
 }
 ```
 
-## Without Nonces
+## 无随机数
 
-For applications that do not require nonces, you can set the CSP header directly in your [`next.config.js`](/docs/app/api-reference/next-config-js) file:
+对于不需要随机数的应用程序，你可以直接在 [`next.config.js`](/docs/app/api-reference/next-config-js) 文件中设置 CSP 头部：
 
 ```js filename="next.config.js"
 const cspHeader = `
@@ -242,6 +242,6 @@ module.exports = {
 }
 ```
 
-## Version History
+## 版本历史
 
-We recommend using `v13.4.20+` of Next.js to properly handle and apply nonces.
+我们建议使用 `v13.4.20+` 版本的 Next.js 来正确处理和应用随机数。

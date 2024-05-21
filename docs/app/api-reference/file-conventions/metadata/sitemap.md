@@ -1,18 +1,18 @@
----
-title: sitemap.xml
-description: API Reference for the sitemap.xml file.
-related:
-  title: Next Steps
-  description: Learn how to use the generateSitemaps function.
-  links:
-    - app/api-reference/functions/generate-sitemaps
----
+# sitemap.xml
 
-`sitemap.(xml|js|ts)` is a special file that matches the [Sitemaps XML format](https://www.sitemaps.org/protocol.html) to help search engine crawlers index your site more efficiently.
+**描述**：sitemap.xml 文件的 API 参考。
 
-### Sitemap files (.xml)
+**相关**：
+  - **标题**：下一步
+  - **描述**：学习如何使用 generateSitemaps 函数。
+  - **链接**：
+    - [generate-sitemaps](/app/api-reference/functions/generate-sitemaps)
 
-For smaller applications, you can create a `sitemap.xml` file and place it in the root of your `app` directory.
+`sitemap.(xml|js|ts)` 是一个特殊文件，它符合 [Sitemaps XML 格式](https://www.sitemaps.org/protocol.html)，以帮助搜索引擎爬虫更高效地索引您的网站。
+
+### Sitemap 文件 (.xml)
+
+对于较小的应用，您可以创建一个 `sitemap.xml` 文件并将其放置在 `app` 目录的根目录中。
 
 ```xml filename="app/sitemap.xml"
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -37,9 +37,9 @@ For smaller applications, you can create a `sitemap.xml` file and place it in th
 </urlset>
 ```
 
-### Generating a sitemap using code (.js, .ts)
+### 使用代码生成 sitemap (.js, .ts)
 
-You can use the `sitemap.(js|ts)` file convention to programmatically **generate** a sitemap by exporting a default function that returns an array of URLs. If using TypeScript, a [`Sitemap`](#returns) type is available.
+您可以使用 `sitemap.(js|ts)` 文件约定通过导出一个默认函数来以编程方式**生成**一个 sitemap，该函数返回一个 URL 数组。如果使用 TypeScript，可以使用 [`Sitemap`](#returns) 类型。
 
 ```ts filename="app/sitemap.ts" switcher
 import { MetadataRoute } from 'next'
@@ -93,7 +93,7 @@ export default function sitemap() {
 }
 ```
 
-Output:
+输出：
 
 ```xml filename="acme.com/sitemap.xml"
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -117,8 +117,7 @@ Output:
   </url>
 </urlset>
 ```
-
-,### Generate a localized Sitemap
+### 生成本地化站点地图
 
 ```ts filename="app/sitemap.ts" switcher
 import { MetadataRoute } from 'next'
@@ -159,7 +158,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-Output:
+输出：
 
 ```xml filename="acme.com/sitemap.xml"
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -201,24 +200,23 @@ Output:
   </url>
 </urlset>
 ```
+### 生成多个站点地图
 
-,### Generating multiple sitemaps
+对于大多数应用程序，单个站点地图就足够了。但对于大型Web应用程序，您可能需要将站点地图拆分为多个文件。
 
-While a single sitemap will work for most applications. For large web applications, you may need to split a sitemap into multiple files.
+您可以使用以下两种方法创建多个站点地图：
 
-There are two ways you can create multiple sitemaps:
+- 通过在多个路由段内嵌套 `sitemap.(xml|js|ts)`，例如 `app/sitemap.xml` 和 `app/products/sitemap.xml`。
+- 通过使用 [`generateSitemaps`](/docs/app/api-reference/functions/generate-sitemaps) 函数。
 
-- By nesting `sitemap.(xml|js|ts)` inside multiple route segments e.g. `app/sitemap.xml` and `app/products/sitemap.xml`.
-- By using the [`generateSitemaps`](/docs/app/api-reference/functions/generate-sitemaps) function.
-
-For example, to split a sitemap using `generateSitemaps`, return an array of objects with the sitemap `id`. Then, use the `id` to generate the unique sitemaps.
+例如，要使用 `generateSitemaps` 分割站点地图，返回一个包含站点地图 `id` 的对象数组。然后，使用 `id` 生成唯一的站点地图。
 
 ```ts filename="app/product/sitemap.ts" switcher
 import { MetadataRoute } from 'next'
 import { BASE_URL } from '@/app/lib/constants'
 
 export async function generateSitemaps() {
-  // Fetch the total number of products and calculate the number of sitemaps needed
+  // 获取产品的总数并计算所需的站点地图数量
   return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
 }
 
@@ -227,7 +225,7 @@ export default async function sitemap({
 }: {
   id: number
 }): Promise<MetadataRoute.Sitemap> {
-  // Google's limit is 50,000 URLs per sitemap
+  // Google的站点地图限制是每个站点地图50,000个URL
   const start = id * 50000
   const end = start + 50000
   const products = await getProducts(
@@ -244,12 +242,12 @@ export default async function sitemap({
 import { BASE_URL } from '@/app/lib/constants'
 
 export async function generateSitemaps() {
-  // Fetch the total number of products and calculate the number of sitemaps needed
+  // 获取产品的总数并计算所需的站点地图数量
   return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
 }
 
 export default async function sitemap({ id }) {
-  // Google's limit is 50,000 URLs per sitemap
+  // Google的站点地图限制是每个站点地图50,000个URL
   const start = id * 50000
   const end = start + 50000
   const products = await getProducts(
@@ -262,13 +260,13 @@ export default async function sitemap({ id }) {
 }
 ```
 
-Your generated sitemaps will be available at `/.../sitemap/[id]`. For example, `/product/sitemap/1`.
+您生成的站点地图将在 `/.../sitemap/[id]` 上可用。例如，`/product/sitemap/1`。
 
-See the [`generateSitemaps` API reference](/docs/app/api-reference/functions/generate-sitemaps) for more information.
+有关更多信息，请参见 [`generateSitemaps` API 参考](/docs/app/api-reference/functions/generate-sitemaps)。
 
-## Returns
+## 返回值
 
-The default function exported from `sitemap.(xml|ts|js)` should return an array of objects with the following properties:
+从 `sitemap.(xml|ts|js)` 导出的默认函数应该返回一个对象数组，具有以下属性：
 
 ```tsx
 type Sitemap = Array<{
@@ -289,9 +287,9 @@ type Sitemap = Array<{
 }>
 ```
 
-## Version History
+## 版本历史
 
-| Version   | Changes                                                      |
+| 版本   | 变更                                                      |
 | --------- | ------------------------------------------------------------ |
-| `v13.4.5` | Add `changeFrequency` and `priority` attributes to sitemaps. |
-| `v13.3.0` | `sitemap` introduced.                                        |
+| `v13.4.5` | 添加 `changeFrequency` 和 `priority` 属性到站点地图。 |
+| `v13.3.0` | 引入 `sitemap`。                                        |

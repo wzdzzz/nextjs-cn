@@ -1,9 +1,9 @@
 ---
 title: not-found.js
-description: API reference for the not-found.js file.
+description: not-found.js 文件的 API 参考。
 ---
 
-The **not-found** file is used to render UI when the [`notFound`](/docs/app/api-reference/functions/not-found) function is thrown within a route segment. Along with serving a custom UI, Next.js will return a `200` HTTP status code for streamed responses, and `404` for non-streamed responses.
+**not-found** 文件用于在路由段中抛出 [`notFound`](/docs/app/api-reference/functions/not-found) 函数时渲染 UI。除了提供自定义 UI，Next.js 还会为流式响应返回 `200` HTTP 状态码，对于非流式响应返回 `404`。
 
 ```tsx filename="app/not-found.tsx" switcher
 import Link from 'next/link'
@@ -11,9 +11,9 @@ import Link from 'next/link'
 export default function NotFound() {
   return (
     <div>
-      <h2>Not Found</h2>
-      <p>Could not find requested resource</p>
-      <Link href="/">Return Home</Link>
+      <h2>未找到</h2>
+      <p>无法找到请求的资源</p>
+      <Link href="/">返回首页</Link>
     </div>
   )
 }
@@ -25,23 +25,23 @@ import Link from 'next/link'
 export default function NotFound() {
   return (
     <div>
-      <h2>Not Found</h2>
-      <p>Could not find requested resource</p>
-      <Link href="/">Return Home</Link>
+      <h2>未找到</h2>
+      <p>无法找到请求的资源</p>
+      <Link href="/">返回首页</Link>
     </div>
   )
 }
 ```
 
-> **Good to know**: In addition to catching expected `notFound()` errors, the root `app/not-found.js` file also handles any unmatched URLs for your whole application. This means users that visit a URL that is not handled by your app will be shown the UI exported by the `app/not-found.js` file.
+> **须知**：除了捕获预期的 `notFound()` 错误，根目录下的 `app/not-found.js` 文件还处理整个应用程序的任何未匹配 URL。这意味着访问未由您的应用程序处理的 URL 的用户将看到由 `app/not-found.js` 文件导出的 UI。
 
 ## Props
 
-`not-found.js` components do not accept any props.
+`not-found.js` 组件不接受任何属性。
 
-## Data Fetching
+## 数据获取
 
-By default, `not-found` is a Server Component. You can mark it as `async` to fetch and display data:
+默认情况下，`not-found` 是一个服务器组件。您可以将其标记为 `async` 以获取和显示数据：
 
 ```tsx filename="app/not-found.tsx" switcher
 import Link from 'next/link'
@@ -53,10 +53,10 @@ export default async function NotFound() {
   const data = await getSiteData(domain)
   return (
     <div>
-      <h2>Not Found: {data.name}</h2>
-      <p>Could not find requested resource</p>
+      <h2>未找到：{data.name}</h2>
+      <p>无法找到请求的资源</p>
       <p>
-        View <Link href="/blog">all posts</Link>
+        查看 <Link href="/blog">所有文章</Link>
       </p>
     </div>
   )
@@ -73,21 +73,21 @@ export default async function NotFound() {
   const data = await getSiteData(domain)
   return (
     <div>
-      <h2>Not Found: {data.name}</h2>
-      <p>Could not find requested resource</p>
+      <h2>未找到：{data.name}</h2>
+      <p>无法找到请求的资源</p>
       <p>
-        View <Link href="/blog">all posts</Link>
+        查看 <Link href="/blog">所有文章</Link>
       </p>
     </div>
   )
 }
 ```
 
-If you need to use Client Component hooks like `usePathname` to display content based on the path, you must fetch data on the client-side instead.
+如果您需要使用客户端组件钩子（如 `usePathname`）根据路径显示内容，您必须在客户端获取数据。
 
-## Version History
+## 版本历史
 
-| Version   | Changes                                             |
+| 版本   | 变更                                             |
 | --------- | --------------------------------------------------- |
-| `v13.3.0` | Root `app/not-found` handles global unmatched URLs. |
-| `v13.0.0` | `not-found` introduced.                             |
+| `v13.3.0` | 根目录 `app/not-found` 处理全局未匹配 URL。 |
+| `v13.0.0` | 引入 `not-found`。                             |

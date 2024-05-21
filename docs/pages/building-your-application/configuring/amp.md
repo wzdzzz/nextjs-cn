@@ -1,30 +1,30 @@
 ---
 title: AMP
-description: With minimal config, and without leaving React, you can start adding AMP and improve the performance and speed of your pages.
+description: 通过最少的配置，且无需离开React环境，您可以开始添加AMP，从而提高页面的性能和速度。
 ---
 
 <details>
-  <summary>Examples</summary>
+  <summary>示例</summary>
   
 - [AMP](https://github.com/vercel/next.js/tree/canary/examples/amp)
 
 </details>
 
-With Next.js you can turn any React page into an AMP page, with minimal config, and without leaving React.
+使用Next.js，您可以将任何React页面转换为AMP页面，只需最少的配置，且无需离开React。
 
-You can read more about AMP in the official [amp.dev](https://amp.dev/) site.
+您可以在官方 [amp.dev](https://amp.dev/) 网站上阅读更多关于AMP的信息。
 
-## Enabling AMP
+## 启用AMP
 
-To enable AMP support for a page, and to learn more about the different AMP configs, read the [API documentation for `next/amp`](/docs/pages/building-your-application/configuring/amp).
+要为页面启用AMP支持，并了解不同的AMP配置，请阅读 [`next/amp`](/docs/pages/building-your-application/configuring/amp) 的API文档。
 
-## Caveats
+## 注意事项
 
-- Only CSS-in-JS is supported. [CSS Modules](/docs/pages/building-your-application/styling) aren't supported by AMP pages at the moment. You can [contribute CSS Modules support to Next.js](https://github.com/vercel/next.js/issues/10549).
+- 目前，只有CSS-in-JS受到支持。[CSS Modules](/docs/pages/building-your-application/styling) 目前不受AMP页面支持。您可以[为Next.js贡献CSS Modules支持](https://github.com/vercel/next.js/issues/10549)。
 
-## Adding AMP Components
+## 添加AMP组件
 
-The AMP community provides [many components](https://amp.dev/documentation/components/) to make AMP pages more interactive. Next.js will automatically import all components used on a page and there is no need to manually import AMP component scripts:
+AMP社区提供了[许多组件](https://amp.dev/documentation/components/)，以使AMP页面更具交互性。Next.js将自动导入页面上使用的所有组件，无需手动导入AMP组件脚本：
 
 ```jsx
 export const config = { amp: true }
@@ -34,7 +34,7 @@ function MyAmpPage() {
 
   return (
     <div>
-      <p>Some time: {date.toJSON()}</p>
+      <p>一些时间：{date.toJSON()}</p>
       <amp-timeago
         width="0"
         height="15"
@@ -50,9 +50,9 @@ function MyAmpPage() {
 export default MyAmpPage
 ```
 
-The above example uses the [`amp-timeago`](https://amp.dev/documentation/components/amp-timeago/?format=websites) component.
+上述示例使用了[`amp-timeago`](https://amp.dev/documentation/components/amp-timeago/?format=websites)组件。
 
-By default, the latest version of a component is always imported. If you want to customize the version, you can use `next/head`, as in the following example:
+默认情况下，总是导入组件的最新版本。如果您想要自定义版本，可以使用`next/head`，如下例所示：
 
 ```jsx
 import Head from 'next/head'
@@ -73,7 +73,7 @@ function MyAmpPage() {
         />
       </Head>
 
-      <p>Some time: {date.toJSON()}</p>
+      <p>一些时间：{date.toJSON()}</p>
       <amp-timeago
         width="0"
         height="15"
@@ -88,16 +88,15 @@ function MyAmpPage() {
 
 export default MyAmpPage
 ```
+## AMP验证
 
-,## AMP Validation
+在开发期间，AMP页面会自动使用[amphtml-validator](https://www.npmjs.com/package/amphtml-validator)进行验证。错误和警告将显示在您启动Next.js的终端中。
 
-AMP pages are automatically validated with [amphtml-validator](https://www.npmjs.com/package/amphtml-validator) during development. Errors and warnings will appear in the terminal where you started Next.js.
+页面在[静态HTML导出](/docs/pages/building-your-application/deploying/static-exports)期间也会进行验证，任何警告/错误将打印到终端。任何AMP错误都会导致导出以状态码`1`退出，因为导出的不是有效的AMP。
 
-Pages are also validated during [Static HTML export](/docs/pages/building-your-application/deploying/static-exports) and any warnings / errors will be printed to the terminal. Any AMP errors will cause the export to exit with status code `1` because the export is not valid AMP.
+### 自定义验证器
 
-### Custom Validators
-
-You can set up custom AMP validator in `next.config.js` as shown below:
+您可以在`next.config.js`中设置自定义AMP验证器，如下所示：
 
 ```js
 module.exports = {
@@ -107,9 +106,9 @@ module.exports = {
 }
 ```
 
-### Skip AMP Validation
+### 跳过AMP验证
 
-To turn off AMP validation add the following code to `next.config.js`
+要关闭AMP验证，请将以下代码添加到`next.config.js`中
 
 ```js
 experimental: {
@@ -119,38 +118,38 @@ experimental: {
 }
 ```
 
-### AMP in Static HTML Export
+### 静态HTML导出中的AMP
 
-When using [Static HTML export](/docs/pages/building-your-application/deploying/static-exports) statically prerender pages, Next.js will detect if the page supports AMP and change the exporting behavior based on that.
+当使用[静态HTML导出](/docs/pages/building-your-application/deploying/static-exports)静态预渲染页面时，Next.js会检测页面是否支持AMP并根据该情况改变导出行为。
 
-For example, the hybrid AMP page `pages/about.js` would output:
+例如，混合AMP页面`pages/about.js`将输出：
 
-- `out/about.html` - HTML page with client-side React runtime
-- `out/about.amp.html` - AMP page
+- `out/about.html` - 带客户端React运行时的HTML页面
+- `out/about.amp.html` - AMP页面
 
-And if `pages/about.js` is an AMP-only page, then it would output:
+如果`pages/about.js`是一个仅AMP页面，那么它将输出：
 
-- `out/about.html` - Optimized AMP page
+- `out/about.html` - 优化的AMP页面
 
-Next.js will automatically insert a link to the AMP version of your page in the HTML version, so you don't have to, like so:
+Next.js将自动在HTML版本的页面中插入指向您的页面AMP版本的链接，因此您不需要这样做，如下所示：
 
 ```jsx
 <link rel="amphtml" href="/about.amp.html" />
 ```
 
-And the AMP version of your page will include a link to the HTML page:
+并且您的页面的AMP版本将包含指向HTML页面的链接：
 
 ```jsx
 <link rel="canonical" href="/about" />
 ```
 
-When [`trailingSlash`](/docs/pages/api-reference/next-config-js/trailingSlash) is enabled the exported pages for `pages/about.js` would be:
+当[`trailingSlash`](/docs/pages/api-reference/next-config-js/trailingSlash)启用时，`pages/about.js`的导出页面将是：
 
-- `out/about/index.html` - HTML page
-- `out/about.amp/index.html` - AMP page
+- `out/about/index.html` - HTML页面
+- `out/about.amp/index.html` - AMP页面
 
 ## TypeScript
 
-AMP currently doesn't have built-in types for TypeScript, but it's in their roadmap ([#13791](https://github.com/ampproject/amphtml/issues/13791)).
+AMP目前没有为TypeScript内置类型，但它在他们的路线图上([#13791](https://github.com/ampproject/amphtml/issues/13791))。
 
-As a workaround you can manually create a file called `amp.d.ts` inside your project and add these [custom types](https://stackoverflow.com/a/50601125).
+作为替代方案，您可以在项目中手动创建一个名为`amp.d.ts`的文件，并添加这些[自定义类型](https://stackoverflow.com/a/50601125)。

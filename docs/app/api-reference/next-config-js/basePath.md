@@ -1,13 +1,12 @@
 ---
 title: basePath
-description: Use `basePath` to deploy a Next.js application under a sub-path of a domain.
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+### 须知
 
-To deploy a Next.js application under a sub-path of a domain you can use the `basePath` config option.
+要将 Next.js 应用程序部署在域名的子路径下，可以使用 `basePath` 配置选项。
 
-`basePath` allows you to set a path prefix for the application. For example, to use `/docs` instead of `''` (an empty string, the default), open `next.config.js` and add the `basePath` config:
+`basePath` 允许您为应用程序设置路径前缀。例如，要使用 `/docs` 而不是 `''`（空字符串，默认值），打开 `next.config.js` 并添加 `basePath` 配置：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -15,13 +14,13 @@ module.exports = {
 }
 ```
 
-> **Good to know**: This value must be set at build time and cannot be changed without re-building as the value is inlined in the client-side bundles.
+> **须知**：此值必须在构建时设置，且在不重新构建的情况下无法更改，因为该值会被内联到客户端捆绑包中。
 
-### Links
+### 链接
 
-When linking to other pages using `next/link` and `next/router` the `basePath` will be automatically applied.
+在使用 `next/link` 和 `next/router` 链接到其他页面时，`basePath` 将自动应用。
 
-For example, using `/about` will automatically become `/docs/about` when `basePath` is set to `/docs`.
+例如，当 `basePath` 设置为 `/docs` 时，使用 `/about` 将自动变为 `/docs/about`。
 
 ```js
 export default function HomePage() {
@@ -33,29 +32,29 @@ export default function HomePage() {
 }
 ```
 
-Output html:
+输出的 HTML：
 
 ```html
 <a href="/docs/about">About Page</a>
 ```
 
-This makes sure that you don't have to change all links in your application when changing the `basePath` value.
+这确保了在更改 `basePath` 值时，您不必更改应用程序中的所有链接。
 
-### Images
+### 图片
 
 <AppOnly>
 
-When using the [`next/image`](/docs/app/api-reference/components/image) component, you will need to add the `basePath` in front of `src`.
+当使用 [`next/image`](/docs/app/api-reference/components/image) 组件时，您需要在 `src` 前添加 `basePath`。
 
 </AppOnly>
 
 <PagesOnly>
 
-When using the [`next/image`](/docs/pages/api-reference/components/image) component, you will need to add the `basePath` in front of `src`.
+当使用 [`next/image`](/docs/pages/api-reference/components/image) 组件时，您需要在 `src` 前添加 `basePath`。
 
 </PagesOnly>
 
-For example, using `/docs/me.png` will properly serve your image when `basePath` is set to `/docs`.
+例如，当 `basePath` 设置为 `/docs` 时，使用 `/docs/me.png` 将正确地提供您的图片。
 
 ```jsx
 import Image from 'next/image'

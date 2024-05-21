@@ -1,35 +1,35 @@
 ---
 title: generateSitemaps
 nav_title: generateSitemaps
-description: Learn how to use the generateSiteMaps function to create multiple sitemaps for your application.
+description: 学习如何使用 generateSitemaps 函数为您的应用程序创建多个站点地图。
 related:
-  title: Next Steps
-  description: Learn how to create sitemaps for your Next.js application.
+  title: 下一步
+  description: 学习如何为您的 Next.js 应用程序创建站点地图。
   links:
     - app/api-reference/file-conventions/metadata/sitemap
 ---
 
-You can use the `generateSitemaps` function to generate multiple sitemaps for your application.
+您可以使用 `generateSitemaps` 函数为您的应用程序生成多个站点地图。
 
-## Returns
+## 返回值
 
-The `generateSitemaps` returns an array of objects with an `id` property.
+`generateSitemaps` 返回一个对象数组，每个对象都有一个 `id` 属性。
 
-## URLs
+## URL
 
-In production, your generated sitemaps will be available at `/.../sitemap/[id].xml`. For example, `/product/sitemap/1.xml`.
+在生产环境中，您生成的站点地图将在 `/.../sitemap/[id].xml` 上可用。例如，`/product/sitemap/1.xml`。
 
-In development, you can view the generated sitemap on `/.../sitemap.xml/[id]`. For example, `/product/sitemap.xml/1`. This difference is temporary and will follow the production format.
+在开发环境中，您可以在 `/.../sitemap.xml/[id]` 上查看生成的站点地图。例如，`/product/sitemap.xml/1`。这种差异是暂时的，最终将遵循生产格式。
 
-## Example
+## 示例
 
-For example, to split a sitemap using `generateSitemaps`, return an array of objects with the sitemap `id`. Then, use the `id` to generate the unique sitemaps.
+例如，要使用 `generateSitemaps` 分割站点地图，返回一个包含站点地图 `id` 的对象数组。然后，使用 `id` 生成唯一的站点地图。
 
 ```ts filename="app/product/sitemap.ts" switcher
 import { BASE_URL } from '@/app/lib/constants'
 
 export async function generateSitemaps() {
-  // Fetch the total number of products and calculate the number of sitemaps needed
+  // 获取产品的总数并计算所需的站点地图数量
   return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
 }
 
@@ -38,7 +38,7 @@ export default async function sitemap({
 }: {
   id: number
 }): Promise<MetadataRoute.Sitemap> {
-  // Google's limit is 50,000 URLs per sitemap
+  // Google 的站点地图每个限制为 50,000 个 URL
   const start = id * 50000
   const end = start + 50000
   const products = await getProducts(
@@ -55,12 +55,12 @@ export default async function sitemap({
 import { BASE_URL } from '@/app/lib/constants'
 
 export async function generateSitemaps() {
-  // Fetch the total number of products and calculate the number of sitemaps needed
+  // 获取产品的总数并计算所需的站点地图数量
   return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }]
 }
 
 export default async function sitemap({ id }) {
-  // Google's limit is 50,000 URLs per sitemap
+  // Google 的站点地图每个限制为 50,000 个 URL
   const start = id * 50000
   const end = start + 50000
   const products = await getProducts(

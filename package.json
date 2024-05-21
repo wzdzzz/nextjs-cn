@@ -10,6 +10,11 @@
     "vitepress": "^1.1.4"
   },
   "dependencies": {
+    "@mdx-js/mdx": "^3.0.1",
+    "@mdx-js/vue": "^3.0.1",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/compiler-sfc": "^3.4.27",
     "node-fetch": "^3.3.2",
     "openai": "^4.45.0"
   }

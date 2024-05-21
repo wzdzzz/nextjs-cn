@@ -1,7 +1,4 @@
----
-title: trailingSlash
-description: Configure Next.js pages to resolve with or without a trailing slash.
-source: app/api-reference/next-config-js/trailingSlash
----
+# trailingSlash
 
-{/* DO NOT EDIT. The content of this doc is generated from the source above. To edit the content of this page, navigate to the source page in your editor. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+将Next.js页面配置为带或不带尾随斜杠进行解析。
+须知：此文档的内容是根据上面的源生成的。要编辑此页面的内容，请在编辑器中导航到源页面。您可以使用`<PagesOnly>Content</PagesOnly>`组件添加特定于页面路由的内容。任何共享内容都不应被包装在组件中。

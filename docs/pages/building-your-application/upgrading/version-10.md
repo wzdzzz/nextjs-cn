@@ -1,26 +1,26 @@
 ---
-title: Version 10
-description: Upgrade your Next.js Application from Version 9 to Version 10.
+title: 版本 10
+description: 将您的 Next.js 应用程序从版本 9 升级到版本 10。
 ---
 
-There were no breaking changes between versions 9 and 10.
+版本 9 和 10 之间没有破坏性变更。
 
-To upgrade to version 10, run the following command:
+要升级到版本 10，请运行以下命令：
 
-```bash filename="Terminal"
+```bash filename="终端"
 npm i next@10
 ```
 
-```bash filename="Terminal"
+```bash filename="终端"
 yarn add next@10
 ```
 
-```bash filename="Terminal"
+```bash filename="终端"
 pnpm up next@10
 ```
 
-```bash filename="Terminal"
+```bash filename="终端"
 bun add next@10
 ```
 
-> **Good to know:** If you are using TypeScript, ensure you also upgrade `@types/react` and `@types/react-dom` to their corresponding versions.
+> **须知：** 如果您正在使用 TypeScript，请确保您也升级 `@types/react` 和 `@types/react-dom` 到相应的版本。

@@ -1,25 +1,25 @@
 ---
-title: typescript
-description: Next.js reports TypeScript errors by default. Learn to opt-out of this behavior here.
+title: TypeScript
+description: Next.js 默认报告 TypeScript 错误。在这里学习如何退出此行为。
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 本文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>内容</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
 
-Next.js fails your **production build** (`next build`) when TypeScript errors are present in your project.
+当项目中存在 TypeScript 错误时，Next.js 会使您的 **生产构建** (`next build`) 失败。
 
-If you'd like Next.js to dangerously produce production code even when your application has errors, you can disable the built-in type checking step.
+如果您希望 Next.js 即使在应用程序有错误时也冒险生成生产代码，您可以禁用内置的类型检查步骤。
 
-If disabled, be sure you are running type checks as part of your build or deploy process, otherwise this can be very dangerous.
+如果禁用了，请确保您在构建或部署过程中运行类型检查，否则这可能非常危险。
 
-Open `next.config.js` and enable the `ignoreBuildErrors` option in the `typescript` config:
+打开 `next.config.js` 并在 `typescript` 配置中启用 `ignoreBuildErrors` 选项：
 
 ```js filename="next.config.js"
 module.exports = {
   typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
+    // !! 警告 !!
+    // 允许生产构建即使
+    // 您的项目有类型错误也能成功完成。
+    // !! 警告 !!
     ignoreBuildErrors: true,
   },
 }

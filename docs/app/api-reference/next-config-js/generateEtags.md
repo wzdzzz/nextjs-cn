@@ -1,13 +1,12 @@
----
-title: generateEtags
-description: Next.js will generate etags for every page by default. Learn more about how to disable etag generation here.
----
+# generateEtags
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+Next.js 默认为每个页面生成 etags。在这里了解如何禁用 etag 生成。
 
-Next.js will generate [etags](https://en.wikipedia.org/wiki/HTTP_ETag) for every page by default. You may want to disable etag generation for HTML pages depending on your cache strategy.
+{/* 此文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享内容都不应包装在组件中。 */}
 
-Open `next.config.js` and disable the `generateEtags` option:
+Next.js 默认为每个页面生成 [etags](https://en.wikipedia.org/wiki/HTTP_ETag)。根据您的缓存策略，您可能想要为 HTML 页面禁用 etag 生成。
+
+打开 `next.config.js` 并禁用 `generateEtags` 选项：
 
 ```js filename="next.config.js"
 module.exports = {

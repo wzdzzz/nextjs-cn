@@ -1,25 +1,25 @@
 ---
 title: generateViewport
-description: API Reference for the generateViewport function.
+description: generateViewport 函数的 API 参考。
 related:
   title: Next Steps
-  description: View all the Metadata API options.
+  description: 查看所有元数据 API 选项。
   links:
     - app/api-reference/file-conventions/metadata
     - app/building-your-application/optimizing/metadata
 ---
 
-You can customize the initial viewport of the page with the static `viewport` object or the dynamic `generateViewport` function.
+您可以使用静态的 `viewport` 对象或动态的 `generateViewport` 函数来自定义页面的初始视口。
 
-> **Good to know**:
+> **须知**：
 >
-> - The `viewport` object and `generateViewport` function exports are **only supported in Server Components**.
-> - You cannot export both the `viewport` object and `generateViewport` function from the same route segment.
-> - If you're coming from migrating `metadata` exports, you can use [metadata-to-viewport-export codemod](/docs/app/building-your-application/upgrading/codemods#metadata-to-viewport-export) to update your changes.
+> - `viewport` 对象和 `generateViewport` 函数的导出在 **仅支持在服务器组件中**。
+> - 您不能从同一路由段导出 `viewport` 对象和 `generateViewport` 函数。
+> - 如果您是从迁移 `metadata` 导出过来的，可以使用 [metadata-to-viewport-export codemod](/docs/app/building-your-application/upgrading/codemods#metadata-to-viewport-export) 来更新您的更改。
 
-## The `viewport` object
+## `viewport` 对象
 
-To define the viewport options, export a `viewport` object from a `layout.jsx` or `page.jsx` file.
+要定义视口选项，从 `layout.jsx` 或 `page.jsx` 文件中导出一个 `viewport` 对象。
 
 ```tsx filename="layout.tsx | page.tsx" switcher
 import type { Viewport } from 'next'
@@ -39,9 +39,9 @@ export const viewport = {
 export default function Page() {}
 ```
 
-## `generateViewport` function
+## `generateViewport` 函数
 
-`generateViewport` should return a [`Viewport` object](#viewport-fields) containing one or more viewport fields.
+`generateViewport` 应该返回一个包含一个或多个视口字段的 [`Viewport` 对象](#viewport-fields)。
 
 ```tsx filename="layout.tsx | page.tsx" switcher
 export function generateViewport({ params }) {
@@ -59,17 +59,16 @@ export function generateViewport({ params }) {
 }
 ```
 
-> **Good to know**:
+> **须知**：
 >
-> - If the viewport doesn't depend on runtime information, it should be defined using the static [`viewport` object](#the-viewport-object) rather than `generateViewport`.
-
-,## Viewport Fields
+> - 如果视口不依赖于运行时信息，应该使用静态的 [`viewport` 对象](#the-viewport-object) 而不是 `generateViewport`。
+## 视口字段
 
 ### `themeColor`
 
-Learn more about [`theme-color`](https://developer.mozilla.org/docs/Web/HTML/Element/meta/name/theme-color).
+了解更多关于 [`theme-color`](https://developer.mozilla.org/docs/Web/HTML/Element/meta/name/theme-color)。
 
-**Simple theme color**
+**简单的主题颜色**
 
 ```tsx filename="layout.tsx | page.tsx" switcher
 import type { Viewport } from 'next'
@@ -89,7 +88,7 @@ export const viewport = {
 <meta name="theme-color" content="black" />
 ```
 
-**With media attribute**
+**带媒体属性的主题颜色**
 
 ```tsx filename="layout.tsx | page.tsx" switcher
 import type { Viewport } from 'next'
@@ -116,9 +115,9 @@ export const viewport = {
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black" />
 ```
 
-### `width`, `initialScale`, `maximumScale` and `userScalable`
+### `width`, `initialScale`, `maximumScale` 和 `userScalable`
 
-> **Good to know**: The `viewport` meta tag is automatically set, and manual configuration is usually unnecessary as the default is sufficient. However, the information is provided for completeness.
+> **须知**：`视口` meta 标签会自动设置，通常不需要手动配置，因为默认设置已经足够。但是，为了完整性，这里提供了相关信息。
 
 ```tsx filename="layout.tsx | page.tsx" switcher
 import type { Viewport } from 'next'
@@ -128,7 +127,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  // Also supported by less commonly used
+  // 也支持较少使用的
   // interactiveWidget: 'resizes-visual',
 }
 ```
@@ -139,7 +138,7 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  // Also supported by less commonly used
+  // 也支持较少使用的
   // interactiveWidget: 'resizes-visual',
 }
 ```
@@ -153,7 +152,7 @@ export const viewport = {
 
 ### `colorScheme`
 
-Learn more about [`color-scheme`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name#:~:text=color%2Dscheme%3A%20specifies,of%20the%20following%3A).
+了解更多关于 [`color-scheme`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name#:~:text=color%2Dscheme%3A%20specifies,of%20the%20following%3A)。
 
 ```tsx filename="layout.tsx | page.tsx" switcher
 import type { Viewport } from 'next'
@@ -173,11 +172,11 @@ export const viewport = {
 <meta name="color-scheme" content="dark" />
 ```
 
-## Types
+## 类型
 
-You can add type safety to your viewport object by using the `Viewport` type. If you are using the [built-in TypeScript plugin](/docs/app/building-your-application/configuring/typescript) in your IDE, you do not need to manually add the type, but you can still explicitly add it if you want.
+你可以通过使用 `Viewport` 类型为你的视口对象添加类型安全性。如果你在 IDE 中使用了 [内置的 TypeScript 插件](/docs/app/building-your-application/configuring/typescript)，你不需要手动添加类型，但你仍然可以明确地添加它。
 
-### `viewport` object
+### `viewport` 对象
 
 ```tsx
 import type { Viewport } from 'next'
@@ -187,9 +186,9 @@ export const viewport: Viewport = {
 }
 ```
 
-### `generateViewport` function
+### `generateViewport` 函数
 
-#### Regular function
+#### 普通函数
 
 ```tsx
 import type { Viewport } from 'next'
@@ -201,7 +200,7 @@ export function generateViewport(): Viewport {
 }
 ```
 
-#### With segment props
+#### 带有 segment props 的函数
 
 ```tsx
 import type { Viewport } from 'next'
@@ -220,19 +219,11 @@ export function generateViewport({ params, searchParams }: Props): Viewport {
 export default function Page({ params, searchParams }: Props) {}
 ```
 
-#### JavaScript Projects
+#### JavaScript 项目
 
-For JavaScript projects, you can use JSDoc to add type safety.
+对于 JavaScript 
+## 版本历史
 
-```js
-/** @type {import("next").Viewport} */
-export const viewport = {
-  themeColor: 'black',
-}
-```
-
-,## Version History
-
-| Version   | Changes                                       |
+| 版本   | 变更                                       |
 | --------- | --------------------------------------------- |
-| `v14.0.0` | `viewport` and `generateViewport` introduced. |
+| `v14.0.0` | 引入了 `viewport` 和 `generateViewport`。 |

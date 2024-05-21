@@ -1,26 +1,48 @@
 ---
-title: Testing
-description: Learn how to set up Next.js with four commonly used testing tools — Cypress, Playwright, Vitest, and Jest.
+title: 测试
+description: 学习如何将 Next.js 与四种常用的测试工具 —— Cypress、Playwright、Vitest 和 Jest 一起设置。
 ---
+# 测试
+在 React 和 Next.js 中，您可以编写几种不同类型的测试，每种测试都有其自己的目的和用例。本页面提供了类型和常用工具的概述，您可以使用这些工具来测试您的应用程序。
 
-In React and Next.js, there are a few different types of tests you can write, each with its own purpose and use cases. This page provides an overview of types and commonly used tools you can use to test your application.
+## 测试类型
 
-## Types of tests
-
-- **Unit testing** involves testing individual units (or blocks of code) in isolation. In React, a unit can be a single function, hook, or component.
-  - **Component testing** is a more focused version of unit testing where the primary subject of the tests is React components. This may involve testing how components are rendered, their interaction with props, and their behavior in response to user events.
-  - **Integration testing** involves testing how multiple units work together. This can be a combination of components, hooks, and functions.
-- **End-to-End (E2E) Testing** involves testing user flows in an environment that simulates real user scenarios, like the browser. This means testing specific tasks (e.g. signup flow) in a production-like environment.
-- **Snapshot testing** involves capturing the rendered output of a component and saving it to a snapshot file. When tests run, the current rendered output of the component is compared against the saved snapshot. Changes in the snapshot are used to indicate unexpected changes in behavior.
+- **单元测试** 涉及在隔离状态下测试单个单元（或代码块）。在 React 中，一个单元可以是一个单独的函数、钩子或组件。
+  - **组件测试** 是单元测试的更专注版本，测试的主要对象是 React 组件。这可能涉及测试组件的渲染方式、它们与属性的交互以及它们对用户事件的响应行为。
+  - **集成测试** 涉及测试多个单元如何协同工作。这可以是组件、钩子和函数的组合。
+- **端到端 (E2E) 测试** 涉及在模拟真实用户场景的环境（如浏览器）中测试用户流程。这意味着在类似生产环境的环境中测试特定任务（例如注册流程）。
+- **快照测试** 涉及捕获组件的渲染输出并将其保存到快照文件中。当测试运行时，组件当前的渲染输出与保存的快照进行比较。快照中的变化用于指示行为中的意外变化。
 
 <AppOnly>
 
-## Async Server Components
+## 异步服务器组件
 
-Since `async` Server Components are new to the React ecosystem, some tools do not fully support them. In the meantime, we recommend using **End-to-End Testing** over **Unit Testing** for `async` components.
+由于 `async` 服务器组件是 React 生态系统中的新事物，一些工具尚未完全支持它们。与此同时，我们建议对 `async` 组件使用 **端到端测试** 而不是 **单元测试**。
 
 </AppOnly>
 
-## Guides
+## 指南
 
-See the guides below to learn how to set up Next.js with these commonly used testing tools:
+请参阅下面的指南，了解如何将 Next.js 与这些常用的测试工具一起设置：
+
+```markdown
+## 指南
+
+以下是一些常用的测试工具的设置指南：
+
+1. **Cypress** - 一个无头端到端测试工具，可以模拟用户与应用程序的交互。
+2. **Playwright** - 一个用于自动化跨浏览器测试的 Node 库，支持所有现代 Web 浏览器。
+3. **Vitest** - 一个基于 Vite 的单元测试和端到端测试工具，提供了快速的测试运行体验。
+4. **Jest** - 一个流行的 JavaScript 测试框架，用于单元测试和快照测试。
+
+通过这些指南，您可以为 Next.js 应用程序设置和执行不同类型的测试，以确保其质量和稳定性。
+
+## 须知
+
+- 在选择测试工具时，考虑您的应用程序的具体需求和测试目标。
+- 单元测试和组件测试可以帮助您在开发过程中快速发现和修复问题。
+- 端到端测试可以确保应用程序在不同场景下的整体功能和用户体验。
+- 快照测试是捕捉和比较组件渲染输出的有效方法，但应谨慎使用，以避免不必要的更新和维护负担。
+
+通过结合使用这些测试工具，您可以创建一个全面的测试策略，以提高应用程序的可靠性和性能。
+```

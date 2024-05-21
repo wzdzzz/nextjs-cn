@@ -1,17 +1,17 @@
 ---
 title: reactStrictMode
-description: The complete Next.js runtime is now Strict Mode-compliant, learn how to opt-in
+description: Next.js 运行时现在符合严格模式，了解如何启用
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 本文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
 
-> **Good to know**: Since Next.js 13.4, Strict Mode is `true` by default with `app` router, so the above configuration is only necessary for `pages`. You can still disable Strict Mode by setting `reactStrictMode: false`.
+> **须知**：自 Next.js 13.4 起，默认情况下 `app` 路由器的严格模式为 `true`，因此上述配置仅对 `pages` 必要。您仍然可以通过设置 `reactStrictMode: false` 来禁用严格模式。
 
-> **Suggested**: We strongly suggest you enable Strict Mode in your Next.js application to better prepare your application for the future of React.
+> **建议**：我们强烈建议您在 Next.js 应用程序中启用严格模式，以更好地为 React 的未来做好准备。
 
-React's [Strict Mode](https://react.dev/reference/react/StrictMode) is a development mode only feature for highlighting potential problems in an application. It helps to identify unsafe lifecycles, legacy API usage, and a number of other features.
+React 的 [Strict Mode](https://react.dev/reference/react/StrictMode) 是一个仅在开发模式下使用的特性，用于突出应用程序中的潜在问题。它有助于识别不安全的生命周期、遗留 API 使用以及其他一些特性。
 
-The Next.js runtime is Strict Mode-compliant. To opt-in to Strict Mode, configure the following option in your `next.config.js`:
+Next.js 运行时符合严格模式。要启用严格模式，请在您的 `next.config.js` 中配置以下选项：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -19,4 +19,4 @@ module.exports = {
 }
 ```
 
-If you or your team are not ready to use Strict Mode in your entire application, that's OK! You can incrementally migrate on a page-by-page basis using `<React.StrictMode>`.
+如果您或您的团队还没有准备好在整个应用程序中使用严格模式，那没关系！您可以使用 `<React.StrictMode>` 逐步在页面的基础上进行迁移。

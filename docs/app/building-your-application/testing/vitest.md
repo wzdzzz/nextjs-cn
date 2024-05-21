@@ -1,36 +1,36 @@
 ---
-title: Setting up Vitest with Next.js
+title: 在 Next.js 中设置 Vitest
 nav_title: Vitest
-description: Learn how to set up Vitest with Next.js for Unit Testing.
+description: 学习如何在 Next.js 中设置 Vitest 进行单元测试。
 ---
+# 在 Next.js 中设置 Vitest
+Vite 和 React Testing Library 经常一起用于**单元测试**。本指南将向您展示如何在 Next.js 中设置 Vitest 并编写您的第一个测试。
 
-Vite and React Testing Library are frequently used together for **Unit Testing**. This guide will show you how to setup Vitest with Next.js and write your first tests.
+> **须知：** 由于 `async` 服务器组件是 React 生态系统中的新成员，Vitest 当前不支持它们。尽管您仍然可以为同步的服务器和客户端组件运行**单元测试**，但我们建议您为 `async` 组件使用**E2E测试**。
 
-> **Good to know:** Since `async` Server Components are new to the React ecosystem, Vitest currently does not support them. While you can still run **unit tests** for synchronous Server and Client Components, we recommend using an **E2E tests** for `async` components.
+## 快速开始
 
-## Quickstart
+您可以使用 `create-next-app` 与 Next.js [with-vitest](https://github.com/vercel/next.js/tree/canary/examples/with-vitest) 示例快速开始：
 
-You can use `create-next-app` with the Next.js [with-vitest](https://github.com/vercel/next.js/tree/canary/examples/with-vitest) example to quickly get started:
-
-```bash filename="Terminal"
+```bash filename="终端"
 npx create-next-app@latest --example with-vitest with-vitest-app
 ```
 
-## Manual Setup
+## 手动设置
 
-To manually set up Vitest, install `vitest` and the following packages as dev dependencies:
+要手动设置 Vitest，请安装 `vitest` 和以下包作为开发依赖项：
 
-```bash filename="Terminal"
+```bash filename="终端"
 npm install -D vitest @vitejs/plugin-react jsdom @testing-library/react
-# or
+# 或者
 yarn add -D vitest @vitejs/plugin-react jsdom @testing-library/react
-# or
+# 或者
 pnpm install -D vitest @vitejs/plugin-react jsdom @testing-library/react
-# or
+# 或者
 bun add -D vitest @vitejs/plugin-react jsdom @testing-library/react
 ```
 
-Create a `vitest.config.ts|js` file in the root of your project, and add the following options:
+在项目根目录创建一个 `vitest.config.ts|js` 文件，并添加以下选项：
 
 ```ts filename="vitest.config.ts" switcher
 import { defineConfig } from 'vitest/config'
@@ -56,9 +56,9 @@ export default defineConfig({
 })
 ```
 
-For more information on configuring Vitest, please refer to the [Vitest Configuration](https://vitest.dev/config/#configuration) docs.
+有关配置 Vitest 的更多信息，请参考 [Vitest 配置](https://vitest.dev/config/#configuration) 文档。
 
-Then, add a `test` script to your `package.json`:
+然后，在您的 `package.json` 中添加一个 `test` 脚本：
 
 ```json filename="package.json"
 {
@@ -71,11 +71,10 @@ Then, add a `test` script to your `package.json`:
 }
 ```
 
-When you run `npm run test`, Vitest will **watch** for changes in your project by default.
+当您运行 `npm run test` 时，Vitest 将默认**监视**您项目中的更改。
+## 创建你的第一个 Vitest 单元测试
 
-,## Creating your first Vitest Unit Test
-
-Check that everything is working by creating a test to check if the `<Page />` component successfully renders a heading:
+通过创建一个测试来检查 `<Page />` 组件是否成功渲染了一个标题，来验证一切是否正常工作：
 
 <AppOnly>
 
@@ -127,7 +126,7 @@ test('Page', () => {
 })
 ```
 
-> **Good to know**: The example above uses the common `__tests__` convention, but test files can also be colocated inside the `app` router.
+> **须知**：上述示例使用了常见的 `__tests__` 约定，但测试文件也可以放在 `app` 路由器内部。
 
 </AppOnly>
 
@@ -183,24 +182,25 @@ test('Page', () => {
 
 </PagesOnly>
 
-## Running your tests
+## 运行你的测试
 
-Then, run the following command to run your tests:
+然后，运行以下命令来运行你的测试：
 
 ```bash filename="Terminal"
 npm run test
-# or
+# 或
 yarn test
-# or
+# 或
 pnpm test
-# or
+# 或
 bun test
 ```
 
-## Additional Resources
 
-You may find these resources helpful:
+## 其他资源
 
-- [Next.js with Vitest example](https://github.com/vercel/next.js/tree/canary/examples/with-vitest)
-- [Vitest Docs](https://vitest.dev/guide/)
-- [React Testing Library Docs](https://testing-library.com/docs/react-testing-library/intro/)
+你可能会发现这些资源很有帮助：
+
+- [Next.js 与 Vitest 示例](https://github.com/vercel/next.js/tree/canary/examples/with-vitest)
+- [Vitest 文档](https://vitest.dev/guide/)
+- [React Testing Library 文档](https://testing-library.com/docs/react-testing-library/intro/)

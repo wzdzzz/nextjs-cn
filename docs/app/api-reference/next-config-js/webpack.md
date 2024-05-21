@@ -1,40 +1,40 @@
 ---
-title: Custom Webpack Config
+title: 自定义 Webpack 配置
 nav_title: webpack
-description: Learn how to customize the webpack config used by Next.js
+description: 学习如何自定义 Next.js 使用的 webpack 配置
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 本文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享内容都不应被包装在组件中。 */}
 
-> **Good to know**: changes to webpack config are not covered by semver so proceed at your own risk
+> **须知**：webpack 配置的更改不受 semver 规范的约束，因此请自行承担风险
 
-Before continuing to add custom webpack configuration to your application make sure Next.js doesn't already support your use-case:
+在继续向您的应用程序添加自定义 webpack 配置之前，请确保 Next.js 已经不支持您的用例：
 
 <AppOnly>
 
-- [CSS imports](/docs/app/building-your-application/styling)
-- [CSS modules](/docs/app/building-your-application/styling/css-modules)
-- [Sass/SCSS imports](/docs/app/building-your-application/styling/sass)
-- [Sass/SCSS modules](/docs/app/building-your-application/styling/sass)
+- [CSS 导入](/docs/app/building-your-application/styling)
+- [CSS 模块](/docs/app/building-your-application/styling/css-modules)
+- [Sass/SCSS 导入](/docs/app/building-your-application/styling/sass)
+- [Sass/SCSS 模块](/docs/app/building-your-application/styling/sass)
 
 </AppOnly>
 
 <PagesOnly>
 
-- [CSS imports](/docs/pages/building-your-application/styling)
-- [CSS modules](/docs/pages/building-your-application/styling/css-modules)
-- [Sass/SCSS imports](/docs/pages/building-your-application/styling/sass)
-- [Sass/SCSS modules](/docs/pages/building-your-application/styling/sass)
-- [Customizing babel configuration](/docs/pages/building-your-application/configuring/babel)
+- [CSS 导入](/docs/pages/building-your-application/styling)
+- [CSS 模块](/docs/pages/building-your-application/styling/css-modules)
+- [Sass/SCSS 导入](/docs/pages/building-your-application/styling/sass)
+- [Sass/SCSS 模块](/docs/pages/building-your-application/styling/sass)
+- [自定义 babel 配置](/docs/pages/building-your-application/configuring/babel)
 
 </PagesOnly>
 
-Some commonly asked for features are available as plugins:
+一些常见功能作为插件提供：
 
 - [@next/mdx](https://github.com/vercel/next.js/tree/canary/packages/next-mdx)
 - [@next/bundle-analyzer](https://github.com/vercel/next.js/tree/canary/packages/next-bundle-analyzer)
 
-In order to extend our usage of `webpack`, you can define a function that extends its config inside `next.config.js`, like so:
+为了扩展我们对 `webpack` 的使用，您可以在 `next.config.js` 中定义一个函数来扩展其配置，如下所示：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -42,28 +42,28 @@ module.exports = {
     config,
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
   ) => {
-    // Important: return the modified config
+    // 重要：返回修改后的配置
     return config
   },
 }
 ```
 
-> The `webpack` function is executed three times, twice for the server (nodejs / edge runtime) and once for the client. This allows you to distinguish between client and server configuration using the `isServer` property.
+> `webpack` 函数执行三次，两次用于服务器（nodejs / edge 运行时），一次用于客户端。这允许您使用 `isServer` 属性区分客户端和服务器端配置。
 
-The second argument to the `webpack` function is an object with the following properties:
+`webpack` 函数的第二个参数是一个对象，具有以下属性：
 
-- `buildId`: `String` - The build id, used as a unique identifier between builds
-- `dev`: `Boolean` - Indicates if the compilation will be done in development
-- `isServer`: `Boolean` - It's `true` for server-side compilation, and `false` for client-side compilation
-- `nextRuntime`: `String | undefined` - The target runtime for server-side compilation; either `"edge"` or `"nodejs"`, it's `undefined` for client-side compilation.
-- `defaultLoaders`: `Object` - Default loaders used internally by Next.js:
-  - `babel`: `Object` - Default `babel-loader` configuration
+- `buildId`: `String` - 构建 ID，用作构建之间的唯一标识符
+- `dev`: `Boolean` - 指示编译是否在开发环境中进行
+- `isServer`: `Boolean` - 对于服务器端编译，它是 `true`，对于客户端编译，它是 `false`
+- `nextRuntime`: `String | undefined` - 服务器端编译的目标运行时；要么是 `"edge"` 要么是 `"nodejs"`，对于客户端编译它是 `undefined`
+- `defaultLoaders`: `Object` - Next.js 内部使用的默认加载器：
+  - `babel`: `Object` - 默认的 `babel-loader` 配置
 
-Example usage of `defaultLoaders.babel`:
+`defaultLoaders.babel` 的示例用法：
 
 ```js
-// Example config for adding a loader that depends on babel-loader
-// This source was taken from the @next/mdx plugin source:
+// 示例配置，用于添加依赖于 babel-loader 的加载器
+// 此源代码取自 @next/mdx 插件源代码：
 // https://github.com/vercel/next.js/tree/canary/packages/next-mdx
 module.exports = {
   webpack: (config, options) => {
@@ -85,4 +85,4 @@ module.exports = {
 
 #### `nextRuntime`
 
-Notice that `isServer` is `true` when `nextRuntime` is `"edge"` or `"nodejs"`, nextRuntime "`edge`" is currently for middleware and Server Components in edge runtime only.
+请注意，当 `nextRuntime` 是 `"edge"` 或 `"nodejs"` 时，`isServer` 是 `true`，`nextRuntime` "`edge`" 目前仅用于中间件和边缘运行时的服务器组件。

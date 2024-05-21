@@ -1,13 +1,13 @@
 ---
 title: headers
-description: API reference for the headers function.
+description: headers函数的API参考。
 ---
 
-The `headers` function allows you to read the HTTP incoming request headers from a [Server Component](/docs/app/building-your-application/rendering/server-components).
+`headers`函数允许您从一个[Server Component](/docs/app/building-your-application/rendering/server-components)中读取HTTP传入请求的头部。
 
 ## `headers()`
 
-This API extends the [Web Headers API](https://developer.mozilla.org/docs/Web/API/Headers). It is **read-only**, meaning you cannot `set` / `delete` the outgoing request headers.
+这个API扩展了[Web Headers API](https://developer.mozilla.org/docs/Web/API/Headers)。它是**只读的**，这意味着您不能`set`/`delete`传出的请求头部。
 
 ```tsx filename="app/page.tsx" switcher
 import { headers } from 'next/headers'
@@ -31,36 +31,35 @@ export default function Page() {
 }
 ```
 
-> **Good to know**:
+> **须知**：
 >
-> - `headers()` is a **[Dynamic Function](/docs/app/building-your-application/rendering/server-components#server-rendering-strategies#dynamic-functions)** whose returned values cannot be known ahead of time. Using it in a layout or page will opt a route into **[dynamic rendering](/docs/app/building-your-application/rendering/server-components#dynamic-rendering)** at request time.
+> - `headers()`是一个**[动态函数](/docs/app/building-your-application/rendering/server-components#server-rendering-strategies#dynamic-functions)**，其返回值无法提前知晓。在布局或页面中使用它将会使路由在请求时选择**[动态渲染](/docs/app/building-your-application/rendering/server-components#dynamic-rendering)**。
 
-### API Reference
+### API参考
 
 ```tsx
 const headersList = headers()
 ```
 
-#### Parameters
+#### 参数
 
-`headers` does not take any parameters.
+`headers`不接受任何参数。
 
-#### Returns
+#### 返回值
 
-`headers` returns a **read-only** [Web Headers](https://developer.mozilla.org/docs/Web/API/Headers) object.
+`headers`返回一个**只读**的[Web Headers](https://developer.mozilla.org/docs/Web/API/Headers)对象。
 
-- [`Headers.entries()`](https://developer.mozilla.org/docs/Web/API/Headers/entries): Returns an [`iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Iteration_protocols) allowing to go through all key/value pairs contained in this object.
-- [`Headers.forEach()`](https://developer.mozilla.org/docs/Web/API/Headers/forEach): Executes a provided function once for each key/value pair in this `Headers` object.
-- [`Headers.get()`](https://developer.mozilla.org/docs/Web/API/Headers/get): Returns a [`String`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) sequence of all the values of a header within a `Headers` object with a given name.
-- [`Headers.has()`](https://developer.mozilla.org/docs/Web/API/Headers/has): Returns a boolean stating whether a `Headers` object contains a certain header.
-- [`Headers.keys()`](https://developer.mozilla.org/docs/Web/API/Headers/keys): Returns an [`iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Iteration_protocols) allowing you to go through all keys of the key/value pairs contained in this object.
-- [`Headers.values()`](https://developer.mozilla.org/docs/Web/API/Headers/values): Returns an [`iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Iteration_protocols) allowing you to go through all values of the key/value pairs contained in this object.
+- [`Headers.entries()`](https://developer.mozilla.org/docs/Web/API/Headers/entries): 返回一个[`iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Iteration_protocols)，允许您遍历此对象中包含的所有键/值对。
+- [`Headers.forEach()`](https://developer.mozilla.org/docs/Web/API/Headers/forEach): 为这个`Headers`对象中的每个键/值对执行一个提供的函数。
+- [`Headers.get()`](https://developer.mozilla.org/docs/Web/API/Headers/get): 返回一个`Headers`对象中给定名称的所有值的[`String`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)序列。
+- [`Headers.has()`](https://developer.mozilla.org/docs/Web/API/Headers/has): 返回一个布尔值，说明`Headers`对象是否包含某个特定的头部。
+- [`Headers.keys()`](https://developer.mozilla.org/docs/Web/API/Headers/keys): 返回一个[`iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Iteration_protocols)，允许您遍历此对象中包含的所有键/值对的键。
+- [`Headers.values()`](https://developer.mozilla.org/docs/Web/API/Headers/values): 返回一个[`iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Iteration_protocols)，允许您遍历此对象中包含的所有键/值对的值。
+### 示例
 
-,### Examples
+#### 与数据获取一起使用
 
-#### Usage with Data Fetching
-
-`headers()` can be used in combination with [Suspense for Data Fetching](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating).
+`headers()` 可以与 [Suspense for Data Fetching](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating) 结合使用。
 
 ```jsx filename="app/page.js"
 import { Suspense } from 'react'
@@ -69,7 +68,7 @@ import { headers } from 'next/headers'
 async function User() {
   const authorization = headers().get('authorization')
   const res = await fetch('...', {
-    headers: { authorization }, // Forward the authorization header
+    headers: { authorization }, // 转发授权头部
   })
   const user = await res.json()
 
@@ -85,9 +84,9 @@ export default function Page() {
 }
 ```
 
-#### IP Address
+#### IP 地址
 
-`headers()` can be used to get the IP address of the client.
+`headers()` 可以用来获取客户端的 IP 地址。
 
 ```jsx filename="app/page.js"
 import { Suspense } from 'react'
@@ -113,15 +112,15 @@ export default function Page() {
 }
 ```
 
-In addition to `x-forwarded-for`, `headers()` can also read:
+除了 `x-forwarded-for`，`headers()` 还可以读取：
 
 - `x-real-ip`
 - `x-forwarded-host`
 - `x-forwarded-port`
 - `x-forwarded-proto`
 
-## Version History
+### 版本历史
 
-| Version   | Changes               |
+| 版本   | 变更               |
 | --------- | --------------------- |
-| `v13.0.0` | `headers` introduced. |
+| `v13.0.0` | 引入了 `headers`。 |

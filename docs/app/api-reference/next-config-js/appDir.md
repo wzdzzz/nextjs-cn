@@ -1,10 +1,10 @@
 ---
 title: appDir
-description: Enable the App Router to use layouts, streaming, and more.
+description: 启用应用路由以使用布局、流式传输等。
 ---
 
-> **Good to know**: This option is **no longer** needed as of Next.js 13.4. The App Router is now stable.
+> **须知**：从 Next.js 13.4 开始，此选项已**不再需要**。应用路由现在已稳定。
 
-The App Router ([`app` directory](/docs/app/building-your-application/routing)) enables support for [layouts](/docs/app/building-your-application/routing/layouts-and-templates), [Server Components](/docs/app/building-your-application/rendering/server-components), [streaming](/docs/app/building-your-application/routing/loading-ui-and-streaming), and [colocated data fetching](/docs/app/building-your-application/data-fetching).
+应用路由（[`app` 目录](/docs/app/building-your-application/routing)）支持 [布局](/docs/app/building-your-application/routing/layouts-and-templates)、[服务器组件](/docs/app/building-your-application/rendering/server-components)、[流式传输](/docs/app/building-your-application/routing/loading-ui-and-streaming) 和 [同地数据获取](/docs/app/building-your-application/data-fetching)。
 
-Using the `app` directory will automatically enable [React Strict Mode](https://react.dev/reference/react/StrictMode). Learn how to [incrementally adopt `app`](/docs/app/building-your-application/upgrading/app-router-migration#migrating-from-pages-to-app).
+使用 `app` 目录将自动启用 [React Strict Mode](https://react.dev/reference/react/StrictMode)。了解如何[逐步采用 `app`](/docs/app/building-your-application/upgrading/app-router-migration#migrating-from-pages-to-app)。

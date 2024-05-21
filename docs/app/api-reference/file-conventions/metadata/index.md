@@ -1,11 +1,11 @@
 ---
-title: Metadata Files API Reference
-nav_title: Metadata Files
-description: API documentation for the metadata file conventions.
+title: 元数据文件API参考
+nav_title: 元数据文件
+description: 元数据文件约定的API文档。
 ---
+# 元数据文件API参考
+本文档部分涵盖了**元数据文件约定**。可以通过向路由段添加特殊的元数据文件来定义基于文件的元数据。
 
-This section of the docs covers **Metadata file conventions**. File-based metadata can be defined by adding special metadata files to route segments.
+每个文件约定可以使用静态文件（例如 `opengraph-image.jpg`）定义，或者使用代码生成文件的动态变体（例如 `opengraph-image.js`）。
 
-Each file convention can be defined using a static file (e.g. `opengraph-image.jpg`), or a dynamic variant that uses code to generate the file (e.g. `opengraph-image.js`).
-
-Once a file is defined, Next.js will automatically serve the file (with hashes in production for caching) and update the relevant head elements with the correct metadata, such as the asset's URL, file type, and image size.
+一旦定义了文件，Next.js 将自动提供文件（在生产中带有哈希以进行缓存），并使用正确的元数据更新相关的头部元素，例如资产的URL、文件类型和图像大小。

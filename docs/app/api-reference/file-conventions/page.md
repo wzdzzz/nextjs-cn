@@ -1,9 +1,10 @@
 ---
 title: page.js
-description: API reference for the page.js file.
 ---
 
-A **page** is UI that is unique to a route.
+# page.js
+
+**页面** 是特定于路由的用户界面。
 
 ```tsx filename="app/blog/[slug]/page.tsx" switcher
 export default function Page({
@@ -13,31 +14,31 @@ export default function Page({
   params: { slug: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  return <h1>My Page</h1>
+  return <h1>我的页面</h1>
 }
 ```
 
 ```jsx filename="app/blog/[slug]/page.js" switcher
 export default function Page({ params, searchParams }) {
-  return <h1>My Page</h1>
+  return <h1>我的页面</h1>
 }
 ```
 
-## Props
+## 属性
 
-### `params` (optional)
+### `params` （可选）
 
-An object containing the [dynamic route parameters](/docs/app/building-your-application/routing/dynamic-routes) from the root segment down to that page. For example:
+包含从根段到该页面的[动态路由参数](/docs/app/building-your-application/routing/dynamic-routes)的对象。例如：
 
-| Example                              | URL         | `params`                       |
+| 示例                              | URL         | `params`                       |
 | ------------------------------------ | ----------- | ------------------------------ |
 | `app/shop/[slug]/page.js`            | `/shop/1`   | `{ slug: '1' }`                |
 | `app/shop/[category]/[item]/page.js` | `/shop/1/2` | `{ category: '1', item: '2' }` |
 | `app/shop/[...slug]/page.js`         | `/shop/1/2` | `{ slug: ['1', '2'] }`         |
 
-### `searchParams` (optional)
+### `searchParams` （可选）
 
-An object containing the [search parameters](https://developer.mozilla.org/docs/Learn/Common_questions/What_is_a_URL#parameters) of the current URL. For example:
+包含当前URL的[搜索参数](https://developer.mozilla.org/docs/Learn/Common_questions/What_is_a_URL#parameters)的对象。例如：
 
 | URL             | `searchParams`       |
 | --------------- | -------------------- |
@@ -45,13 +46,13 @@ An object containing the [search parameters](https://developer.mozilla.org/docs/
 | `/shop?a=1&b=2` | `{ a: '1', b: '2' }` |
 | `/shop?a=1&a=2` | `{ a: ['1', '2'] }`  |
 
-> **Good to know**:
+> **须知**：
 >
-> - `searchParams` is a **[Dynamic API](/docs/app/building-your-application/rendering/server-components#server-rendering-strategies#dynamic-functions)** whose values cannot be known ahead of time. Using it will opt the page into **[dynamic rendering](/docs/app/building-your-application/rendering/server-components#dynamic-rendering)** at request time.
-> - `searchParams` returns a plain JavaScript object and not a `URLSearchParams` instance.
+> - `searchParams` 是一个**[动态API](/docs/app/building-your-application/rendering/server-components#server-rendering-strategies#dynamic-functions)**，其值无法提前知晓。使用它将使页面在请求时选择**[动态渲染](/docs/app/building-your-application/rendering/server-components#dynamic-rendering)**。
+> - `searchParams` 返回一个普通的JavaScript对象，而不是 `URLSearchParams` 实例。
 
-## Version History
+## 版本历史
 
-| Version   | Changes            |
+| 版本   | 变更            |
 | --------- | ------------------ |
-| `v13.0.0` | `page` introduced. |
+| `v13.0.0` | 引入了 `page`。 |

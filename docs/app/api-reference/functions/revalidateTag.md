@@ -1,36 +1,36 @@
 ---
-title: revalidateTag
-description: API Reference for the revalidateTag function.
+title: revalidateTag 函数
+description: revalidateTag 函数的 API 参考。
 ---
 
-`revalidateTag` allows you to purge [cached data](/docs/app/building-your-application/caching) on-demand for a specific cache tag.
+`revalidateTag` 允许你按需清除特定缓存标签的[缓存数据](/docs/app/building-your-application/caching)。
 
-> **Good to know**:
+> **须知**：
 >
-> - `revalidateTag` is available in both [Node.js and Edge runtimes](/docs/app/building-your-application/rendering/edge-and-nodejs-runtimes).
-> - `revalidateTag` only invalidates the cache when the path is next visited. This means calling `revalidateTag` with a dynamic route segment will not immediately trigger many revalidations at once. The invalidation only happens when the path is next visited.
+> - `revalidateTag` 在 [Node.js 和 Edge 运行时](/docs/app/building-your-application/rendering/edge-and-nodejs-runtimes)中都可用。
+> - 当路径下次被访问时，`revalidateTag` 仅会使缓存失效。这意味着使用动态路由段调用 `revalidateTag` 不会立即触发许多重新验证。失效仅在路径下次被访问时发生。
 
-## Parameters
+## 参数
 
 ```tsx
 revalidateTag(tag: string): void;
 ```
 
-- `tag`: A string representing the cache tag associated with the data you want to revalidate. Must be less than or equal to 256 characters. This value is case-sensitive.
+- `tag`：一个字符串，表示与要重新验证的数据关联的缓存标签。必须小于或等于 256 个字符。此值区分大小写。
 
-You can add tags to `fetch` as follows:
+你可以像下面这样将标签添加到 `fetch`：
 
 ```tsx
 fetch(url, { next: { tags: [...] } });
 ```
 
-## Returns
+## 返回值
 
-`revalidateTag` does not return any value.
+`revalidateTag` 不返回任何值。
 
-## Examples
+## 示例
 
-### Server Action
+### 服务器操作
 
 ```ts filename="app/actions.ts" switcher
 'use server'
@@ -54,7 +54,7 @@ export default async function submit() {
 }
 ```
 
-### Route Handler
+### 路由处理程序
 
 ```ts filename="app/api/revalidate/route.ts" switcher
 import { NextRequest } from 'next/server'

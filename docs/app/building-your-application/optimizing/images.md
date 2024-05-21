@@ -243,9 +243,9 @@ export default function Page() {
 
 ### 响应式
 
-<Image
+<img
   alt="响应式图片填满其父容器的宽度和高度"
-  srcLight="/docs/light/responsive-image.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/responsive-image.png&w=3840&q=75"
   srcDark="/docs/dark/responsive-image.png"
   width="1600"
   height="629"
@@ -277,9 +277,9 @@ export default function Responsive() {
 
 ### 填充容器
 
-<Image
+<img
   alt="网格图片填满父容器宽度"
-  srcLight="/docs/light/fill-container.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/fill-container.png&w=3840&q=75"
   srcDark="/docs/dark/fill-container.png"
   width="1600"
   height="529"
@@ -317,9 +317,9 @@ export default function Fill() {
 
 ### 背景图片
 
-<Image
+<img
   alt="背景图片占据页面的全宽和全高"
-  srcLight="/docs/light/background-image.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/background-image.png&w=3840&q=75"
   srcDark="/docs/dark/background-image.png"
   width="1600"
   height="427"

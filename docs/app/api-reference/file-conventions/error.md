@@ -1,18 +1,18 @@
 ---
 title: error.js
-description: API reference for the error.js special file.
+description: error.js 特殊文件的 API 参考。
 related:
-  title: Learn more about error handling
+  title: 了解更多关于错误处理的信息
   links:
     - app/building-your-application/routing/error-handling
 ---
 
-An **error** file defines an error UI boundary for a route segment.
+**error** 文件为路由段定义了一个错误 UI 边界。
 
-It is useful for catching **unexpected** errors that occur in Server Components and Client Components and displaying a fallback UI.
+它对于捕获在服务器组件和客户端组件中发生的**意外**错误并显示一个后备 UI 非常有用。
 
 ```tsx filename="app/dashboard/error.tsx" switcher
-'use client' // Error components must be Client Components
+'use client' // 错误组件必须是客户端组件
 
 import { useEffect } from 'react'
 
@@ -24,20 +24,20 @@ export default function Error({
   reset: () => void
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
+    // 将错误记录到错误报告服务
     console.error(error)
   }, [error])
 
   return (
     <div>
-      <h2>Something went wrong!</h2>
+      <h2>出了点问题！</h2>
       <button
         onClick={
-          // Attempt to recover by trying to re-render the segment
+          // 尝试通过重新渲染段来恢复
           () => reset()
         }
       >
-        Try again
+        再试一次
       </button>
     </div>
   )
@@ -45,66 +45,66 @@ export default function Error({
 ```
 
 ```jsx filename="app/dashboard/error.js" switcher
-'use client' // Error components must be Client Components
+'use client' // 错误组件必须是客户端组件
 
 import { useEffect } from 'react'
 
 export default function Error({ error, reset }) {
   useEffect(() => {
-    // Log the error to an error reporting service
+    // 将错误记录到错误报告服务
     console.error(error)
   }, [error])
 
   return (
     <div>
-      <h2>Something went wrong!</h2>
+      <h2>出了点问题！</h2>
       <button
         onClick={
-          // Attempt to recover by trying to re-render the segment
+          // 尝试通过重新渲染段来恢复
           () => reset()
         }
       >
-        Try again
+        再试一次
       </button>
     </div>
   )
 }
 ```
 
+
 ## Props
 
 ### `error`
 
-An instance of an [`Error`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error) object forwarded to the `error.js` Client Component.
+一个 [`Error`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error) 对象的实例，该对象被转发到 `error.js` 客户端组件。
 
 #### `error.message`
 
-The error message.
+错误消息。
 
-- For errors forwarded from Client Components, this will be the original Error's message.
-- For errors forwarded from Server Components, this will be a generic error message to avoid leaking sensitive details. `errors.digest` can be used to match the corresponding error in server-side logs.
+- 对于从客户端组件转发的错误，这将是原始错误的信息。
+- 对于从服务器组件转发的错误，这将是一个通用的错误消息，以避免泄露敏感细节。可以使用 `errors.digest` 在服务器端日志中匹配相应的错误。
 
 #### `error.digest`
 
-An automatically generated hash of the error thrown in a Server Component. It can be used to match the corresponding error in server-side logs.
+在服务器组件中抛出的错误自动生成的哈希值。它可以用来在服务器端日志中匹配相应的错误。
 
 ### `reset`
 
-A function to reset the error boundary. When executed, the function will try to re-render the Error boundary's contents. If successful, the fallback error component is replaced with the result of the re-render.
+一个重置错误边界的函数。执行该函数时，函数将尝试重新渲染错误边界的内容。如果成功，后备错误组件将被重新渲染的结果替换。
 
-Can be used to prompt the user to attempt to recover from the error.
+可以用来提示用户尝试从错误中恢复。
 
-> **Good to know**:
+> **须知**：
 >
-> - `error.js` boundaries must be **[Client Components](/docs/app/building-your-application/rendering/client-components)**.
-> - In Production builds, errors forwarded from Server Components will be stripped of specific error details to avoid leaking sensitive information.
-> - An `error.js` boundary will **not** handle errors thrown in a `layout.js` component in the **same** segment because the error boundary is nested **inside** that layouts component.
->   - To handle errors for a specific layout, place an `error.js` file in the layouts parent segment.
->   - To handle errors within the root layout or template, use a variation of `error.js` called `app/global-error.js`.
+> - `error.js` 边界必须是 **[客户端组件](/docs/app/building-your-application/rendering/client-components)**。
+> - 在生产构建中，从服务器组件转发的错误将剥离特定错误细节，以避免泄露敏感信息。
+> - `error.js` 边界将 **不会** 处理在 **同一** 段中的 `layout.js` 组件中抛出的错误，因为错误边界嵌套在该布局组件 **内部**。
+>   - 要处理特定布局的错误，请在布局的父段中放置一个 `error.js` 文件。
+>   - 要处理根布局或模板中的错误，请使用称为 `app/global-error.js` 的 `error.js` 的变体。
+## `global-error.js`
 
-,## `global-error.js`
-
-To specifically handle errors in root `layout.js`, use a variation of `error.js` called `app/global-error.js` located in the root `app` directory.
+要在根目录的 `layout.js` 中特别处理错误，可以使用一个名为 `app/global-error.js` 的 `error.js` 的变体，它位于根目录的 `app` 中。
 
 ```tsx filename="app/global-error.tsx" switcher
 'use client'
@@ -119,8 +119,8 @@ export default function GlobalError({
   return (
     <html>
       <body>
-        <h2>Something went wrong!</h2>
-        <button onClick={() => reset()}>Try again</button>
+        <h2>出错了！</h2>
+        <button onClick={() => reset()}>再试一次</button>
       </body>
     </html>
   )
@@ -134,26 +134,26 @@ export default function GlobalError({ error, reset }) {
   return (
     <html>
       <body>
-        <h2>Something went wrong!</h2>
-        <button onClick={() => reset()}>Try again</button>
+        <h2>出错了！</h2>
+        <button onClick={() => reset()}>再试一次</button>
       </body>
     </html>
   )
 }
 ```
 
-> **Good to know**:
+> **须知**：
 >
-> - `global-error.js` replaces the root `layout.js` when active and so **must** define its own `<html>` and `<body>` tags.
-> - While designing error UI, you may find it helpful to use the [React Developer Tools](https://react.dev/learn/react-developer-tools) to manually toggle Error boundaries.
+> - `global-error.js` 在激活时会替换根目录的 `layout.js`，因此**必须**定义自己的 `<html>` 和 `<body>` 标签。
+> - 在设计错误用户界面时，您可能会发现使用 [React Developer Tools](https://react.dev/learn/react-developer-tools) 手动切换错误边界很有帮助。
 
 ## not-found.js
 
-The [`not-found`](https://nextjs.org/docs/app/api-reference/file-conventions/not-found) file is used to render UI when the `notFound()` function is thrown within a route segment.
+当在路由段内抛出 `notFound()` 函数时，使用 [`not-found`](https://nextjs.org/docs/app/api-reference/file-conventions/not-found) 文件来渲染用户界面。
 
-## Version History
+## 版本历史
 
-| Version   | Changes                    |
+| 版本   | 变更                    |
 | --------- | -------------------------- |
-| `v13.1.0` | `global-error` introduced. |
-| `v13.0.0` | `error` introduced.        |
+| `v13.1.0` | 引入了 `global-error`。 |
+| `v13.0.0` | 引入了 `error`。        |

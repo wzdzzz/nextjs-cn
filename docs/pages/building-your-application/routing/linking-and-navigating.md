@@ -1,11 +1,11 @@
 ---
-title: Linking and Navigating
-description: Learn how navigation works in Next.js, and how to use the Link Component and `useRouter` hook.
+title: 链接和导航
+description: 学习 Next.js 中导航的工作原理，以及如何使用 Link 组件和 `useRouter` 钩子。
 ---
 
-The Next.js router allows you to do client-side route transitions between pages, similar to a single-page application.
+Next.js 路由器允许你在页面之间进行客户端路由转换，类似于单页应用程序。
 
-A React component called `Link` is provided to do this client-side route transition.
+提供了一个名为 `Link` 的 React 组件来实现这种客户端路由转换。
 
 ```jsx
 import Link from 'next/link'
@@ -14,13 +14,13 @@ function Home() {
   return (
     <ul>
       <li>
-        <Link href="/">Home</Link>
+        <Link href="/">首页</Link>
       </li>
       <li>
-        <Link href="/about">About Us</Link>
+        <Link href="/about">关于我们</Link>
       </li>
       <li>
-        <Link href="/blog/hello-world">Blog Post</Link>
+        <Link href="/blog/hello-world">博客文章</Link>
       </li>
     </ul>
   )
@@ -29,17 +29,17 @@ function Home() {
 export default Home
 ```
 
-The example above uses multiple links. Each one maps a path (`href`) to a known page:
+上面的示例使用了多个链接。每个链接将一个路径（`href`）映射到一个已知页面：
 
 - `/` → `pages/index.js`
 - `/about` → `pages/about.js`
 - `/blog/hello-world` → `pages/blog/[slug].js`
 
-Any `<Link />` in the viewport (initially or through scroll) will be prefetched by default (including the corresponding data) for pages using [Static Generation](/docs/pages/building-your-application/data-fetching/get-static-props). The corresponding data for [server-rendered](/docs/pages/building-your-application/data-fetching/get-server-side-props) routes is fetched _only when_ the `<Link />` is clicked.
+在视口中的任何 `<Link />`（最初或通过滚动）将默认被预取（包括相应的数据），适用于使用 [静态生成](/docs/pages/building-your-application/data-fetching/get-static-props) 的页面。对于 [服务器渲染](/docs/pages/building-your-application/data-fetching/get-server-side-props) 路由，只有在点击 `<Link />` 时才会获取相应的数据。
 
-## Linking to dynamic paths
+## 链接到动态路径
 
-You can also use interpolation to create the path, which comes in handy for [dynamic route segments](/docs/pages/building-your-application/routing/dynamic-routes). For example, to show a list of posts which have been passed to the component as a prop:
+你还可以使用插值来创建路径，这在处理 [动态路由段](/docs/pages/building-your-application/routing/dynamic-routes) 时非常有用。例如，要显示作为 prop 传递给组件的帖子列表：
 
 ```jsx
 import Link from 'next/link'
@@ -61,9 +61,9 @@ function Posts({ posts }) {
 export default Posts
 ```
 
-> [`encodeURIComponent`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) is used in the example to keep the path utf-8 compatible.
+> 示例中使用了 [`encodeURIComponent`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) 以保持路径的 utf-8 兼容性。
 
-Alternatively, using a URL Object:
+或者，使用 URL 对象：
 
 ```jsx
 import Link from 'next/link'
@@ -90,29 +90,29 @@ function Posts({ posts }) {
 export default Posts
 ```
 
-Now, instead of using interpolation to create the path, we use a URL object in `href` where:
+现在，我们不再使用插值来创建路径，而是在 `href` 中使用一个 URL 对象，其中：
 
-- `pathname` is the name of the page in the `pages` directory. `/blog/[slug]` in this case.
-- `query` is an object with the dynamic segment. `slug` in this case.
+- `pathname` 是 `pages` 目录中页面的名称。在这种情况下是 `/blog/[slug]`。
+- `query` 是包含动态段的对象。在这种情况下是 `slug`。
 
-## Injecting the router
+## 注入路由器
 
 <details>
-  <summary>Examples</summary>
+  <summary>示例</summary>
 
-- [Dynamic Routing](https://github.com/vercel/next.js/tree/canary/examples/dynamic-routing)
+- [动态路由](https://github.com/vercel/next.js/tree/canary/examples/dynamic-routing)
 
 </details>
 
-To access the [`router` object](/docs/pages/api-reference/functions/use-router#router-object) in a React component you can use [`useRouter`](/docs/pages/api-reference/functions/use-router) or [`withRouter`](/docs/pages/api-reference/functions/use-router#withrouter).
+要在 React 组件中访问 [`router` 对象](/docs/pages/api-reference/functions/use-router#router-object)，你可以使用 [`useRouter`](/docs/pages/api-reference/functions/use-router) 或 [`withRouter`](/docs/pages/api-reference/functions/use-router#withrouter)。
 
-In general we recommend using [`useRouter`](/docs/pages/api-reference/functions/use-router).
+通常我们推荐使用 [`useRouter`](/docs/pages/api-reference/functions/use-router)。
 
-## Imperative Routing
+## 命令式路由
 
-[`next/link`](/docs/pages/api-reference/components/link) should be able to cover most of your routing needs, but you can also do client-side navigations without it, take a look at the [documentation for `next/router`](/docs/pages/api-reference/functions/use-router).
+[`next/link`](/docs/pages/api-reference/components/link) 应该能够满足你的大部分路由需求，但你还可以在没有它的情况下进行客户端导航，请参阅 [`next/router`](/docs/pages/api-reference/functions/use-router) 的 [文档](/docs/pages/api-reference/functions/use-router)。
 
-The following example shows how to do basic page navigations with [`useRouter`](/docs/pages/api-reference/functions/use-router):
+以下示例展示了如何使用 [`useRouter`](/docs/pages/api-reference/functions/use-router) 进行基本的页面导航：
 
 ```jsx
 import { useRouter } from 'next/router'
@@ -122,70 +122,69 @@ export default function ReadMore() {
 
   return (
     <button onClick={() => router.push('/about')}>
-      Click here to read more
+      点击这里了解更多
     </button>
   )
 }
 ```
-
-,## Shallow Routing
+## 浅层路由
 
 <details>
-  <summary>Examples</summary>
+  <summary>示例</summary>
 
-- [Shallow Routing](https://github.com/vercel/next.js/tree/canary/examples/with-shallow-routing)
+- [浅层路由](https://github.com/vercel/next.js/tree/canary/examples/with-shallow-routing)
 
 </details>
 
-Shallow routing allows you to change the URL without running data fetching methods again, that includes [`getServerSideProps`](/docs/pages/building-your-application/data-fetching/get-server-side-props), [`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props), and [`getInitialProps`](/docs/pages/api-reference/functions/get-initial-props).
+浅层路由允许您更改URL，而无需再次运行数据获取方法，这包括 [`getServerSideProps`](/docs/pages/building-your-application/data-fetching/get-server-side-props)、[`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props) 和 [`getInitialProps`](/docs/pages/api-reference/functions/get-initial-props)。
 
-You'll receive the updated `pathname` and the `query` via the [`router` object](/docs/pages/api-reference/functions/use-router#router-object) (added by [`useRouter`](/docs/pages/api-reference/functions/use-router) or [`withRouter`](/docs/pages/api-reference/functions/use-router#withrouter)), without losing state.
+您将通过 [`router` 对象](/docs/pages/api-reference/functions/use-router#router-object)（由 [`useRouter`](/docs/pages/api-reference/functions/use-router) 或 [`withRouter`](/docs/pages/api-reference/functions/use-router#withrouter) 添加）接收到更新后的 `pathname` 和 `query`，而不会丢失状态。
 
-To enable shallow routing, set the `shallow` option to `true`. Consider the following example:
+要启用浅层路由，将 `shallow` 选项设置为 `true`。考虑以下示例：
 
 ```jsx
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-// Current URL is '/'
+// 当前URL是 '/'
 function Page() {
   const router = useRouter()
 
   useEffect(() => {
-    // Always do navigations after the first render
+    // 始终在第一次渲染后进行导航
     router.push('/?counter=10', undefined, { shallow: true })
   }, [])
 
   useEffect(() => {
-    // The counter changed!
+    // 计数器改变了！
   }, [router.query.counter])
 }
 
 export default Page
 ```
 
-The URL will get updated to `/?counter=10` and the page won't get replaced, only the state of the route is changed.
+URL将更新为 `/?counter=10`，页面不会替换，只有路由的状态会改变。
 
-You can also watch for URL changes via [`componentDidUpdate`](https://react.dev/reference/react/Component#componentdidupdate) as shown below:
+您还可以通过 [`componentDidUpdate`](https://react.dev/reference/react/Component#componentdidupdate) 监听URL变化，如下所示：
 
 ```jsx
 componentDidUpdate(prevProps) {
   const { pathname, query } = this.props.router
-  // verify props have changed to avoid an infinite loop
+  // 验证属性已更改以避免无限循环
   if (query.counter !== prevProps.router.query.counter) {
-    // fetch data based on the new query
+    // 根据新的查询获取数据
   }
 }
 ```
 
-### Caveats
+### 须知
 
-Shallow routing **only** works for URL changes in the current page. For example, let's assume we have another page called `pages/about.js`, and you run this:
+浅层路由 **仅** 适用于当前页面的URL变化。例如，假设我们有另一个名为 `pages/about.js` 的页面，并且您运行以下代码：
 
 ```js
 router.push('/?counter=10', '/about?counter=10', { shallow: true })
 ```
 
-Since that's a new page, it'll unload the current page, load the new one and wait for data fetching even though we asked to do shallow routing.
+由于这是一个新页面，它将卸载当前页面，加载新页面，并等待数据获取，即使我们请求进行浅层路由。
 
-When shallow routing is used with middleware it will not ensure the new page matches the current page like previously done without middleware. This is due to middleware being able to rewrite dynamically and can't be verified client-side without a data fetch which is skipped with shallow, so a shallow route change must always be treated as shallow.
+当浅层路由与中间件一起使用时，它不会像以前没有中间件时那样确保新页面与当前页面匹配。这是因为中间件能够动态重写，并且无法在不进行数据获取的情况下在客户端验证，而数据获取在使用浅层路由时被跳过，因此浅层路由更改必须始终被视为浅层。

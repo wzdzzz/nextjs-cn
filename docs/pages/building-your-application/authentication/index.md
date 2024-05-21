@@ -1,7 +1,7 @@
 ---
-title: Authentication
-description: Learn how to implement authentication in Next.js, covering best practices, securing routes, authorization techniques, and session management.
+title: 认证
+description: 学习如何在Next.js中实现认证，涵盖最佳实践、保护路由、授权技术和会话管理。
 source: app/building-your-application/authentication
 ---
 
-{/* DO NOT EDIT. The content of this doc is generated from the source above. To edit the content of this page, navigate to the source page in your editor. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 请勿编辑。此文档的内容是从上述来源生成的。要编辑此页面的内容，请在编辑器中导航到源页面。您可以使用`<PagesOnly>Content</PagesOnly>`组件添加特定于页面路由器的内容。任何共享内容都不应包裹在组件中。 */}

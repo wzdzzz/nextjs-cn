@@ -1,11 +1,11 @@
 ---
 title: useSelectedLayoutSegments
-description: API Reference for the useSelectedLayoutSegments hook.
+description: useSelectedLayoutSegments 钩子的 API 参考。
 ---
 
-`useSelectedLayoutSegments` is a **Client Component** hook that lets you read the active route segments **below** the Layout it is called from.
+`useSelectedLayoutSegments` 是一个 **客户端组件** 钩子，允许你读取在其下调用的布局的 **下一级** 活动路由段。
 
-It is useful for creating UI in parent Layouts that need knowledge of active child segments such as breadcrumbs.
+对于需要知道活动子段（如面包屑导航）的父布局中创建 UI 非常有用。
 
 ```tsx filename="app/example-client-component.tsx" switcher
 'use client'
@@ -43,35 +43,35 @@ export default function ExampleClientComponent() {
 }
 ```
 
-> **Good to know**:
+> **须知**：
 >
-> - Since `useSelectedLayoutSegments` is a [Client Component](/docs/app/building-your-application/rendering/client-components) hook, and Layouts are [Server Components](/docs/app/building-your-application/rendering/server-components) by default, `useSelectedLayoutSegments` is usually called via a Client Component that is imported into a Layout.
-> - The returned segments include [Route Groups](/docs/app/building-your-application/routing/route-groups), which you might not want to be included in your UI. You can use the `filter()` array method to remove items that start with a bracket.
+> - 由于 `useSelectedLayoutSegments` 是一个 [客户端组件](/docs/app/building-your-application/rendering/client-components) 钩子，而布局默认是 [服务器组件](/docs/app/building-your-application/rendering/server-components)，因此 `useSelectedLayoutSegments` 通常是通过导入到布局中的客户端组件来调用的。
+> - 返回的段包括 [路由组](/docs/app/building-your-application/routing/route-groups)，你可能不希望在 UI 中包含它们。你可以使用数组的 `filter()` 方法来移除以括号开头的项目。
 
-## Parameters
+## 参数
 
 ```tsx
 const segments = useSelectedLayoutSegments(parallelRoutesKey?: string)
 ```
 
-`useSelectedLayoutSegments` _optionally_ accepts a [`parallelRoutesKey`](/docs/app/building-your-application/routing/parallel-routes#useselectedlayoutsegments), which allows you to read the active route segment within that slot.
+`useSelectedLayoutSegments` 可选地接受一个 [`parallelRoutesKey`](/docs/app/building-your-application/routing/parallel-routes#useselectedlayoutsegments)，允许你在该插槽内读取活动路由段。
 
-## Returns
+## 返回值
 
-`useSelectedLayoutSegments` returns an array of strings containing the active segments one level down from the layout the hook was called from. Or an empty array if none exist.
+`useSelectedLayoutSegments` 返回一个字符串数组，包含从调用该钩子的布局下一级的活动段。如果不存在，则返回一个空数组。
 
-For example, given the Layouts and URLs below, the returned segments would be:
+例如，给定下面的布局和访问的 URL，返回的段将是：
 
-| Layout                    | Visited URL           | Returned Segments           |
-| ------------------------- | --------------------- | --------------------------- |
-| `app/layout.js`           | `/`                   | `[]`                        |
-| `app/layout.js`           | `/dashboard`          | `['dashboard']`             |
-| `app/layout.js`           | `/dashboard/settings` | `['dashboard', 'settings']` |
-| `app/dashboard/layout.js` | `/dashboard`          | `[]`                        |
-| `app/dashboard/layout.js` | `/dashboard/settings` | `['settings']`              |
+| 布局                    | 访问的 URL           | 返回的段                       |
+| ------------------------- | --------------------- | ------------------------------ |
+| `app/layout.js`           | `/`                   | `[]`                           |
+| `app/layout.js`           | `/dashboard`          | `['dashboard']`                |
+| `app/layout.js`           | `/dashboard/settings` | `['dashboard', 'settings']`    |
+| `app/dashboard/layout.js` | `/dashboard`          | `[]`                           |
+| `app/dashboard/layout.js` | `/dashboard/settings` | `['settings']`                 |
 
-## Version History
+## 版本历史
 
-| Version   | Changes                                 |
-| --------- | --------------------------------------- |
-| `v13.0.0` | `useSelectedLayoutSegments` introduced. |
+| 版本   | 更改                                  |
+| --------- | ------------------------------------ |
+| `v13.0.0` | 引入 `useSelectedLayoutSegments`。 |

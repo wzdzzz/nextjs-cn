@@ -1,25 +1,23 @@
 ---
-title: Environment Variables
-description: Learn to add and access environment variables in your Next.js application.
+title: 环境变量
+description: 学习如何在您的 Next.js 应用程序中添加和访问环境变量。
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
-
+# 环境变量
 <details>
-  <summary>Examples</summary>
+  <summary>示例</summary>
 
-- [Environment Variables](https://github.com/vercel/next.js/tree/canary/examples/environment-variables)
+- [环境变量](https://github.com/vercel/next.js/tree/canary/examples/environment-variables)
 
 </details>
 
-Next.js comes with built-in support for environment variables, which allows you to do the following:
+Next.js 内置了对环境变量的支持，允许您执行以下操作：
 
-- [Use `.env` to load environment variables](#loading-environment-variables)
-- [Bundle environment variables for the browser by prefixing with `NEXT_PUBLIC_`](#bundling-environment-variables-for-the-browser)
+- [使用 `.env` 加载环境变量](#加载环境变量)
+- [通过前缀 `NEXT_PUBLIC_` 将环境变量捆绑到浏览器](#为浏览器捆绑环境变量)
+## 加载环境变量
 
-,## Loading Environment Variables
-
-Next.js has built-in support for loading environment variables from `.env*` files into `process.env`.
+Next.js 内置了从 `.env*` 文件加载环境变量到 `process.env` 的支持。
 
 ```txt filename=".env"
 DB_HOST=localhost
@@ -29,9 +27,9 @@ DB_PASS=mypassword
 
 <PagesOnly>
 
-This loads `process.env.DB_HOST`, `process.env.DB_USER`, and `process.env.DB_PASS` into the Node.js environment automatically allowing you to use them in [Next.js data fetching methods](/docs/pages/building-your-application/data-fetching) and [API routes](/docs/pages/building-your-application/routing/api-routes).
+这会自动将 `process.env.DB_HOST`、`process.env.DB_USER` 和 `process.env.DB_PASS` 加载到 Node.js 环境中，允许您在 [Next.js 数据获取方法](/docs/pages/building-your-application/data-fetching) 和 [API 路由](/docs/pages/building-your-application/routing/api-routes) 中使用它们。
 
-For example, using [`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props):
+例如，使用 [`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props)：
 
 ```js filename="pages/index.js"
 export async function getStaticProps() {
@@ -48,26 +46,26 @@ export async function getStaticProps() {
 
 <AppOnly>
 
-> **Note**: Next.js also supports multiline variables inside of your `.env*` files:
+> **注意**：Next.js 还支持在 `.env*` 文件中使用多行变量：
 >
 > ```bash
 > # .env
 >
-> # you can write with line breaks
+> # 你可以使用换行符书写
 > PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----
 > ...
 > Kh9NV...
 > ...
 > -----END DSA PRIVATE KEY-----"
 >
-> # or with `\n` inside double quotes
+> # 或者在双引号内部使用 `\n`
 > PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\nKh9NV...\n-----END DSA PRIVATE KEY-----\n"
 > ```
 
-> **Note**: If you are using a `/src` folder, please note that Next.js will load the .env files **only** from the parent folder and **not** from the `/src` folder.
-> This loads `process.env.DB_HOST`, `process.env.DB_USER`, and `process.env.DB_PASS` into the Node.js environment automatically allowing you to use them in [Route Handlers](/docs/app/building-your-application/routing/route-handlers).
+> **注意**：如果您正在使用 `/src` 文件夹，请记住 Next.js 将 **仅** 从父文件夹加载 .env 文件，**不** 从 `/src` 文件夹加载。
+> 这会自动将 `process.env.DB_HOST`、`process.env.DB_USER` 和 `process.env.DB_PASS` 加载到 Node.js 环境中，允许您在 [路由处理器](/docs/app/building-your-application/routing/route-handlers) 中使用它们。
 
-For example:
+例如：
 
 ```js filename="app/api/route.js"
 export async function GET() {
@@ -82,13 +80,13 @@ export async function GET() {
 
 </AppOnly>
 
-### Loading Environment Variables with `@next/env`
+### 使用 `@next/env` 加载环境变量
 
-If you need to load environment variables outside of the Next.js runtime, such as in a root config file for an ORM or test runner, you can use the `@next/env` package.
+如果您需要在 Next.js 运行时之外加载环境变量，例如在 ORM 或测试运行器的根配置文件中，您可以使用 `@next/env` 包。
 
-This package is used internally by Next.js to load environment variables from `.env*` files.
+这个包是 Next.js 内部用来从 `.env*` 文件加载环境变量的。
 
-To use it, install the package and use the `loadEnvConfig` function to load the environment variables:
+要使用它，安装该包并使用 `loadEnvConfig` 函数来加载环境变量：
 
 ```bash
 npm install @next/env
@@ -108,7 +106,7 @@ const projectDir = process.cwd()
 loadEnvConfig(projectDir)
 ```
 
-Then, you can import the configuration where needed. For example:
+然后，您可以在需要的地方导入配置。例如：
 
 ```tsx filename="orm.config.ts" switcher
 import './envConfig.ts'
@@ -130,38 +128,37 @@ export default defineConfig({
 })
 ```
 
-### Referencing Other Variables
+### 引用其他变量
 
-Next.js will automatically expand variables that use `$` to reference other variables e.g. `$VARIABLE` inside of your `.env*` files. This allows you to reference other secrets. For example:
+Next.js 会自动展开在 `.env*` 文件中使用 `$` 引用其他变量的变量，例如 `$VARIABLE`。这允许您引用其他密钥。例如：
 
 ```txt filename=".env"
 TWITTER_USER=nextjs
 TWITTER_URL=https://twitter.com/$TWITTER_USER
 ```
 
-In the above example, `process.env.TWITTER_URL` would be set to `https://twitter.com/nextjs`.
+在上面的例子中，`process.env.TWITTER_URL` 将被设置为 `https://twitter.com/nextjs`。
 
-> **Good to know**: If you need to use variable with a `$` in the actual value, it needs to be escaped e.g. `\$`.
+> **须知**：如果您需要在实际值中使用带有 `$` 的变量，它需要被转义，例如 `\$`。
+## 为浏览器打包环境变量
 
-,## Bundling Environment Variables for the Browser
+非 `NEXT_PUBLIC_` 环境变量仅在 Node.js 环境中可用，这意味着它们对浏览器（客户端在不同的 _环境_ 中运行）是不可见的。
 
-Non-`NEXT_PUBLIC_` environment variables are only available in the Node.js environment, meaning they aren't accessible to the browser (the client runs in a different _environment_).
+为了使环境变量的值在浏览器中可访问，Next.js 可以在构建时将值“内联”到传递给客户端的 js 包中，将所有对 `process.env.[variable]` 的引用替换为硬编码值。要告诉它这样做，只需将变量前缀为 `NEXT_PUBLIC_`。例如：
 
-In order to make the value of an environment variable accessible in the browser, Next.js can "inline" a value, at build time, into the js bundle that is delivered to the client, replacing all references to `process.env.[variable]` with a hard-coded value. To tell it to do this, you just have to prefix the variable with `NEXT_PUBLIC_`. For example:
-
-```txt filename="Terminal"
+```txt filename="终端"
 NEXT_PUBLIC_ANALYTICS_ID=abcdefghijk
 ```
 
-This will tell Next.js to replace all references to `process.env.NEXT_PUBLIC_ANALYTICS_ID` in the Node.js environment with the value from the environment in which you run `next build`, allowing you to use it anywhere in your code. It will be inlined into any JavaScript sent to the browser.
+这将告诉 Next.js 将 Node.js 环境中对 `process.env.NEXT_PUBLIC_ANALYTICS_ID` 的所有引用替换为运行 `next build` 时环境的值，允许您在代码的任何地方使用它。它将被内联到发送到浏览器的任何 JavaScript 中。
 
-> **Note**: After being built, your app will no longer respond to changes to these environment variables. For instance, if you use a Heroku pipeline to promote slugs built in one environment to another environment, or if you build and deploy a single Docker image to multiple environments, all `NEXT_PUBLIC_` variables will be frozen with the value evaluated at build time, so these values need to be set appropriately when the project is built. If you need access to runtime environment values, you'll have to setup your own API to provide them to the client (either on demand or during initialization).
+> **注意**：构建后，您的应用程序将不再响应这些环境变量的更改。例如，如果您使用 Heroku 流水线将在一个环境中构建的 slugs 推广到另一个环境，或者如果您构建并部署单个 Docker 镜像到多个环境，所有 `NEXT_PUBLIC_` 变量将被冻结为构建时评估的值，因此这些值需要在构建项目时适当设置。如果您需要访问运行时环境值，您必须设置自己的 API 以提供它们给客户端（无论是按需还是初始化期间）。
 
 ```js filename="pages/index.js"
 import setupAnalyticsService from '../lib/my-analytics-service'
 
-// 'NEXT_PUBLIC_ANALYTICS_ID' can be used here as it's prefixed by 'NEXT_PUBLIC_'.
-// It will be transformed at build time to `setupAnalyticsService('abcdefghijk')`.
+// 'NEXT_PUBLIC_ANALYTICS_ID' 可以在这里使用，因为它被 'NEXT_PUBLIC_' 前缀。
+// 它将在构建时转换为 `setupAnalyticsService('abcdefghijk')`。
 setupAnalyticsService(process.env.NEXT_PUBLIC_ANALYTICS_ID)
 
 function HomePage() {
@@ -171,80 +168,79 @@ function HomePage() {
 export default HomePage
 ```
 
-Note that dynamic lookups will _not_ be inlined, such as:
+请注意，动态查找将不会被内联，例如：
 
 ```js
-// This will NOT be inlined, because it uses a variable
+// 这将不会被内联，因为它使用了一个变量
 const varName = 'NEXT_PUBLIC_ANALYTICS_ID'
 setupAnalyticsService(process.env[varName])
 
-// This will NOT be inlined, because it uses a variable
+// 这将不会被内联，因为它使用了一个变量
 const env = process.env
 setupAnalyticsService(env.NEXT_PUBLIC_ANALYTICS_ID)
 ```
 
-### Runtime Environment Variables
+### 运行时环境变量
 
-Next.js can support both build time and runtime environment variables.
+Next.js 可以支持构建时和运行时环境变量。
 
-**By default, environment variables are only available on the server**. To expose an environment variable to the browser, it must be prefixed with `NEXT_PUBLIC_`. However, these public environment variables will be inlined into the JavaScript bundle during `next build`.
+**默认情况下，环境变量仅在服务器上可用**。要将环境变量暴露给浏览器，它必须以 `NEXT_PUBLIC_` 为前缀。然而，这些公共环境变量将在 `next build` 期间被内联到 JavaScript 包中。
 
-To read runtime environment variables, we recommend using `getServerSideProps` or [incrementally adopting the App Router](/docs/app/building-your-application/upgrading/app-router-migration). With the App Router, we can safely read environment variables on the server during dynamic rendering. This allows you to use a singular Docker image that can be promoted through multiple environments with different values.
+要读取运行时环境变量，我们建议使用 `getServerSideProps` 或 [逐步采用 App Router](/docs/app/building-your-application/upgrading/app-router-migration)。通过 App Router，我们可以在动态渲染期间安全地读取服务器上的环境变量。这允许您使用一个可以在整个环境中推广的不同值的单一 Docker 镜像。
 
 ```jsx
 import { unstable_noStore as noStore } from 'next/cache'
 
 export default function Component() {
   noStore()
-  // cookies(), headers(), and other dynamic functions
-  // will also opt into dynamic rendering, meaning
-  // this env variable is evaluated at runtime
+  // cookies(), headers(), 和其他动态函数
+  // 也将选择动态渲染，这意味着
+  // 这个环境变量在运行时被评估
   const value = process.env.MY_VALUE
   // ...
 }
 ```
 
-**Good to know:**
+**须知：**
 
-- You can run code on server startup using the [`register` function](/docs/app/building-your-application/optimizing/instrumentation).
-- We do not recommend using the [runtimeConfig](/docs/pages/api-reference/next-config-js/runtime-configuration) option, as this does not work with the standalone output mode. Instead, we recommend [incrementally adopting](/docs/app/building-your-application/upgrading/app-router-migration) the App Router.
+- 您可以使用 [`register` 函数](/docs/app/building-your-application/optimizing/instrumentation) 在服务器启动时运行代码。
+- 我们不建议使用 [runtimeConfig](/docs/pages/api-reference/next-config-js/runtime-configuration) 选项，因为这不适用于独立输出模式。相反，我们建议 [逐步采用](/docs/app/building-your-application/upgrading/app-router-migration) App Router。
+## 默认环境变量
 
-,## Default Environment Variables
+通常，只需要 `.env*` 文件。然而，有时您可能想要为 `development`（`next dev`）或 `production`（`next start`）环境添加一些默认值。
 
-Typically, only `.env*` file is needed. However, sometimes you might want to add some defaults for the `development` (`next dev`) or `production` (`next start`) environment.
+Next.js 允许您在 `.env`（所有环境）、`.env.development`（开发环境）和 `.env.production`（生产环境）中设置默认值。
 
-Next.js allows you to set defaults in `.env` (all environments), `.env.development` (development environment), and `.env.production` (production environment).
+> **须知**：`.env`、`.env.development` 和 `.env.production` 文件应该包含在您的仓库中，因为它们定义了默认值。所有 `.env` 文件默认在 `.gitignore` 中被排除，允许您选择将这些值提交到您的仓库。
 
-> **Good to know**: `.env`, `.env.development`, and `.env.production` files should be included in your repository as they define defaults. All `.env` files are excluded in `.gitignore` by default, allowing you to opt-into committing these values to your repository.
+## Vercel 上的环境变量
 
-## Environment Variables on Vercel
+当您将 Next.js 应用程序部署到 [Vercel](https://vercel.com) 时，可以在 [项目设置](https://vercel.com/docs/projects/environment-variables?utm_medium=docs&utm_source=next-site&utm_campaign=next-website) 中配置环境变量。
 
-When deploying your Next.js application to [Vercel](https://vercel.com), Environment Variables can be configured [in the Project Settings](https://vercel.com/docs/projects/environment-variables?utm_medium=docs&utm_source=next-site&utm_campaign=next-website).
+所有类型的环境变量都应在那里配置。即使是开发中使用的环境变量，也可以在之后 [下载到您的本地设备](https://vercel.com/docs/concepts/projects/environment-variables#development-environment-variables?utm_source=next-site&utm_medium=docs&utm_campaign=next-website)。
 
-All types of Environment Variables should be configured there. Even Environment Variables used in Development – which can be [downloaded onto your local device](https://vercel.com/docs/concepts/projects/environment-variables#development-environment-variables?utm_source=next-site&utm_medium=docs&utm_campaign=next-website) afterwards.
+如果您已配置了 [开发环境变量](https://vercel.com/docs/concepts/projects/environment-variables#development-environment-variables?utm_source=next-site&utm_medium=docs&utm_campaign=next-website)，您可以使用以下命令将它们拉取到 `.env.local` 中，以便在本地机器上使用：
 
-If you've configured [Development Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables#development-environment-variables?utm_source=next-site&utm_medium=docs&utm_campaign=next-website) you can pull them into a `.env.local` for usage on your local machine using the following command:
-
-```bash filename="Terminal"
+```bash filename="终端"
 vercel env pull
 ```
 
-> **Good to know**: When deploying your Next.js application to [Vercel](https://vercel.com), your environment variables in `.env*` files will not be made available to Edge Runtime, unless their name are prefixed with `NEXT_PUBLIC_`. We strongly recommend managing your environment variables in [Project Settings](https://vercel.com/docs/projects/environment-variables?utm_medium=docs&utm_source=next-site&utm_campaign=next-website) instead, from where all environment variables are available.
+> **须知**：当您将 Next.js 应用程序部署到 [Vercel](https://vercel.com) 时，除非它们的名称以 `NEXT_PUBLIC_` 为前缀，否则 `.env*` 文件中的环境变量将不会在 Edge 运行时中提供。我们强烈建议您在 [项目设置](https://vercel.com/docs/projects/environment-variables?utm_medium=docs&utm_source=next-site&utm_campaign=next-website) 中管理您的环境变量，从那里所有环境变量都是可用的。
 
-## Test Environment Variables
+## 测试环境变量
 
-Apart from `development` and `production` environments, there is a 3rd option available: `test`. In the same way you can set defaults for development or production environments, you can do the same with a `.env.test` file for the `testing` environment (though this one is not as common as the previous two). Next.js will not load environment variables from `.env.development` or `.env.production` in the `testing` environment.
+除了 `development` 和 `production` 环境，还有第三种选择：`test`。与为开发或生产环境设置默认值的方式相同，您可以使用 `.env.test` 文件为 `testing` 环境设置默认值（尽管这不如前两个常见）。Next.js 在 `testing` 环境中不会从 `.env.development` 或 `.env.production` 加载环境变量。
 
-This one is useful when running tests with tools like `jest` or `cypress` where you need to set specific environment vars only for testing purposes. Test default values will be loaded if `NODE_ENV` is set to `test`, though you usually don't need to do this manually as testing tools will address it for you.
+当您使用像 `jest` 或 `cypress` 这样的工具运行测试时，这非常有用，因为您需要为测试目的设置特定的环境变量。如果 `NODE_ENV` 设置为 `test`，则将加载测试默认值，尽管您通常不需要手动这样做，因为测试工具会为您处理。
 
-There is a small difference between `test` environment, and both `development` and `production` that you need to bear in mind: `.env.local` won't be loaded, as you expect tests to produce the same results for everyone. This way every test execution will use the same env defaults across different executions by ignoring your `.env.local` (which is intended to override the default set).
+`test` 环境与 `development` 和 `production` 环境之间有一个小区别，您需要记住：`.env.local` 不会被加载，因为您希望测试为每个人产生相同的结果。这样，每次测试执行都将通过忽略您的 `.env.local`（旨在覆盖默认设置）使用相同的环境默认值。
 
-> **Good to know**: similar to Default Environment Variables, `.env.test` file should be included in your repository, but `.env.test.local` shouldn't, as `.env*.local` are intended to be ignored through `.gitignore`.
+> **须知**：与默认环境变量类似，`.env.test` 文件应包含在您的仓库中，但 `.env.test.local` 不应该包含，因为 `.env*.local` 旨在通过 `.gitignore` 被忽略。
 
-While running unit tests you can make sure to load your environment variables the same way Next.js does by leveraging the `loadEnvConfig` function from the `@next/env` package.
+在运行单元测试时，您可以通过利用 `@next/env` 包中的 `loadEnvConfig` 函数，确保以 Next.js 的方式加载您的环境变量。
 
 ```js
-// The below can be used in a Jest global setup file or similar for your testing set-up
+// 下面的内容可以在 Jest 全局设置文件或类似测试设置中使用
 import { loadEnvConfig } from '@next/env'
 
 export default async () => {
@@ -252,28 +248,27 @@ export default async () => {
   loadEnvConfig(projectDir)
 }
 ```
+## 环境变量加载顺序
 
-,## Environment Variable Load Order
-
-Environment variables are looked up in the following places, in order, stopping once the variable is found.
+环境变量的查找顺序如下，一旦找到变量即停止查找。
 
 1. `process.env`
 1. `.env.$(NODE_ENV).local`
-1. `.env.local` (Not checked when `NODE_ENV` is `test`.)
+1. `.env.local`（当`NODE_ENV`为`test`时不检查。）
 1. `.env.$(NODE_ENV)`
 1. `.env`
 
-For example, if `NODE_ENV` is `development` and you define a variable in both `.env.development.local` and `.env`, the value in `.env.development.local` will be used.
+例如，如果`NODE_ENV`是`development`，并且你在`.env.development.local`和`.env`中都定义了一个变量，那么将使用`.env.development.local`中的值。
 
-> **Good to know**: The allowed values for `NODE_ENV` are `production`, `development` and `test`.
+> **须知**：`NODE_ENV`的允许值为`production`、`development`和`test`。
 
-## Good to know
+## 须知
 
-- If you are using a [`/src` directory](/docs/app/building-your-application/configuring/src-directory), `.env.*` files should remain in the root of your project.
-- If the environment variable `NODE_ENV` is unassigned, Next.js automatically assigns `development` when running the `next dev` command, or `production` for all other commands.
+- 如果你正在使用[`/src`目录](/docs/app/building-your-application/configuring/src-directory)，`.env.*`文件应保持在项目的根目录中。
+- 如果环境变量`NODE_ENV`未分配，Next.js在运行`next dev`命令时会自动分配`development`，或者对于所有其他命令分配`production`。
 
-## Version History
+## 版本历史
 
-| Version  | Changes                                       |
+| 版本  | 变更                                       |
 | -------- | --------------------------------------------- |
-| `v9.4.0` | Support `.env` and `NEXT_PUBLIC_` introduced. |
+| `v9.4.0` | 支持`.env`和引入`NEXT_PUBLIC_`。 |

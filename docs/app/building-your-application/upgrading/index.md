@@ -1,7 +1,7 @@
 ---
-title: Upgrade Guide
-nav_title: Upgrading
-description: Learn how to upgrade to the latest versions of Next.js.
+title: 升级指南
+nav_title: 升级
+description: 了解如何升级到 Next.js 的最新版本。
 ---
-
-Upgrade your application to newer versions of Next.js or migrate from the Pages Router to the App Router.
+# 升级指南
+将您的应用程序升级到 Next.js 的新版本，或从 Pages Router 迁移到 App Router。

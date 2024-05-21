@@ -1,21 +1,18 @@
----
-title: Accessibility
-description: The built-in accessibility features of Next.js.
----
+# 无障碍性
 
-The Next.js team is committed to making Next.js accessible to all developers (and their end-users). By adding accessibility features to Next.js by default, we aim to make the Web more inclusive for everyone.
+Next.js团队致力于使Next.js对所有开发者（及其最终用户）都易于使用。通过默认添加无障碍性特性到Next.js，我们的目标是使网络对每个人都更具包容性。
 
-## Route Announcements
+## 路由公告
 
-When transitioning between pages rendered on the server (e.g. using the `<a href>` tag) screen readers and other assistive technology announce the page title when the page loads so that users understand that the page has changed.
+当在服务器上渲染的页面之间进行转换时（例如使用`<a href>`标签），屏幕阅读器和其他辅助技术会在页面加载时宣布页面标题，以便用户理解页面已更改。
 
-In addition to traditional page navigations, Next.js also supports client-side transitions for improved performance (using `next/link`). To ensure that client-side transitions are also announced to assistive technology, Next.js includes a route announcer by default.
+除了传统的页面导航，Next.js还支持客户端过渡以提高性能（使用`next/link`）。为确保客户端过渡也向辅助技术宣布，Next.js默认包括路由公告器。
 
-The Next.js route announcer looks for the page name to announce by first inspecting `document.title`, then the `<h1>` element, and finally the URL pathname. For the most accessible user experience, ensure that each page in your application has a unique and descriptive title.
+Next.js路由公告器通过首先检查`document.title`，然后是`<h1>`元素，最后是URL路径来查找要宣布的页面名称。为了获得最可访问的用户体验，请确保您的应用程序中的每个页面都有一个独特且描述性的标题。
 
 ## Linting
 
-Next.js provides an [integrated ESLint experience](/docs/pages/building-your-application/configuring/eslint) out of the box, including custom rules for Next.js. By default, Next.js includes `eslint-plugin-jsx-a11y` to help catch accessibility issues early, including warning on:
+Next.js提供了一个[集成的ESLint体验](/docs/pages/building-your-application/configuring/eslint)，包括自定义的Next.js规则。默认情况下，Next.js包括`eslint-plugin-jsx-a11y`以帮助及早捕获无障碍性问题，包括警告：
 
 - [aria-props](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/aria-props.md?rgh-link-date=2021-06-04T02%3A10%3A36Z)
 - [aria-proptypes](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/aria-proptypes.md?rgh-link-date=2021-06-04T02%3A10%3A36Z)
@@ -23,12 +20,12 @@ Next.js provides an [integrated ESLint experience](/docs/pages/building-your-app
 - [role-has-required-aria-props](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/role-has-required-aria-props.md?rgh-link-date=2021-06-04T02%3A10%3A36Z)
 - [role-supports-aria-props](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/role-supports-aria-props.md?rgh-link-date=2021-06-04T02%3A10%3A36Z)
 
-For example, this plugin helps ensure you add alt text to `img` tags, use correct `aria-*` attributes, use correct `role` attributes, and more.
+例如，此插件有助于确保您为`img`标签添加替代文本，使用正确的`aria-*`属性，使用正确的`role`属性等。
 
-## Accessibility Resources
+## 无障碍性资源
 
-- [WebAIM WCAG checklist](https://webaim.org/standards/wcag/checklist)
-- [WCAG 2.2 Guidelines](https://www.w3.org/TR/WCAG22/)
+- [WebAIM WCAG清单](https://webaim.org/standards/wcag/checklist)
+- [WCAG 2.2指南](https://www.w3.org/TR/WCAG22/)
 - [The A11y Project](https://www.a11yproject.com/)
-- Check [color contrast ratios](https://developer.mozilla.org/docs/Web/Accessibility/Understanding_WCAG/Perceivable/Color_contrast) between foreground and background elements
-- Use [`prefers-reduced-motion`](https://web.dev/prefers-reduced-motion/) when working with animations
+- 检查[前景和背景元素之间的颜色对比度](https://developer.mozilla.org/docs/Web/Accessibility/Understanding_WCAG/Perceivable/Color_contrast)
+- 在处理动画时使用[`prefers-reduced-motion`](https://web.dev/prefers-reduced-motion/)

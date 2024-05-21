@@ -1,67 +1,38 @@
+# assetPrefix
+
 ---
-title: assetPrefix
-description: Learn how to use the assetPrefix config option to configure your CDN.
----
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+须知：Next.js 9.5+ 增加了对可定制的[基础路径](/docs/app/api-reference/next-config-js/basePath)的支持，这更适合将您的应用程序托管在如 `/docs` 这样的子路径上。我们不建议在这种情况下使用自定义的 Asset Prefix。
 
-<AppOnly>
+要设置一个 [CDN](https://en.wikipedia.org/wiki/Content_delivery_network)，您可以设置一个资源前缀（asset prefix）并配置您的 CDN 的源以解析到 Next.js 托管的域名。
 
-> **Attention**: [Deploying to Vercel](/docs/app/building-your-application/deploying) automatically configures a global CDN for your Next.js project.
-> You do not need to manually setup an Asset Prefix.
-
-</AppOnly>
-
-<PagesOnly>
-
-> **Attention**: [Deploying to Vercel](/docs/pages/building-your-application/deploying) automatically configures a global CDN for your Next.js project.
-> You do not need to manually setup an Asset Prefix.
-
-</PagesOnly>
-
-> **Good to know**: Next.js 9.5+ added support for a customizable [Base Path](/docs/app/api-reference/next-config-js/basePath), which is better
-> suited for hosting your application on a sub-path like `/docs`.
-> We do not suggest you use a custom Asset Prefix for this use case.
-
-To set up a [CDN](https://en.wikipedia.org/wiki/Content_delivery_network), you can set up an asset prefix and configure your CDN's origin to resolve to the domain that Next.js is hosted on.
-
-Open `next.config.js` and add the `assetPrefix` config:
+打开 `next.config.js` 并添加 `assetPrefix` 配置：
 
 ```js filename="next.config.js"
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  // Use the CDN in production and localhost for development.
+  // 在生产环境中使用 CDN，在本地开发环境中使用 localhost。
   assetPrefix: isProd ? 'https://cdn.mydomain.com' : undefined,
 }
 ```
 
-Next.js will automatically use your asset prefix for the JavaScript and CSS files it loads from the `/_next/` path (`.next/static/` folder). For example, with the above configuration, the following request for a JS chunk:
+Next.js 将自动使用您的资源前缀来加载从 `/_next/` 路径（`.next/static/` 文件夹）加载的 JavaScript 和 CSS 文件。例如，使用上面的配置，以下对 JS 块的请求：
 
 ```
 /_next/static/chunks/4b9b41aaa062cbbfeff4add70f256968c51ece5d.4d708494b3aed70c04f0.js
 ```
 
-Would instead become:
+将变为：
 
 ```
 https://cdn.mydomain.com/_next/static/chunks/4b9b41aaa062cbbfeff4add70f256968c51ece5d.4d708494b3aed70c04f0.js
 ```
 
-The exact configuration for uploading your files to a given CDN will depend on your CDN of choice. The only folder you need to host on your CDN is the contents of `.next/static/`, which should be uploaded as `_next/static/` as the above URL request indicates. **Do not upload the rest of your `.next/` folder**, as you should not expose your server code and other configuration to the public.
+将文件上传到特定 CDN 的确切配置将取决于您选择的 CDN。您需要在 CDN 上托管的唯一文件夹是 `.next/static/` 的内容，应按照上述 URL 请求所示上传为 `_next/static/`。**不要上传 `.next/` 文件夹的其余部分**，因为您不应将服务器代码和其他配置暴露给公众。
 
-While `assetPrefix` covers requests to `_next/static`, it does not influence the following paths:
+虽然 `assetPrefix` 涵盖了对 `_next/static` 的请求，但它不影响以下路径：
 
-<AppOnly>
-
-- Files in the [public](/docs/app/building-your-application/optimizing/static-assets) folder; if you want to serve those assets over a CDN, you'll have to introduce the prefix yourself
-
-</AppOnly>
-
-<PagesOnly>
-
-- Files in the [public](/docs/pages/building-your-application/optimizing/static-assets) folder; if you want to serve those assets over a CDN, you'll have to introduce the prefix yourself
-- `/_next/data/` requests for `getServerSideProps` pages. These requests will always be made against the main domain since they're not static.
-- `/_next/data/` requests for `getStaticProps` pages. These requests will always be made against the main domain to support [Incremental Static Generation](/docs/pages/building-your-application/data-fetching/incremental-static-regeneration), even if you're not using it (for consistency).
-
-</PagesOnly>
+- [public](/docs/app/building-your-application/optimizing/static-assets) 文件夹中的文件；如果您希望通过 CDN 提供这些资源，您需要自己引入前缀
+- `getServerSideProps` 页面的 `/_next/data/` 请求。这些请求将始终针对主域名进行，因为它们不是静态的。
+- `getStaticProps` 页面的 `/_next/data/` 请求。这些请求将始终针对主域名进行，以支持 [增量静态生成](/docs/pages/building-your-application/data-fetching/incremental-static-regeneration)，即使您没有使用它（为了一致性）。

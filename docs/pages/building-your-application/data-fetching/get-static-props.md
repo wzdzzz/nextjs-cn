@@ -1,9 +1,6 @@
----
-title: getStaticProps
-description: Fetch data and generate static pages with `getStaticProps`. Learn more about this API for data fetching in Next.js.
----
+# getStaticProps
 
-If you export a function called `getStaticProps` (Static Site Generation) from a page, Next.js will pre-render this page at build time using the props returned by `getStaticProps`.
+如果你从一个页面导出一个名为 `getStaticProps` 的函数（静态网站生成），Next.js 将在构建时使用 `getStaticProps` 返回的属性预渲染此页面。
 
 ```tsx filename="pages/index.tsx" switcher
 import type { InferGetStaticPropsType, GetStaticProps } from 'next'
@@ -40,39 +37,38 @@ export default function Page({ repo }) {
 }
 ```
 
-> Note that irrespective of rendering type, any `props` will be passed to the page component and can be viewed on the client-side in the initial HTML. This is to allow the page to be [hydrated](https://react.dev/reference/react-dom/hydrate) correctly. Make sure that you don't pass any sensitive information that shouldn't be available on the client in `props`.
+> 请注意，无论渲染类型如何，任何 `props` 都将传递给页面组件，并且可以在初始 HTML 中在客户端查看。这是为了允许页面正确地[水合](https://react.dev/reference/react-dom/hydrate)。确保你不要在 `props` 中传递任何不应该在客户端可用的敏感信息。
 
-The [`getStaticProps` API reference](/docs/pages/api-reference/functions/get-static-props) covers all parameters and props that can be used with `getStaticProps`.
+[`getStaticProps` API 参考](/docs/pages/api-reference/functions/get-static-props)涵盖了所有可以与 `getStaticProps` 一起使用的参数和属性。
 
-## When should I use getStaticProps?
+## 何时使用 getStaticProps？
 
-You should use `getStaticProps` if:
+你应该使用 `getStaticProps`，如果：
 
-- The data required to render the page is available at build time ahead of a user’s request
-- The data comes from a headless CMS
-- The page must be pre-rendered (for SEO) and be very fast — `getStaticProps` generates `HTML` and `JSON` files, both of which can be cached by a CDN for performance
-- The data can be publicly cached (not user-specific). This condition can be bypassed in certain specific situation by using a Middleware to rewrite the path.
+- 页面渲染所需的数据在用户请求之前在构建时可用
+- 数据来自无头 CMS
+- 页面必须预渲染（用于 SEO）并且非常快 — `getStaticProps` 生成 `HTML` 和 `JSON` 文件，两者都可以被 CDN 缓存以提高性能
+- 数据可以公开缓存（非用户特定）。在某些特定情况下，可以通过使用中间件重写路径来绕过此条件。
 
-## When does getStaticProps run
+## getStaticProps 何时运行
 
-`getStaticProps` always runs on the server and never on the client. You can validate code written inside `getStaticProps` is removed from the client-side bundle [with this tool](https://next-code-elimination.vercel.app/).
+`getStaticProps` 总是在服务器上运行，从不在客户端运行。你可以使用[这个工具](https://next-code-elimination.vercel.app/)验证 `getStaticProps` 内部编写的代码是否已从客户端捆绑包中移除。
 
-- `getStaticProps` always runs during `next build`
-- `getStaticProps` runs in the background when using [`fallback: true`](/docs/pages/api-reference/functions/get-static-paths#fallback-true)
-- `getStaticProps` is called before initial render when using [`fallback: blocking`](/docs/pages/api-reference/functions/get-static-paths#fallback-blocking)
-- `getStaticProps` runs in the background when using `revalidate`
-- `getStaticProps` runs on-demand in the background when using [`revalidate()`](/docs/pages/building-your-application/data-fetching/incremental-static-regeneration#on-demand-revalidation)
+- `getStaticProps` 总是在 `next build` 期间运行
+- 使用 [`fallback: true`](/docs/pages/api-reference/functions/get-static-paths#fallback-true) 时，`getStaticProps` 在后台运行
+- 使用 [`fallback: blocking`](/docs/pages/api-reference/functions/get-static-paths#fallback-blocking) 时，`getStaticProps` 在初始渲染前被调用
+- 使用 `revalidate` 时，`getStaticProps` 在后台运行
+- 使用 [`revalidate()`](/docs/pages/building-your-application/data-fetching/incremental-static-regeneration#on-demand-revalidation) 时，`getStaticProps` 按需在后台运行
 
-When combined with [Incremental Static Regeneration](/docs/pages/building-your-application/data-fetching/incremental-static-regeneration), `getStaticProps` will run in the background while the stale page is being revalidated, and the fresh page served to the browser.
+结合 [增量静态再生](/docs/pages/building-your-application/data-fetching/incremental-static-regeneration)，`getStaticProps` 将在旧页面正在重新验证时在后台运行，并将新鲜页面提供给浏览器。
 
-`getStaticProps` does not have access to the incoming request (such as query parameters or HTTP headers) as it generates static HTML. If you need access to the request for your page, consider using [Middleware](/docs/pages/building-your-application/routing/middleware) in addition to `getStaticProps`.
+`getStaticProps` 无法访问传入的请求（例如查询参数或 HTTP 头），因为它生成静态 HTML。如果你需要访问页面的请求，请考虑除了 `getStaticProps` 之外，还使用 [中间件](/docs/pages/building-your-application/routing/middleware)。
+## 使用 getStaticProps 从 CMS 获取数据
 
-,## Using getStaticProps to fetch data from a CMS
-
-The following example shows how you can fetch a list of blog posts from a CMS.
+以下示例展示了如何从 CMS 获取博客文章列表。
 
 ```tsx filename="pages/blog.tsx" switcher
-// posts will be populated at build time by getStaticProps()
+// posts 将在构建时由 getStaticProps() 填充
 export default function Blog({ posts }) {
   return (
     <ul>
@@ -83,17 +79,17 @@ export default function Blog({ posts }) {
   )
 }
 
-// This function gets called at build time on server-side.
-// It won't be called on client-side, so you can even do
-// direct database queries.
+// 此函数将在服务器端构建时被调用。
+// 它不会在客户端被调用，因此你甚至可以直接执行
+// 数据库查询。
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
+  // 调用外部 API 端点获取文章。
+  // 你可以使用任何数据获取库
   const res = await fetch('https://.../posts')
   const posts = await res.json()
 
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
+  // 通过返回 { props: { posts } }，Blog 组件
+  // 将在构建时作为属性接收 `posts`
   return {
     props: {
       posts,
@@ -103,7 +99,7 @@ export async function getStaticProps() {
 ```
 
 ```jsx filename="pages/blog.js" switcher
-// posts will be populated at build time by getStaticProps()
+// posts 将在构建时由 getStaticProps() 填充
 export default function Blog({ posts }) {
   return (
     <ul>
@@ -114,17 +110,17 @@ export default function Blog({ posts }) {
   )
 }
 
-// This function gets called at build time on server-side.
-// It won't be called on client-side, so you can even do
-// direct database queries.
+// 此函数将在服务器端构建时被调用。
+// 它不会在客户端被调用，因此你甚至可以直接执行
+// 数据库查询。
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
+  // 调用外部 API 端点获取文章。
+  // 你可以使用任何数据获取库
   const res = await fetch('https://.../posts')
   const posts = await res.json()
 
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
+  // 通过返回 { props: { posts } }，Blog 组件
+  // 将在构建时作为属性接收 `posts`
   return {
     props: {
       posts,
@@ -133,22 +129,21 @@ export async function getStaticProps() {
 }
 ```
 
-The [`getStaticProps` API reference](/docs/pages/api-reference/functions/get-static-props) covers all parameters and props that can be used with `getStaticProps`.
+[`getStaticProps` API 参考](/docs/pages/api-reference/functions/get-static-props)涵盖了所有可以使用 `getStaticProps` 的参数和属性。
 
-## Write server-side code directly
+## 直接编写服务器端代码
 
-As `getStaticProps` runs only on the server-side, it will never run on the client-side. It won’t even be included in the JS bundle for the browser, so you can write direct database queries without them being sent to browsers.
+由于 `getStaticProps` 只在服务器端运行，它永远不会在客户端运行。它甚至不会被包含在浏览器的 JS 打包文件中，因此你可以直接编写数据库查询代码，而不需要将它们发送到浏览器。
 
-This means that instead of fetching an **API route** from `getStaticProps` (that itself fetches data from an external source), you can write the server-side code directly in `getStaticProps`.
+这意味着，你可以直接在 `getStaticProps` 中编写服务器端代码，而不是从 `getStaticProps` 获取 **API 路由**（该路由本身从外部源获取数据）。
 
-Take the following example. An API route is used to fetch some data from a CMS. That API route is then called directly from `getStaticProps`. This produces an additional call, reducing performance. Instead, the logic for fetching the data from the CMS can be shared by using a `lib/` directory. Then it can be shared with `getStaticProps`.
+以以下示例为例。一个 API 路由被用来从 CMS 获取一些数据。然后直接从 `getStaticProps` 调用该 API 路由。这会产生一个额外的调用，降低性能。相反，可以通过使用 `lib/` 目录共享从 CMS 获取数据的逻辑。然后它就可以与 `getStaticProps` 共享。
 
 ```js filename="lib/load-posts.js"
-// The following function is shared
-// with getStaticProps and API routes
-// from a `lib/` directory
+// 以下函数与 getStaticProps 和 API 路由共享
+// 来自 `lib/` 目录
 export async function loadPosts() {
-  // Call an external API endpoint to get posts
+  // 调用外部 API 端点获取文章
   const res = await fetch('https://.../posts/')
   const data = await res.json()
 
@@ -160,43 +155,42 @@ export async function loadPosts() {
 // pages/blog.js
 import { loadPosts } from '../lib/load-posts'
 
-// This function runs only on the server side
+// 此函数只在服务器端运行
 export async function getStaticProps() {
-  // Instead of fetching your `/api` route you can call the same
-  // function directly in `getStaticProps`
+  // 而不是获取你的 `/api` 路由，你可以直接在 `getStaticProps` 中调用相同的
+  // 函数
   const posts = await loadPosts()
 
-  // Props returned will be passed to the page component
+  // 返回的属性将传递给页面组件
   return { props: { posts } }
 }
 ```
 
-Alternatively, if you are **not** using API routes to fetch data, then the [`fetch()`](https://developer.mozilla.org/docs/Web/API/Fetch_API) API _can_ be used directly in `getStaticProps` to fetch data.
+或者，如果你**不**使用 API 路由来获取数据，那么可以直接在 `getStaticProps` 中使用 [`fetch()`](https://developer.mozilla.org/docs/Web/API/Fetch_API) API 来获取数据。
 
-To verify what Next.js eliminates from the client-side bundle, you can use the [next-code-elimination tool](https://next-code-elimination.vercel.app/).
+要验证 Next.js 从客户端打包文件中消除了什么，你可以使用 [next-code-elimination 工具](https://next-code-elimination.vercel.app/)。
+# Statically generates both HTML and JSON
 
-,## Statically generates both HTML and JSON
+当使用 `getStaticProps` 的页面在构建时进行预渲染时，除了页面的 HTML 文件外，Next.js 还会生成一个包含运行 `getStaticProps` 结果的 JSON 文件。
 
-When a page with `getStaticProps` is pre-rendered at build time, in addition to the page HTML file, Next.js generates a JSON file holding the result of running `getStaticProps`.
+这个 JSON 文件将通过 [`next/link`](/docs/pages/api-reference/components/link) 或 [`next/router`](/docs/pages/api-reference/functions/use-router) 在客户端路由中使用。当您导航到使用 `getStaticProps` 进行预渲染的页面时，Next.js 会获取这个在构建时预先计算好的 JSON 文件，并将其作为页面组件的属性。这意味着客户端页面转换将**不会**调用 `getStaticProps`，因为只使用了导出的 JSON。
 
-This JSON file will be used in client-side routing through [`next/link`](/docs/pages/api-reference/components/link) or [`next/router`](/docs/pages/api-reference/functions/use-router). When you navigate to a page that’s pre-rendered using `getStaticProps`, Next.js fetches this JSON file (pre-computed at build time) and uses it as the props for the page component. This means that client-side page transitions will **not** call `getStaticProps` as only the exported JSON is used.
-
-When using Incremental Static Generation, `getStaticProps` will be executed in the background to generate the JSON needed for client-side navigation. You may see this in the form of multiple requests being made for the same page, however, this is intended and has no impact on end-user performance.
+当使用增量静态生成时，`getStaticProps` 将在后台执行，以生成客户端导航所需的 JSON。您可能会看到对同一页面进行了多次请求，但这是正常的，并且对最终用户的性能没有影响。
 
 ## Where can I use getStaticProps
 
-`getStaticProps` can only be exported from a **page**. You **cannot** export it from non-page files, `_app`, `_document`, or `_error`.
+`getStaticProps` 只能从**页面**导出。您**不能**从非页面文件、`_app`、`_document` 或 `_error` 中导出它。
 
-One of the reasons for this restriction is that React needs to have all the required data before the page is rendered.
+这个限制的原因之一是 React 需要在页面渲染之前拥有所有必需的数据。
 
-Also, you must use export `getStaticProps` as a standalone function — it will **not** work if you add `getStaticProps` as a property of the page component.
+此外，您必须将 `getStaticProps` 作为独立函数导出 —— 如果您将 `getStaticProps` 作为页面组件的属性添加，它将**不起作用**。
 
-> **Good to know**: if you have created a [custom app](/docs/pages/building-your-application/routing/custom-app), ensure you are passing the `pageProps` to the page component as shown in the linked document, otherwise the props will be empty.
+> **须知**：如果您已经创建了一个 [自定义应用](/docs/pages/building-your-application/routing/custom-app)，请确保您像链接文档中显示的那样将 `pageProps` 传递给页面组件，否则属性将是空的。
 
 ## Runs on every request in development
 
-In development (`next dev`), `getStaticProps` will be called on every request.
+在开发中（`next dev`），`getStaticProps` 将在每个请求时被调用。
 
 ## Preview Mode
 
-You can temporarily bypass static generation and render the page at **request time** instead of build time using [**Preview Mode**](/docs/pages/building-your-application/configuring/preview-mode). For example, you might be using a headless CMS and want to preview drafts before they're published.
+您可以使用 [**预览模式**](/docs/pages/building-your-application/configuring/preview-mode) 临时绕过静态生成，并在**请求时**而不是构建时渲染页面。例如，您可能正在使用无头 CMS，并希望在发布之前预览草稿。

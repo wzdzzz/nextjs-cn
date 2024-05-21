@@ -1,7 +1,7 @@
 ---
-title: From Pages to App
-description: Learn how to upgrade your existing Next.js application from the Pages Router to the App Router.
+title: 从 Pages 到 App
+description: 了解如何将现有的 Next.js 应用程序从 Pages Router 升级到 App Router。
 source: app/building-your-application/upgrading/app-router-migration
 ---
 
-{/* DO NOT EDIT. The content of this doc is generated from the source above. To edit the content of this page, navigate to the source page in your editor. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 请勿编辑。此文档的内容是从上述来源生成的。要编辑此页面的内容，请在编辑器中导航到源页面。您可以使用 `<PagesOnly>内容</PagesOnly>` 组件来添加特定于 Pages Router 的内容。任何共享内容都不应被包装在组件中。 */}

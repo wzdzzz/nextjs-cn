@@ -1,13 +1,13 @@
 ---
 title: route.js
-description: API reference for the route.js special file.
+description: route.js 特殊文件的 API 参考。
 ---
 
-Route Handlers allow you to create custom request handlers for a given route using the Web [Request](https://developer.mozilla.org/docs/Web/API/Request) and [Response](https://developer.mozilla.org/docs/Web/API/Response) APIs.
+路由处理器允许您使用 Web [Request](https://developer.mozilla.org/docs/Web/API/Request) 和 [Response](https://developer.mozilla.org/docs/Web/API/Response) API 为给定路由创建自定义请求处理器。
 
-## HTTP Methods
+## HTTP 方法
 
-A **route** file allows you to create custom request handlers for a given route. The following [HTTP methods](https://developer.mozilla.org/docs/Web/HTTP/Methods) are supported: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, and `OPTIONS`.
+一个 **route** 文件允许您为给定路由创建自定义请求处理器。支持以下 [HTTP 方法](https://developer.mozilla.org/docs/Web/HTTP/Methods)：`GET`、`POST`、`PUT`、`PATCH`、`DELETE`、`HEAD` 和 `OPTIONS`。
 
 ```ts filename="route.ts" switcher
 export async function GET(request: Request) {}
@@ -22,7 +22,7 @@ export async function DELETE(request: Request) {}
 
 export async function PATCH(request: Request) {}
 
-// If `OPTIONS` is not defined, Next.js will automatically implement `OPTIONS` and  set the appropriate Response `Allow` header depending on the other methods defined in the route handler.
+// 如果没有定义 `OPTIONS`，Next.js 将自动实现 `OPTIONS` 并根据路由处理器中定义的其他方法设置适当的响应 `Allow` 标头。
 export async function OPTIONS(request: Request) {}
 ```
 
@@ -39,19 +39,19 @@ export async function DELETE(request) {}
 
 export async function PATCH(request) {}
 
-// If `OPTIONS` is not defined, Next.js will automatically implement `OPTIONS` and  set the appropriate Response `Allow` header depending on the other methods defined in the route handler.
+// 如果没有定义 `OPTIONS`，Next.js 将自动实现 `OPTIONS` 并根据路由处理器中定义的其他方法设置适当的响应 `Allow` 标头。
 export async function OPTIONS(request) {}
 ```
 
-> **Good to know**: Route Handlers are only available inside the `app` directory. You **do not** need to use API Routes (`pages`) and Route Handlers (`app`) together, as Route Handlers should be able to handle all use cases.
+> **须知**：路由处理器只能在 `app` 目录内使用。您**不需要**将 API 路由 (`pages`) 和路由处理器 (`app`) 一起使用，因为路由处理器应该能够处理所有用例。
 
-## Parameters
+## 参数
 
-### `request` (optional)
+### `request`（可选）
 
-The `request` object is a [NextRequest](/docs/app/api-reference/functions/next-request) object, which is an extension of the Web [Request](https://developer.mozilla.org/docs/Web/API/Request) API. `NextRequest` gives you further control over the incoming request, including easily accessing `cookies` and an extended, parsed, URL object `nextUrl`.
+`request` 对象是一个 [NextRequest](/docs/app/api-reference/functions/next-request) 对象，它是 Web [Request](https://developer.mozilla.org/docs/Web/API/Request) API 的扩展。`NextRequest` 为您提供了对传入请求的进一步控制，包括轻松访问 `cookies` 和一个扩展的、解析过的 URL 对象 `nextUrl`。
 
-### `context` (optional)
+### `context`（可选）
 
 ```ts filename="app/dashboard/[team]/route.ts" switcher
 type Params = {
@@ -62,7 +62,7 @@ export async function GET(request: Request, context: { params: Params }) {
   const team = context.params.team // '1'
 }
 
-// Define params type according to your route parameters (see table below)
+// 根据您的路由参数定义 params 类型（见下表）
 ```
 
 ```js filename="app/dashboard/[team]/route.js" switcher
@@ -73,9 +73,9 @@ export async function GET(request, context: { params }) {
 
 ```
 
-Currently, the only value of `context` is `params`, which is an object containing the [dynamic route parameters](/docs/app/building-your-application/routing/dynamic-routes) for the current route.
+`context` 的唯一值是 `params`，它是一个对象，包含当前路由的[动态路由参数](/docs/app/building-your-application/routing/dynamic-routes)。
 
-| Example                          | URL            | `params`                  |
+| 示例                          | URL            | `params`                  |
 | -------------------------------- | -------------- | ------------------------- |
 | `app/dashboard/[team]/route.js`  | `/dashboard/1` | `{ team: '1' }`           |
 | `app/shop/[tag]/[item]/route.js` | `/shop/1/2`    | `{ tag: '1', item: '2' }` |
@@ -83,10 +83,10 @@ Currently, the only value of `context` is `params`, which is an object containin
 
 ## NextResponse
 
-Route Handlers can extend the Web Response API by returning a `NextResponse` object. This allows you to easily set cookies, headers, redirect, and rewrite. [View the API reference](/docs/app/api-reference/functions/next-response).
+路由处理器可以通过返回一个 `NextResponse` 对象来扩展 Web 响应 API。这允许您轻松设置 cookies、标头、重定向和重写。[查看 API 参考](/docs/app/api-reference/functions/next-response)。
 
-## Version History
+## 版本历史
 
-| Version   | Changes                        |
+| 版本   | 变化                        |
 | --------- | ------------------------------ |
-| `v13.2.0` | Route handlers are introduced. |
+| `v13.2.0` | 引入了路由处理器。 |

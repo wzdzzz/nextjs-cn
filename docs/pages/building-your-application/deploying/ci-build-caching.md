@@ -1,23 +1,23 @@
 ---
-title: Continuous Integration (CI) Build Caching
-description: Learn how to configure CI to cache Next.js builds
+title: 持续集成 (CI) 构建缓存
+description: 学习如何配置 CI 以缓存 Next.js 构建
 ---
 
-To improve build performance, Next.js saves a cache to `.next/cache` that is shared between builds.
+为了提高构建性能，Next.js 会将缓存保存到 `.next/cache`，该缓存在构建之间共享。
 
-To take advantage of this cache in Continuous Integration (CI) environments, your CI workflow will need to be configured to correctly persist the cache between builds.
+要在持续集成 (CI) 环境中利用此缓存，您的 CI 工作流程需要配置为在构建之间正确持久化缓存。
 
-> If your CI is not configured to persist `.next/cache` between builds, you may see a [No Cache Detected](/docs/messages/no-cache) error.
+> 如果您的 CI 未配置为在构建之间持久化 `.next/cache`，您可能会看到 [No Cache Detected](/docs/messages/no-cache) 错误。
 
-Here are some example cache configurations for common CI providers:
+以下是一些常见 CI 提供商的示例缓存配置：
 
 ## Vercel
 
-Next.js caching is automatically configured for you. There's no action required on your part.
+Next.js 缓存自动为您配置。您无需采取任何行动。
 
 ## CircleCI
 
-Edit your `save_cache` step in `.circleci/config.yml` to include `.next/cache`:
+编辑 `.circleci/config.yml` 中的 `save_cache` 步骤以包含 `.next/cache`：
 
 ```yaml
 steps:
@@ -28,11 +28,11 @@ steps:
         - ./.next/cache
 ```
 
-If you do not have a `save_cache` key, please follow CircleCI's [documentation on setting up build caching](https://circleci.com/docs/2.0/caching/).
+如果您没有 `save_cache` 键，请按照 CircleCI 的 [文档设置构建缓存](https://circleci.com/docs/2.0/caching/)。
 
 ## Travis CI
 
-Add or merge the following into your `.travis.yml`:
+将以下内容添加或合并到您的 `.travis.yml` 中：
 
 ```yaml
 cache:
@@ -44,7 +44,7 @@ cache:
 
 ## GitLab CI
 
-Add or merge the following into your `.gitlab-ci.yml`:
+将以下内容添加或合并到您的 `.gitlab-ci.yml` 中：
 
 ```yaml
 cache:
@@ -56,40 +56,40 @@ cache:
 
 ## Netlify CI
 
-Use [Netlify Plugins](https://www.netlify.com/products/build/plugins/) with [`@netlify/plugin-nextjs`](https://www.npmjs.com/package/@netlify/plugin-nextjs).
+使用 [Netlify 插件](https://www.netlify.com/products/build/plugins/) 与 [`@netlify/plugin-nextjs`](https://www.npmjs.com/package/@netlify/plugin-nextjs)。
 
 ## AWS CodeBuild
 
-Add (or merge in) the following to your `buildspec.yml`:
+将以下内容添加（或合并）到您的 `buildspec.yml` 中：
 
 ```yaml
 cache:
   paths:
-    - 'node_modules/**/*' # Cache `node_modules` for faster `yarn` or `npm i`
-    - '.next/cache/**/*' # Cache Next.js for faster application rebuilds
+    - 'node_modules/**/*' # 缓存 `node_modules` 以加快 `yarn` 或 `npm i` 的速度
+    - '.next/cache/**/*' # 缓存 Next.js 以加快应用程序重建
 ```
 
 ## GitHub Actions
 
-Using GitHub's [actions/cache](https://github.com/actions/cache), add the following step in your workflow file:
+使用 GitHub 的 [actions/cache](https://github.com/actions/cache)，在您的工作流文件中添加以下步骤：
 
 ```yaml
 uses: actions/cache@v4
 with:
-  # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
+  # 有关使用 `yarn` 进行缓存的信息，请参见 https://github.com/actions/cache/blob/main/examples.md#node---yarn 或者您可以利用 actions/setup-node 进行缓存 https://github.com/actions/setup-node
   path: |
     ~/.npm
     ${{ github.workspace }}/.next/cache
-  # Generate a new cache whenever packages or source files change.
+  # 当包或源文件更改时生成新的缓存。
   key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-  # If source files changed but packages didn't, rebuild from a prior cache.
+  # 如果源文件更改但包未更改，则从先前的缓存中重建。
   restore-keys: |
     ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 ```
 
 ## Bitbucket Pipelines
 
-Add or merge the following into your `bitbucket-pipelines.yml` at the top level (same level as `pipelines`):
+将以下内容添加或合并到您的 `bitbucket-pipelines.yml` 的顶层（与 `pipelines` 同级）：
 
 ```yaml
 definitions:
@@ -97,7 +97,7 @@ definitions:
     nextcache: .next/cache
 ```
 
-Then reference it in the `caches` section of your pipeline's `step`:
+然后在管道的 `step` 的 `caches` 部分引用它：
 
 ```yaml
 - step:
@@ -109,7 +109,7 @@ Then reference it in the `caches` section of your pipeline's `step`:
 
 ## Heroku
 
-Using Heroku's [custom cache](https://devcenter.heroku.com/articles/nodejs-support#custom-caching), add a `cacheDirectories` array in your top-level package.json:
+使用 Heroku 的 [自定义缓存](https://devcenter.heroku.com/articles/nodejs-support#custom-caching)，在顶层 package.json 中添加一个 `cacheDirectories` 数组：
 
 ```javascript
 "cacheDirectories": [".next/cache"]
@@ -117,7 +117,7 @@ Using Heroku's [custom cache](https://devcenter.heroku.com/articles/nodejs-suppo
 
 ## Azure Pipelines
 
-Using Azure Pipelines' [Cache task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/cache), add the following task to your pipeline yaml file somewhere prior to the task that executes `next build`:
+使用 Azure Pipelines 的 [Cache 任务](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/cache)，在执行 `next build` 的任务之前，将以下任务添加到您的管道 yaml 文件中的某个位置：
 
 ```yaml
 - task: Cache@2
@@ -126,15 +126,14 @@ Using Azure Pipelines' [Cache task](https://docs.microsoft.com/en-us/azure/devop
     key: next | $(Agent.OS) | yarn.lock
     path: '$(System.DefaultWorkingDirectory)/.next/cache'
 ```
+## Jenkins (Pipeline)
 
-,## Jenkins (Pipeline)
-
-Using Jenkins' [Job Cacher](https://www.jenkins.io/doc/pipeline/steps/jobcacher/) plugin, add the following build step to your `Jenkinsfile` where you would normally run `next build` or `npm install`:
+使用 Jenkins 的 [Job Cacher](https://www.jenkins.io/doc/pipeline/steps/jobcacher/) 插件，在您的 `Jenkinsfile` 中通常运行 `next build` 或 `npm install` 的地方添加以下构建步骤：
 
 ```yaml
 stage("Restore npm packages") {
     steps {
-        // Writes lock-file to cache based on the GIT_COMMIT hash
+        // 根据 GIT_COMMIT 哈希将锁文件写入缓存
         writeFile file: "next-lock.cache", text: "$GIT_COMMIT"
 
         cache(caches: [
@@ -150,7 +149,7 @@ stage("Restore npm packages") {
 }
 stage("Build") {
     steps {
-        // Writes lock-file to cache based on the GIT_COMMIT hash
+        // 根据 GIT_COMMIT 哈希将锁文件写入缓存
         writeFile file: "next-lock.cache", text: "$GIT_COMMIT"
 
         cache(caches: [
@@ -160,7 +159,7 @@ stage("Build") {
                 cacheValidityDecidingFile: "next-lock.cache"
             )
         ]) {
-            // aka `next build`
+            // 即 `next build`
             sh "npm run build"
         }
     }

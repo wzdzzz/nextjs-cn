@@ -1,9 +1,10 @@
 ---
 title: template.js
-description: API Reference for the template.js file.
 ---
 
-A **template** file is similar to a [layout](/docs/app/building-your-application/routing/layouts-and-templates#layouts) in that it wraps a layout or page. Unlike layouts that persist across routes and maintain state, templates are given a unique key, meaning children Client Components reset their state on navigation.
+# template.js
+
+**模板** 文件类似于 [布局](/docs/app/building-your-application/routing/layouts-and-templates#layouts)，因为它包裹了一个布局或页面。与在路由之间持久存在并维护状态的布局不同，模板被赋予了一个唯一的键，这意味着子客户端组件在导航时会重置它们的状态。
 
 ```tsx filename="app/template.tsx" switcher
 export default function Template({ children }: { children: React.ReactNode }) {
@@ -17,39 +18,41 @@ export default function Template({ children }) {
 }
 ```
 
-<Image
-  alt="template.js special file"
-  srcLight="/docs/light/template-special-file.png"
+<img
+  alt="template.js 特殊文件"
+  src="https://nextjs.org/_next/image?url=/docs/light/template-special-file.png&w=3840&q=75"
   srcDark="/docs/dark/template-special-file.png"
   width="1600"
   height="444"
 />
 
-While less common, you might choose to use a template over a layout if you want:
+虽然不太常见，但如果您想要：
 
-- Features that rely on `useEffect` (e.g logging page views) and `useState` (e.g a per-page feedback form).
-- To change the default framework behavior. For example, Suspense Boundaries inside layouts only show the fallback the first time the Layout is loaded and not when switching pages. For templates, the fallback is shown on each navigation.
+- 依赖于 `useEffect`（例如记录页面浏览量）和 `useState`（例如每页反馈表单）的功能。
+- 更改默认的框架行为。例如，布局中的 Suspense Boundaries 只在首次加载布局时显示回退，而不是在切换页面时。对于模板，每次导航都会显示回退。
+
+您可能会选择使用模板而不是布局。
 
 ## Props
 
-### `children` (required)
+### `children` (必需)
 
-Template accepts a `children` prop. For example:
+模板接受一个 `children` 属性。例如：
 
 ```jsx filename="Output"
 <Layout>
-  {/* Note that the template is automatically given a unique key. */}
+  {/* 注意模板会自动获得一个唯一的键。 */}
   <Template key={routeParam}>{children}</Template>
 </Layout>
 ```
 
-> **Good to know**:
+> **须知**：
 >
-> - By default, `template` is a [Server Component](/docs/app/building-your-application/rendering/server-components), but can also be used as a [Client Component](/docs/app/building-your-application/rendering/client-components) through the `"use client"` directive.
-> - When a user navigates between routes that share a `template`, a new instance of the component is mounted, DOM elements are recreated, state is **not** preserved in Client Components, and effects are re-synchronized.
+> - 默认情况下，`template` 是一个 [服务器组件](/docs/app/building-your-application/rendering/server-components)，但也可以通过 `"use client"` 指令用作 [客户端组件](/docs/app/building-your-application/rendering/client-components)。
+> - 当用户在共享 `template` 的路由之间导航时，组件的新实例将被挂载，DOM 元素将被重新创建，客户端组件中的状态将不会被 **保留**，并且效果将被重新同步。
 
-## Version History
+## 版本历史
 
-| Version   | Changes                |
+| 版本   | 变化                |
 | --------- | ---------------------- |
-| `v13.0.0` | `template` introduced. |
+| `v13.0.0` | 引入了 `template`。 |

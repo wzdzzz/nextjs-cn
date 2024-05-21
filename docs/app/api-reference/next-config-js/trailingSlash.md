@@ -1,13 +1,13 @@
 ---
 title: trailingSlash
-description: Configure Next.js pages to resolve with or without a trailing slash.
+description: 配置 Next.js 页面解析时是否包含尾随斜杠。
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 此文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>内容</PagesOnly>` 组件添加特定于页面路由器的内容。任何共享的内容都不应包裹在组件中。 */}
 
-By default Next.js will redirect urls with trailing slashes to their counterpart without a trailing slash. For example `/about/` will redirect to `/about`. You can configure this behavior to act the opposite way, where urls without trailing slashes are redirected to their counterparts with trailing slashes.
+默认情况下，Next.js 会将带有尾随斜杠的 URL 重定向到没有尾随斜杠的对应 URL。例如 `/about/` 将重定向到 `/about`。您可以配置此行为，使其相反，即没有尾随斜杠的 URL 被重定向到带有尾随斜杠的对应 URL。
 
-Open `next.config.js` and add the `trailingSlash` config:
+打开 `next.config.js` 并添加 `trailingSlash` 配置：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -15,12 +15,12 @@ module.exports = {
 }
 ```
 
-With this option set, urls like `/about` will redirect to `/about/`.
+启用此选项后，像 `/about` 这样的 URL 将重定向到 `/about/`。
 
-When used with [`output: "export"`](/docs/app/building-your-application/deploying/static-exports) configuration, the `/about` page will output `/about/index.html` (instead of the default `/about.html`).
+当与 [`output: "export"`](/docs/app/building-your-application/deploying/static-exports) 配置一起使用时，`/about` 页面将输出 `/about/index.html`（而不是默认的 `/about.html`）。
 
-## Version History
+## 版本历史
 
-| Version  | Changes                |
+| 版本  | 变更                |
 | -------- | ---------------------- |
-| `v9.5.0` | `trailingSlash` added. |
+| `v9.5.0` | 添加了 `trailingSlash`。 |

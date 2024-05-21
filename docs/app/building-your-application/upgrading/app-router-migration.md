@@ -1,140 +1,133 @@
----
-title: App Router Incremental Adoption Guide
-nav_title: App Router Migration
-description: Learn how to upgrade your existing Next.js application from the Pages Router to the App Router.
----
+# App Router 逐步采用指南
 
-This guide will help you:
+本指南将帮助您：
 
-- [Update your Next.js application from version 12 to version 13](#nextjs-version)
-- [Upgrade features that work in both the `pages` and the `app` directories](#upgrading-new-features)
-- [Incrementally migrate your existing application from `pages` to `app`](#migrating-from-pages-to-app)
+- [将您的 Next.js 应用程序从版本 12 升级到版本 13](#nextjs版本)
+- [升级在 `pages` 和 `app` 目录中均可使用的功能](#升级新特性)
+- [逐步将现有应用程序从 `pages` 迁移到 `app`](#从pages迁移到app)
 
-## Upgrading
+## 升级
 
-### Node.js Version
+### Node.js 版本
 
-The minimum Node.js version is now **v18.17**. See the [Node.js documentation](https://nodejs.org/docs/latest-v18.x/api/) for more information.
+最低 Node.js 版本现在是 **v18.17**。有关更多信息，请查看 [Node.js 文档](https://nodejs.org/docs/latest-v18.x/api/)。
 
-### Next.js Version
+### Next.js 版本
 
-To update to Next.js version 13, run the following command using your preferred package manager:
+要升级到 Next.js 版本 13，请使用您喜欢的包管理器运行以下命令：
 
-```bash filename="Terminal"
+```bash filename="终端"
 npm install next@latest react@latest react-dom@latest
 ```
 
-### ESLint Version
+### ESLint 版本
 
-If you're using ESLint, you need to upgrade your ESLint version:
+如果您正在使用 ESLint，则需要升级您的 ESLint 版本：
 
-```bash filename="Terminal"
+```bash filename="终端"
 npm install -D eslint-config-next@latest
 ```
 
-> **Good to know**: You may need to restart the ESLint server in VS Code for the ESLint changes to take effect. Open the Command Palette (`cmd+shift+p` on Mac; `ctrl+shift+p` on Windows) and search for `ESLint: Restart ESLint Server`.
+> **须知**：您可能需要在 VS Code 中重新启动 ESLint 服务器以使 ESLint 的更改生效。打开命令面板 (`cmd+shift+p` 在 Mac 上；`ctrl+shift+p` 在 Windows 上) 并搜索 `ESLint: Restart ESLint Server`。
 
-## Next Steps
+## 下一步
 
-After you've updated, see the following sections for next steps:
+更新完成后，请查看以下部分以获取后续步骤：
 
-- [Upgrade new features](#upgrading-new-features): A guide to help you upgrade to new features such as the improved Image and Link Components.
-- [Migrate from the `pages` to `app` directory](#migrating-from-pages-to-app): A step-by-step guide to help you incrementally migrate from the `pages` to the `app` directory.
+- [升级新特性](#升级新特性)：帮助您升级到新特性的指南，例如改进的 Image 和 Link 组件。
+- [从 `pages` 迁移到 `app` 目录](#从pages迁移到app)：逐步指南，帮助您逐步从 `pages` 迁移到 `app` 目录。
 
-## Upgrading New Features
+## 升级新特性
 
-Next.js 13 introduced the new [App Router](/docs/app/building-your-application/routing) with new features and conventions. The new Router is available in the `app` directory and co-exists with the `pages` directory.
+Next.js 13 引入了新的 [App Router](/docs/app/building-your-application/routing)，具有新特性和约定。新的 Router 可在 `app` 目录中使用，并与 `pages` 目录共存。
 
-Upgrading to Next.js 13 does **not** require using the new [App Router](/docs/app/building-your-application/routing#the-app-router). You can continue using `pages` with new features that work in both directories, such as the updated [Image component](#image-component), [Link component](#link-component), [Script component](#script-component), and [Font optimization](#font-optimization).
+升级到 Next.js 13 **不要求** 使用新的 [App Router](/docs/app/building-your-application/routing#the-app-router)。您可以继续使用 `pages` 以及在两个目录中均可使用的新特性，例如更新后的 [Image 组件](#image组件)、[Link 组件](#link组件)、[Script 组件](#script组件) 和 [字体优化](#字体优化)。
 
-### `<Image/>` Component
+### `<Image/>` 组件
 
-Next.js 12 introduced new improvements to the Image Component with a temporary import: `next/future/image`. These improvements included less client-side JavaScript, easier ways to extend and style images, better accessibility, and native browser lazy loading.
+Next.js 12 通过临时导入 `next/future/image` 对 Image 组件进行了新的改进。这些改进包括更少的客户端 JavaScript、更简单的扩展和样式化图像的方法、更好的可访问性和原生浏览器懒加载。
 
-In version 13, this new behavior is now the default for `next/image`.
+在版本 13 中，这种新行为现在已成为 `next/image` 的默认设置。
 
-There are two codemods to help you migrate to the new Image Component:
+有两个 codemods 可以帮助您迁移到新的 Image 组件：
 
-- [**`next-image-to-legacy-image` codemod**](/docs/app/building-your-application/upgrading/codemods#next-image-to-legacy-image): Safely and automatically renames `next/image` imports to `next/legacy/image`. Existing components will maintain the same behavior.
-- [**`next-image-experimental` codemod**](/docs/app/building-your-application/upgrading/codemods#next-image-experimental): Dangerously adds inline styles and removes unused props. This will change the behavior of existing components to match the new defaults. To use this codemod, you need to run the `next-image-to-legacy-image` codemod first.
+- [**`next-image-to-legacy-image` codemod**](/docs/app/building-your-application/upgrading/codemods#next-image-to-legacy-image)：安全且自动地将 `next/image` 导入重命名为 `next/legacy/image`。现有组件将保持相同的行为。
+- [**`next-image-experimental` codemod**](/docs/app/building-your-application/upgrading/codemods#next-image-experimental)：危险地添加内联样式并移除未使用的属性。这将改变现有组件的行为以匹配新的默认设置。要使用此 codemod，您需要先运行 `next-image-to-legacy-image` codemod。
+### `<Link>` 组件
 
-,### `<Link>` Component
+[`<Link>` 组件](/docs/app/building-your-application/routing/linking-and-navigating#link-component)不再需要手动添加一个 `<a>` 标签作为子元素。这种行为在 [版本 12.2](https://nextjs.org/blog/next-12-2) 中作为实验性选项添加，现在已成为默认设置。在 Next.js 13 中，`<Link>` 总是渲染 `<a>` 并允许你将属性转发到底层标签。
 
-The [`<Link>` Component](/docs/app/building-your-application/routing/linking-and-navigating#link-component) no longer requires manually adding an `<a>` tag as a child. This behavior was added as an experimental option in [version 12.2](https://nextjs.org/blog/next-12-2) and is now the default. In Next.js 13, `<Link>` always renders `<a>` and allows you to forward props to the underlying tag.
-
-For example:
+例如：
 
 ```jsx
 import Link from 'next/link'
 
-// Next.js 12: `<a>` has to be nested otherwise it's excluded
+// Next.js 12: 必须嵌套 `<a>`，否则将被排除
 <Link href="/about">
   <a>About</a>
 </Link>
 
-// Next.js 13: `<Link>` always renders `<a>` under the hood
+// Next.js 13: `<Link>` 在内部始终渲染 `<a>`
 <Link href="/about">
   About
 </Link>
 ```
 
-To upgrade your links to Next.js 13, you can use the [`new-link` codemod](/docs/app/building-your-application/upgrading/codemods#new-link).
+要将您的链接升级到 Next.js 13，您可以使用 [`new-link` codemod](/docs/app/building-your-application/upgrading/codemods#new-link)。
 
-### `<Script>` Component
+### `<Script>` 组件
 
-The behavior of [`next/script`](/docs/app/api-reference/components/script) has been updated to support both `pages` and `app`, but some changes need to be made to ensure a smooth migration:
+[`next/script`](/docs/app/api-reference/components/script) 的行为已更新，以支持 `pages` 和 `app`，但需要进行一些更改以确保顺利迁移：
 
-- Move any `beforeInteractive` scripts you previously included in `_document.js` to the root layout file (`app/layout.tsx`).
-- The experimental `worker` strategy does not yet work in `app` and scripts denoted with this strategy will either have to be removed or modified to use a different strategy (e.g. `lazyOnload`).
-- `onLoad`, `onReady`, and `onError` handlers will not work in Server Components so make sure to move them to a [Client Component](/docs/app/building-your-application/rendering/server-components) or remove them altogether.
+- 将您之前在 `_document.js` 中包含的任何 `beforeInteractive` 脚本移动到根布局文件 (`app/layout.tsx`)。
+- 实验性的 `worker` 策略尚未在 `app` 中工作，使用此策略标记的脚本将不得不被删除或修改为使用不同的策略（例如 `lazyOnload`）。
+- `onLoad`、`onReady` 和 `onError` 处理程序将不在 Server Components 中工作，因此请确保将它们移动到 [Client Component](/docs/app/building-your-application/rendering/server-components) 或完全删除它们。
 
-### Font Optimization
+### 字体优化
 
-Previously, Next.js helped you optimize fonts by [inlining font CSS](/docs/app/building-your-application/optimizing/fonts). Version 13 introduces the new [`next/font`](/docs/app/building-your-application/optimizing/fonts) module which gives you the ability to customize your font loading experience while still ensuring great performance and privacy. `next/font` is supported in both the `pages` and `app` directories.
+以前，Next.js 通过 [内联字体 CSS](/docs/app/building-your-application/optimizing/fonts) 帮助您优化字体。版本 13 引入了新的 [`next/font`](/docs/app/building-your-application/optimizing/fonts) 模块，它使您能够在确保出色的性能和隐私的同时自定义字体加载体验。`next/font` 在 `pages` 和 `app` 目录中都受支持。
 
-While [inlining CSS](/docs/app/building-your-application/optimizing/fonts) still works in `pages`, it does not work in `app`. You should use [`next/font`](/docs/app/building-your-application/optimizing/fonts) instead.
+虽然 [内联 CSS](/docs/app/building-your-application/optimizing/fonts) 仍然在 `pages` 中有效，但它在 `app` 中不起作用。您应该改用 [`next/font`](/docs/app/building-your-application/optimizing/fonts)。
 
-See the [Font Optimization](/docs/app/building-your-application/optimizing/fonts) page to learn how to use `next/font`.
+请参阅 [字体优化](/docs/app/building-your-application/optimizing/fonts) 页面，了解如何使用 `next/font`。
+## 从 `pages` 迁移到 `app`
 
-,## Migrating from `pages` to `app`
+> **🎥 观看:** 学习如何逐步采用 App Router → [YouTube (16分钟)](https://www.youtube.com/watch?v=YQMSietiFm0)。
 
-> **🎥 Watch:** Learn how to incrementally adopt the App Router → [YouTube (16 minutes)](https://www.youtube.com/watch?v=YQMSietiFm0).
+转向 App Router 可能是第一次使用 Next.js 构建在其上的 React 特性，如 Server Components、Suspense 等。当与 Next.js 的新特性结合使用时，如[特殊文件](/docs/app/building-your-application/routing#file-conventions)和[布局](/docs/app/building-your-application/routing/layouts-and-templates#layouts)，迁移意味着需要学习新的概念、心智模型和行为变化。
 
-Moving to the App Router may be the first time using React features that Next.js builds on top of such as Server Components, Suspense, and more. When combined with new Next.js features such as [special files](/docs/app/building-your-application/routing#file-conventions) and [layouts](/docs/app/building-your-application/routing/layouts-and-templates#layouts), migration means new concepts, mental models, and behavioral changes to learn.
+我们建议通过将迁移分解为更小的步骤来减少这些更新的组合复杂性。`app` 目录故意设计为可以与 `pages` 目录同时工作，以允许逐步逐页迁移。
 
-We recommend reducing the combined complexity of these updates by breaking down your migration into smaller steps. The `app` directory is intentionally designed to work simultaneously with the `pages` directory to allow for incremental page-by-page migration.
+- `app` 目录支持嵌套路由和布局。[了解更多](/docs/app/building-your-application/routing)。
+- 使用嵌套文件夹来[定义路由](/docs/app/building-your-application/routing/defining-routes)，并使用特殊的 `page.js` 文件使路由段公开可访问。[了解更多](#step-4-migrating-pages)。
+- [特殊文件约定](/docs/app/building-your-application/routing#file-conventions)用于为每个路由段创建 UI。最常见的特殊文件是 `page.js` 和 `layout.js`。
+  - 使用 `page.js` 定义特定于路由的 UI。
+  - 使用 `layout.js` 定义跨多个路由共享的 UI。
+  - 特殊文件可以使用 `.js`、`.jsx` 或 `.tsx` 文件扩展名。
+- 您可以在 `app` 目录中共同定位其他文件，如组件、样式、测试等。[了解更多](/docs/app/building-your-application/routing)。
+- 数据获取函数 `getServerSideProps` 和 `getStaticProps` 已被 `app` 内的[新 API](/docs/app/building-your-application/data-fetching)替换。`getStaticPaths` 已被 [`generateStaticParams`](/docs/app/api-reference/functions/generate-static-params) 替换。
+- `pages/_app.js` 和 `pages/_document.js` 已被单个 `app/layout.js` 根布局替换。[了解更多](/docs/app/building-your-application/routing/layouts-and-templates#root-layout-required)。
+- `pages/_error.js` 已被更细粒度的 `error.js` 特殊文件替换。[了解更多](/docs/app/building-your-application/routing/error-handling)。
+- `pages/404.js` 已被 [`not-found.js`](/docs/app/api-reference/file-conventions/not-found) 文件替换。
+- `pages/api/*` API 路由已被 [`route.js`](/docs/app/api-reference/file-conventions/route)（路由处理器）特殊文件替换。
 
-- The `app` directory supports nested routes _and_ layouts. [Learn more](/docs/app/building-your-application/routing).
-- Use nested folders to [define routes](/docs/app/building-your-application/routing/defining-routes) and a special `page.js` file to make a route segment publicly accessible. [Learn more](#step-4-migrating-pages).
-- [Special file conventions](/docs/app/building-your-application/routing#file-conventions) are used to create UI for each route segment. The most common special files are `page.js` and `layout.js`.
-  - Use `page.js` to define UI unique to a route.
-  - Use `layout.js` to define UI that is shared across multiple routes.
-  - `.js`, `.jsx`, or `.tsx` file extensions can be used for special files.
-- You can colocate other files inside the `app` directory such as components, styles, tests, and more. [Learn more](/docs/app/building-your-application/routing).
-- Data fetching functions like `getServerSideProps` and `getStaticProps` have been replaced with [a new API](/docs/app/building-your-application/data-fetching) inside `app`. `getStaticPaths` has been replaced with [`generateStaticParams`](/docs/app/api-reference/functions/generate-static-params).
-- `pages/_app.js` and `pages/_document.js` have been replaced with a single `app/layout.js` root layout. [Learn more](/docs/app/building-your-application/routing/layouts-and-templates#root-layout-required).
-- `pages/_error.js` has been replaced with more granular `error.js` special files. [Learn more](/docs/app/building-your-application/routing/error-handling).
-- `pages/404.js` has been replaced with the [`not-found.js`](/docs/app/api-reference/file-conventions/not-found) file.
-- `pages/api/*` API Routes have been replaced with the [`route.js`](/docs/app/api-reference/file-conventions/route) (Route Handler) special file.
+### 第 1 步：创建 `app` 目录
 
-### Step 1: Creating the `app` directory
-
-Update to the latest Next.js version (requires 13.4 or greater):
+更新到最新的 Next.js 版本（需要 13.4 或更高版本）：
 
 ```bash
 npm install next@latest
 ```
 
-Then, create a new `app` directory at the root of your project (or `src/` directory).
+然后，在项目的根目录（或 `src/` 目录）创建一个新的 `app` 目录。
+### 第2步：创建根布局
 
-,### Step 2: Creating a Root Layout
-
-Create a new `app/layout.tsx` file inside the `app` directory. This is a [root layout](/docs/app/building-your-application/routing/layouts-and-templates#root-layout-required) that will apply to all routes inside `app`.
+在 `app` 目录中创建一个新的 `app/layout.tsx` 文件。这是一个[根布局](/docs/app/building-your-application/routing/layouts-and-templates#root-layout-required)，它将应用于 `app` 内部的所有路由。
 
 ```tsx filename="app/layout.tsx" switcher
 export default function RootLayout({
-  // Layouts must accept a children prop.
-  // This will be populated with nested layouts or pages
+  // 布局必须接受一个 children prop。
+  // 这将被填充为嵌套的布局或页面
   children,
 }: {
   children: React.ReactNode
@@ -149,8 +142,8 @@ export default function RootLayout({
 
 ```jsx filename="app/layout.js" switcher
 export default function RootLayout({
-  // Layouts must accept a children prop.
-  // This will be populated with nested layouts or pages
+  // 布局必须接受一个 children prop。
+  // 这将被填充为嵌套的布局或页面
   children,
 }) {
   return (
@@ -161,12 +154,12 @@ export default function RootLayout({
 }
 ```
 
-- The `app` directory **must** include a root layout.
-- The root layout must define `<html>`, and `<body>` tags since Next.js does not automatically create them
-- The root layout replaces the `pages/_app.tsx` and `pages/_document.tsx` files.
-- `.js`, `.jsx`, or `.tsx` extensions can be used for layout files.
+- `app` 目录**必须**包含一个根布局。
+- 根布局必须定义 `<html>` 和 `<body>` 标签，因为 Next.js 不会自动创建它们
+- 根布局取代了 `pages/_app.tsx` 和 `pages/_document.tsx` 文件。
+- 布局文件可以使用 `.js`、`.jsx` 或 `.tsx` 扩展名。
 
-To manage `<head>` HTML elements, you can use the [built-in SEO support](/docs/app/building-your-application/optimizing/metadata):
+要管理 `<head>` HTML 元素，可以使用[内置的SEO支持](/docs/app/building-your-application/optimizing/metadata)：
 
 ```tsx filename="app/layout.tsx" switcher
 import { Metadata } from 'next'
@@ -184,26 +177,25 @@ export const metadata = {
 }
 ```
 
-#### Migrating `_document.js` and `_app.js`
+#### 迁移 `_document.js` 和 `_app.js`
 
-If you have an existing `_app` or `_document` file, you can copy the contents (e.g. global styles) to the root layout (`app/layout.tsx`). Styles in `app/layout.tsx` will _not_ apply to `pages/*`. You should keep `_app`/`_document` while migrating to prevent your `pages/*` routes from breaking. Once fully migrated, you can then safely delete them.
+如果您有一个现有的 `_app` 或 `_document` 文件，您可以将内容（例如全局样式）复制到根布局（`app/layout.tsx`）。`app/layout.tsx` 中的样式将**不**应用于 `pages/*`。在迁移过程中，您应该保留 `_app`/`_document`，以防止 `pages/*` 路由中断。完全迁移后，您可以安全地删除它们。
 
-If you are using any React Context providers, they will need to be moved to a [Client Component](/docs/app/building-your-application/rendering/client-components).
+如果您正在使用任何 React Context 提供程序，它们将需要被移动到[客户端组件](/docs/app/building-your-application/rendering/client-components)。
+# 迁移 `getLayout()` 模式到 Layouts（可选）
 
-,#### Migrating the `getLayout()` pattern to Layouts (Optional)
-
-Next.js recommended adding a [property to Page components](/docs/pages/building-your-application/routing/pages-and-layouts#layout-pattern#per-page-layouts) to achieve per-page layouts in the `pages` directory. This pattern can be replaced with native support for [nested layouts](/docs/app/building-your-application/routing/layouts-and-templates#layouts) in the `app` directory.
+Next.js 推荐在 `pages` 目录中的页面组件添加一个 [属性](/docs/pages/building-your-application/routing/pages-and-layouts#layout-pattern#per-page-layouts) 来实现每页布局。这个模式可以用 `app` 目录中对 [嵌套布局](/docs/app/building-your-application/routing/layouts-and-templates#layouts) 的原生支持来替换。
 
 <details>
-  <summary>See before and after example</summary>
+  <summary>查看前后示例</summary>
 
-**Before**
+**之前**
 
 ```jsx filename="components/DashboardLayout.js"
 export default function DashboardLayout({ children }) {
   return (
     <div>
-      <h2>My Dashboard</h2>
+      <h2>我的仪表盘</h2>
       {children}
     </div>
   )
@@ -214,7 +206,7 @@ export default function DashboardLayout({ children }) {
 import DashboardLayout from '../components/DashboardLayout'
 
 export default function Page() {
-  return <p>My Page</p>
+  return <p>我的页面</p>
 }
 
 Page.getLayout = function getLayout(page) {
@@ -222,52 +214,52 @@ Page.getLayout = function getLayout(page) {
 }
 ```
 
-**After**
+**之后**
 
-- Remove the `Page.getLayout` property from `pages/dashboard/index.js` and follow the [steps for migrating pages](#step-4-migrating-pages) to the `app` directory.
+- 从 `pages/dashboard/index.js` 中移除 `Page.getLayout` 属性，并按照 [迁移页面的步骤](#step-4-migrating-pages) 将其迁移到 `app` 目录。
 
   ```jsx filename="app/dashboard/page.js"
   export default function Page() {
-    return <p>My Page</p>
+    return <p>我的页面</p>
   }
   ```
 
-- Move the contents of `DashboardLayout` into a new [Client Component](/docs/app/building-your-application/rendering/client-components) to retain `pages` directory behavior.
+- 将 `DashboardLayout` 的内容移动到一个新的 [客户端组件](/docs/app/building-your-application/rendering/client-components) 中，以保留 `pages` 目录的行为。
 
   ```jsx filename="app/dashboard/DashboardLayout.js"
-  'use client' // this directive should be at top of the file, before any imports.
+  'use client' // 这个指令应该在文件顶部，任何导入之前。
 
-  // This is a Client Component
+  // 这是一个客户端组件
   export default function DashboardLayout({ children }) {
     return (
       <div>
-        <h2>My Dashboard</h2>
+        <h2>我的仪表盘</h2>
         {children}
       </div>
     )
   }
   ```
 
-- Import the `DashboardLayout` into a new `layout.js` file inside the `app` directory.
+- 将 `DashboardLayout` 导入到 `app` 目录中新的 `layout.js` 文件。
 
   ```jsx filename="app/dashboard/layout.js"
   import DashboardLayout from './DashboardLayout'
 
-  // This is a Server Component
+  // 这是一个服务器组件
   export default function Layout({ children }) {
     return <DashboardLayout>{children}</DashboardLayout>
   }
   ```
 
-- You can incrementally move non-interactive parts of `DashboardLayout.js` (Client Component) into `layout.js` (Server Component) to reduce the amount of component JavaScript you send to the client.
+- 你可以逐步将 `DashboardLayout.js`（客户端组件）中的非交互部分移动到 `layout.js`（服务器组件）中，以减少发送到客户端的组件 JavaScript 的数量。
 
 </details>
 
-### Step 3: Migrating `next/head`
+### 第 3 步：迁移 `next/head`
 
-In the `pages` directory, the `next/head` React component is used to manage `<head>` HTML elements such as `title` and `meta` . In the `app` directory, `next/head` is replaced with the new [built-in SEO support](/docs/app/building-your-application/optimizing/metadata).
+在 `pages` 目录中，使用 `next/head` React 组件来管理 `<head>` HTML 元素，如 `title` 和 `meta`。在 `app` 目录中，`next/head` 被新的 [内置 SEO 支持](/docs/app/building-your-application/optimizing/metadata) 替换。
 
-**Before:**
+**之前：**
 
 ```tsx filename="pages/index.tsx" switcher
 import Head from 'next/head'
@@ -276,7 +268,7 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>My page title</title>
+        <title>我的页面标题</title>
       </Head>
     </>
   )
@@ -290,20 +282,20 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>My page title</title>
+        <title>我的页面标题</title>
       </Head>
     </>
   )
 }
 ```
 
-**After:**
+**之后：**
 
 ```tsx filename="app/page.tsx" switcher
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'My Page Title',
+  title: '我的页面标题',
 }
 
 export default function Page() {
@@ -313,7 +305,7 @@ export default function Page() {
 
 ```jsx filename="app/page.js" switcher
 export const metadata = {
-  title: 'My Page Title',
+  title: '我的页面标题',
 }
 
 export default function Page() {
@@ -321,38 +313,36 @@ export default function Page() {
 }
 ```
 
-[See all metadata options](/docs/app/api-reference/functions/generate-metadata).
+[查看所有元数据选项](/docs/app/api-reference/functions/generate-metadata)。
+### 第 4 步：迁移页面
 
-,### Step 4: Migrating Pages
-
-- Pages in the [`app` directory](/docs/app/building-your-application/routing) are [Server Components](/docs/app/building-your-application/rendering/server-components) by default. This is different from the `pages` directory where pages are [Client Components](/docs/app/building-your-application/rendering/client-components).
-- [Data fetching](/docs/app/building-your-application/data-fetching) has changed in `app`. `getServerSideProps`, `getStaticProps` and `getInitialProps` have been replaced with a simpler API.
-- The `app` directory uses nested folders to [define routes](/docs/app/building-your-application/routing/defining-routes) and a special `page.js` file to make a route segment publicly accessible.
-- | `pages` Directory | `app` Directory       | Route          |
+- 在 [`app` 目录](/docs/app/building-your-application/routing) 中的页面，默认情况下是 [Server Components](/docs/app/building-your-application/rendering/server-components)。这与 `pages` 目录不同，后者的页面是 [Client Components](/docs/app/building-your-application/rendering/client-components)。
+- 在 `app` 中，[数据获取](/docs/app/building-your-application/data-fetching) 发生了变化。`getServerSideProps`、`getStaticProps` 和 `getInitialProps` 已被更简单的 API 替换。
+- `app` 目录使用嵌套文件夹来 [定义路由](/docs/app/building-your-application/routing/defining-routes)，并且使用特殊的 `page.js` 文件使路由段公开可访问。
+- | `pages` 目录 | `app` 目录       | 路由          |
   | ----------------- | --------------------- | -------------- |
   | `index.js`        | `page.js`             | `/`            |
   | `about.js`        | `about/page.js`       | `/about`       |
   | `blog/[slug].js`  | `blog/[slug]/page.js` | `/blog/post-1` |
 
-We recommend breaking down the migration of a page into two main steps:
+我们建议将页面的迁移分解为两个主要步骤：
 
-- Step 1: Move the default exported Page Component into a new Client Component.
-- Step 2: Import the new Client Component into a new `page.js` file inside the `app` directory.
+- 第 1 步：将默认导出的页面组件移动到一个新的客户端组件中。
+- 第 2 步：将新的客户端组件导入到 `app` 目录中的一个新的 `page.js` 文件中。
 
-> **Good to know**: This is the easiest migration path because it has the most comparable behavior to the `pages` directory.
+> **须知**：这是最简单的迁移路径，因为它与 `pages` 目录的行为最为相似。
 
-**Step 1: Create a new Client Component**
+**第 1 步：创建一个新的客户端组件**
 
-- Create a new separate file inside the `app` directory (i.e. `app/home-page.tsx` or similar) that exports a Client Component. To define Client Components, add the `'use client'` directive to the top of the file (before any imports).
-  - Similar to the Pages Router, there is an [optimization step](/docs/app/building-your-application/rendering/client-components#full-page-load) to prerender Client Components to static HTML on the initial page load.
-- Move the default exported page component from `pages/index.js` to `app/home-page.tsx`.
+- 在 `app` 目录中创建一个新的独立文件（例如 `app/home-page.tsx` 或类似），导出一个客户端组件。要定义客户端组件，请在文件顶部（在任何导入之前）添加 `'use client'` 指令。
+  - 类似于页面路由器，有一个 [优化步骤](/docs/app/building-your-application/rendering/client-components#full-page-load) 可以在初始页面加载时将客户端组件预渲染为静态 HTML。
+- 将 `pages/index.js` 中的默认导出页面组件移动到 `app/home-page.tsx`。
 
 ```tsx filename="app/home-page.tsx" switcher
 'use client'
 
-// This is a Client Component (same as components in the `pages` directory)
-// It receives data as props, has access to state and effects, and is
-// prerendered on the server during the initial page load.
+// 这是一个客户端组件（与 `pages` 目录中的组件相同）
+// 它接收数据作为属性，可以访问状态和效果，并且在初始页面加载时在服务器上预渲染。
 export default function HomePage({ recentPosts }) {
   return (
     <div>
@@ -362,14 +352,15 @@ export default function HomePage({ recentPosts }) {
     </div>
   )
 }
+
 ```
+
 
 ```jsx filename="app/home-page.js" switcher
 'use client'
 
-// This is a Client Component. It receives data as props and
-// has access to state and effects just like Page components
-// in the `pages` directory.
+// 这是一个客户端组件。它接收数据作为属性，并且
+// 像 `pages` 目录中的页面组件一样具有访问状态和效果的能力。
 export default function HomePage({ recentPosts }) {
   return (
     <div>
@@ -379,16 +370,16 @@ export default function HomePage({ recentPosts }) {
     </div>
   )
 }
-,```
 
-**Step 2: Create a new page**
+```
+# Step 2: Create a new page
 
-- Create a new `app/page.tsx` file inside the `app` directory. This is a Server Component by default.
-- Import the `home-page.tsx` Client Component into the page.
-- If you were fetching data in `pages/index.js`, move the data fetching logic directly into the Server Component using the new [data fetching APIs](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating). See the [data fetching upgrade guide](#step-6-migrating-data-fetching-methods) for more details.
+- 在 `app` 目录内创建一个新的 `app/page.tsx` 文件。默认情况下，这是一个服务器组件。
+- 将 `home-page.tsx` 客户端组件导入到页面中。
+- 如果你之前在 `pages/index.js` 中获取数据，将数据获取逻辑直接移动到使用新的 [数据获取 API](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating) 的服务器组件中。有关更多详细信息，请查看 [数据获取升级指南](#step-6-migrating-data-fetching-methods)。
 
   ```tsx filename="app/page.tsx" switcher
-  // Import your Client Component
+  // 导入你的客户端组件
   import HomePage from './home-page'
 
   async function getPosts() {
@@ -398,15 +389,15 @@ export default function HomePage({ recentPosts }) {
   }
 
   export default async function Page() {
-    // Fetch data directly in a Server Component
+    // 直接在服务器组件中获取数据
     const recentPosts = await getPosts()
-    // Forward fetched data to your Client Component
+    // 将获取的数据转发到你的客户端组件
     return <HomePage recentPosts={recentPosts} />
   }
   ```
 
   ```jsx filename="app/page.js" switcher
-  // Import your Client Component
+  // 导入你的客户端组件
   import HomePage from './home-page'
 
   async function getPosts() {
@@ -416,28 +407,27 @@ export default function HomePage({ recentPosts }) {
   }
 
   export default async function Page() {
-    // Fetch data directly in a Server Component
+    // 直接在服务器组件中获取数据
     const recentPosts = await getPosts()
-    // Forward fetched data to your Client Component
+    // 将获取的数据转发到你的客户端组件
     return <HomePage recentPosts={recentPosts} />
   }
   ```
 
-- If your previous page used `useRouter`, you'll need to update to the new routing hooks. [Learn more](/docs/app/api-reference/functions/use-router).
-- Start your development server and visit [`http://localhost:3000`](http://localhost:3000). You should see your existing index route, now served through the app directory.
+- 如果你之前的页面使用了 `useRouter`，你需要更新到新的路由钩子。[了解更多](/docs/app/api-reference/functions/use-router)。
+- 启动你的开发服务器并访问 [`http://localhost:3000`](http://localhost:3000)。你应该能看到你现有的索引路由，现在通过 app 目录提供服务。
+### 第 5 步：迁移路由钩子
 
-,### Step 5: Migrating Routing Hooks
+已添加新的路由器以支持 `app` 目录中的新行为。
 
-A new router has been added to support the new behavior in the `app` directory.
+在 `app` 中，您应使用从 `next/navigation` 导入的三个新钩子：[`useRouter()`](/docs/app/api-reference/functions/use-router)、[`usePathname()`](/docs/app/api-reference/functions/use-pathname) 和 [`useSearchParams()`](/docs/app/api-reference/functions/use-search-params)。
 
-In `app`, you should use the three new hooks imported from `next/navigation`: [`useRouter()`](/docs/app/api-reference/functions/use-router), [`usePathname()`](/docs/app/api-reference/functions/use-pathname), and [`useSearchParams()`](/docs/app/api-reference/functions/use-search-params).
-
-- The new `useRouter` hook is imported from `next/navigation` and has different behavior to the `useRouter` hook in `pages` which is imported from `next/router`.
-  - The [`useRouter` hook imported from `next/router`](/docs/pages/api-reference/functions/use-router) is not supported in the `app` directory but can continue to be used in the `pages` directory.
-- The new `useRouter` does not return the `pathname` string. Use the separate `usePathname` hook instead.
-- The new `useRouter` does not return the `query` object. Use the separate `useSearchParams` hook instead.
-- You can use `useSearchParams` and `usePathname` together to listen to page changes. See the [Router Events](/docs/app/api-reference/functions/use-router#router-events) section for more details.
-- These new hooks are only supported in Client Components. They cannot be used in Server Components.
+- 新的 `useRouter` 钩子从 `next/navigation` 导入，其行为与从 `next/router` 导入的 `pages` 中的 `useRouter` 钩子不同。
+  - 从 `next/router` 导入的 [`useRouter` 钩子](/docs/pages/api-reference/functions/use-router) 在 `app` 目录中不受支持，但可以继续在 `pages` 目录中使用。
+- 新的 `useRouter` 不返回 `pathname` 字符串。请改用单独的 `usePathname` 钩子。
+- 新的 `useRouter` 不返回 `query` 对象。请改用单独的 `useSearchParams` 钩子。
+- 您可以一起使用 `useSearchParams` 和 `usePathname` 来监听页面变化。有关更多详细信息，请参见 [Router Events](/docs/app/api-reference/functions/use-router#router-events) 部分。
+- 这些新钩子仅支持客户端组件。它们不能在服务器组件中使用。
 
 ```tsx filename="app/example-client-component.tsx" switcher
 'use client'
@@ -467,33 +457,32 @@ export default function ExampleClientComponent() {
 }
 ```
 
-In addition, the new `useRouter` hook has the following changes:
+此外，新的 `useRouter` 钩子有以下变化：
 
-- `isFallback` has been removed because `fallback` has [been replaced](#replacing-fallback).
-- The `locale`, `locales`, `defaultLocales`, `domainLocales` values have been removed because built-in i18n Next.js features are no longer necessary in the `app` directory. [Learn more about i18n](/docs/app/building-your-application/routing/internationalization).
-- `basePath` has been removed. The alternative will not be part of `useRouter`. It has not yet been implemented.
-- `asPath` has been removed because the concept of `as` has been removed from the new router.
-- `isReady` has been removed because it is no longer necessary. During [static rendering](/docs/app/building-your-application/rendering/server-components#static-rendering-default), any component that uses the [`useSearchParams()`](/docs/app/api-reference/functions/use-search-params) hook will skip the prerendering step and instead be rendered on the client at runtime.
+- `isFallback` 已被移除，因为 `fallback` 已被 [替换](#replacing-fallback)。
+- `locale`、`locales`、`defaultLocales`、`domainLocales` 值已被移除，因为 `app` 目录中不再需要 Next.js 的内置国际化功能。[了解更多关于 i18n](/docs/app/building-your-application/routing/internationalization)。
+- `basePath` 已被移除。替代方案将不会是 `useRouter` 的一部分。尚未实现。
+- `asPath` 已被移除，因为 `as` 的概念已从新路由器中移除。
+- `isReady` 已被移除，因为它不再必要。在 [静态渲染](/docs/app/building-your-application/rendering/server-components#static-rendering-default) 期间，任何使用 [`useSearchParams()`](/docs/app/api-reference/functions/use-search-params) 钩子的组件将跳过预渲染步骤，而是在客户端运行时渲染。
 
-[View the `useRouter()` API reference](/docs/app/api-reference/functions/use-router).
+[查看 `useRouter()` API 参考](/docs/app/api-reference/functions/use-router)。
+### 第6步：迁移数据获取方法
 
-,### Step 6: Migrating Data Fetching Methods
-
-The `pages` directory uses `getServerSideProps` and `getStaticProps` to fetch data for pages. Inside the `app` directory, these previous data fetching functions are replaced with a [simpler API](/docs/app/building-your-application/data-fetching) built on top of `fetch()` and `async` React Server Components.
+`pages` 目录使用 `getServerSideProps` 和 `getStaticProps` 来为页面获取数据。在 `app` 目录中，这些之前的数据获取函数被一个基于 `fetch()` 和 `async` React Server Components 构建的[更简单的API](/docs/app/building-your-application/data-fetching)所取代。
 
 ```tsx filename="app/page.tsx" switcher
 export default async function Page() {
-  // This request should be cached until manually invalidated.
-  // Similar to `getStaticProps`.
-  // `force-cache` is the default and can be omitted.
+  // 这个请求应该被缓存，直到手动使它失效。
+  // 类似于 `getStaticProps`。
+  // `force-cache` 是默认设置，可以省略。
   const staticData = await fetch(`https://...`, { cache: 'force-cache' })
 
-  // This request should be refetched on every request.
-  // Similar to `getServerSideProps`.
+  // 这个请求应该在每次请求时重新获取。
+  // 类似于 `getServerSideProps`。
   const dynamicData = await fetch(`https://...`, { cache: 'no-store' })
 
-  // This request should be cached with a lifetime of 10 seconds.
-  // Similar to `getStaticProps` with the `revalidate` option.
+  // 这个请求应该被缓存，并且有10秒的生命周期。
+  // 类似于带有 `revalidate` 选项的 `getStaticProps`。
   const revalidatedData = await fetch(`https://...`, {
     next: { revalidate: 10 },
   })
@@ -504,17 +493,17 @@ export default async function Page() {
 
 ```jsx filename="app/page.js" switcher
 export default async function Page() {
-  // This request should be cached until manually invalidated.
-  // Similar to `getStaticProps`.
-  // `force-cache` is the default and can be omitted.
+  // 这个请求应该被缓存，直到手动使它失效。
+  // 类似于 `getStaticProps`。
+  // `force-cache` 是默认设置，可以省略。
   const staticData = await fetch(`https://...`, { cache: 'force-cache' })
 
-  // This request should be refetched on every request.
-  // Similar to `getServerSideProps`.
+  // 这个请求应该在每次请求时重新获取。
+  // 类似于 `getServerSideProps`。
   const dynamicData = await fetch(`https://...`, { cache: 'no-store' })
 
-  // This request should be cached with a lifetime of 10 seconds.
-  // Similar to `getStaticProps` with the `revalidate` option.
+  // 这个请求应该被缓存，并且有10秒的生命周期。
+  // 类似于带有 `revalidate` 选项的 `getStaticProps`。
   const revalidatedData = await fetch(`https://...`, {
     next: { revalidate: 10 },
   })
@@ -522,13 +511,12 @@ export default async function Page() {
   return <div>...</div>
 }
 ```
+# Server-side Rendering (`getServerSideProps`)
 
-,#### Server-side Rendering (`getServerSideProps`)
-
-In the `pages` directory, `getServerSideProps` is used to fetch data on the server and forward props to the default exported React component in the file. The initial HTML for the page is prerendered from the server, followed by "hydrating" the page in the browser (making it interactive).
+在 `pages` 目录中，`getServerSideProps` 用于在服务器上获取数据，并将属性转发给文件中默认导出的 React 组件。页面的初始 HTML 是从服务器上预渲染的，随后在浏览器中“激活”页面（使其变得可交互）。
 
 ```jsx filename="pages/dashboard.js"
-// `pages` directory
+// `pages` 目录
 
 export async function getServerSideProps() {
   const res = await fetch(`https://...`)
@@ -548,14 +536,14 @@ export default function Dashboard({ projects }) {
 }
 ```
 
-In the `app` directory, we can colocate our data fetching inside our React components using [Server Components](/docs/app/building-your-application/rendering/server-components). This allows us to send less JavaScript to the client, while maintaining the rendered HTML from the server.
+在 `app` 目录中，我们可以使用 [Server Components](/docs/app/building-your-application/rendering/server-components) 将数据获取与我们的 React 组件放在一起。这允许我们向客户端发送更少的 JavaScript，同时保持从服务器渲染的 HTML。
 
-By setting the `cache` option to `no-store`, we can indicate that the fetched data should [never be cached](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating). This is similar to `getServerSideProps` in the `pages` directory.
+通过将 `cache` 选项设置为 `no-store`，我们可以指示获取的数据 [永远不要被缓存](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating)。这类似于 `pages` 目录中的 `getServerSideProps`。
 
 ```tsx filename="app/dashboard/page.tsx" switcher
-// `app` directory
+// `app` 目录
 
-// This function can be named anything
+// 这个函数可以命名为任何名称
 async function getProjects() {
   const res = await fetch(`https://...`, { cache: 'no-store' })
   const projects = await res.json()
@@ -577,9 +565,9 @@ export default async function Dashboard() {
 ```
 
 ```jsx filename="app/dashboard/page.js" switcher
-// `app` directory
+// `app` 目录
 
-// This function can be named anything
+// 这个函数可以命名为任何名称
 async function getProjects() {
   const res = await fetch(`https://...`, { cache: 'no-store' })
   const projects = await res.json()
@@ -599,15 +587,14 @@ export default async function Dashboard() {
   )
 }
 ```
+### 请求对象的访问
 
-,#### Accessing Request Object
+在 `pages` 目录中，你可以根据 Node.js HTTP API 检索基于请求的数据。
 
-In the `pages` directory, you can retrieve request-based data based on the Node.js HTTP API.
-
-For example, you can retrieve the `req` object from `getServerSideProps` and use it to retrieve the request's cookies and headers.
+例如，你可以从 `getServerSideProps` 中获取 `req` 对象，并使用它来检索请求的 cookies 和 headers。
 
 ```jsx filename="pages/index.js"
-// `pages` directory
+// `pages` 目录
 
 export async function getServerSideProps({ req, query }) {
   const authHeader = req.getHeaders()['authorization'];
@@ -621,13 +608,13 @@ export default function Page(props) {
 }
 ```
 
-The `app` directory exposes new read-only functions to retrieve request data:
+`app` 目录公开了新的只读函数来检索请求数据：
 
-- [`headers()`](/docs/app/api-reference/functions/headers): Based on the Web Headers API, and can be used inside [Server Components](/docs/app/building-your-application/rendering/server-components) to retrieve request headers.
-- [`cookies()`](/docs/app/api-reference/functions/cookies): Based on the Web Cookies API, and can be used inside [Server Components](/docs/app/building-your-application/rendering/server-components) to retrieve cookies.
+- [`headers()`](/docs/app/api-reference/functions/headers): 基于 Web Headers API，可以在 [Server Components](/docs/app/building-your-application/rendering/server-components) 内部使用以检索请求 headers。
+- [`cookies()`](/docs/app/api-reference/functions/cookies): 基于 Web Cookies API，可以在 [Server Components](/docs/app/building-your-application/rendering/server-components) 内部使用以检索 cookies。
 
 ```tsx filename="app/page.tsx" switcher
-// `app` directory
+// `app` 目录
 import { cookies, headers } from 'next/headers'
 
 async function getData() {
@@ -637,8 +624,7 @@ async function getData() {
 }
 
 export default async function Page() {
-  // You can use `cookies()` or `headers()` inside Server Components
-  // directly or in your data fetching function
+  // 你可以在 Server Components 内部直接或在你的数据获取函数中使用 `cookies()` 或 `headers()`
   const theme = cookies().get('theme')
   const data = await getData()
   return '...'
@@ -646,7 +632,7 @@ export default async function Page() {
 ```
 
 ```jsx filename="app/page.js" switcher
-// `app` directory
+// `app` 目录
 import { cookies, headers } from 'next/headers'
 
 async function getData() {
@@ -656,20 +642,19 @@ async function getData() {
 }
 
 export default async function Page() {
-  // You can use `cookies()` or `headers()` inside Server Components
-  // directly or in your data fetching function
+  // 你可以在 Server Components 内部直接或在你的数据获取函数中使用 `cookies()` 或 `headers()`
   const theme = cookies().get('theme')
   const data = await getData()
   return '...'
 }
 ```
 
-#### Static Site Generation (`getStaticProps`)
+### 静态站点生成 (`getStaticProps`)
 
-In the `pages` directory, the `getStaticProps` function is used to pre-render a page at build time. This function can be used to fetch data from an external API or directly from a database, and pass this data down to the entire page as it's being generated during the build.
+在 `pages` 目录中，`getStaticProps` 函数用于在构建时预渲染页面。这个函数可以用来从外部 API 或直接从数据库获取数据，并将这些数据传递给整个页面，以便在构建期间生成页面时使用。
 
 ```jsx filename="pages/index.js"
-// `pages` directory
+// `pages` 目录
 
 export async function getStaticProps() {
   const res = await fetch(`https://...`)
@@ -683,12 +668,12 @@ export default function Index({ projects }) {
 }
 ```
 
-In the `app` directory, data fetching with [`fetch()`](/docs/app/api-reference/functions/fetch) will default to `cache: 'force-cache'`, which will cache the request data until manually invalidated. This is similar to `getStaticProps` in the `pages` directory.
+在 `app` 目录中，使用 [`fetch()`](/docs/app/api-reference/functions/fetch) 进行数据获取将默认为 `cache: 'force-cache'`，这将缓存请求数据直到手动使它失效。这与 `pages` 目录中的 `getStaticProps` 类似。
 
 ```jsx filename="app/page.js"
-// `app` directory
+// `app` 目录
 
-// This function can be named anything
+// 这个函数可以命名为任何名称
 async function getProjects() {
   const res = await fetch(`https://...`)
   const projects = await res.json()
@@ -702,13 +687,12 @@ export default async function Index() {
   return projects.map((project) => <div>{project.name}</div>)
 }
 ```
+# 动态路径 (`getStaticPaths`)
 
-,#### Dynamic paths (`getStaticPaths`)
-
-In the `pages` directory, the `getStaticPaths` function is used to define the dynamic paths that should be pre-rendered at build time.
+在 `pages` 目录中，`getStaticPaths` 函数用于定义应在构建时预渲染的动态路径。
 
 ```jsx filename="pages/posts/[id].js"
-// `pages` directory
+// `pages` 目录
 import PostLayout from '@/components/post-layout'
 
 export async function getStaticPaths() {
@@ -729,12 +713,12 @@ export default function Post({ post }) {
 }
 ```
 
-In the `app` directory, `getStaticPaths` is replaced with [`generateStaticParams`](/docs/app/api-reference/functions/generate-static-params).
+在 `app` 目录中，`getStaticPaths` 被 [`generateStaticParams`](/docs/app/api-reference/functions/generate-static-params) 替换。
 
-[`generateStaticParams`](/docs/app/api-reference/functions/generate-static-params) behaves similarly to `getStaticPaths`, but has a simplified API for returning route parameters and can be used inside [layouts](/docs/app/building-your-application/routing/layouts-and-templates). The return shape of `generateStaticParams` is an array of segments instead of an array of nested `param` objects or a string of resolved paths.
+[`generateStaticParams`](/docs/app/api-reference/functions/generate-static-params) 的行为类似于 `getStaticPaths`，但返回路由参数的 API 更简化，并且可以在 [布局](/docs/app/building-your-application/routing/layouts-and-templates) 中使用。`generateStaticParams` 返回的形状是段的数组，而不是嵌套的 `param` 对象数组或解析路径的字符串。
 
 ```jsx filename="app/posts/[id]/page.js"
-// `app` directory
+// `app` 目录
 import PostLayout from '@/components/post-layout'
 
 export async function generateStaticParams() {
@@ -755,16 +739,17 @@ export default async function Post({ params }) {
 }
 ```
 
-Using the name `generateStaticParams` is more appropriate than `getStaticPaths` for the new model in the `app` directory. The `get` prefix is replaced with a more descriptive `generate`, which sits better alone now that `getStaticProps` and `getServerSideProps` are no longer necessary. The `Paths` suffix is replaced by `Params`, which is more appropriate for nested routing with multiple dynamic segments.
+在 `app` 目录的新模型中，使用 `generateStaticParams` 这个名字比 `getStaticPaths` 更合适。`get` 前缀被更具描述性的 `generate` 替换，这在 `getStaticProps` 和 `getServerSideProps` 不再需要的情况下单独使用更合适。`Paths` 后缀被 `Params` 替换，这对于具有多个动态段的嵌套路由更为合适。
 
 ---
 
-,#### Replacing `fallback`
+**须知**：在使用 `generateStaticParams` 时，确保理解其与 `getStaticPaths` 的差异，以及如何在 `app` 目录中正确应用它。
+# Replacing `fallback`
 
-In the `pages` directory, the `fallback` property returned from `getStaticPaths` is used to define the behavior of a page that isn't pre-rendered at build time. This property can be set to `true` to show a fallback page while the page is being generated, `false` to show a 404 page, or `blocking` to generate the page at request time.
+在 `pages` 目录中，`getStaticPaths` 返回的 `fallback` 属性用于定义在构建时未预渲染的页面的行为。此属性可以设置为 `true` 以在生成页面时显示备用页面，`false` 以显示 404 页面，或 `blocking` 以在请求时生成页面。
 
 ```jsx filename="pages/posts/[id].js"
-// `pages` directory
+// `pages` 目录
 
 export async function getStaticPaths() {
   return {
@@ -782,15 +767,15 @@ export default function Post({ post }) {
 }
 ```
 
-In the `app` directory the [`config.dynamicParams` property](/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams) controls how params outside of [`generateStaticParams`](/docs/app/api-reference/functions/generate-static-params) are handled:
+在 `app` 目录中，[`config.dynamicParams` 属性](/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams) 控制了如何处理 [`generateStaticParams`](/docs/app/api-reference/functions/generate-static-params) 之外的参数：
 
-- **`true`**: (default) Dynamic segments not included in `generateStaticParams` are generated on demand.
-- **`false`**: Dynamic segments not included in `generateStaticParams` will return a 404.
+- **`true`**: (默认) 未包含在 `generateStaticParams` 中的动态段将按需生成。
+- **`false`**: 未包含在 `generateStaticParams` 中的动态段将返回 404。
 
-This replaces the `fallback: true | false | 'blocking'` option of `getStaticPaths` in the `pages` directory. The `fallback: 'blocking'` option is not included in `dynamicParams` because the difference between `'blocking'` and `true` is negligible with streaming.
+这取代了 `pages` 目录中 `getStaticPaths` 的 `fallback: true | false | 'blocking'` 选项。`dynamicParams` 中不包括 `fallback: 'blocking'` 选项，因为在使用流式传输时 `'blocking'` 和 `true` 之间的差异可以忽略不计。
 
 ```jsx filename="app/posts/[id]/page.js"
-// `app` directory
+// `app` 目录
 
 export const dynamicParams = true;
 
@@ -809,14 +794,14 @@ export default async function Post({ params }) {
 }
 ```
 
-With [`dynamicParams`](/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams) set to `true` (the default), when a route segment is requested that hasn't been generated, it will be server-rendered and cached.
+当 [`dynamicParams`](/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams) 设置为 `true`（默认值）时，如果请求了一个尚未生成的路由段，它将被服务器渲染并缓存。
 
-#### Incremental Static Regeneration (`getStaticProps` with `revalidate`)
+# Incremental Static Regeneration (`getStaticProps` with `revalidate`)
 
-In the `pages` directory, the `getStaticProps` function allows you to add a `revalidate` field to automatically regenerate a page after a certain amount of time.
+在 `pages` 目录中，`getStaticProps` 函数允许您添加一个 `revalidate` 字段，以在一定时间后自动重新生成页面。
 
 ```jsx filename="pages/index.js"
-// `pages` directory
+// `pages` 目录
 
 export async function getStaticProps() {
   const res = await fetch(`https://.../posts`)
@@ -837,10 +822,10 @@ export default function Index({ posts }) {
 }
 ```
 
-In the `app` directory, data fetching with [`fetch()`](/docs/app/api-reference/functions/fetch) can use `revalidate`, which will cache the request for the specified amount of seconds.
+在 `app` 目录中，使用 [`fetch()`](/docs/app/api-reference/functions/fetch) 进行数据获取时可以使用 `revalidate`，这将为指定的秒数缓存请求。
 
 ```jsx filename="app/page.js"
-// `app` directory
+// `app` 目录
 
 async function getPosts() {
   const res = await fetch(`https://.../posts`, { next: { revalidate: 60 } })
@@ -855,12 +840,11 @@ export default async function PostList() {
   return posts.map((post) => <div>{post.name}</div>)
 }
 ```
+# API Routes
 
-,#### API Routes
+API Routes 在 `pages/api` 目录下继续工作，无需任何更改。然而，它们已经被 `app` 目录中的 [Route Handlers](/docs/app/building-your-application/routing/route-handlers) 所取代。
 
-API Routes continue to work in the `pages/api` directory without any changes. However, they have been replaced by [Route Handlers](/docs/app/building-your-application/routing/route-handlers) in the `app` directory.
-
-Route Handlers allow you to create custom request handlers for a given route using the Web [Request](https://developer.mozilla.org/docs/Web/API/Request) and [Response](https://developer.mozilla.org/docs/Web/API/Response) APIs.
+Route Handlers 允许您使用 Web [Request](https://developer.mozilla.org/docs/Web/API/Request) 和 [Response](https://developer.mozilla.org/docs/Web/API/Response) API 为给定路由创建自定义请求处理程序。
 
 ```ts filename="app/api/route.ts" switcher
 export async function GET(request: Request) {}
@@ -870,11 +854,11 @@ export async function GET(request: Request) {}
 export async function GET(request) {}
 ```
 
-> **Good to know**: If you previously used API routes to call an external API from the client, you can now use [Server Components](/docs/app/building-your-application/rendering/server-components) instead to securely fetch data. Learn more about [data fetching](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating).
+> **须知**：如果您之前使用 API routes 从客户端调用外部 API，现在可以使用 [Server Components](/docs/app/building-your-application/rendering/server-components) 来安全地获取数据。了解更多关于 [data fetching](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating) 的信息。
 
 ### Step 7: Styling
 
-In the `pages` directory, global stylesheets are restricted to only `pages/_app.js`. With the `app` directory, this restriction has been lifted. Global styles can be added to any layout, page, or component.
+在 `pages` 目录中，全局样式表仅限于 `pages/_app.js`。随着 `app` 目录的引入，这一限制已被取消。全局样式可以添加到任何布局、页面或组件中。
 
 - [CSS Modules](/docs/app/building-your-application/styling/css-modules)
 - [Tailwind CSS](/docs/app/building-your-application/styling/tailwind-css)
@@ -885,19 +869,19 @@ In the `pages` directory, global stylesheets are restricted to only `pages/_app.
 
 #### Tailwind CSS
 
-If you're using Tailwind CSS, you'll need to add the `app` directory to your `tailwind.config.js` file:
+如果您正在使用 Tailwind CSS，则需要将 `app` 目录添加到您的 `tailwind.config.js` 文件中：
 
 ```js filename="tailwind.config.js"
 module.exports = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}', // <-- Add this line
+    './app/**/*.{js,ts,jsx,tsx,mdx}', // <-- 添加这行
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
 }
 ```
 
-You'll also need to import your global styles in your `app/layout.js` file:
+您还需要在 `app/layout.js` 文件中导入您的全局样式：
 
 ```jsx filename="app/layout.js"
 import '../styles/globals.css'
@@ -911,8 +895,8 @@ export default function RootLayout({ children }) {
 }
 ```
 
-Learn more about [styling with Tailwind CSS](/docs/app/building-your-application/styling/tailwind-css)
+了解更多关于 [使用 Tailwind CSS 进行样式设计](/docs/app/building-your-application/styling/tailwind-css) 的信息。
 
 ## Codemods
 
-Next.js provides Codemod transformations to help upgrade your codebase when a feature is deprecated. See [Codemods](/docs/app/building-your-application/upgrading/codemods) for more information.
+Next.js 提供了 Codemod 转换，以帮助在功能被弃用时升级您的代码库。查看 [Codemods](/docs/app/building-your-application/upgrading/codemods) 以获取更多信息。

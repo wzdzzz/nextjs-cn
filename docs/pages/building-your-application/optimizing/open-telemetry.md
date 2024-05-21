@@ -1,7 +1,4 @@
----
-title: OpenTelemetry
-description: Learn how to instrument your Next.js app with OpenTelemetry.
-source: app/building-your-application/optimizing/open-telemetry
----
+# OpenTelemetry
 
-{/* DO NOT EDIT. The content of this doc is generated from the source above. To edit the content of this page, navigate to the source page in your editor. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+了解如何使用OpenTelemetry为您的Next.js应用进行仪器化。
+须知：本文档的内容是从上述来源生成的。要编辑此页面的内容，请在编辑器中导航到源页面。您可以使用`<PagesOnly>Content</PagesOnly>`组件添加特定于页面路由器的内容。任何共享内容都不应被包装在组件中。

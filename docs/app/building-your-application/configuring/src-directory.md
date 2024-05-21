@@ -1,34 +1,33 @@
 ---
-title: src Directory
-description: Save pages under the `src` directory as an alternative to the root `pages` directory.
+title: src 目录
+description: 将页面保存在 `src` 目录下，作为根 `pages` 目录的替代方案。
 related:
   links:
     - app/building-your-application/routing/colocation
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+# src 目录
+作为在项目根目录中拥有特殊的 Next.js `app` 或 `pages` 目录的替代方案，Next.js 还支持将应用程序代码放置在 `src` 目录下的常见模式。
 
-As an alternative to having the special Next.js `app` or `pages` directories in the root of your project, Next.js also supports the common pattern of placing application code under the `src` directory.
+这将应用程序代码与主要位于项目根目录的大部分项目配置文件分离，这是一些个人和团队的偏好。
 
-This separates application code from project configuration files which mostly live in the root of a project, which is preferred by some individuals and teams.
+要使用 `src` 目录，请将 `app` 路由器文件夹或 `pages` 路由器文件夹移动到 `src/app` 或 `src/pages`。
 
-To use the `src` directory, move the `app` Router folder or `pages` Router folder to `src/app` or `src/pages` respectively.
-
-<Image
-  alt="An example folder structure with the `src` directory"
-  srcLight="/docs/light/project-organization-src-directory.png"
+<img
+  alt="一个带有 `src` 目录的示例文件夹结构"
+  src="https://nextjs.org/_next/image?url=/docs/light/project-organization-src-directory.png&w=3840&q=75"
   srcDark="/docs/dark/project-organization-src-directory.png"
   width="1600"
   height="687"
 />
 
-> **Good to know**
+> **须知**
 >
-> - The `/public` directory should remain in the root of your project.
-> - Config files like `package.json`, `next.config.js` and `tsconfig.json` should remain in the root of your project.
-> - `.env.*` files should remain in the root of your project.
-> - `src/app` or `src/pages` will be ignored if `app` or `pages` are present in the root directory.
-> - If you're using `src`, you'll probably also move other application folders such as `/components` or `/lib`.
-> - If you're using Middleware, ensure it is placed inside the `src` directory.
-> - If you're using Tailwind CSS, you'll need to add the `/src` prefix to the `tailwind.config.js` file in the [content section](https://tailwindcss.com/docs/content-configuration).
-> - If you are using TypeScript paths for imports such as `@/*`, you should update the `paths` object in `tsconfig.json` to include `src/`.
+> - `/public` 目录应保持在项目的根目录。
+> - 像 `package.json`、`next.config.js` 和 `tsconfig.json` 这样的配置文件应保持在项目的根目录。
+> - `.env.*` 文件应保持在项目的根目录。
+> - 如果根目录中存在 `app` 或 `pages`，则 `src/app` 或 `src/pages` 将被忽略。
+> - 如果你使用 `src`，你可能会将其他应用程序文件夹（如 `/components` 或 `/lib`）也移动过去。
+> - 如果你使用 Middleware，请确保将其放置在 `src` 目录内。
+> - 如果你使用 Tailwind CSS，则需要在 [内容部分](https://tailwindcss.com/docs/content-configuration) 的 `tailwind.config.js` 文件中添加 `/src` 前缀。
+> - 如果你使用 TypeScript 路径导入，如 `@/*`，则应更新 `tsconfig.json` 中的 `paths` 对象以包含 `src/`。

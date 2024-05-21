@@ -1,19 +1,19 @@
 ---
 title: webVitalsAttribution
-description: Learn how to use the webVitalsAttribution option to pinpoint the source of Web Vitals issues.
+description: 学习如何使用webVitalsAttribution选项来确定Web Vitals问题来源。
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 此文档的内容在应用和页面路由器之间共享。您可以使用`<PagesOnly>Content</PagesOnly>`组件添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
 
-When debugging issues related to Web Vitals, it is often helpful if we can pinpoint the source of the problem.
-For example, in the case of Cumulative Layout Shift (CLS), we might want to know the first element that shifted when the single largest layout shift occurred.
-Or, in the case of Largest Contentful Paint (LCP), we might want to identify the element corresponding to the LCP for the page.
-If the LCP element is an image, knowing the URL of the image resource can help us locate the asset we need to optimize.
+在调试与Web Vitals相关的问题时，如果能够确定问题的源头，通常会很有帮助。
+例如，在累积布局偏移（CLS）的情况下，我们可能想要知道当发生最大单一布局偏移时，第一个发生偏移的元素是什么。
+或者，在最大内容绘制（LCP）的情况下，我们可能想要识别与页面的LCP对应的元素。
+如果LCP元素是一张图片，知道图片资源的URL可以帮助我们定位需要优化的资产。
 
-Pinpointing the biggest contributor to the Web Vitals score, aka [attribution](https://github.com/GoogleChrome/web-vitals/blob/4ca38ae64b8d1e899028c692f94d4c56acfc996c/README.md#attribution),
-allows us to obtain more in-depth information like entries for [PerformanceEventTiming](https://developer.mozilla.org/docs/Web/API/PerformanceEventTiming), [PerformanceNavigationTiming](https://developer.mozilla.org/docs/Web/API/PerformanceNavigationTiming) and [PerformanceResourceTiming](https://developer.mozilla.org/docs/Web/API/PerformanceResourceTiming).
+确定对Web Vitals得分贡献最大的因素，即[归因](https://github.com/GoogleChrome/web-vitals/blob/4ca38ae64b8d1e899028c692f94d4c56acfc996c/README.md#attribution)，
+允许我们获得更深入的信息，如[PerformanceEventTiming](https://developer.mozilla.org/docs/Web/API/PerformanceEventTiming)、[PerformanceNavigationTiming](https://developer.mozilla.org/docs/Web/API/PerformanceNavigationTiming)和[PerformanceResourceTiming](https://developer.mozilla.org/docs/Web/API/PerformanceResourceTiming)的条目。
 
-Attribution is disabled by default in Next.js but can be enabled **per metric** by specifying the following in `next.config.js`.
+在Next.js中，默认情况下归因是禁用的，但可以通过在`next.config.js`中指定以下内容来**每个指标**启用。
 
 ```js filename="next.config.js"
 experimental: {
@@ -21,4 +21,4 @@ experimental: {
 }
 ```
 
-Valid attribution values are all `web-vitals` metrics specified in the [`NextWebVitalsMetric`](https://github.com/vercel/next.js/blob/442378d21dd56d6e769863eb8c2cb521a463a2e0/packages/next/shared/lib/utils.ts#L43) type.
+有效的归因值是所有在[`NextWebVitalsMetric`](https://github.com/vercel/next.js/blob/442378d21dd56d6e769863eb8c2cb521a463a2e0/packages/next/shared/lib/utils.ts#L43)类型中指定的`web-vitals`指标。

@@ -1,36 +1,35 @@
 ---
-title: Version 14
-description: Upgrade your Next.js Application from Version 13 to 14.
+title: 版本 14
+description: 将您的 Next.js 应用程序从版本 13 升级到 14。
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+# 版本 14
+## 从 13 升级到 14
 
-## Upgrading from 13 to 14
+要更新到 Next.js 版本 14，请使用您喜欢的包管理器运行以下命令：
 
-To update to Next.js version 14, run the following command using your preferred package manager:
-
-```bash filename="Terminal"
+```bash filename="终端"
 npm i next@latest react@latest react-dom@latest eslint-config-next@latest
 ```
 
-```bash filename="Terminal"
+```bash filename="终端"
 yarn add next@latest react@latest react-dom@latest eslint-config-next@latest
 ```
 
-```bash filename="Terminal"
+```bash filename="终端"
 pnpm up next react react-dom eslint-config-next --latest
 ```
 
-```bash filename="Terminal"
+```bash filename="终端"
 bun add next@latest react@latest react-dom@latest eslint-config-next@latest
 ```
 
-> **Good to know:** If you are using TypeScript, ensure you also upgrade `@types/react` and `@types/react-dom` to their latest versions.
+> **须知：** 如果您正在使用 TypeScript，请确保也将 `@types/react` 和 `@types/react-dom` 升级到它们的最新版本。
 
-### v14 Summary
+### v14 摘要
 
-- The minimum Node.js version has been bumped from 16.14 to 18.17, since 16.x has reached end-of-life.
-- The `next export` command has been removed in favor of `output: 'export'` config. Please see the [docs](https://nextjs.org/docs/app/building-your-application/deploying/static-exports) for more information.
-- The `next/server` import for `ImageResponse` was renamed to `next/og`. A [codemod is available](/docs/app/building-your-application/upgrading/codemods#next-og-import) to safely and automatically rename your imports.
-- The `@next/font` package has been fully removed in favor of the built-in `next/font`. A [codemod is available](/docs/app/building-your-application/upgrading/codemods#built-in-next-font) to safely and automatically rename your imports.
-- The WASM target for `next-swc` has been removed.
+- 最低 Node.js 版本已从 16.14 提高到 18.17，因为 16.x 已达到生命周期终点。
+- 移除了 `next export` 命令，转而使用 `output: 'export'` 配置。有关更多信息，请参见[文档](https://nextjs.org/docs/app/building-your-application/deploying/static-exports)。
+- `next/server` 导入的 `ImageResponse` 已重命名为 `next/og`。有一个[代码修改工具](/docs/app/building-your-application/upgrading/codemods#next-og-import)可用于安全且自动地重命名您的导入。
+- `@next/font` 包已完全移除，转而使用内置的 `next/font`。有一个[代码修改工具](/docs/app/building-your-application/upgrading/codemods#built-in-next-font)可用于安全且自动地重命名您的导入。
+- 已移除 `next-swc` 的 WASM 目标。

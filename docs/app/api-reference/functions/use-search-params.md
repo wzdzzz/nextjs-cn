@@ -1,11 +1,11 @@
 ---
 title: useSearchParams
-description: API Reference for the useSearchParams hook.
+description: useSearchParams 钩子的 API 参考。
 ---
 
-`useSearchParams` is a **Client Component** hook that lets you read the current URL's **query string**.
+`useSearchParams` 是一个 **客户端组件** 钩子，允许您读取当前 URL 的 **查询字符串**。
 
-`useSearchParams` returns a **read-only** version of the [`URLSearchParams`](https://developer.mozilla.org/docs/Web/API/URLSearchParams) interface.
+`useSearchParams` 返回 [`URLSearchParams`](https://developer.mozilla.org/docs/Web/API/URLSearchParams) 接口的 **只读** 版本。
 
 ```tsx filename="app/dashboard/search-bar.tsx" switcher
 'use client'
@@ -19,7 +19,7 @@ export default function SearchBar() {
 
   // URL -> `/dashboard?search=my-project`
   // `search` -> 'my-project'
-  return <>Search: {search}</>
+  return <>搜索: {search}</>
 }
 ```
 
@@ -35,54 +35,52 @@ export default function SearchBar() {
 
   // URL -> `/dashboard?search=my-project`
   // `search` -> 'my-project'
-  return <>Search: {search}</>
+  return <>搜索: {search}</>
 }
 ```
 
-## Parameters
+## 参数
 
 ```tsx
 const searchParams = useSearchParams()
 ```
 
-`useSearchParams` does not take any parameters.
+`useSearchParams` 不接受任何参数。
+## 返回值
 
-,## Returns
+`useSearchParams` 返回一个只读版本的 [`URLSearchParams`](https://developer.mozilla.org/docs/Web/API/URLSearchParams) 接口，该接口包括用于读取 URL 查询字符串的实用方法：
 
-`useSearchParams` returns a **read-only** version of the [`URLSearchParams`](https://developer.mozilla.org/docs/Web/API/URLSearchParams) interface, which includes utility methods for reading the URL's query string:
-
-- [`URLSearchParams.get()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/get): Returns the first value associated with the search parameter. For example:
+- [`URLSearchParams.get()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/get): 返回与搜索参数关联的第一个值。例如：
 
   | URL                  | `searchParams.get("a")`                                                                                         |
   | -------------------- | --------------------------------------------------------------------------------------------------------------- |
   | `/dashboard?a=1`     | `'1'`                                                                                                           |
   | `/dashboard?a=`      | `''`                                                                                                            |
   | `/dashboard?b=3`     | `null`                                                                                                          |
-  | `/dashboard?a=1&a=2` | `'1'` _- use [`getAll()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/getAll) to get all values_ |
+  | `/dashboard?a=1&a=2` | `'1'` _- 使用 [`getAll()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/getAll) 获取所有值_ |
 
-- [`URLSearchParams.has()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/has): Returns a boolean value indicating if the given parameter exists. For example:
+- [`URLSearchParams.has()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/has): 返回一个布尔值，指示给定参数是否存在。例如：
 
   | URL              | `searchParams.has("a")` |
   | ---------------- | ----------------------- |
   | `/dashboard?a=1` | `true`                  |
   | `/dashboard?b=3` | `false`                 |
 
-- Learn more about other **read-only** methods of [`URLSearchParams`](https://developer.mozilla.org/docs/Web/API/URLSearchParams), including the [`getAll()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/getAll), [`keys()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/keys), [`values()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/values), [`entries()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/entries), [`forEach()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/forEach), and [`toString()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/toString).
+- 了解更多关于 [`URLSearchParams`](https://developer.mozilla.org/docs/Web/API/URLSearchParams) 的其他只读方法，包括 [`getAll()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/getAll), [`keys()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/keys), [`values()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/values), [`entries()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/entries), [`forEach()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/forEach), 和 [`toString()`](https://developer.mozilla.org/docs/Web/API/URLSearchParams/toString)。
 
-> **Good to know**:
+> **须知**：
 >
-> - `useSearchParams` is a [Client Component](/docs/app/building-your-application/rendering/client-components) hook and is **not supported** in [Server Components](/docs/app/building-your-application/rendering/server-components) to prevent stale values during [partial rendering](/docs/app/building-your-application/routing/linking-and-navigating#4-partial-rendering).
-> - If an application includes the `/pages` directory, `useSearchParams` will return `ReadonlyURLSearchParams | null`. The `null` value is for compatibility during migration since search params cannot be known during pre-rendering of a page that doesn't use `getServerSideProps`
+> - `useSearchParams` 是一个 [客户端组件](/docs/app/building-your-application/rendering/client-components) hook，在 [服务器组件](/docs/app/building-your-application/rendering/server-components) 中**不支持**，以防止在[部分渲染](/docs/app/building-your-application/routing/linking-and-navigating#4-partial-rendering)期间出现过时的值。
+> - 如果应用程序包含 `/pages` 目录，`useSearchParams` 将返回 `ReadonlyURLSearchParams | null`。`null` 值是为了在迁移期间保持兼容性，因为在预渲染不使用 `getServerSideProps` 的页面时，搜索参数是未知的。
+### 静态渲染
 
-,### Static Rendering
+如果一个路由是[静态渲染](/docs/app/building-your-application/rendering/server-components#static-rendering-default)的，调用 `useSearchParams` 将导致客户端组件树直到最近的 [`Suspense` 边界](/docs/app/building-your-application/routing/loading-ui-and-streaming#example) 被客户端渲染。
 
-If a route is [statically rendered](/docs/app/building-your-application/rendering/server-components#static-rendering-default), calling `useSearchParams` will cause the Client Component tree up to the closest [`Suspense` boundary](/docs/app/building-your-application/routing/loading-ui-and-streaming#example) to be client-side rendered.
+这允许路由的一部分被静态渲染，而使用 `useSearchParams` 的动态部分则在客户端渲染。
 
-This allows a part of the route to be statically rendered while the dynamic part that uses `useSearchParams` is client-side rendered.
+我们建议将使用 `useSearchParams` 的客户端组件包装在 `<Suspense/>` 边界内。这将允许其上方的任何客户端组件被静态渲染并作为初始 HTML 的一部分发送。[示例](/docs/app/api-reference/functions/use-search-params#static-rendering)。
 
-We recommend wrapping the Client Component that uses `useSearchParams` in a `<Suspense/>` boundary. This will allow any Client Components above it to be statically rendered and sent as part of initial HTML. [Example](/docs/app/api-reference/functions/use-search-params#static-rendering).
-
-For example:
+例如：
 
 ```tsx filename="app/dashboard/search-bar.tsx" switcher
 'use client'
@@ -94,7 +92,7 @@ export default function SearchBar() {
 
   const search = searchParams.get('search')
 
-  // This will not be logged on the server when using static rendering
+  // 使用静态渲染时，服务器上不会记录此日志
   console.log(search)
 
   return <>Search: {search}</>
@@ -111,7 +109,7 @@ export default function SearchBar() {
 
   const search = searchParams.get('search')
 
-  // This will not be logged on the server when using static rendering
+  // 使用静态渲染时，服务器上不会记录此日志
   console.log(search)
 
   return <>Search: {search}</>
@@ -122,10 +120,10 @@ export default function SearchBar() {
 import { Suspense } from 'react'
 import SearchBar from './search-bar'
 
-// This component passed as a fallback to the Suspense boundary
-// will be rendered in place of the search bar in the initial HTML.
-// When the value is available during React hydration the fallback
-// will be replaced with the `<SearchBar>` component.
+// 作为 Suspense 边界的回退组件
+// 将替换初始 HTML 中的搜索栏。
+// 当 React 水合期间值可用时，回退
+// 将被 `<SearchBar>` 组件替换。
 function SearchBarFallback() {
   return <>placeholder</>
 }
@@ -148,10 +146,10 @@ export default function Page() {
 import { Suspense } from 'react'
 import SearchBar from './search-bar'
 
-// This component passed as a fallback to the Suspense boundary
-// will be rendered in place of the search bar in the initial HTML.
-// When the value is available during React hydration the fallback
-// will be replaced with the `<SearchBar>` component.
+// 作为 Suspense 边界的回退组件
+// 将替换初始 HTML 中的搜索栏。
+// 当 React 水合期间值可用时，回退
+// 将被 `<SearchBar>` 组件替换。
 function SearchBarFallback() {
   return <>placeholder</>
 }
@@ -169,14 +167,13 @@ export default function Page() {
   )
 }
 ```
+## 行为
 
-,## Behavior
+### 动态渲染
 
-### Dynamic Rendering
+如果一个路由是[动态渲染](/docs/app/building-your-application/rendering/server-components#dynamic-rendering)的，`useSearchParams`将在客户端组件的初始服务器渲染期间在服务器上可用。
 
-If a route is [dynamically rendered](/docs/app/building-your-application/rendering/server-components#dynamic-rendering), `useSearchParams` will be available on the server during the initial server render of the Client Component.
-
-For example:
+例如：
 
 ```tsx filename="app/dashboard/search-bar.tsx" switcher
 'use client'
@@ -188,11 +185,10 @@ export default function SearchBar() {
 
   const search = searchParams.get('search')
 
-  // This will be logged on the server during the initial render
-  // and on the client on subsequent navigations.
+  // 这将在初始渲染期间在服务器上记录，并且在后续导航中在客户端记录。
   console.log(search)
 
-  return <>Search: {search}</>
+  return <>搜索: {search}</>
 }
 ```
 
@@ -206,11 +202,10 @@ export default function SearchBar() {
 
   const search = searchParams.get('search')
 
-  // This will be logged on the server during the initial render
-  // and on the client on subsequent navigations.
+  // 这将在初始渲染期间在服务器上记录，并且在后续导航中在客户端记录。
   console.log(search)
 
-  return <>Search: {search}</>
+  return <>搜索: {search}</>
 }
 ```
 
@@ -225,7 +220,7 @@ export default function Page() {
       <nav>
         <SearchBar />
       </nav>
-      <h1>Dashboard</h1>
+      <h1>仪表板</h1>
     </>
   )
 }
@@ -242,31 +237,30 @@ export default function Page() {
       <nav>
         <SearchBar />
       </nav>
-      <h1>Dashboard</h1>
+      <h1>仪表板</h1>
     </>
   )
 }
 ```
 
-> **Good to know**: Setting the [`dynamic` route segment config option](/docs/app/api-reference/file-conventions/route-segment-config#dynamic) to `force-dynamic` can be used to force dynamic rendering.
+> **须知**：将[`dynamic`路由段配置选项](/docs/app/api-reference/file-conventions/route-segment-config#dynamic)设置为`force-dynamic`可用于强制动态渲染。
 
-### Server Components
+### 服务器组件
 
-#### Pages
+#### 页面
 
-To access search params in [Pages](/docs/app/api-reference/file-conventions/page) (Server Components), use the [`searchParams`](/docs/app/api-reference/file-conventions/page#searchparams-optional) prop.
+要在[页面](/docs/app/api-reference/file-conventions/page)（服务器组件）中访问搜索参数，请使用[`searchParams`](/docs/app/api-reference/file-conventions/page#searchparams-optional)属性。
 
-#### Layouts
+#### 布局
 
-Unlike Pages, [Layouts](/docs/app/api-reference/file-conventions/layout) (Server Components) **do not** receive the `searchParams` prop. This is because a shared layout is [not re-rendered during navigation](/docs/app/building-your-application/routing/linking-and-navigating#4-partial-rendering) which could lead to stale `searchParams` between navigations. View [detailed explanation](/docs/app/api-reference/file-conventions/layout#layouts-do-not-receive-searchparams).
+与页面不同，[布局](/docs/app/api-reference/file-conventions/layout)（服务器组件）**不**接收`searchParams`属性。这是因为共享的布局在导航期间[不会重新渲染](/docs/app/building-your-application/routing/linking-and-navigating#4-partial-rendering)，这可能导致导航之间的`searchParams`过时。查看[详细解释](/docs/app/api-reference/file-conventions/layout#layouts-do-not-receive-searchparams)。
 
-Instead, use the Page [`searchParams`](/docs/app/api-reference/file-conventions/page) prop or the [`useSearchParams`](/docs/app/api-reference/functions/use-search-params) hook in a Client Component, which is re-rendered on the client with the latest `searchParams`.
+相反，使用页面的[`searchParams`](/docs/app/api-reference/file-conventions/page)属性或在客户端组件中使用[`useSearchParams`](/docs/app/api-reference/functions/use-search-params)钩子，客户端组件会随着最新的`searchParams`重新渲染。
+## 示例
 
-,## Examples
+### 更新 `searchParams`
 
-### Updating `searchParams`
-
-You can use [`useRouter`](/docs/app/api-reference/functions/use-router) or [`Link`](/docs/app/api-reference/components/link) to set new `searchParams`. After a navigation is performed, the current [`page.js`](/docs/app/api-reference/file-conventions/page) will receive an updated [`searchParams` prop](/docs/app/api-reference/file-conventions/page#searchparams-optional).
+您可以使用 [`useRouter`](/docs/app/api-reference/functions/use-router) 或 [`Link`](/docs/app/api-reference/components/link) 来设置新的 `searchParams`。在执行导航后，当前的 [`page.js`](/docs/app/api-reference/file-conventions/page) 将接收到更新后的 [`searchParams` prop](/docs/app/api-reference/file-conventions/page#searchparams-optional)。
 
 ```tsx filename="app/example-client-component.tsx" switcher
 export default function ExampleClientComponent() {
@@ -274,8 +268,7 @@ export default function ExampleClientComponent() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
+  // 通过合并当前的 searchParams 和提供的键/值对来获取新的 searchParams 字符串
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString())
@@ -288,9 +281,9 @@ export default function ExampleClientComponent() {
 
   return (
     <>
-      <p>Sort By</p>
+      <p>排序方式</p>
 
-      {/* using useRouter */}
+      {/* 使用 useRouter */}
       <button
         onClick={() => {
           // <pathname>?sort=asc
@@ -300,7 +293,7 @@ export default function ExampleClientComponent() {
         ASC
       </button>
 
-      {/* using <Link> */}
+      {/* 使用 <Link> */}
       <Link
         href={
           // <pathname>?sort=desc
@@ -320,8 +313,7 @@ export default function ExampleClientComponent() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
+  // 通过合并当前的 searchParams 和提供的键/值对来获取新的 searchParams 字符串
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams)
@@ -334,9 +326,9 @@ export default function ExampleClientComponent() {
 
   return (
     <>
-      <p>Sort By</p>
+      <p>排序方式</p>
 
-      {/* using useRouter */}
+      {/* 使用 useRouter */}
       <button
         onClick={() => {
           // <pathname>?sort=asc
@@ -346,7 +338,7 @@ export default function ExampleClientComponent() {
         ASC
       </button>
 
-      {/* using <Link> */}
+      {/* 使用 <Link> */}
       <Link
         href={
           // <pathname>?sort=desc
@@ -360,8 +352,8 @@ export default function ExampleClientComponent() {
 }
 ```
 
-## Version History
+## 版本历史
 
-| Version   | Changes                       |
+| 版本   | 变化                       |
 | --------- | ----------------------------- |
-| `v13.0.0` | `useSearchParams` introduced. |
+| `v13.0.0` | 引入 `useSearchParams`。 |

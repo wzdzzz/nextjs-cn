@@ -1,165 +1,162 @@
 ---
-title: Production Checklist
-description: Recommendations to ensure the best performance and user experience before taking your Next.js application to production.
+title: 生产清单
+description: 在将您的 Next.js 应用程序投入生产之前，确保最佳性能和用户体验的建议。
 ---
+# 生产清单
+在将您的 Next.js 应用程序投入生产之前，您应该考虑实施一些优化和模式，以获得最佳的用户体验、性能和安全性。
 
-Before taking your Next.js application to production, there are some optimizations and patterns you should consider implementing for the best user experience, performance, and security.
+本页面提供了您可以在[构建应用程序](#during-development)、[投入生产前](#before-going-to-production)和[部署后](#after-deployment)时使用的的最佳实践，以及您应该了解的[自动 Next.js 优化](#automatic-optimizations)。
 
-This page provides best practices that you can use as a reference when [building your application](#during-development), [before going to production](#before-going-to-production), and [after deployment](#after-deployment) - as well as the [automatic Next.js optimizations](#automatic-optimizations) you should be aware of.
+## 自动优化
 
-## Automatic optimizations
-
-These Next.js optimizations are enabled by default and require no configuration:
+这些 Next.js 优化默认启用，无需配置：
 
 <AppOnly>
 
-- **[Server Components](/docs/app/building-your-application/rendering/server-components):** Next.js uses Server Components by default. Server Components run on the server, and don't require JavaScript to render on the client. As such, they have no impact on the size of your client-side JavaScript bundles. You can then use [Client Components](/docs/app/building-your-application/rendering/client-components) as needed for interactivity.
-- **[Code-splitting](/docs/app/building-your-application/routing/linking-and-navigating#how-routing-and-navigation-works):** Server Components enable automatic code-splitting by route segments. You may also consider [lazy loading](/docs/app/building-your-application/optimizing/lazy-loading) Client Components and third-party libraries, where appropriate.
-- **[Prefetching](/docs/app/building-your-application/routing/linking-and-navigating#2-prefetching):** When a link to a new route enters the user's viewport, Next.js prefetches the route in background. This makes navigation to new routes almost instant. You can opt out of prefetching, where appropriate.
-- **[Static Rendering](/docs/app/building-your-application/rendering/server-components#static-rendering-default):** Next.js statically renders Server and Client Components on the server at build time and caches the rendered result to improve your application's performance. You can opt into [Dynamic Rendering](/docs/app/building-your-application/rendering/server-components#dynamic-rendering) for specific routes, where appropriate. {/* TODO: Update when PPR is stable */}
-- **[Caching](/docs/app/building-your-application/caching):** Next.js caches data requests, the rendered result of Server and Client Components, static assets, and more, to reduce the number of network requests to your server, database, and backend services. You may opt out of caching, where appropriate.
+- **[服务器组件](/docs/app/building-your-application/rendering/server-components):** Next.js 默认使用服务器组件。服务器组件在服务器上运行，不需要 JavaScript 即可在客户端渲染。因此，它们不会影响您客户端 JavaScript 包的大小。根据需要，您可以使用[客户端组件](/docs/app/building-your-application/rendering/client-components)进行交互。
+- **[代码分割](/docs/app/building-your-application/routing/linking-and-navigating#how-routing-and-navigation-works):** 服务器组件通过路由段启用自动代码分割。您还可以考虑在适当的情况下[延迟加载](/docs/app/building-your-application/optimizing/lazy-loading)客户端组件和第三方库。
+- **[预取](/docs/app/building-your-application/routing/linking-and-navigating#2-prefetching):** 当新路由的链接进入用户的视口时，Next.js 会在后台预取该路由。这使得导航到新路由几乎瞬间完成。在适当的情况下，您可以选择退出预取。
+- **[静态渲染](/docs/app/building-your-application/rendering/server-components#static-rendering-default):** Next.js 在构建时在服务器上静态渲染服务器和客户端组件，并缓存渲染结果以提高应用程序的性能。在适当的情况下，您可以选择[动态渲染](/docs/app/building-your-application/rendering/server-components#dynamic-rendering)特定路由。
+- **[缓存](/docs/app/building-your-application/caching):** Next.js 缓存数据请求、服务器和客户端组件的渲染结果、静态资产等，以减少对服务器、数据库和后端服务的网络请求数量。在适当的情况下，您可以选择退出缓存。
 
 </AppOnly>
 
 <PagesOnly>
 
-- **[Code-splitting](/docs/pages/building-your-application/routing/pages-and-layouts):** Next.js automatically code-splits your application code by pages. This means only the code needed for the current page is loaded on navigation. You may also consider [lazy loading](/docs/pages/building-your-application/optimizing/lazy-loading) third-party libraries, where appropriate.
-- **[Prefetching](/docs/pages/api-reference/components/link#prefetch):** When a link to a new route enters the user's viewport, Next.js prefetches the route in background. This makes navigation to new routes almost instant. You can opt out of prefetching, where appropriate.
-- **[Automatic Static Optimization](/docs/pages/building-your-application/rendering/automatic-static-optimization):** Next.js automatically determines that a page is static (can be pre-rendered) if it has no blocking data requirements. Optimized pages can be cached, and served to the end-user from multiple CDN locations. You may opt into [Server-side Rendering](/docs/pages/building-your-application/data-fetching/get-server-side-props), where appropriate.
+- **[代码分割](/docs/pages/building-your-application/routing/pages-and-layouts):** Next.js 自动通过页面对应用程序代码进行代码分割。这意味着只有在导航时才会加载当前页面所需的代码。您还可以考虑在适当的情况下[延迟加载](/docs/pages/building-your-application/optimizing/lazy-loading)第三方库。
+- **[预取](/docs/pages/api-reference/components/link#prefetch):** 当新路由的链接进入用户的视口时，Next.js 会在后台预取该路由。这使得导航到新路由几乎瞬间完成。在适当的情况下，您可以选择退出预取。
+- **[自动静态优化](/docs/pages/building-your-application/rendering/automatic-static-optimization):** 如果页面没有阻塞数据需求，Next.js 自动确定页面是静态的（可以预渲染）。优化后的页面可以被缓存，并从多个 CDN 位置提供给最终用户。在适当的情况下，您可以选择[服务器端渲染](/docs/pages/building-your-application/data-fetching/get-server-side-props)。
 
 </PagesOnly>
 
-These defaults aim to improve your application's performance, and reduce the cost and amount of data transferred on each network request.
+这些默认设置旨在提高您的应用程序性能，并减少每次网络请求的成本和数据传输量。
+# 在开发中
 
-,## During development
+在构建应用程序时，我们建议您使用以下功能以确保最佳性能和用户体验：
 
-While building your application, we recommend using the following features to ensure the best performance and user experience:
-
-### Routing and rendering
+### 路由和渲染
 
 <AppOnly>
 
-- **[Layouts](/docs/app/building-your-application/routing/layouts-and-templates#layouts):** Use layouts to share UI across pages and enable [partial rendering](/docs/app/building-your-application/routing/linking-and-navigating#4-partial-rendering) on navigation.
-- **[`<Link>` component](/docs/app/building-your-application/routing/linking-and-navigating#link-component):** Use the `<Link>` component for [client-side navigation and prefetching](/docs/app/building-your-application/routing/linking-and-navigating#how-routing-and-navigation-works).
-- **[Error Handling](/docs/app/building-your-application/routing/error-handling):** Gracefully handle [catch-all errors](/docs/app/building-your-application/routing/error-handling) and [404 errors](/docs/app/api-reference/file-conventions/not-found) in production by creating custom error pages.
-- **[Composition Patterns](/docs/app/building-your-application/rendering/composition-patterns):** Follow the recommended composition patterns for Server and Client Components, and check the placement of your [`"use client"` boundaries](/docs/app/building-your-application/rendering/composition-patterns#moving-client-components-down-the-tree) to avoid unnecessarily increasing your client-side JavaScript bundle.
-- **[Dynamic Functions](/docs/app/building-your-application/rendering/server-components#dynamic-functions):** Be aware that dynamic functions like [`cookies()`](/docs/app/api-reference/functions/cookies) and the [`searchParams`](/docs/app/api-reference/file-conventions/page#searchparams-optional) prop will opt the entire route into [Dynamic Rendering](/docs/app/building-your-application/rendering/server-components#dynamic-rendering) (or your whole application if used in the [Root Layout](/docs/app/building-your-application/routing/layouts-and-templates#root-layout-required)). Ensure dynamic function usage is intentional and wrap them in `<Suspense>` boundaries where appropriate.
+- **[布局](/docs/app/building-your-application/routing/layouts-and-templates#layouts):** 使用布局在页面之间共享UI，并在导航上启用[部分渲染](/docs/app/building-your-application/routing/linking-and-navigating#4-partial-rendering)。
+- **[`<Link>` 组件](/docs/app/building-your-application/routing/linking-and-navigating#link-component):** 使用 `<Link>` 组件进行[客户端导航和预取](/docs/app/building-your-application/routing/linking-and-navigating#how-routing-and-navigation-works)。
+- **[错误处理](/docs/app/building-your-application/routing/error-handling):** 通过创建自定义错误页面，优雅地处理生产中的[全局错误](/docs/app/building-your-application/routing/error-handling)和[404错误](/docs/app/api-reference/file-conventions/not-found)。
+- **[组合模式](/docs/app/building-your-application/rendering/composition-patterns):** 遵循服务器和客户端组件的推荐组合模式，并检查你的[`"use client"` 边界](/docs/app/building-your-application/rendering/composition-patterns#moving-client-components-down-the-tree)的放置，以避免不必要地增加你的客户端JavaScript捆绑包。
+- **[动态函数](/docs/app/building-your-application/rendering/server-components#dynamic-functions):** 请注意，像 [`cookies()`](/docs/app/api-reference/functions/cookies) 和 [`searchParams`](/docs/app/api-reference/file-conventions/page#searchparams-optional) prop 这样的动态函数将使整个路由进入[动态渲染](/docs/app/building-your-application/rendering/server-components#dynamic-rendering)（或者如果在整个应用程序中使用，则是你的整个应用程序[根布局](/docs/app/building-your-application/routing/layouts-and-templates#root-layout-required)）。确保动态函数的使用是有意的，并在适当的地方用 `<Suspense>` 边界包装它们。
 
-> **Good to know**: [Partial Prerendering (Experimental)](/blog/next-14#partial-prerendering-preview) will allow parts of a route to be dynamic without opting the whole route into dynamic rendering.
+> **须知**：[部分预渲染（实验性）](/blog/next-14#partial-prerendering-preview) 将允许路由的部分是动态的，而不必使整个路由进入动态渲染。
 
 </AppOnly>
 
 <PagesOnly>
 
-- **[`<Link>` component](/docs/pages/building-your-application/routing/linking-and-navigating):** Use the `<Link>` component for client-side navigation and prefetching.
-- **[Custom Errors](/docs/pages/building-your-application/routing/custom-error):** Gracefully handle [500](/docs/pages/building-your-application/routing/custom-error#500-page) and [404 errors](/docs/pages/building-your-application/routing/custom-error#404-page)
+- **[`<Link>` 组件](/docs/pages/building-your-application/routing/linking-and-navigating):** 使用 `<Link>` 组件进行客户端导航和预取。
+- **[自定义错误](/docs/pages/building-your-application/routing/custom-error):** 优雅地处理[500](/docs/pages/building-your-application/routing/custom-error#500-page)和[404错误](/docs/pages/building-your-application/routing/custom-error#404-page)
 
 </PagesOnly>
-
-,### Data fetching and caching
+### 数据获取与缓存
 
 <AppOnly>
 
-- **[Server Components](/docs/app/building-your-application/data-fetching/patterns#fetching-data-on-the-server):** Leverage the benefits of fetching data on the server using Server Components.
-- **[Route Handlers](/docs/app/building-your-application/routing/route-handlers):** Use Route Handlers to access your backend resources from Client Components. But do not call Route Handlers from Server Components to avoid an additional server request.
-- **[Streaming](/docs/app/building-your-application/routing/loading-ui-and-streaming):** Use Loading UI and React Suspense to progressively send UI from the server to the client, and prevent the whole route from blocking while data is being fetched.
-- **[Parallel Data Fetching](/docs/app/building-your-application/data-fetching/patterns#parallel-and-sequential-data-fetching):** Reduce network waterfalls by fetching data in parallel, where appropriate. Also, consider [preloading data](/docs/app/building-your-application/data-fetching/patterns#preloading-data) where appropriate.
-- **[Data Caching](/docs/app/building-your-application/caching#data-cache):** Verify whether your data requests are being cached or not, and opt into caching, where appropriate. Ensure requests that don't use `fetch` are [cached](/docs/app/api-reference/functions/unstable_cache).
-- **[Static Images](/docs/app/building-your-application/optimizing/static-assets):** Use the `public` directory to automatically cache your application's static assets, e.g. images.
+- **[服务器组件](/docs/app/building-your-application/data-fetching/patterns#fetching-data-on-the-server):** 利用服务器组件在服务器上获取数据的优势。
+- **[路由处理器](/docs/app/building-your-application/routing/route-handlers):** 使用路由处理器从客户端组件访问后端资源。但不要从服务器组件调用路由处理器，以避免额外的服务器请求。
+- **[流式传输](/docs/app/building-your-application/routing/loading-ui-and-streaming):** 使用加载UI和React Suspense逐步从服务器向客户端发送UI，并防止整个路由在获取数据时阻塞。
+- **[并行数据获取](/docs/app/building-your-application/data-fetching/patterns#parallel-and-sequential-data-fetching):** 通过并行获取数据来减少网络瀑布效应，适当情况下也要考虑[预加载数据](/docs/app/building-your-application/data-fetching/patterns#preloading-data)。
+- **[数据缓存](/docs/app/building-your-application/caching#data-cache):** 验证您的数据请求是否被缓存，并在适当情况下选择缓存。确保不使用`fetch`的请求被[缓存](/docs/app/api-reference/functions/unstable_cache)。
+- **[静态图片](/docs/app/building-your-application/optimizing/static-assets):** 使用`public`目录自动缓存您的应用程序的静态资源，例如图片。
 
 </AppOnly>
 
 <PagesOnly>
 
-- **[API Routes](/docs/pages/building-your-application/routing/api-routes):** Use Route Handlers to access your backend resources, and prevent sensitive secrets from being exposed to the client.
-- **[Data Caching](/docs/pages/building-your-application/data-fetching/get-static-props):** Verify whether your data requests are being cached or not, and opt into caching, where appropriate. Ensure requests that don't use `getStaticProps` are cached where appropriate.
-- **[Incremental Static Regeneration](/docs/pages/building-your-application/data-fetching/incremental-static-regeneration):** Use Incremental Static Regeneration to update static pages after they've been built, without rebuilding your entire site.
-- **[Static Images](/docs/pages/building-your-application/optimizing/static-assets):** Use the `public` directory to automatically cache your application's static assets, e.g. images.
+- **[API路由](/docs/pages/building-your-application/routing/api-routes):** 使用路由处理器访问您的后端资源，并防止敏感密钥暴露给客户端。
+- **[数据缓存](/docs/pages/building-your-application/data-fetching/get-static-props):** 验证您的数据请求是否被缓存，并在适当情况下选择缓存。确保不使用`getStaticProps`的请求在适当情况下被缓存。
+- **[增量静态再生](/docs/pages/building-your-application/data-fetching/incremental-static-regeneration):** 使用增量静态再生在构建静态页面后更新它们，而不需要重建整个站点。
+- **[静态图片](/docs/pages/building-your-application/optimizing/static-assets):** 使用`public`目录自动缓存您的应用程序的静态资源，例如图片。
 
 </PagesOnly>
 
-### UI and accessibility
+### UI与可访问性
 
 <AppOnly>
 
-- **[Forms and Validation](/docs/app/building-your-application/data-fetching/server-actions-and-mutations#forms):** Use Server Actions to handle form submissions, server-side validation, and handle errors.
+- **[表单和验证](/docs/app/building-your-application/data-fetching/server-actions-and-mutations#forms):** 使用服务器操作处理表单提交、服务器端验证和错误处理。
 
 </AppOnly>
 
-- **[Font Module](/docs/app/building-your-application/optimizing/fonts):** Optimize fonts by using the Font Module, which automatically hosts your font files with other static assets, removes external network requests, and reduces [layout shift](https://web.dev/articles/cls).
-- **[`<Image>` Component](/docs/app/building-your-application/optimizing/images):** Optimize images by using the Image Component, which automatically optimizes images, prevents layout shift, and serves them in modern formats like WebP or AVIF.
-- **[`<Script>` Component](/docs/app/building-your-application/optimizing/scripts):** Optimize third-party scripts by using the Script Component, which automatically defers scripts and prevents them from blocking the main thread.
-- **[ESLint](/docs/architecture/accessibility#linting):** Use the built-in `eslint-plugin-jsx-a11y` plugin to catch accessibility issues early.
-
-,### Security
+- **[字体模块](/docs/app/building-your-application/optimizing/fonts):** 通过使用字体模块优化字体，它会自动托管您的字体文件与其他静态资源，减少外部网络请求，并减少[布局偏移](https://web.dev/articles/cls)。
+- **[`<Image>`组件](/docs/app/building-your-application/optimizing/images):** 通过使用Image组件优化图片，它会自动优化图片，防止布局偏移，并以WebP或AVIF等现代格式提供服务。
+- **[`<Script>`组件](/docs/app/building-your-application/optimizing/scripts):** 通过使用Script组件优化第三方脚本，它会自动延迟脚本并防止它们阻塞主线程。
+- **[ESLint](/docs/architecture/accessibility#linting):** 使用内置的`eslint-plugin-jsx-a11y`插件尽早捕捉可访问性问题。
+# 安全
 
 <AppOnly>
 
-- **[Tainting](/docs/app/building-your-application/data-fetching/patterns#preventing-sensitive-data-from-being-exposed-to-the-client):** Prevent sensitive data from being exposed to the client by tainting data objects and/or specific values.
-- **[Server Actions](/docs/app/building-your-application/data-fetching/server-actions-and-mutations#authentication-and-authorization):** Ensure users are authorized to call Server Actions. Review the the recommended [security practices](/blog/security-nextjs-server-components-actions).
+- **[数据污染](/docs/app/building-your-application/data-fetching/patterns#防止敏感数据暴露给客户端):** 通过污染数据对象和/或特定值，防止敏感数据暴露给客户端。
+- **[服务器操作](/docs/app/building-your-application/data-fetching/server-actions-and-mutations#认证和授权):** 确保用户被授权调用服务器操作。查看推荐的[安全实践](/blog/security-nextjs-server-components-actions)。
 
 </AppOnly>
 
-- **[Environment Variables](/docs/app/building-your-application/configuring/environment-variables):** Ensure your `.env.*` files are added to `.gitignore` and only public variables are prefixed with `NEXT_PUBLIC_`.
-- **[Content Security Policy](/docs/app/building-your-application/configuring/content-security-policy):** Consider adding a Content Security Policy to protect your application against various security threats such as cross-site scripting, clickjacking, and other code injection attacks.
+- **[环境变量](/docs/app/building-your-application/configuring/environment-variables):** 确保你的 `.env.*` 文件被添加到 `.gitignore` 中，并且只有公共变量以 `NEXT_PUBLIC_` 为前缀。
+- **[内容安全策略](/docs/app/building-your-application/configuring/content-security-policy):** 考虑添加内容安全策略，以保护你的应用程序免受各种安全威胁，如跨站脚本攻击、点击劫持和其他代码注入攻击。
 
-### Metadata and SEO
+# 元数据和SEO
 
 <AppOnly>
 
-- **[Metadata API](/docs/app/building-your-application/optimizing/metadata):** Use the Metadata API to improve your application's Search Engine Optimization (SEO) by adding page titles, descriptions, and more.
-- **[Open Graph (OG) images](/docs/app/api-reference/file-conventions/metadata/opengraph-image):** Create OG images to prepare your application for social sharing.
-- **[Sitemaps](/docs/app/api-reference/functions/generate-sitemaps) and [Robots](/docs/app/api-reference/file-conventions/metadata/robots):** Help Search Engines crawl and index your pages by generating sitemaps and robots files.
+- **[元数据API](/docs/app/building-your-application/optimizing/metadata):** 使用元数据API通过添加页面标题、描述等来改善你的应用程序的搜索引擎优化（SEO）。
+- **[开放图谱（OG）图片](/docs/app/api-reference/file-conventions/metadata/opengraph-image):** 创建OG图片，为社交分享准备你的应用程序。
+- **[站点地图](/docs/app/api-reference/functions/generate-sitemaps)和[机器人](/docs/app/api-reference/file-conventions/metadata/robots):** 通过生成站点地图和机器人文件，帮助搜索引擎爬取和索引你的页面。
 
 </AppOnly>
 
 <PagesOnly>
 
-- **[`<Head>` Component](/docs/pages/api-reference/components/head):** Use the `next/head` component to add page titles, descriptions, and more.
+- **[`<Head>` 组件](/docs/pages/api-reference/components/head):** 使用 `next/head` 组件来添加页面标题、描述等。
 
 </PagesOnly>
 
-### Type safety
 
-- **TypeScript and [TS Plugin](/docs/app/building-your-application/configuring/typescript):** Use TypeScript and the TypeScript plugin for better type-safety, and to help you catch errors early.
+# 类型安全
 
-## Before going to production
+- **TypeScript和[TS插件](/docs/app/building-your-application/configuring/typescript):** 使用TypeScript和TypeScript插件来提高类型安全性，并帮助你尽早发现错误。
 
-Before going to production, you can run `next build` to build your application locally and catch any build errors, then run `next start` to measure the performance of your application in a production-like environment.
+# 上线前须知
 
-### Core Web Vitals
+在上线前，你可以运行 `next build` 来本地构建你的应用程序并捕捉任何构建错误，然后运行 `next start` 来衡量你的应用程序在类似生产环境中的性能。
 
-- **[Lighthouse](https://developers.google.com/web/tools/lighthouse):** Run lighthouse in incognito to gain a better understanding of how your users will experience your site, and to identify areas for improvement. This is a simulated test and should be paired with looking at field data (such as Core Web Vitals).
+# 核心网络指标
+
+- **[Lighthouse](https://developers.google.com/web/tools/lighthouse):** 在隐身模式下运行Lighthouse，以更好地了解用户将如何体验你的网站，并确定改进的领域。这是一个模拟测试，应该与查看现场数据（如核心网络指标）配对。
 
 <AppOnly>
 
-- **[`useReportWebVitals` hook](/docs/app/api-reference/functions/use-report-web-vitals):** Use this hook to send [Core Web Vitals](https://web.dev/articles/vitals) data to analytics tools.
+- **[`useReportWebVitals` 钩子](/docs/app/api-reference/functions/use-report-web-vitals):** 使用此钩子将[核心网络指标](https://web.dev/articles/vitals)数据发送到分析工具。
 
 </AppOnly>
 
-### Analyzing bundles
+# 分析捆绑包
 
-Use the [`@next/bundle-analyzer` plugin](/docs/app/building-your-application/optimizing/bundle-analyzer) to analyze the size of your JavaScript bundles and identify large modules and dependencies that might be impacting your application's performance.
+使用 [`@next/bundle-analyzer` 插件](/docs/app/building-your-application/optimizing/bundle-analyzer) 来分析你的JavaScript捆绑包的大小，并识别可能影响你的应用程序性能的大型模块和依赖项。
 
-Additionally, the following tools can you understand the impact of adding new dependencies to your application:
+此外，以下工具可以帮助你了解添加新依赖项到你的应用程序的影响：
 
 - [Import Cost](https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost)
 - [Package Phobia](https://packagephobia.com/)
 - [Bundle Phobia](https://bundlephobia.com/)
 - [bundlejs](https://bundlejs.com/)
+## 部署后
 
-,## After deployment
+根据您部署应用程序的位置，您可能可以访问其他工具和集成，以帮助您监控和改善应用程序的性能。
 
-Depending on where you deploy your application, you might have access to additional tools and integrations to help you monitor and improve your application's performance.
+对于 Vercel 部署，我们建议以下内容：
 
-For Vercel deployments, we recommend the following:
+- **[分析](https://vercel.com/analytics?utm_source=next-site&utm_campaign=nextjs-docs&utm_medium=docs)：** 一个内置的分析仪表板，帮助您了解应用程序的流量，包括独立访客数量、页面浏览量等。
+- **[速度洞察](https://vercel.com/docs/speed-insights?utm_source=next-site&utm_campaign=nextjs-docs&utm_medium=docs)：** 基于访客数据的实际性能洞察，提供您的网站在实际使用中的性能的实用视角。
+- **[日志记录](https://vercel.com/docs/observability/runtime-logs?utm_source=next-site&utm_campaign=nextjs-docs&utm_medium=docs)：** 运行时和活动日志，帮助您调试问题并监控生产中的应用程序。或者，查看 [集成页面](https://vercel.com/integrations?utm_source=next-site&utm_campaign=nextjs-docs&utm_medium=docs) 以获取第三方工具和服务的列表。
 
-- **[Analytics](https://vercel.com/analytics?utm_source=next-site&utm_campaign=nextjs-docs&utm_medium=docs):** A built-in analytics dashboard to help you understand your application's traffic, including the number of unique visitors, page views, and more.
-- **[Speed Insights](https://vercel.com/docs/speed-insights?utm_source=next-site&utm_campaign=nextjs-docs&utm_medium=docs):** Real-world performance insights based on visitor data, offering a practical view of how your website is performing in the field.
-- **[Logging](https://vercel.com/docs/observability/runtime-logs?utm_source=next-site&utm_campaign=nextjs-docs&utm_medium=docs):** Runtime and Activity logs to help you debug issues and monitor your application in production. Alternatively, see the [integrations page](https://vercel.com/integrations?utm_source=next-site&utm_campaign=nextjs-docs&utm_medium=docs) for a list of third-party tools and services.
-
-> **Good to know:**
+> **须知：**
 >
-> To get a comprehensive understanding of the best practices for production deployments on Vercel, including detailed strategies for improving website performance, refer to the [Vercel Production Checklist](https://vercel.com/docs/production-checklist?utm_source=next-site&utm_campaign=nextjs-docs&utm_medium=docs).
+> 要全面了解 Vercel 上生产部署的最佳实践，包括改善网站性能的详细策略，请参考 [Vercel 生产检查清单](https://vercel.com/docs/production-checklist?utm_source=next-site&utm_campaign=nextjs-docs&utm_medium=docs)。
 
-Following these recommendations will help you build a faster, more reliable, and secure application for your users.
+遵循这些建议将帮助您为您的用户构建更快、更可靠、更安全的应用程序。

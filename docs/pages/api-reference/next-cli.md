@@ -1,7 +1,3 @@
----
-title: Next.js CLI
-description: Next.js CLI
-source: app/api-reference/next-cli
----
+# Next.js CLI
 
-{/* DO NOT EDIT. The content of this doc is generated from the source above. To edit the content of this page, navigate to the source page in your editor. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+须知：此文档的内容是由上述来源生成的。要编辑此页面的内容，请在编辑器中导航到源页面。您可以使用`<PagesOnly>Content</PagesOnly>`组件添加特定于Pages Router的内容。任何共享内容都不应被包装在组件中。

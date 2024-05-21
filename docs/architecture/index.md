@@ -1,6 +1,5 @@
----
-title: Architecture
-description: How Next.js Works
----
+# Architecture
 
-Learn about the Next.js architecture and how it works under the hood.
+了解Next.js的架构以及其内部工作原理。
+
+须知：了解Next.js的架构对于理解其工作方式至关重要。

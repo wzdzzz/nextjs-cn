@@ -97,9 +97,9 @@ React Server Components 允许您编写可以在服务器上渲染并可选地�
 
 ### 流式传输
 
-<Image
+<img
   alt="显示在流式传输期间对路由段进行并行化的图示，展示了数据获取、渲染和单个块的激活过程。"
-  srcLight="/docs/light/sequential-parallel-data-fetching.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/sequential-parallel-data-fetching.png&w=3840&q=75"
   srcDark="/docs/dark/sequential-parallel-data-fetching.png"
   width="1600"
   height="525"
@@ -107,9 +107,9 @@ React Server Components 允许您编写可以在服务器上渲染并可选地�
 
 流式传输使您能够逐步从服务器渲染用户界面。工作被分成块，一旦准备好就流式传输到客户端。这允许用户在全部内容完成渲染之前立即看到页面的部分。
 
-<Image
+<img
   alt="图示显示客户端上部分渲染的页面，正在流式传输的块的加载用户界面。"
-  srcLight="/docs/light/server-rendering-with-streaming.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/server-rendering-with-streaming.png&w=3840&q=75"
   srcDark="/docs/dark/server-rendering-with-streaming.png"
   width="1600"
   height="785"

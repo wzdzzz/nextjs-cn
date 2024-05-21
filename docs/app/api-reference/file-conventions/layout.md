@@ -1,9 +1,9 @@
 ---
 title: layout.js
-description: API reference for the layout.js file.
+description: layout.js 文件的 API 参考。
 ---
 
-A **layout** is UI that is shared between routes.
+**布局** 是在路由之间共享的 UI。
 
 ```tsx filename="app/dashboard/layout.tsx" switcher
 export default function DashboardLayout({
@@ -21,7 +21,7 @@ export default function DashboardLayout({ children }) {
 }
 ```
 
-A **root layout** is the top-most layout in the root `app` directory. It is used to define the `<html>` and `<body>` tags and other globally shared UI.
+**根布局** 是根 `app` 目录中最顶层的布局。它用于定义 `<html>` 和 `<body>` 标签以及其他全局共享的 UI。
 
 ```tsx filename="app/layout.tsx" switcher
 export default function RootLayout({
@@ -47,23 +47,24 @@ export default function RootLayout({ children }) {
 }
 ```
 
+
 ## Props
 
-### `children` (required)
+### `children` (必需)
 
-Layout components should accept and use a `children` prop. During rendering, `children` will be populated with the route segments the layout is wrapping. These will primarily be the component of a child [Layout](/docs/app/building-your-application/routing/pages) (if it exists) or [Page](/docs/app/building-your-application/routing/pages), but could also be other special files like [Loading](/docs/app/building-your-application/routing/loading-ui-and-streaming) or [Error](/docs/app/building-your-application/routing/error-handling) when applicable.
+布局组件应该接受并使用一个 `children` 属性。在渲染过程中，`children` 将被填充为布局所包装的路由段。这些主要是子 [布局](/docs/app/building-your-application/routing/pages)（如果存在）或 [页面](/docs/app/building-your-application/routing/pages) 的组件，但在适用时也可能是其他特殊文件，如 [Loading](/docs/app/building-your-application/routing/loading-ui-and-streaming) 或 [Error](/docs/app/building-your-application/routing/error-handling)。
 
-### `params` (optional)
+### `params` (可选)
 
-The [dynamic route parameters](/docs/app/building-your-application/routing/dynamic-routes) object from the root segment down to that layout.
+从根段到该布局的动态路由参数对象。
 
-| Example                           | URL            | `params`                  |
+| 示例                           | URL            | `params`                  |
 | --------------------------------- | -------------- | ------------------------- |
 | `app/dashboard/[team]/layout.js`  | `/dashboard/1` | `{ team: '1' }`           |
 | `app/shop/[tag]/[item]/layout.js` | `/shop/1/2`    | `{ tag: '1', item: '2' }` |
 | `app/blog/[...slug]/layout.js`    | `/blog/1/2`    | `{ slug: ['1', '2'] }`    |
 
-For example:
+例如：
 
 ```tsx filename="app/shop/[tag]/[item]/layout.tsx" switcher
 export default function ShopLayout({
@@ -90,45 +91,46 @@ export default function ShopLayout({ children, params }) {
 }
 ```
 
-## Good to know
 
-### Root Layouts
+## 须知
 
-- The `app` directory **must** include a root `app/layout.js`.
-- The root layout **must** define `<html>` and `<body>` tags.
-  - You should **not** manually add `<head>` tags such as `<title>` and `<meta>` to root layouts. Instead, you should use the [Metadata API](/docs/app/api-reference/functions/generate-metadata) which automatically handles advanced requirements such as streaming and de-duplicating `<head>` elements.
-- You can use [route groups](/docs/app/building-your-application/routing/route-groups) to create multiple root layouts.
-  - Navigating **across multiple root layouts** will cause a **full page load** (as opposed to a client-side navigation). For example, navigating from `/cart` that uses `app/(shop)/layout.js` to `/blog` that uses `app/(marketing)/layout.js` will cause a full page load. This **only** applies to multiple root layouts.
 
-,### Layouts do not receive `searchParams`
+### 根布局
 
-Unlike [Pages](/docs/app/api-reference/file-conventions/page), Layout components **do not** receive the `searchParams` prop. This is because a shared layout is [not re-rendered during navigation](/docs/app/building-your-application/routing/linking-and-navigating#4-partial-rendering) which could lead to stale `searchParams` between navigations.
+- `app` 目录 **必须** 包含一个根 `app/layout.js`。
+- 根布局 **必须** 定义 `<html>` 和 `<body>` 标签。
+  - 你 **不应** 手动添加如 `<title>` 和 `<meta>` 这样的 `<head>` 标签到根布局中。相反，你应该使用 [元数据 API](/docs/app/api-reference/functions/generate-metadata)，它会自动处理如流式传输和去重 `<head>` 元素等高级需求。
+- 你可以使用 [路由组](/docs/app/building-your-application/routing/route-groups) 来创建多个根布局。
+  - 导航 **跨越多个根布局** 将导致 **完整的页面加载**（与客户端导航相对）。例如，从使用 `app/(shop)/layout.js` 的 `/cart` 导航到使用 `app/(marketing)/layout.js` 的 `/blog` 将导致完整的页面加载。这 **仅** 适用于多个根布局。
+## Layouts 不接收 `searchParams`
 
-When using client-side navigation, Next.js automatically only renders the part of the page below the common layout between two routes.
+与 [页面](/docs/app/api-reference/file-conventions/page) 不同，布局组件 **不接收** `searchParams` 属性。这是因为共享布局在导航期间 [不会重新渲染](/docs/app/building-your-application/routing/linking-and-navigating#4-partial-rendering)，这可能导致在不同导航之间 `searchParams` 变得过时。
 
-For example, in the following directory structure, `dashboard/layout.tsx` is the common layout for both `/dashboard/settings` and `/dashboard/analytics`:
+当使用客户端导航时，Next.js 会自动只渲染两个路由之间共同布局下方的页面部分。
 
-<Image
-  alt="File structure showing a dashboard folder nesting a layout.tsx file, and settings and analytics folders with their own pages"
-  srcLight="/docs/light/shared-dashboard-layout.png"
+例如，在以下目录结构中，`dashboard/layout.tsx` 是 `/dashboard/settings` 和 `/dashboard/analytics` 的共同布局：
+
+<img
+  alt="显示一个包含 layout.tsx 文件的 dashboard 文件夹，以及具有各自页面的 settings 和 analytics 文件夹的文件结构"
+  src="https://nextjs.org/_next/image?url=/docs/light/shared-dashboard-layout.png&w=3840&q=75"
   srcDark="/docs/dark/shared-dashboard-layout.png"
   width="1600"
   height="687"
 />
 
-When navigating from `/dashboard/settings` to `/dashboard/analytics`, `page.tsx` in `/dashboard/analytics` will rerender on the server, while `dashboard/layout.tsx` will **not** rerender because it's a common UI shared between the two routes.
+当从 `/dashboard/settings` 导航到 `/dashboard/analytics` 时，`/dashboard/analytics` 中的 `page.tsx` 将在服务器上重新渲染，而 `dashboard/layout.tsx` 将 **不会** 重新渲染，因为它是两个路由之间共享的共同 UI。
 
-This performance optimization allows navigation between pages that share a layout to be quicker as only the data fetching and rendering for the page has to run, instead of the entire route that could include shared layouts that fetch their own data.
+这种性能优化允许共享布局的页面之间的导航更快，因为只有页面的数据获取和渲染需要运行，而不是可能包括获取自己数据的共享布局的整个路由。
 
-Because `dashboard/layout.tsx` doesn't re-render, the `searchParams` prop in the layout Server Component might become **stale** after navigation.
+由于 `dashboard/layout.tsx` 不会重新渲染，布局服务器组件中的 `searchParams` 属性在导航后可能会变得 **过时**。
 
-Instead, use the Page [`searchParams`](/docs/app/api-reference/file-conventions/page#searchparams-optional) prop or the [`useSearchParams`](/docs/app/api-reference/functions/use-search-params) hook in a Client Component, which is re-rendered on the client with the latest `searchParams`.
+相反，可以使用页面的 [`searchParams`](/docs/app/api-reference/file-conventions/page#searchparams-optional) 属性或客户端组件中的 [`useSearchParams`](/docs/app/api-reference/functions/use-search-params) 钩子，后者在客户端上使用最新的 `searchParams` 重新渲染。
 
-### Layouts cannot access `pathname`
+## Layouts 无法访问 `pathname`
 
-Layouts cannot access `pathname`. This is because layouts are Server Components by default, and [don't rerender during client-side navigation](/docs/app/building-your-application/routing/linking-and-navigating#4-partial-rendering), which could lead to `pathname` becoming stale between navigations. To prevent staleness, Next.js would need to refetch all segments of a route, losing the benefits of caching and increasing the [RSC payload](/docs/app/building-your-application/rendering/server-components#what-is-the-react-server-component-payload-rsc) size on navigation.
+布局无法访问 `pathname`。这是因为布局默认是服务器组件，并且在客户端导航期间 [不会重新渲染](/docs/app/building-your-application/routing/linking-and-navigating#4-partial-rendering)，这可能导致 `pathname` 在导航之间变得过时。为了防止过时，Next.js 需要重新获取路由的所有段，这会失去缓存的好处，并增加导航上的 [RSC 有效载荷](/docs/app/building-your-application/rendering/server-components#what-is-the-react-server-component-payload-rsc) 大小。
 
-Instead, you can extract the logic that depends on pathname into a Client Component and import it into your layouts. Since Client Components rerender (but are not refetched) during navigation, you can use Next.js hooks such as [`usePathname`](https://nextjs.org/docs/app/api-reference/functions/use-pathname) to access the current pathname and prevent staleness.
+相反，你可以将依赖于 pathname 的逻辑提取到客户端组件中，并将其导入到你的布局中。由于客户端组件在导航期间会重新渲染（但不会被重新获取），你可以使用 Next.js 钩子，如 [`usePathname`](https://nextjs.org/docs/app/api-reference/functions/use-pathname) 来访问当前的 pathname，并防止过时。
 
 ```tsx filename="app/dashboard/layout.tsx" switcher
 import { ClientComponent } from '@/app/ui/ClientComponent'
@@ -137,9 +139,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <ClientComponent />
-      {/* Other Layout UI */}
+      {/* 其他布局 UI */}
       <main>{children}</main>
-    <>
+    </>
   )
 }
 ```
@@ -151,19 +153,19 @@ export default function Layout({ children }) {
   return (
     <>
       <ClientComponent />
-      {/* Other Layout UI */}
+      {/* 其他布局 UI */}
       <main>{children}</main>
-    <>
+    </>
   )
 }
 ```
 
-Common `pathname` patterns can also be implemented with [`params`](#params-optional) prop.
+常见的 `pathname` 模式也可以使用 [`params`](#params-optional) 属性实现。
 
-See the [examples](/docs/app/building-your-application/routing/layouts-and-templates#examples) section for more information.
+有关更多信息，请参见 [示例](/docs/app/building-your-application/routing/layouts-and-templates#examples) 部分。
 
-## Version History
+## 版本历史
 
-| Version   | Changes              |
+| 版本   | 变更              |
 | --------- | -------------------- |
-| `v13.0.0` | `layout` introduced. |
+| `v13.0.0` | 引入了 `layout`。 |

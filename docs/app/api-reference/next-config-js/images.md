@@ -1,11 +1,11 @@
 ---
 title: images
-description: Custom configuration for the next/image loader
+description: Next.js图片加载器的自定义配置
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 本文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件来添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
 
-If you want to use a cloud provider to optimize images instead of using the Next.js built-in Image Optimization API, you can configure `next.config.js` with the following:
+如果您想使用云服务提供商来优化图片，而不是使用 Next.js 内置的图片优化 API，您可以使用以下配置 `next.config.js`：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
 }
 ```
 
-This `loaderFile` must point to a file relative to the root of your Next.js application. The file must export a default function that returns a string, for example:
+这个 `loaderFile` 必须指向相对于您的 Next.js 应用程序根目录的文件。该文件必须导出一个默认函数，该函数返回一个字符串，例如：
 
 <AppOnly>
 
@@ -28,11 +28,11 @@ export default function myImageLoader({ src, width, quality }) {
 }
 ```
 
-Alternatively, you can use the [`loader` prop](/docs/app/api-reference/components/image#loader) to pass the function to each instance of `next/image`.
+或者，您可以使用 [`loader` prop](/docs/app/api-reference/components/image#loader) 将函数传递给 `next/image` 的每个实例。
 
-> **Good to know**: Customizing the image loader file, which accepts a function, requires using [Client Components](/docs/app/building-your-application/rendering/client-components) to serialize the provided function.
+> **须知**：自定义图片加载器文件，该文件接受一个函数，需要使用 [客户端组件](/docs/app/building-your-application/rendering/client-components) 来序列化提供的函数。
 
-To learn more about configuring the behavior of the built-in [Image Optimization API](/docs/app/building-your-application/optimizing/images) and the [Image Component](/docs/app/api-reference/components/image), see [Image Configuration Options](/docs/app/api-reference/components/image#configuration-options) for available options.
+要了解更多关于配置内置 [图片优化 API](/docs/app/building-your-application/optimizing/images) 和 [图片组件](/docs/app/api-reference/components/image) 的行为，请参阅 [图片配置选项](/docs/app/api-reference/components/image#configuration-options) 以获取可用选项。
 
 </AppOnly>
 
@@ -44,13 +44,14 @@ export default function myImageLoader({ src, width, quality }) {
 }
 ```
 
-Alternatively, you can use the [`loader` prop](/docs/pages/api-reference/components/image#loader) to pass the function to each instance of `next/image`.
+或者，您可以使用 [`loader` prop](/docs/pages/api-reference/components/image#loader) 将函数传递给 `next/image` 的每个实例。
 
-To learn more about configuring the behavior of the built-in [Image Optimization API](/docs/pages/building-your-application/optimizing/images) and the [Image Component](/docs/pages/api-reference/components/image), see [Image Configuration Options](/docs/pages/api-reference/components/image#configuration-options) for available options.
+要了解更多关于配置内置 [图片优化 API](/docs/pages/building-your-application/optimizing/images) 和 [图片组件](/docs/pages/api-reference/components/image) 的行为，请参阅 [图片配置选项](/docs/pages/api-reference/components/image#configuration-options) 以获取可用选项。
 
 </PagesOnly>
 
-## Example Loader Configuration
+
+## 示例加载器配置
 
 - [Akamai](#akamai)
 - [AWS CloudFront](#aws-cloudfront)
@@ -67,19 +68,21 @@ To learn more about configuring the behavior of the built-in [Image Optimization
 - [Supabase](#supabase)
 - [Thumbor](#thumbor)
 
+
 ### Akamai
 
 ```js
-// Docs: https://techdocs.akamai.com/ivm/reference/test-images-on-demand
+// 文档：https://techdocs.akamai.com/ivm/reference/test-images-on-demand
 export default function akamaiLoader({ src, width, quality }) {
   return `https://example.com/${src}?imwidth=${width}`
 }
 ```
 
+
 ### AWS CloudFront
 
 ```js
-// Docs: https://aws.amazon.com/developer/application-security-performance/articles/image-optimization
+// 文档：https://aws.amazon.com/developer/application-security-performance/articles/image-optimization
 export default function cloudfrontLoader({ src, width, quality }) {
   const url = new URL(`https://example.com${src}`)
   url.searchParams.set('format', 'auto')
@@ -88,20 +91,20 @@ export default function cloudfrontLoader({ src, width, quality }) {
   return url.href
 ```
 
+
 ### Cloudinary
 
 ```js
-// Demo: https://res.cloudinary.com/demo/image/upload/w_300,c_limit,q_auto/turtles.jpg
+// 演示：https://res.cloudinary.com/demo/image/upload/w_300,c_limit,q_auto/turtles.jpg
 export default function cloudinaryLoader({ src, width, quality }) {
   const params = ['f_auto', 'c_limit', `w_${width}`, `q_${quality || 'auto'}`]
   return `https://example.com/${params.join(',')}${src}`
 }
 ```
-
-,### Cloudflare
+### Cloudflare
 
 ```js
-// Docs: https://developers.cloudflare.com/images/url-format
+// 须知：https://developers.cloudflare.com/images/url-format
 export default function cloudflareLoader({ src, width, quality }) {
   const params = [`width=${width}`, `quality=${quality || 75}`, 'format=auto']
   return `https://example.com/cdn-cgi/image/${params.join(',')}/${src}`
@@ -111,7 +114,7 @@ export default function cloudflareLoader({ src, width, quality }) {
 ### Contentful
 
 ```js
-// Docs: https://www.contentful.com/developers/docs/references/images-api/
+// 须知：https://www.contentful.com/developers/docs/references/images-api/
 export default function contentfulLoader({ src, width, quality }) {
   const url = new URL(`https://example.com${src}`)
   url.searchParams.set('fm', 'webp')
@@ -121,10 +124,11 @@ export default function contentfulLoader({ src, width, quality }) {
 }
 ```
 
+
 ### Fastly
 
 ```js
-// Docs: https://developer.fastly.com/reference/io/
+// 须知：https://developer.fastly.com/reference/io/
 export default function fastlyLoader({ src, width, quality }) {
   const url = new URL(`https://example.com${src}`)
   url.searchParams.set('auto', 'webp')
@@ -134,10 +138,11 @@ export default function fastlyLoader({ src, width, quality }) {
 }
 ```
 
+
 ### Gumlet
 
 ```js
-// Docs: https://docs.gumlet.com/reference/image-transform-size
+// 须知：https://docs.gumlet.com/reference/image-transform-size
 export default function gumletLoader({ src, width, quality }) {
   const url = new URL(`https://example.com${src}`)
   url.searchParams.set('format', 'auto')
@@ -147,10 +152,11 @@ export default function gumletLoader({ src, width, quality }) {
 }
 ```
 
+
 ### ImageEngine
 
 ```js
-// Docs: https://support.imageengine.io/hc/en-us/articles/360058880672-Directives
+// 须知：https://support.imageengine.io/hc/en-us/articles/360058880672-Directives
 export default function imageengineLoader({ src, width, quality }) {
   const compression = 100 - (quality || 50)
   const params = [`w_${width}`, `cmpr_${compression}`)]
@@ -158,10 +164,11 @@ export default function imageengineLoader({ src, width, quality }) {
 }
 ```
 
+
 ### Imgix
 
 ```js
-// Demo: https://static.imgix.net/daisy.png?format=auto&fit=max&w=300
+// 演示：https://static.imgix.net/daisy.png?format=auto&fit=max&w=300
 export default function imgixLoader({ src, width, quality }) {
   const url = new URL(`https://example.com${src}`)
   const params = url.searchParams
@@ -173,12 +180,13 @@ export default function imgixLoader({ src, width, quality }) {
 }
 ```
 
+
 ### PixelBin
 
 ```js
-// Doc (Resize): https://www.pixelbin.io/docs/transformations/basic/resize/#width-w
-// Doc (Optimise): https://www.pixelbin.io/docs/optimizations/quality/#image-quality-when-delivering
-// Doc (Auto Format Delivery): https://www.pixelbin.io/docs/optimizations/format/#automatic-format-selection-with-f_auto-url-parameter
+// 文档（调整大小）: https://www.pixelbin.io/docs/transformations/basic/resize/#width-w
+// 文档（优化）: https://www.pixelbin.io/docs/optimizations/quality/#image-quality-when-delivering
+// 文档（自动格式传输）: https://www.pixelbin.io/docs/optimizations/format/#automatic-format-selection-with-f_auto-url-parameter
 export default function pixelBinLoader({ src, width, quality }) {
   const name = '<your-cloud-name>'
   const opt = `t.resize(w:${width})~t.compress(q:${quality || 75})`
@@ -186,10 +194,11 @@ export default function pixelBinLoader({ src, width, quality }) {
 }
 ```
 
+
 ### Sanity
 
 ```js
-// Docs: https://www.sanity.io/docs/image-urls
+// 须知：https://www.sanity.io/docs/image-urls
 export default function sanityLoader({ src, width, quality }) {
   const prj = 'zp7mbokg'
   const dataset = 'production'
@@ -204,24 +213,19 @@ export default function sanityLoader({ src, width, quality }) {
 }
 ```
 
+
 ### Sirv
 
 ```js
-// Docs: https://sirv.com/help/articles/dynamic-imaging/
+// 须知：https://sirv.com/help/articles/dynamic-imaging/
 export default function sirvLoader({ src, width, quality }) {
   const url = new URL(`https://example.com${src}`)
   const params = url.searchParams
-  params.set('format', params.getAll('format').join(',') || 'optimal')
-  params.set('w', params.get('w') || width.toString())
-  params.set('q', (quality || 85).toString())
-  return url.href
-}
-```
-
-,### Supabase
+  params.set('format
+### Supabase
 
 ```js
-// Docs: https://supabase.com/docs/guides/storage/image-transformations#nextjs-loader
+// 文档：https://supabase.com/docs/guides/storage/image-transformations#nextjs-loader
 export default function supabaseLoader({ src, width, quality }) {
   const url = new URL(`https://example.com${src}`)
   url.searchParams.set('width', width.toString())
@@ -233,7 +237,7 @@ export default function supabaseLoader({ src, width, quality }) {
 ### Thumbor
 
 ```js
-// Docs: https://thumbor.readthedocs.io/en/latest/
+// 文档：https://thumbor.readthedocs.io/en/latest/
 export default function thumborLoader({ src, width, quality }) {
   const params = [`${width}x0`, `filters:quality(${quality || 75})`]
   return `https://example.com${params.join('/')}${src}`

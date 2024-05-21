@@ -1,22 +1,22 @@
 ---
-title: Building Your Application
-description: Learn how to use Next.js features to build your application.
+title: 构建你的应用程序
+description: 学习如何使用 Next.js 的特性来构建你的应用程序。
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 本文档的内容在应用和页面路由器之间共享。你可以使用 `<PagesOnly>内容</PagesOnly>` 组件来添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
 
-Next.js provides the building blocks to create flexible, full-stack web applications. The guides in **Building Your Application** explain how to use these features and how to customize your application's behavior.
+Next.js 提供了构建灵活的全栈 Web 应用程序的构建块。**构建你的应用程序**中的指南解释了如何使用这些特性以及如何自定义你的应用程序的行为。
 
-The sections and pages are organized sequentially, from basic to advanced, so you can follow them step-by-step when building your Next.js application. However, you can read them in any order or skip to the pages that apply to your use case.
+这些部分和页面按顺序组织，从基础到高级，因此你可以在构建 Next.js 应用程序时一步步跟随它们。然而，你也可以以任何顺序阅读它们，或者跳到适用于你的用例的页面。
 
 <AppOnly>
 
-If you're new to Next.js, we recommend starting with the [Routing](/docs/app/building-your-application/routing), [Rendering](/docs/app/building-your-application/rendering), [Data Fetching](/docs/app/building-your-application/data-fetching) and [Styling](/docs/app/building-your-application/styling) sections, as they introduce the fundamental Next.js and web concepts to help you get started. Then, you can dive deeper into the other sections such as [Optimizing](/docs/app/building-your-application/optimizing) and [Configuring](/docs/app/building-your-application/configuring). Finally, once you're ready, checkout the [Deploying](/docs/app/building-your-application/deploying) and [Upgrading](/docs/app/building-your-application/upgrading) sections.
+如果你是 Next.js 的新手，我们建议你从 [路由](/docs/app/building-your-application/routing)、[渲染](/docs/app/building-your-application/rendering)、[数据获取](/docs/app/building-your-application/data-fetching) 和 [样式](/docs/app/building-your-application/styling) 部分开始，因为它们介绍了帮助你入门的基本 Next.js 和 Web 概念。然后，你可以深入到其他部分，如 [优化](/docs/app/building-your-application/optimizing) 和 [配置](/docs/app/building-your-application/configuring)。最后，一旦你准备好了，查看 [部署](/docs/app/building-your-application/deploying) 和 [升级](/docs/app/building-your-application/upgrading) 部分。
 
 </AppOnly>
 
 <PagesOnly>
 
-If you're new to Next.js, we recommend starting with the [Routing](/docs/pages/building-your-application/routing), [Rendering](/docs/pages/building-your-application/rendering), [Data Fetching](/docs/pages/building-your-application/data-fetching) and [Styling](/docs/pages/building-your-application/styling) sections, as they introduce the fundamental Next.js and web concepts to help you get started. Then, you can dive deeper into the other sections such as [Optimizing](/docs/pages/building-your-application/optimizing) and [Configuring](/docs/pages/building-your-application/configuring). Finally, once you're ready, checkout the [Deploying](/docs/pages/building-your-application/deploying) and [Upgrading](/docs/pages/building-your-application/upgrading) sections.
+如果你是 Next.js 的新手，我们建议你从 [路由](/docs/pages/building-your-application/routing)、[渲染](/docs/pages/building-your-application/rendering)、[数据获取](/docs/pages/building-your-application/data-fetching) 和 [样式](/docs/pages/building-your-application/styling) 部分开始，因为它们介绍了帮助你入门的基本 Next.js 和 Web 概念。然后，你可以深入到其他部分，如 [优化](/docs/pages/building-your-application/optimizing) 和 [配置](/docs/pages/building-your-application/configuring)。最后，一旦你准备好了，查看 [部署](/docs/pages/building-your-application/deploying) 和 [升级](/docs/pages/building-your-application/upgrading) 部分。
 
 </PagesOnly>

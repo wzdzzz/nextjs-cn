@@ -1,58 +1,51 @@
----
-title: Pages
-description: Create your first page in Next.js
-related:
-  links:
-    - app/building-your-application/routing/layouts-and-templates
-    - app/building-your-application/routing/linking-and-navigating
----
+# 页面
 
-A page is UI that is **unique** to a route. You can define a page by default exporting a component from a `page.js` file.
+创建你在Next.js中的第一个页面。
 
-For example, to create your `index` page, add the `page.js` file inside the `app` directory:
+相关链接：
+- app/building-your-application/routing/layouts-and-templates
+- app/building-your-application/routing/linking-and-navigating
 
-<Image
-  alt="page.js special file"
-  srcLight="/docs/light/page-special-file.png"
-  srcDark="/docs/dark/page-special-file.png"
-  width="1600"
-  height="444"
-/>
+页面是针对路由**唯一**的UI。你可以通过从`page.js`文件默认导出一个组件来定义一个页面。
+
+例如，要创建你的`index`页面，在`app`目录中添加`page.js`文件：
+
+![page.js特殊文件](https://nextjs.org/_next/image?url=/docs/light/page-special-file.png&w=3840&q=75)
 
 ```tsx filename="app/page.tsx" switcher
-// `app/page.tsx` is the UI for the `/` URL
+// `app/page.tsx` 是 `/` URL的UI
 export default function Page() {
   return <h1>Hello, Home page!</h1>
 }
 ```
 
 ```jsx filename="app/page.js" switcher
-// `app/page.js` is the UI for the `/` URL
+// `app/page.js` 是 `/` URL的UI
 export default function Page() {
   return <h1>Hello, Home page!</h1>
 }
 ```
 
-Then, to create further pages, create a new folder and add the `page.js` file inside it. For example, to create a page for the `/dashboard` route, create a new folder called `dashboard`, and add the `page.js` file inside it:
+然后，要创建更多页面，创建一个新文件夹并在其中添加`page.js`文件。例如，要为`/dashboard`路由创建页面，创建一个名为`dashboard`的新文件夹，并在其中添加`page.js`文件：
 
 ```tsx filename="app/dashboard/page.tsx" switcher
-// `app/dashboard/page.tsx` is the UI for the `/dashboard` URL
+// `app/dashboard/page.tsx` 是 `/dashboard` URL的UI
 export default function Page() {
   return <h1>Hello, Dashboard Page!</h1>
 }
 ```
 
 ```jsx filename="app/dashboard/page.js" switcher
-// `app/dashboard/page.js` is the UI for the `/dashboard` URL
+// `app/dashboard/page.js` 是 `/dashboard` URL的UI
 export default function Page() {
   return <h1>Hello, Dashboard Page!</h1>
 }
 ```
 
-> **Good to know**:
+> **须知**：
 >
-> - The `.js`, `.jsx`, or `.tsx` file extensions can be used for Pages.
-> - A page is always the [leaf](/docs/app/building-your-application/routing#terminology) of the [route subtree](/docs/app/building-your-application/routing#terminology).
-> - A `page.js` file is required to make a route segment publicly accessible.
-> - Pages are [Server Components](/docs/app/building-your-application/rendering/server-components) by default, but can be set to a [Client Component](/docs/app/building-your-application/rendering/client-components).
-> - Pages can fetch data. View the [Data Fetching](/docs/app/building-your-application/data-fetching) section for more information.
+> - 页面可以使用`.js`、`.jsx`或`.tsx`文件扩展名。
+> - 页面始终是[路由子树](/docs/app/building-your-application/routing#terminology)的[叶子](/docs/app/building-your-application/routing#terminology)。
+> - 需要`page.js`文件才能使路由段公开可访问。
+> - 页面默认是[服务器组件](/docs/app/building-your-application/rendering/server-components)，但可以设置为[客户端组件](/docs/app/building-your-application/rendering/client-components)。
+> - 页面可以获取数据。查看[数据获取](/docs/app/building-your-application/data-fetching)部分了解更多信息。

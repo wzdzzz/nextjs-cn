@@ -1,107 +1,106 @@
 ---
 title: <Image> (Legacy)
-description: Backwards compatible Image Optimization with the Legacy Image component.
+description: 向后兼容的图片优化，使用旧版 Image 组件。
 ---
 
 <details>
-  <summary>Examples</summary>
+  <summary>示例</summary>
 
-- [Legacy Image Component](https://github.com/vercel/next.js/tree/canary/examples/image-legacy-component)
+- [旧版 Image 组件](https://github.com/vercel/next.js/tree/canary/examples/image-legacy-component)
 
 </details>
 
-Starting with Next.js 13, the `next/image` component was rewritten to improve both the performance and developer experience. In order to provide a backwards compatible upgrade solution, the old `next/image` was renamed to `next/legacy/image`.
+从 Next.js 13 开始，`next/image` 组件被重写以提高性能和开发者体验。为了提供一个向后兼容的升级解决方案，旧的 `next/image` 被重命名为 `next/legacy/image`。
 
-View the **new** [`next/image` API Reference](/docs/pages/api-reference/components/image)
+查看 **新** [`next/image` API 参考](/docs/pages/api-reference/components/image)
 
-## Comparison
+## 比较
 
-Compared to `next/legacy/image`, the new `next/image` component has the following changes:
+与 `next/legacy/image` 相比，新的 `next/image` 组件有以下变化：
 
-- Removes `<span>` wrapper around `<img>` in favor of [native computed aspect ratio](https://caniuse.com/mdn-html_elements_img_aspect_ratio_computed_from_attributes)
-- Adds support for canonical `style` prop
-  - Removes `layout` prop in favor of `style` or `className`
-  - Removes `objectFit` prop in favor of `style` or `className`
-  - Removes `objectPosition` prop in favor of `style` or `className`
-- Removes `IntersectionObserver` implementation in favor of [native lazy loading](https://caniuse.com/loading-lazy-attr)
-  - Removes `lazyBoundary` prop since there is no native equivalent
-  - Removes `lazyRoot` prop since there is no native equivalent
-- Removes `loader` config in favor of [`loader`](#loader) prop
-- Changed `alt` prop from optional to required
-- Changed `onLoadingComplete` callback to receive reference to `<img>` element
+- 移除了 `<img>` 外的 `<span>` 包装，改为使用 [原生计算宽高比](https://caniuse.com/mdn-html_elements_img_aspect_ratio_computed_from_attributes)
+- 添加了对规范 `style` 属性的支持
+  - 移除了 `layout` 属性，转而使用 `style` 或 `className`
+  - 移除了 `objectFit` 属性，转而使用 `style` 或 `className`
+  - 移除了 `objectPosition` 属性，转而使用 `style` 或 `className`
+- 移除了 `IntersectionObserver` 实现，改为使用 [原生懒加载](https://caniuse.com/loading-lazy-attr)
+  - 移除了 `lazyBoundary` 属性，因为没有原生等效项
+  - 移除了 `lazyRoot` 属性，因为没有原生等效项
+- 移除了 `loader` 配置，转而使用 [`loader`](#loader) 属性
+- 将 `alt` 属性从可选改为必需
+- 将 `onLoadingComplete` 回调更改为接收 `<img>` 元素的引用
 
-## Required Props
+## 必需属性
 
-The `<Image />` component requires the following properties.
+`<Image />` 组件需要以下属性。
 
 ### src
 
-Must be one of the following:
+必须是以下之一：
 
-- A [statically imported](/docs/pages/building-your-application/optimizing/images#local-images) image file
-- A path string. This can be either an absolute external URL, or an internal path depending on the [loader](#loader) prop or [loader configuration](#loader-configuration).
+- 一个 [静态导入的](/docs/pages/building-your-application/optimizing/images#local-images) 图片文件
+- 路径字符串。这可以是绝对的外部 URL，或者是内部路径，取决于 [loader](#loader) 属性或 [loader 配置](#loader-configuration)。
 
-When using an external URL, you must add it to [remotePatterns](#remote-patterns) in `next.config.js`.
+使用外部 URL 时，您必须将其添加到 `next.config.js` 中的 [remotePatterns](#remote-patterns)。
 
 ### width
 
-The `width` property can represent either the _rendered_ width or _original_ width in pixels, depending on the [`layout`](#layout) and [`sizes`](#sizes) properties.
+`width` 属性可以表示 _渲染_ 宽度或 _原始_ 宽度（以像素为单位），这取决于 [`layout`](#layout) 和 [`sizes`](#sizes) 属性。
 
-When using `layout="intrinsic"` or `layout="fixed"` the `width` property represents the _rendered_ width in pixels, so it will affect how large the image appears.
+使用 `layout="intrinsic"` 或 `layout="fixed"` 时，`width` 属性表示 _渲染_ 宽度（以像素为单位），因此它将影响图片的显示大小。
 
-When using `layout="responsive"`, `layout="fill"`, the `width` property represents the _original_ width in pixels, so it will only affect the aspect ratio.
+使用 `layout="responsive"`，`layout="fill"` 时，`width` 属性表示 _原始_ 宽度（以像素为单位），因此它只会影响宽高比。
 
-The `width` property is required, except for [statically imported images](/docs/pages/building-your-application/optimizing/images#local-images), or those with `layout="fill"`.
+`width` 属性是必需的，除非是 [静态导入的图片](/docs/pages/building-your-application/optimizing/images#local-images)，或者是那些有 `layout="fill"` 的图片。
 
 ### height
 
-The `height` property can represent either the _rendered_ height or _original_ height in pixels, depending on the [`layout`](#layout) and [`sizes`](#sizes) properties.
+`height` 属性可以表示 _渲染_ 高度或 _原始_ 高度（以像素为单位），这取决于 [`layout`](#layout) 和 [`sizes`](#sizes) 属性。
 
-When using `layout="intrinsic"` or `layout="fixed"` the `height` property represents the _rendered_ height in pixels, so it will affect how large the image appears.
+使用 `layout="intrinsic"` 或 `layout="fixed"` 时，`height` 属性表示 _渲染_ 高度（以像素为单位），因此它将影响图片的显示大小。
 
-When using `layout="responsive"`, `layout="fill"`, the `height` property represents the _original_ height in pixels, so it will only affect the aspect ratio.
+使用 `layout="responsive"`，`layout="fill"` 时，`height` 属性表示 _原始_ 高度（以像素为单位），因此它只会影响宽高比。
 
-The `height` property is required, except for [statically imported images](/docs/pages/building-your-application/optimizing/images#local-images), or those with `layout="fill"`.
+`height` 属性是必需的，除非是 [静态导入的图片](/docs/pages/building-your-application/optimizing/images#local-images)，或者是那些有 `layout="fill"` 的图片。
 
-## Optional Props
+## 可选属性
 
-The `<Image />` component accepts a number of additional properties beyond those which are required. This section describes the most commonly-used properties of the Image component. Find details about more rarely-used properties in the [Advanced Props](#advanced-props) section.
+`<Image />` 组件接受许多额外的属性，除了必需的属性之外。本节描述了 Image 组件最常用的属性。在 [高级属性](#advanced-props) 部分找到更多不常用属性的详细信息。
+### 布局
 
-,### layout
+当视口大小改变时，图片的布局行为。
 
-The layout behavior of the image as the viewport changes size.
-
-| `layout`              | Behavior                                                 | `srcSet`                                                                                                    | `sizes` | Has wrapper and sizer |
+| `布局`              | 行为                                                     | `srcSet`                                                                                                    | `sizes` | 有包装器和大小器 |
 | --------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------- | --------------------- |
-| `intrinsic` (default) | Scale _down_ to fit width of container, up to image size | `1x`, `2x` (based on [imageSizes](#image-sizes))                                                            | N/A     | yes                   |
-| `fixed`               | Sized to `width` and `height` exactly                    | `1x`, `2x` (based on [imageSizes](#image-sizes))                                                            | N/A     | yes                   |
-| `responsive`          | Scale to fit width of container                          | `640w`, `750w`, ... `2048w`, `3840w` (based on [imageSizes](#image-sizes) and [deviceSizes](#device-sizes)) | `100vw` | yes                   |
-| `fill`                | Grow in both X and Y axes to fill container              | `640w`, `750w`, ... `2048w`, `3840w` (based on [imageSizes](#image-sizes) and [deviceSizes](#device-sizes)) | `100vw` | yes                   |
+| `intrinsic` (默认)   | 缩小以适应容器宽度，最多到图片大小                     | `1x`, `2x` (基于 [imageSizes](#image-sizes))                                                            | N/A     | 是                   |
+| `fixed`               | 精确设置为 `width` 和 `height`                         | `1x`, `2x` (基于 [imageSizes](#image-sizes))                                                            | N/A     | 是                   |
+| `responsive`          | 缩放到适应容器宽度                                    | `640w`, `750w`, ... `2048w`, `3840w` (基于 [imageSizes](#image-sizes) 和 [deviceSizes](#device-sizes)) | `100vw` | 是                   |
+| `fill`                | 在 X 和 Y 轴上增长以填满容器                           | `640w`, `750w`, ... `2048w`, `3840w` (基于 [imageSizes](#image-sizes) 和 [deviceSizes](#device-sizes)) | `100vw` | 是                   |
 
-- [Demo the `intrinsic` layout (default)](https://image-legacy-component.nextjs.gallery/layout-intrinsic)
-  - When `intrinsic`, the image will scale the dimensions down for smaller viewports, but maintain the original dimensions for larger viewports.
-- [Demo the `fixed` layout](https://image-legacy-component.nextjs.gallery/layout-fixed)
-  - When `fixed`, the image dimensions will not change as the viewport changes (no responsiveness) similar to the native `img` element.
-- [Demo the `responsive` layout](https://image-legacy-component.nextjs.gallery/layout-responsive)
-  - When `responsive`, the image will scale the dimensions down for smaller viewports and scale up for larger viewports.
-  - Ensure the parent element uses `display: block` in their stylesheet.
-- [Demo the `fill` layout](https://image-legacy-component.nextjs.gallery/layout-fill)
-  - When `fill`, the image will stretch both width and height to the dimensions of the parent element, provided the parent element is relative.
-  - This is usually paired with the [`objectFit`](#objectfit) property.
-  - Ensure the parent element has `position: relative` in their stylesheet.
-- [Demo background image](https://image-legacy-component.nextjs.gallery/background)
+- [演示 `intrinsic` 布局（默认）](https://image-legacy-component.nextjs.gallery/layout-intrinsic)
+  - 当设置为 `intrinsic` 时，图片会根据较小的视口缩小尺寸，但保持原始尺寸以适应较大的视口。
+- [演示 `fixed` 布局](https://image-legacy-component.nextjs.gallery/layout-fixed)
+  - 当设置为 `fixed` 时，图片尺寸不会随着视口的变化而改变（无响应性），类似于原生的 `img` 元素。
+- [演示 `responsive` 布局](https://image-legacy-component.nextjs.gallery/layout-responsive)
+  - 当设置为 `responsive` 时，图片会根据较小的视口缩小尺寸，并根据较大的视口放大尺寸。
+  - 确保父元素在其样式表中使用 `display: block`。
+- [演示 `fill` 布局](https://image-legacy-component.nextjs.gallery/layout-fill)
+  - 当设置为 `fill` 时，图片会拉伸宽度和高度以适应父元素的尺寸，前提是父元素是相对定位的。
+  - 这通常与 [`objectFit`](#objectfit) 属性配对使用。
+  - 确保父元素在其样式表中具有 `position: relative`。
+- [演示背景图片](https://image-legacy-component.nextjs.gallery/background)
 
-### loader
+### 加载器
 
-A custom function used to resolve URLs. Setting the loader as a prop on the Image component overrides the default loader defined in the [`images` section of `next.config.js`](#loader-configuration).
+用于解析 URL 的自定义函数。将加载器设置为 Image 组件上的属性会覆盖在 [`next.config.js`](#loader-configuration) 的 [`images` 部分](#loader-configuration) 中定义的默认加载器。
 
-A `loader` is a function returning a URL string for the image, given the following parameters:
+`加载器` 是一个返回给定参数的图片 URL 字符串的函数：
 
 - [`src`](#src)
 - [`width`](#width)
 - [`quality`](#quality)
 
-Here is an example of using a custom loader:
+以下是使用自定义加载器的示例：
 
 ```js
 import Image from 'next/legacy/image'
@@ -115,25 +114,24 @@ const MyImage = (props) => {
     <Image
       loader={myLoader}
       src="me.png"
-      alt="Picture of the author"
+      alt="作者的照片"
       width={500}
       height={500}
     />
   )
 }
 ```
+### sizes
 
-,### sizes
+`sizes` 是一个字符串，提供有关图像在不同断点处宽度的信息。`sizes` 的值将极大地影响使用 `layout="responsive"` 或 `layout="fill"` 的图像的性能。对于使用 `layout="intrinsic"` 或 `layout="fixed"` 的图像，它将被忽略。
 
-A string that provides information about how wide the image will be at different breakpoints. The value of `sizes` will greatly affect performance for images using `layout="responsive"` or `layout="fill"`. It will be ignored for images using `layout="intrinsic"` or `layout="fixed"`.
+`sizes` 属性与图像性能相关，有两个重要用途：
 
-The `sizes` property serves two important purposes related to image performance:
+首先，`sizes` 的值由浏览器用来确定从 `next/legacy/image` 自动生成的源集（source set）中下载哪个大小的图像。当浏览器选择时，它还不知道页面上图像的大小，因此它选择一个与视口大小相同或更大的图像。`sizes` 属性允许您告诉浏览器，图像实际上会比全屏小。如果您不指定 `sizes` 值，将使用默认值 `100vw`（全屏宽度）。
 
-First, the value of `sizes` is used by the browser to determine which size of the image to download, from `next/legacy/image`'s automatically-generated source set. When the browser chooses, it does not yet know the size of the image on the page, so it selects an image that is the same size or larger than the viewport. The `sizes` property allows you to tell the browser that the image will actually be smaller than full screen. If you don't specify a `sizes` value, a default value of `100vw` (full screen width) is used.
+其次，`sizes` 值被解析并用于修剪自动创建的源集中的值。如果 `sizes` 属性包括 `50vw` 等尺寸，这些尺寸代表视口宽度的百分比，那么源集将被修剪，不包括任何太小而永远不必要的值。
 
-Second, the `sizes` value is parsed and used to trim the values in the automatically-created source set. If the `sizes` property includes sizes such as `50vw`, which represent a percentage of the viewport width, then the source set is trimmed to not include any values which are too small to ever be necessary.
-
-For example, if you know your styling will cause an image to be full-width on mobile devices, in a 2-column layout on tablets, and a 3-column layout on desktop displays, you should include a sizes property such as the following:
+例如，如果您知道您的样式会导致图像在移动设备上全宽，在平板上的 2 栏布局，在桌面显示器上的 3 栏布局，您应该包含如下所示的 `sizes` 属性：
 
 ```js
 import Image from 'next/legacy/image'
@@ -150,124 +148,115 @@ const Example = () => (
 )
 ```
 
-This example `sizes` could have a dramatic effect on performance metrics. Without the `33vw` sizes, the image selected from the server would be 3 times as wide as it needs to be. Because file size is proportional to the square of the width, without `sizes` the user would download an image that's 9 times larger than necessary.
+这个示例 `sizes` 可能对性能指标产生显著影响。如果没有 `33vw` 大小，从服务器选择的图像将比所需的宽度宽 3 倍。因为文件大小与宽度的平方成正比，没有 `sizes`，用户将下载一个比必要大 9 倍的图像。
 
-Learn more about `srcset` and `sizes`:
+了解更多关于 `srcset` 和 `sizes` 的信息：
 
 - [web.dev](https://web.dev/learn/design/responsive-images/#sizes)
 - [mdn](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-sizes)
 
 ### quality
 
-The quality of the optimized image, an integer between `1` and `100` where `100` is the best quality. Defaults to `75`.
+优化图像的质量，介于 `1` 和 `100` 之间的整数，其中 `100` 是最佳质量。默认值为 `75`。
 
 ### priority
 
-When true, the image will be considered high priority and
-[preload](https://web.dev/preload-responsive-images/). Lazy loading is automatically disabled for images using `priority`.
+当设置为 true 时，图像将被视为高优先级并进行 [预加载](https://web.dev/preload-responsive-images/)。对于使用 `priority` 的图像，懒加载将自动禁用。
 
-You should use the `priority` property on any image detected as the [Largest Contentful Paint (LCP)](https://nextjs.org/learn/seo/web-performance/lcp) element. It may be appropriate to have multiple priority images, as different images may be the LCP element for different viewport sizes.
+您应该在检测到作为 [最大内容绘制（LCP）](https://nextjs.org/learn/seo/web-performance/lcp) 元素的任何图像上使用 `priority` 属性。可能有多个优先级图像是合适的，因为不同的图像可能是不同视口大小的 LCP 元素。
 
-Should only be used when the image is visible above the fold. Defaults to `false`.
+`priority` 仅应在图像在折叠上方可见时使用。默认值为 `false`。
 
 ### placeholder
 
-A placeholder to use while the image is loading. Possible values are `blur` or `empty`. Defaults to `empty`.
+在图像加载时使用的占位符。可能的值是 `blur` 或 `empty`。默认为 `empty`。
 
-When `blur`, the [`blurDataURL`](#blurdataurl) property will be used as the placeholder. If `src` is an object from a [static import](/docs/pages/building-your-application/optimizing/images#local-images) and the imported image is `.jpg`, `.png`, `.webp`, or `.avif`, then `blurDataURL` will be automatically populated.
+当设置为 `blur` 时，将使用 [`blurDataURL`](#blurdataurl) 属性作为占位符。如果 `src` 是从 [静态导入](/docs/pages/building-your-application/optimizing/images#local-images) 的对象，并且导入的图像是 `.jpg`、`.png`、`.webp` 或 `.avif`，那么 `blurDataURL` 将自动填充。
 
-For dynamic images, you must provide the [`blurDataURL`](#blurdataurl) property. Solutions such as [Plaiceholder](https://github.com/joe-bell/plaiceholder) can help with `base64` generation.
+对于动态图像，您必须提供 [`blurDataURL`](#blurdataurl) 属性。像 [Plaiceholder](https://github.com/joe-bell/plaiceholder) 这样的解决方案可以帮助生成 `base64`。
 
-When `empty`, there will be no placeholder while the image is loading, only empty space.
+当设置为 `empty` 时，在图像加载时将没有占位符，只有空白空间。
 
-Try it out:
+尝试一下：
 
-- [Demo the `blur` placeholder](https://image-legacy-component.nextjs.gallery/placeholder)
-- [Demo the shimmer effect with `blurDataURL` prop](https://image-legacy-component.nextjs.gallery/shimmer)
-- [Demo the color effect with `blurDataURL` prop](https://image-legacy-component.nextjs.gallery/color)
+- [尝试 `blur` 占位符的演示](https://image-legacy-component.nextjs.gallery/placeholder)
+- [尝试使用 `blurDataURL` 属性的闪烁效果演示](https://image-legacy-component.nextjs.gallery/shimmer)
+- [尝试使用 `blurDataURL` 属性的颜色效果演示](https://image-legacy-component.nextjs.gallery/color)
+## 高级属性
 
-,## Advanced Props
-
-In some cases, you may need more advanced usage. The `<Image />` component optionally accepts the following advanced properties.
+在某些情况下，您可能需要更高级的用法。`<Image />`组件可选地接受以下高级属性。
 
 ### style
 
-Allows [passing CSS styles](https://developer.mozilla.org/docs/Web/HTML/Element/style) to the underlying image element.
+允许向底层图像元素传递[CSS样式](https://developer.mozilla.org/docs/Web/HTML/Element/style)。
 
-Note that all `layout` modes apply their own styles to the image element, and these automatic styles take precedence over the `style` prop.
+请注意，所有`layout`模式都会向图像元素应用自己的样式，这些自动样式会优先于`style`属性。
 
-Also keep in mind that the required `width` and `height` props can interact with your styling. If you use styling to modify an image's `width`, you must set the `height="auto"` style as well, or your image will be distorted.
+还要记住，必需的`width`和`height`属性可以与您的样式交互。如果您使用样式修改图像的`width`，则还必须设置`height="auto"`样式，否则您的图像将变形。
 
 ### objectFit
 
-Defines how the image will fit into its parent container when using `layout="fill"`.
+在使用`layout="fill"`时，定义图像将如何适应其父容器。
 
-This value is passed to the [object-fit CSS property](https://developer.mozilla.org/docs/Web/CSS/object-fit) for the `src` image.
+该值传递给`src`图像的[object-fit CSS属性](https://developer.mozilla.org/docs/Web/CSS/object-fit)。
 
 ### objectPosition
 
-Defines how the image is positioned within its parent element when using `layout="fill"`.
+在使用`layout="fill"`时，定义图像在其父元素内的定位方式。
 
-This value is passed to the [object-position CSS property](https://developer.mozilla.org/docs/Web/CSS/object-position) applied to the image.
+该值传递给应用于图像的[object-position CSS属性](https://developer.mozilla.org/docs/Web/CSS/object-position)。
 
 ### onLoadingComplete
 
-A callback function that is invoked once the image is completely loaded and the [placeholder](#placeholder) has been removed.
+一旦图像完全加载并且已移除[占位符](#placeholder)，就会调用此回调函数。
 
-The `onLoadingComplete` function accepts one parameter, an object with the following properties:
+`onLoadingComplete`函数接受一个参数，一个包含以下属性的对象：
 
 - [`naturalWidth`](https://developer.mozilla.org/docs/Web/API/HTMLImageElement/naturalWidth)
 - [`naturalHeight`](https://developer.mozilla.org/docs/Web/API/HTMLImageElement/naturalHeight)
 
 ### loading
 
-> **Attention**: This property is only meant for advanced usage. Switching an
-> image to load with `eager` will normally **hurt performance**.
+> **注意**：此属性仅适用于高级用途。将图像切换为使用`eager`加载通常会**损害性能**。
 >
-> We recommend using the [`priority`](#priority) property instead, which
-> properly loads the image eagerly for nearly all use cases.
+> 我们建议使用[`priority`](#priority)属性，它几乎适用于所有用例，可以正确地优先加载图像。
 
-The loading behavior of the image. Defaults to `lazy`.
+图像的加载行为。默认为`lazy`。
 
-When `lazy`, defer loading the image until it reaches a calculated distance from
-the viewport.
+当设置为`lazy`时，推迟加载图像，直到它到达距离视口的计算距离。
 
-When `eager`, load the image immediately.
+当设置为`eager`时，立即加载图像。
 
-[Learn more](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-loading)
+[了解更多](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-loading)
 
 ### blurDataURL
 
-A [Data URL](https://developer.mozilla.org/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) to
-be used as a placeholder image before the `src` image successfully loads. Only takes effect when combined
-with [`placeholder="blur"`](#placeholder).
+用作`src`图像成功加载前的占位符图像的[Data URL](https://developer.mozilla.org/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)。仅在使用[`placeholder="blur"`](#placeholder)时生效。
 
-Must be a base64-encoded image. It will be enlarged and blurred, so a very small image (10px or
-less) is recommended. Including larger images as placeholders may harm your application performance.
+必须是base64编码的图像。它将被放大和模糊，因此建议使用非常小的图像（10px或更小）。包括更大的图像作为占位符可能会损害您的应用程序性能。
 
-Try it out:
+试试：
 
-- [Demo the default `blurDataURL` prop](https://image-legacy-component.nextjs.gallery/placeholder)
-- [Demo the shimmer effect with `blurDataURL` prop](https://image-legacy-component.nextjs.gallery/shimmer)
-- [Demo the color effect with `blurDataURL` prop](https://image-legacy-component.nextjs.gallery/color)
+- [演示默认的`blurDataURL`属性](https://image-legacy-component.nextjs.gallery/placeholder)
+- [演示带有`blurDataURL`属性的闪烁效果](https://image-legacy-component.nextjs.gallery/shimmer)
+- [演示带有`blurDataURL`属性的颜色效果](https://image-legacy-component.nextjs.gallery/color)
 
-You can also [generate a solid color Data URL](https://png-pixel.com) to match the image.
+您还可以[生成与图像匹配的纯色Data URL](https://png-pixel.com)。
 
 ### lazyBoundary
 
-A string (with similar syntax to the margin property) that acts as the bounding box used to detect the intersection of the viewport with the image and trigger lazy [loading](#loading). Defaults to `"200px"`.
+一个字符串（与边距属性的语法类似），用作检测视口与图像交点并触发延迟[加载](#loading)的边界框。默认为`"200px"`。
 
-If the image is nested in a scrollable parent element other than the root document, you will also need to assign the [lazyRoot](#lazyroot) prop.
+如果图像嵌套在滚动父元素中，而不是根文档，则还需要分配[lazyRoot](#lazyroot)属性。
 
-[Learn more](https://developer.mozilla.org/docs/Web/API/IntersectionObserver/rootMargin)
+[了解更多](https://developer.mozilla.org/docs/Web/API/IntersectionObserver/rootMargin)
+### lazyRoot
 
-,### lazyRoot
+`lazyRoot` 是一个指向可滚动父元素的 React [Ref](https://react.dev/learn/referencing-values-with-refs)。默认值为 `null`（文档视口）。
 
-A React [Ref](https://react.dev/learn/referencing-values-with-refs) pointing to the scrollable parent element. Defaults to `null` (the document viewport).
+Ref 必须指向一个 DOM 元素或者一个 React 组件，该组件[转发 Ref](https://react.dev/reference/react/forwardRef)到底层的 DOM 元素。
 
-The Ref must point to a DOM element or a React component that [forwards the Ref](https://react.dev/reference/react/forwardRef) to the underlying DOM element.
-
-**Example pointing to a DOM element**
+**指向 DOM 元素的示例**
 
 ```jsx
 import Image from 'next/legacy/image'
@@ -285,7 +274,7 @@ const Example = () => {
 }
 ```
 
-**Example pointing to a React component**
+**指向 React 组件的示例**
 
 ```jsx
 import Image from 'next/legacy/image'
@@ -311,12 +300,11 @@ const Example = () => {
 }
 ```
 
-[Learn more](https://developer.mozilla.org/docs/Web/API/IntersectionObserver/root)
+[了解更多](https://developer.mozilla.org/docs/Web/API/IntersectionObserver/root)
 
 ### unoptimized
 
-When true, the source image will be served as-is instead of changing quality,
-size, or format. Defaults to `false`.
+当设置为 true 时，源图像将以原始状态提供，而不是更改质量、大小或格式。默认值为 `false`。
 
 ```js
 import Image from 'next/image'
@@ -326,7 +314,7 @@ const UnoptimizedImage = (props) => {
 }
 ```
 
-Since Next.js 12.3.0, this prop can be assigned to all images by updating `next.config.js` with the following configuration:
+自 Next.js 12.3.0 起，可以通过更新 `next.config.js` 中的以下配置，为所有图像分配此属性：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -336,22 +324,18 @@ module.exports = {
 }
 ```
 
-## Other Props
+## 其他属性
 
-Other properties on the `<Image />` component will be passed to the underlying
-`img` element with the exception of the following:
+`<Image />` 组件上的其他属性将传递给底层的 `img` 元素，但以下属性除外：
 
-- `srcSet`. Use
-  [Device Sizes](#device-sizes)
-  instead.
-- `ref`. Use [`onLoadingComplete`](#onloadingcomplete) instead.
-- `decoding`. It is always `"async"`.
+- `srcSet`。请使用[设备尺寸](#device-sizes)。
+- `ref`。请使用 [`onLoadingComplete`](#onloadingcomplete) 替代。
+- `decoding`。它始终是 `"async"`。
 
-## Configuration Options
+## 配置选项
+### 远程模式
 
-,### Remote Patterns
-
-To protect your application from malicious users, configuration is required in order to use external images. This ensures that only external images from your account can be served from the Next.js Image Optimization API. These external images can be configured with the `remotePatterns` property in your `next.config.js` file, as shown below:
+为了保护您的应用程序免受恶意用户的攻击，需要进行配置才能使用外部图片。这确保只有来自您账户的外部图片才能通过 Next.js 图像优化 API 提供。这些外部图片可以通过 `next.config.js` 文件中的 `remotePatterns` 属性进行配置，如下所示：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -368,9 +352,9 @@ module.exports = {
 }
 ```
 
-> **Good to know**: The example above will ensure the `src` property of `next/legacy/image` must start with `https://example.com/account123/`. Any other protocol, hostname, port, or unmatched path will respond with 400 Bad Request.
+> **须知**：上述示例将确保 `next/legacy/image` 的 `src` 属性必须以 `https://example.com/account123/` 开头。任何其他协议、主机名、端口或不匹配的路径都将响应 400 错误请求。
 
-Below is another example of the `remotePatterns` property in the `next.config.js` file:
+以下是 `next.config.js` 文件中 `remotePatterns` 属性的另一个示例：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -386,26 +370,26 @@ module.exports = {
 }
 ```
 
-> **Good to know**: The example above will ensure the `src` property of `next/legacy/image` must start with `https://img1.example.com` or `https://me.avatar.example.com` or any number of subdomains. Any other protocol, port, or unmatched hostname will respond with 400 Bad Request.
+> **须知**：上述示例将确保 `next/legacy/image` 的 `src` 属性必须以 `https://img1.example.com` 或 `https://me.avatar.example.com` 或任何数量的子域名开头。任何其他协议、端口或不匹配的主机名都将响应 400 错误请求。
 
-Wildcard patterns can be used for both `pathname` and `hostname` and have the following syntax:
+通配符模式可以用于 `pathname` 和 `hostname`，并具有以下语法：
 
-- `*` match a single path segment or subdomain
-- `**` match any number of path segments at the end or subdomains at the beginning
+- `*` 匹配单个路径段或子域名
+- `**` 匹配末尾的任意数量的路径段或开头的任意数量的子域名
 
-The `**` syntax does not work in the middle of the pattern.
+`**` 语法不能在模式中间使用。
 
-> **Good to know**: When omitting `protocol`, `port` or `pathname`, then the wildcard `**` is implied. This is not recommended because it may allow malicious actors to optimize urls you did not intend.
+> **须知**：当省略 `protocol`、`port` 或 `pathname` 时，将隐含通配符 `**`。这并不推荐，因为它可能允许恶意行为者优化您未打算的 URL。
 
-### Domains
+### 域
 
-> **Warning**: Deprecated since Next.js 14 in favor of strict [`remotePatterns`](#remote-patterns) in order to protect your application from malicious users. Only use `domains` if you own all the content served from the domain.
+> **警告**：自 Next.js 14 起已弃用，转而使用更严格的 [`remotePatterns`](#remote-patterns) 以保护您的应用程序免受恶意用户的攻击。只有当您拥有从域提供的所有必要内容时，才使用 `domains`。
 
-Similar to [`remotePatterns`](#remote-patterns), the `domains` configuration can be used to provide a list of allowed hostnames for external images.
+类似于 [`remotePatterns`](#remote-patterns)，`domains` 配置可用于提供外部图片的允许主机名列表。
 
-However, the `domains` configuration does not support wildcard pattern matching and it cannot restrict protocol, port, or pathname.
+然而，`domains` 配置不支持通配符模式匹配，且不能限制协议、端口或路径。
 
-Below is an example of the `domains` property in the `next.config.js` file:
+以下是 `next.config.js` 文件中 `domains` 属性的示例：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -415,9 +399,9 @@ module.exports = {
 }
 ```
 
-### Loader Configuration
+### 加载器配置
 
-If you want to use a cloud provider to optimize images instead of using the Next.js built-in Image Optimization API, you can configure the `loader` and `path` prefix in your `next.config.js` file. This allows you to use relative URLs for the Image [`src`](#src) and automatically generate the correct absolute URL for your provider.
+如果您想使用云服务提供商来优化图片而不是使用 Next.js 内置的图像优化 API，您可以在 `next.config.js` 文件中配置 `loader` 和 `path` 前缀。这允许您为图像 [`src`](#src) 使用相对 URL，并自动生成您的提供商的正确绝对 URL。
 
 ```js filename="next.config.js"
 module.exports = {
@@ -427,31 +411,30 @@ module.exports = {
   },
 }
 ```
+### 内置加载器
 
-,### Built-in Loaders
+以下是包含的图片优化云服务提供商：
 
-The following Image Optimization cloud providers are included:
+- 默认：与 `next dev`、`next start` 或自定义服务器自动工作
+- [Vercel](https://vercel.com)：在 Vercel 上部署时自动工作，无需配置。[了解更多](https://vercel.com/docs/concepts/image-optimization?utm_source=next-site&utm_medium=docs&utm_campaign=next-website)
+- [Imgix](https://www.imgix.com)：`loader: 'imgix'`
+- [Cloudinary](https://cloudinary.com)：`loader: 'cloudinary'`
+- [Akamai](https://www.akamai.com)：`loader: 'akamai'`
+- 自定义：`loader: 'custom'` 通过在 `next/legacy/image` 组件上实现 [`loader`](#loader) 属性来使用自定义云服务提供商
 
-- Default: Works automatically with `next dev`, `next start`, or a custom server
-- [Vercel](https://vercel.com): Works automatically when you deploy on Vercel, no configuration necessary. [Learn more](https://vercel.com/docs/concepts/image-optimization?utm_source=next-site&utm_medium=docs&utm_campaign=next-website)
-- [Imgix](https://www.imgix.com): `loader: 'imgix'`
-- [Cloudinary](https://cloudinary.com): `loader: 'cloudinary'`
-- [Akamai](https://www.akamai.com): `loader: 'akamai'`
-- Custom: `loader: 'custom'` use a custom cloud provider by implementing the [`loader`](#loader) prop on the `next/legacy/image` component
+如果您需要不同的提供商，可以使用 `next/legacy/image` 组件上的 [`loader`](#loader) 属性。
 
-If you need a different provider, you can use the [`loader`](#loader) prop with `next/legacy/image`.
+> 图片不能使用 [`output: 'export'`](/docs/pages/building-your-application/deploying/static-exports) 在构建时进行优化，只能按需优化。要使用 `output: 'export'` 与 `next/legacy/image`，您需要使用与默认不同的加载器。[在讨论中了解更多](https://github.com/vercel/next.js/discussions/19065)
 
-> Images can not be optimized at build time using [`output: 'export'`](/docs/pages/building-your-application/deploying/static-exports), only on-demand. To use `next/legacy/image` with `output: 'export'`, you will need to use a different loader than the default. [Read more in the discussion.](https://github.com/vercel/next.js/discussions/19065)
+## 高级
 
-## Advanced
+以下配置适用于高级用例，通常不是必需的。如果您选择配置下面的属性，您将覆盖未来更新中 Next.js 默认值的任何更改。
 
-The following configuration is for advanced use cases and is usually not necessary. If you choose to configure the properties below, you will override any changes to the Next.js defaults in future updates.
+### 设备尺寸
 
-### Device Sizes
+如果您知道用户的预期设备宽度，您可以在 `next.config.js` 中使用 `deviceSizes` 属性指定设备宽度断点的列表。当 `next/legacy/image` 组件使用 `layout="responsive"` 或 `layout="fill"` 时，这些宽度用于确保为用户的设备提供正确的图片。
 
-If you know the expected device widths of your users, you can specify a list of device width breakpoints using the `deviceSizes` property in `next.config.js`. These widths are used when the `next/legacy/image` component uses `layout="responsive"` or `layout="fill"` to ensure the correct image is served for user's device.
-
-If no configuration is provided, the default below is used.
+如果没有提供配置，默认使用以下设置。
 
 ```js filename="next.config.js"
 module.exports = {
@@ -461,13 +444,13 @@ module.exports = {
 }
 ```
 
-### Image Sizes
+### 图片尺寸
 
-You can specify a list of image widths using the `images.imageSizes` property in your `next.config.js` file. These widths are concatenated with the array of [device sizes](#device-sizes) to form the full array of sizes used to generate image [srcset](https://developer.mozilla.org/docs/Web/API/HTMLImageElement/srcset)s.
+您可以在 `next.config.js` 文件中使用 `images.imageSizes` 属性指定图片宽度的列表。这些宽度与 [设备尺寸](#设备尺寸) 数组连接，形成用于生成图片 [srcset](https://developer.mozilla.org/docs/Web/API/HTMLImageElement/srcset) 的完整大小数组。
 
-The reason there are two separate lists is that imageSizes is only used for images which provide a [`sizes`](#sizes) prop, which indicates that the image is less than the full width of the screen. **Therefore, the sizes in imageSizes should all be smaller than the smallest size in deviceSizes.**
+有两个单独的列表的原因是 imageSizes 仅用于提供 [`sizes`](#sizes) 属性的图片，这表明图片小于屏幕的全宽。**因此，imageSizes 中的尺寸应都小于 deviceSizes 中的最小尺寸。**
 
-If no configuration is provided, the default below is used.
+如果没有提供配置，默认使用以下设置。
 
 ```js filename="next.config.js"
 module.exports = {
@@ -477,13 +460,13 @@ module.exports = {
 }
 ```
 
-### Acceptable Formats
+### 可接受的格式
 
-The default [Image Optimization API](#loader-configuration) will automatically detect the browser's supported image formats via the request's `Accept` header.
+默认的 [图片优化 API](#loader-配置) 将通过请求的 `Accept` 头部自动检测浏览器支持的图片格式。
 
-If the `Accept` head matches more than one of the configured formats, the first match in the array is used. Therefore, the array order matters. If there is no match (or the source image is [animated](#animated-images)), the Image Optimization API will fallback to the original image's format.
+如果 `Accept` 头部匹配配置的多个格式，则使用数组中的第一个匹配项。因此，数组的顺序很重要。如果没有匹配项（或源图片是 [动画](#动画图片)），图片优化 API 将回退到原始图片的格式。
 
-If no configuration is provided, the default below is used.
+如果没有提供配置，默认使用以下设置。
 
 ```js filename="next.config.js"
 module.exports = {
@@ -493,7 +476,7 @@ module.exports = {
 }
 ```
 
-You can enable AVIF support with the following configuration.
+您可以使用以下配置启用 AVIF 支持。
 
 ```js filename="next.config.js"
 module.exports = {
@@ -503,29 +486,28 @@ module.exports = {
 }
 ```
 
-> **Good to know**: AVIF generally takes 20% longer to encode but it compresses 20% smaller compared to WebP. This means that the first time an image is requested, it will typically be slower and then subsequent requests that are cached will be faster.
+> **须知**：AVIF 通常需要编码时间比 WebP 长 20%，但它压缩的体积比 WebP 小 20%。这意味着当第一次请求图片时，它通常会更慢，然后随后的请求由于缓存会更快。
+## 缓存行为
 
-,## Caching Behavior
+以下描述了默认 [loader](#loader) 的缓存算法。对于所有其他加载器，请参考您的云服务提供商的文档。
 
-The following describes the caching algorithm for the default [loader](#loader). For all other loaders, please refer to your cloud provider's documentation.
+图片在请求时动态优化，并存储在 `<distDir>/cache/images` 目录中。优化后的图片文件将在后续请求中提供服务，直到到达过期时间。当发出的请求匹配到已缓存但已过期的文件时，过期的图片会立即提供陈旧的版本。然后，图片会在后台重新优化（也称为重新验证），并带有新的过期日期保存到缓存中。
 
-Images are optimized dynamically upon request and stored in the `<distDir>/cache/images` directory. The optimized image file will be served for subsequent requests until the expiration is reached. When a request is made that matches a cached but expired file, the expired image is served stale immediately. Then the image is optimized again in the background (also called revalidation) and saved to the cache with the new expiration date.
+可以通过读取响应头 `x-nextjs-cache`（在 Vercel 上部署时为 `x-vercel-cache`）的值来确定图片的缓存状态。可能的值如下：
 
-The cache status of an image can be determined by reading the value of the `x-nextjs-cache` (`x-vercel-cache` when deployed on Vercel) response header. The possible values are the following:
+- `MISS` - 路径不在缓存中（最多发生一次，在首次访问时）
+- `STALE` - 路径在缓存中，但已超过重新验证时间，因此将在后台更新
+- `HIT` - 路径在缓存中，且未超过重新验证时间
 
-- `MISS` - the path is not in the cache (occurs at most once, on the first visit)
-- `STALE` - the path is in the cache but exceeded the revalidate time so it will be updated in the background
-- `HIT` - the path is in the cache and has not exceeded the revalidate time
+过期时间（或最大年龄）由 [`minimumCacheTTL`](#minimum-cache-ttl) 配置或上游图片的 `Cache-Control` 响应头定义，以较大者为准。具体来说，使用的是 `Cache-Control` 响应头中的 `max-age` 值。如果同时找到 `s-maxage` 和 `max-age`，则优先使用 `s-maxage`。`max-age` 也会传递给任何下游客户端，包括 CDN 和浏览器。
 
-The expiration (or rather Max Age) is defined by either the [`minimumCacheTTL`](#minimum-cache-ttl) configuration or the upstream image `Cache-Control` header, whichever is larger. Specifically, the `max-age` value of the `Cache-Control` header is used. If both `s-maxage` and `max-age` are found, then `s-maxage` is preferred. The `max-age` is also passed-through to any downstream clients including CDNs and browsers.
+- 您可以配置 [`minimumCacheTTL`](#minimum-cache-ttl) 以增加缓存持续时间，当上游图片不包含 `Cache-Control` 响应头或值非常低时。
+- 您可以配置 [`deviceSizes`](#device-sizes) 和 [`imageSizes`](#image-sizes) 以减少可能生成的图片总数。
+- 您可以配置 [格式](#acceptable-formats) 以禁用多个格式，而只使用单一图片格式。
 
-- You can configure [`minimumCacheTTL`](#minimum-cache-ttl) to increase the cache duration when the upstream image does not include `Cache-Control` header or the value is very low.
-- You can configure [`deviceSizes`](#device-sizes) and [`imageSizes`](#image-sizes) to reduce the total number of possible generated images.
-- You can configure [formats](#acceptable-formats) to disable multiple formats in favor of a single image format.
+### 最小缓存TTL
 
-### Minimum Cache TTL
-
-You can configure the Time to Live (TTL) in seconds for cached optimized images. In many cases, it's better to use a [Static Image Import](/docs/pages/building-your-application/optimizing/images#local-images) which will automatically hash the file contents and cache the image forever with a `Cache-Control` header of `immutable`.
+您可以为缓存优化后的图片配置存活时间（TTL），单位为秒。在许多情况下，最好使用 [静态图片导入](/docs/pages/building-your-application/optimizing/images#local-images)，它将自动对文件内容进行哈希处理，并使用 `Cache-Control` 响应头的 `immutable` 永远缓存图片。
 
 ```js filename="next.config.js"
 module.exports = {
@@ -535,19 +517,19 @@ module.exports = {
 }
 ```
 
-The expiration (or rather Max Age) of the optimized image is defined by either the `minimumCacheTTL` or the upstream image `Cache-Control` header, whichever is larger.
+优化后的图片的过期时间（或最大年龄）由 `minimumCacheTTL` 或上游图片的 `Cache-Control` 响应头定义，以较大者为准。
 
-If you need to change the caching behavior per image, you can configure [`headers`](/docs/pages/api-reference/next-config-js/headers) to set the `Cache-Control` header on the upstream image (e.g. `/some-asset.jpg`, not `/_next/image` itself).
+如果需要为每个图片更改缓存行为，您可以配置 [`headers`](/docs/pages/api-reference/next-config-js/headers) 来设置上游图片（例如 `/some-asset.jpg`，不是 `/_next/image` 本身）的 `Cache-Control` 响应头。
 
-There is no mechanism to invalidate the cache at this time, so its best to keep `minimumCacheTTL` low. Otherwise you may need to manually change the [`src`](#src) prop or delete `<distDir>/cache/images`.
+目前没有机制可以使缓存失效，因此最好保持 `minimumCacheTTL` 较低。否则，您可能需要手动更改 [`src`](#src) 属性或删除 `<distDir>/cache/images`。
 
-### Disable Static Imports
+### 禁用静态导入
 
-The default behavior allows you to import static files such as `import icon from './icon.png'` and then pass that to the `src` property.
+默认行为允许您导入静态文件，例如 `import icon from './icon.png'`，然后将该文件传递给 `src` 属性。
 
-In some cases, you may wish to disable this feature if it conflicts with other plugins that expect the import to behave differently.
+在某些情况下，如果该功能与其他期望导入行为不同的插件冲突，您可能希望禁用此功能。
 
-You can disable static image imports inside your `next.config.js`:
+您可以在 `next.config.js` 中禁用静态图片导入：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -556,14 +538,13 @@ module.exports = {
   },
 }
 ```
+### 危险地允许SVG
 
-,### Dangerously Allow SVG
+默认的[loader](#loader)出于几个原因不优化SVG图像。首先，SVG是矢量格式，这意味着它可以无损地调整大小。其次，SVG具有许多与HTML/CSS相同的特性，如果没有适当的[内容安全策略（CSP）头](/docs/app/api-reference/next-config-js/headers#content-security-policy)，可能会导致漏洞。
 
-The default [loader](#loader) does not optimize SVG images for a few reasons. First, SVG is a vector format meaning it can be resized losslessly. Second, SVG has many of the same features as HTML/CSS, which can lead to vulnerabilities without proper [Content Security Policy (CSP) headers](/docs/app/api-reference/next-config-js/headers#content-security-policy).
+因此，我们建议在已知[`src`](#src)属性为SVG时使用[`unoptimized`](#unoptimized)属性。当`src`以`".svg"`结尾时，这会自动发生。
 
-Therefore, we recommended using the [`unoptimized`](#unoptimized) prop when the [`src`](#src) prop is known to be SVG. This happens automatically when `src` ends with `".svg"`.
-
-However, if you need to serve SVG images with the default Image Optimization API, you can set `dangerouslyAllowSVG` inside your `next.config.js`:
+然而，如果你需要使用默认的图像优化API来提供SVG图像，你可以在`next.config.js`中设置`dangerouslyAllowSVG`：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -575,15 +556,15 @@ module.exports = {
 }
 ```
 
-In addition, it is strongly recommended to also set `contentDispositionType` to force the browser to download the image, as well as `contentSecurityPolicy` to prevent scripts embedded in the image from executing.
+此外，强烈建议同时设置`contentDispositionType`以强制浏览器下载图像，以及`contentSecurityPolicy`以防止图像中嵌入的脚本执行。
 
 ### `contentDispositionType`
 
-The default [loader](#loader) sets the [`Content-Disposition`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition#as_a_response_header_for_the_main_body) header to `attachment` for added protection since the API can serve arbitrary remote images.
+默认的[loader](#loader)将[`Content-Disposition`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition#as_a_response_header_for_the_main_body)头设置为`attachment`，以增加保护，因为API可以提供任意的远程图像。
 
-The default value is `attachment` which forces the browser to download the image when visiting directly. This is particularly important when [`dangerouslyAllowSVG`](#dangerously-allow-svg) is true.
+默认值是`attachment`，这会强制浏览器在直接访问时下载图像。当[`dangerouslyAllowSVG`](#dangerously-allow-svg)为true时，这一点尤为重要。
 
-You can optionally configure `inline` to allow the browser to render the image when visiting directly, without downloading it.
+你可以选择配置`inline`，允许浏览器在直接访问时渲染图像，而不需要下载。
 
 ```js filename="next.config.js"
 module.exports = {
@@ -593,14 +574,14 @@ module.exports = {
 }
 ```
 
-### Animated Images
+### 动画图像
 
-The default [loader](#loader) will automatically bypass Image Optimization for animated images and serve the image as-is.
+默认的[loader](#loader)将自动绕过动画图像的图像优化，并原样提供图像。
 
-Auto-detection for animated files is best-effort and supports GIF, APNG, and WebP. If you want to explicitly bypass Image Optimization for a given animated image, use the [unoptimized](#unoptimized) prop.
+对于动画文件的自动检测是尽力而为的，支持GIF、APNG和WebP。如果你想明确地绕过给定动画图像的图像优化，请使用[unoptimized](#unoptimized)属性。
 
-## Version History
+### 版本历史
 
-| Version   | Changes                                     |
+| 版本   | 变更                                     |
 | --------- | ------------------------------------------- |
-| `v13.0.0` | `next/image` renamed to `next/legacy/image` |
+| `v13.0.0` | `next/image` 重命名为 `next/legacy/image` |

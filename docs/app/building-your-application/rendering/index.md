@@ -19,9 +19,9 @@ description: 了解 Next.js 渲染环境、策略和运行时之间的区别。
 
 Web 应用程序可以在两个环境中进行渲染：客户端和服务器端。
 
-<Image
+<img
   alt="客户端和服务器环境"
-  srcLight="/docs/light/client-and-server-environments.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/client-and-server-environments.png&w=3840&q=75"
   srcDark="/docs/dark/client-and-server-environments.png"
   width="1600"
   height="672"

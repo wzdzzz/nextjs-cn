@@ -1,11 +1,11 @@
 ---
 title: serverExternalPackages
-description: Opt-out specific dependencies from the Server Components bundling and use native Node.js `require`.
+description: 从 Server Components 打包中排除特定依赖，并使用原生 Node.js `require`。
 ---
 
-Dependencies used inside [Server Components](/docs/app/building-your-application/rendering/server-components) and [Route Handlers](/docs/app/building-your-application/routing/route-handlers) will automatically be bundled by Next.js.
+在 [Server Components](/docs/app/building-your-application/rendering/server-components) 和 [Route Handlers](/docs/app/building-your-application/routing/route-handlers) 中使用的依赖会自动被 Next.js 打包。
 
-If a dependency is using Node.js specific features, you can choose to opt-out specific dependencies from the Server Components bundling and use native Node.js `require`.
+如果某个依赖使用了 Node.js 特定的特性，你可以选择从 Server Components 打包中排除特定的依赖，并使用原生的 Node.js `require`。
 
 ```js filename="next.config.js"
 /** @type {import('next').NextConfig} */
@@ -16,7 +16,7 @@ const nextConfig = {
 module.exports = nextConfig
 ```
 
-Next.js includes a [short list of popular packages](https://github.com/vercel/next.js/blob/canary/packages/next/src/lib/server-external-packages.json) that currently are working on compatibility and automatically opt-ed out:
+Next.js 包含了一个 [流行包的简短列表](https://github.com/vercel/next.js/blob/canary/packages/next/src/lib/server-external-packages.json)，这些包目前正在进行兼容性工作，并且已经自动被排除在外：
 
 - `@appsignal/nodejs`
 - `@aws-sdk/client-s3`

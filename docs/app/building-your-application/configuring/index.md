@@ -1,8 +1,7 @@
 ---
-title: Configuring
-description: Learn how to configure your Next.js application.
+title: 配置
+description: 学习如何配置你的Next.js应用程序。
 ---
+# 配置
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
-
-Next.js allows you to customize your project to meet specific requirements. This includes integrations with TypeScript, ESlint, and more, as well as internal configuration options such as Absolute Imports and Environment Variables.
+Next.js允许你定制你的项目以满足特定要求。这包括与TypeScript、ESLint等的集成，以及内部配置选项，如绝对导入和环境变量。

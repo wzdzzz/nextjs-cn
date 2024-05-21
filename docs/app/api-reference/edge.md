@@ -1,58 +1,51 @@
----
-title: Edge Runtime
-description: API Reference for the Edge Runtime.
----
+# Edge Runtime
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+Edge Runtime用于中间件，并支持以下API：
 
-The Next.js Edge Runtime is used for Middleware and supports the following APIs:
+## 网络API
 
-## Network APIs
+| API                                                                           | 描述                             |
+| ----------------------------------------------------------------------------- | -------------------------------- |
+| [`Blob`](https://developer.mozilla.org/docs/Web/API/Blob)                   | 表示一个blob                   |
+| [`fetch`](https://developer.mozilla.org/docs/Web/API/Fetch_API)             | 获取资源                       |
+| [`FetchEvent`](https://developer.mozilla.org/docs/Web/API/FetchEvent)       | 表示一个获取事件               |
+| [`File`](https://developer.mozilla.org/docs/Web/API/File)                   | 表示一个文件                   |
+| [`FormData`](https://developer.mozilla.org/docs/Web/API/FormData)           | 表示表单数据                  |
+| [`Headers`](https://developer.mozilla.org/docs/Web/API/Headers)             | 表示HTTP头                    |
+| [`Request`](https://developer.mozilla.org/docs/Web/API/Request)             | 表示一个HTTP请求               |
+| [`Response`](https://developer.mozilla.org/docs/Web/API/Response)           | 表示一个HTTP响应               |
+| [`URLSearchParams`](https://developer.mozilla.org/docs/Web/API/URLSearchParams) | 表示URL搜索参数              |
+| [`WebSocket`](https://developer.mozilla.org/docs/Web/API/WebSocket)         | 表示一个websocket连接           |
 
-| API                                                                             | Description                       |
-| ------------------------------------------------------------------------------- | --------------------------------- |
-| [`Blob`](https://developer.mozilla.org/docs/Web/API/Blob)                       | Represents a blob                 |
-| [`fetch`](https://developer.mozilla.org/docs/Web/API/Fetch_API)                 | Fetches a resource                |
-| [`FetchEvent`](https://developer.mozilla.org/docs/Web/API/FetchEvent)           | Represents a fetch event          |
-| [`File`](https://developer.mozilla.org/docs/Web/API/File)                       | Represents a file                 |
-| [`FormData`](https://developer.mozilla.org/docs/Web/API/FormData)               | Represents form data              |
-| [`Headers`](https://developer.mozilla.org/docs/Web/API/Headers)                 | Represents HTTP headers           |
-| [`Request`](https://developer.mozilla.org/docs/Web/API/Request)                 | Represents an HTTP request        |
-| [`Response`](https://developer.mozilla.org/docs/Web/API/Response)               | Represents an HTTP response       |
-| [`URLSearchParams`](https://developer.mozilla.org/docs/Web/API/URLSearchParams) | Represents URL search parameters  |
-| [`WebSocket`](https://developer.mozilla.org/docs/Web/API/WebSocket)             | Represents a websocket connection |
+## 编码API
 
-## Encoding APIs
-
-| API                                                                                 | Description                        |
+| API                                                                                 | 描述                                |
 | ----------------------------------------------------------------------------------- | ---------------------------------- |
-| [`atob`](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/atob) | Decodes a base-64 encoded string   |
-| [`btoa`](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/btoa) | Encodes a string in base-64        |
-| [`TextDecoder`](https://developer.mozilla.org/docs/Web/API/TextDecoder)             | Decodes a Uint8Array into a string |
-| [`TextDecoderStream`](https://developer.mozilla.org/docs/Web/API/TextDecoderStream) | Chainable decoder for streams      |
-| [`TextEncoder`](https://developer.mozilla.org/docs/Web/API/TextEncoder)             | Encodes a string into a Uint8Array |
-| [`TextEncoderStream`](https://developer.mozilla.org/docs/Web/API/TextEncoderStream) | Chainable encoder for streams      |
+| [`atob`](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/atob) | 解码base-64编码的字符串           |
+| [`btoa`](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/btoa) | 将字符串编码为base-64            |
+| [`TextDecoder`](https://developer.mozilla.org/docs/Web/API/TextDecoder)             | 将Uint8Array解码为字符串         |
+| [`TextDecoderStream`](https://developer.mozilla.org/docs/Web/API/TextDecoderStream) | 可链接的流解码器                |
+| [`TextEncoder`](https://developer.mozilla.org/docs/Web/API/TextEncoder)             | 将字符串编码为Uint8Array        |
+| [`TextEncoderStream`](https://developer.mozilla.org/docs/Web/API/TextEncoderStream) | 可链接的流编码器                |
+## Stream APIs
 
-,## Stream APIs
-
-| API                                                                                                     | Description                             |
-| ------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| [`ReadableStream`](https://developer.mozilla.org/docs/Web/API/ReadableStream)                           | Represents a readable stream            |
-| [`ReadableStreamBYOBReader`](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader)       | Represents a reader of a ReadableStream |
-| [`ReadableStreamDefaultReader`](https://developer.mozilla.org/docs/Web/API/ReadableStreamDefaultReader) | Represents a reader of a ReadableStream |
-| [`TransformStream`](https://developer.mozilla.org/docs/Web/API/TransformStream)                         | Represents a transform stream           |
-| [`WritableStream`](https://developer.mozilla.org/docs/Web/API/WritableStream)                           | Represents a writable stream            |
-| [`WritableStreamDefaultWriter`](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultWriter) | Represents a writer of a WritableStream |
+| API                                                                                                     | 描述                                     |
+| ------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| [`ReadableStream`](https://developer.mozilla.org/docs/Web/API/ReadableStream)                           | 表示一个可读流                             |
+| [`ReadableStreamBYOBReader`](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader)       | 表示一个ReadableStream的读取器               |
+| [`ReadableStreamDefaultReader`](https://developer.mozilla.org/docs/Web/API/ReadableStreamDefaultReader) | 表示一个ReadableStream的读取器               |
+| [`TransformStream`](https://developer.mozilla.org/docs/Web/API/TransformStream)                         | 表示一个转换流                             |
+| [`WritableStream`](https://developer.mozilla.org/docs/Web/API/WritableStream)                           | 表示一个可写流                             |
+| [`WritableStreamDefaultWriter`](https://developer.mozilla.org/docs/Web/API/WritableStreamDefaultWriter) | 表示一个WritableStream的写入器               |
 
 ## Crypto APIs
 
-| API                                                                       | Description                                                                                         |
+| API                                                                       | 描述                                                                                         |
 | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| [`crypto`](https://developer.mozilla.org/docs/Web/API/Window/crypto)      | Provides access to the cryptographic functionality of the platform                                  |
-| [`CryptoKey`](https://developer.mozilla.org/docs/Web/API/CryptoKey)       | Represents a cryptographic key                                                                      |
-| [`SubtleCrypto`](https://developer.mozilla.org/docs/Web/API/SubtleCrypto) | Provides access to common cryptographic primitives, like hashing, signing, encryption or decryption |
-
-,## Web Standard APIs
+| [`crypto`](https://developer.mozilla.org/docs/Web/API/Window/crypto)      | 提供对平台加密功能的访问                                                                     |
+| [`CryptoKey`](https://developer.mozilla.org/docs/Web/API/CryptoKey)       | 表示一个加密密钥                                                                                   |
+| [`SubtleCrypto`](https://developer.mozilla.org/docs/Web/API/SubtleCrypto) | 提供对常见加密原语的访问，如哈希、签名、加密或解密                                             |
+## Web Standard APIs
 
 | API                                                                                                                   | Description                                                                                                                                                                                          |
 | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,45 +113,46 @@ The Next.js Edge Runtime is used for Middleware and supports the following APIs:
 | [`WeakSet`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WeakSet)                       | Represents a collection of objects in which each object may occur only once                                                                                                                          |
 | [`WebAssembly`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly)               | Provides access to WebAssembly                                                                                                                                                                       |
 
-,## Next.js Specific Polyfills
+
+# Next.js 特定 Polyfills
 
 - [`AsyncLocalStorage`](https://nodejs.org/api/async_context.html#class-asynclocalstorage)
 
-## Environment Variables
+# 环境变量
 
-You can use `process.env` to access [Environment Variables](/docs/app/building-your-application/configuring/environment-variables) for both `next dev` and `next build`.
+你可以使用 `process.env` 来访问 [环境变量](/docs/app/building-your-application/configuring/environment-variables)，这适用于 `next dev` 和 `next build`。
 
-## Unsupported APIs
+# 不支持的 API
 
-The Edge Runtime has some restrictions including:
+Edge 运行时有一些限制，包括：
 
-- Native Node.js APIs **are not supported**. For example, you can't read or write to the filesystem.
-- `node_modules` _can_ be used, as long as they implement ES Modules and do not use native Node.js APIs.
-- Calling `require` directly is **not allowed**. Use ES Modules instead.
+- 原生 Node.js API **不被支持**。例如，你不能读取或写入文件系统。
+- `node_modules` **可以使用**，只要它们实现了 ES 模块并不使用原生 Node.js API。
+- 直接调用 `require` 是 **不被允许** 的。请改用 ES 模块。
 
-The following JavaScript language features are disabled, and **will not work:**
+以下 JavaScript 语言特性被禁用，**将无法工作**：
 
-| API                                                                                                                             | Description                                                         |
+| API                                                                                                                             | 描述                                                                 |
 | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| [`eval`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/eval)                                       | Evaluates JavaScript code represented as a string                   |
-| [`new Function(evalString)`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Function)               | Creates a new function with the code provided as an argument        |
-| [`WebAssembly.compile`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/compile)         | Compiles a WebAssembly module from a buffer source                  |
-| [`WebAssembly.instantiate`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiate) | Compiles and instantiates a WebAssembly module from a buffer source |
+| [`eval`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/eval)                                       | 评估表示为字符串的 JavaScript 代码                                   |
+| [`new Function(evalString)`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Function)               | 使用作为参数提供的代码创建一个新的函数                              |
+| [`WebAssembly.compile`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/compile)         | 从缓冲区源编译 WebAssembly 模块                                      |
+| [`WebAssembly.instantiate`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiate) | 从缓冲区源编译并实例化 WebAssembly 模块                              |
 
-In rare cases, your code could contain (or import) some dynamic code evaluation statements which _can not be reached at runtime_ and which can not be removed by treeshaking.
-You can relax the check to allow specific files with your Middleware configuration:
+在极少数情况下，你的代码可能包含（或导入）一些动态代码评估语句，这些语句在运行时**无法到达**，并且不能通过摇树（tree shaking）移除。
+你可以通过中间件配置放宽检查，以允许特定文件：
 
 ```javascript filename="middleware.ts"
 export const config = {
   unstable_allowDynamic: [
-    // allows a single file
+    // 允许单个文件
     '/lib/utilities.js',
-    // use a glob to allow anything in the function-bind 3rd party module
+    // 使用 glob 允许 function-bind 第三方模块中的任何内容
     '/node_modules/function-bind/**',
   ],
 }
 ```
 
-`unstable_allowDynamic` is a [glob](https://github.com/micromatch/micromatch#matching-features), or an array of globs, ignoring dynamic code evaluation for specific files. The globs are relative to your application root folder.
+`unstable_allowDynamic` 是一个 [glob](https://github.com/micromatch/micromatch#matching-features)，或 glob 数组，忽略特定文件的动态代码评估。这些 glob 相对于你的应用程序根文件夹。
 
-Be warned that if these statements are executed on the Edge, _they will throw and cause a runtime error_.
+须知，如果这些语句在 Edge 上执行，**它们将抛出异常并导致运行时错误**。

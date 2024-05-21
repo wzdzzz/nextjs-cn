@@ -1,64 +1,63 @@
 ---
 title: revalidatePath
-description: API Reference for the revalidatePath function.
+description: revalidatePath 函数的 API 参考。
 ---
 
-`revalidatePath` allows you to purge [cached data](/docs/app/building-your-application/caching) on-demand for a specific path.
+`revalidatePath` 允许你按需清除特定路径上的[缓存数据](/docs/app/building-your-application/caching)。
 
-> **Good to know**:
+> **须知**：
 >
-> - `revalidatePath` is available in both [Node.js and Edge runtimes](/docs/app/building-your-application/rendering/edge-and-nodejs-runtimes).
-> - `revalidatePath` only invalidates the cache when the included path is next visited. This means calling `revalidatePath` with a dynamic route segment will not immediately trigger many revalidations at once. The invalidation only happens when the path is next visited.
-> - Currently, `revalidatePath` invalidates all the routes in the [client-side Router Cache](/docs/app/building-your-application/caching#router-cache). This behavior is temporary and will be updated in the future to apply only to the specific path.
-> - Using `revalidatePath` invalidates **only the specific path** in the [server-side Route Cache](/docs/app/building-your-application/caching#full-route-cache).
+> - `revalidatePath` 在 [Node.js 和 Edge 运行时](/docs/app/building-your-application/rendering/edge-and-nodejs-runtimes) 中都可用。
+> - `revalidatePath` 仅在包含的路径下次被访问时才使缓存失效。这意味着使用动态路由段调用 `revalidatePath` 不会立即触发许多重新验证。失效仅在下次访问路径时发生。
+> - 目前，`revalidatePath` 使 [客户端 Router 缓存](/docs/app/building-your-application/caching#router-cache) 中的所有路由失效。这种行为是暂时的，将来将更新为仅适用于特定路径。
+> - 使用 `revalidatePath` 仅使 [服务器端 Route 缓存](/docs/app/building-your-application/caching#full-route-cache) 中的**特定路径**失效。
 
-## Parameters
+## 参数
 
 ```tsx
 revalidatePath(path: string, type?: 'page' | 'layout'): void;
 ```
 
-- `path`: Either a string representing the filesystem path associated with the data you want to revalidate (for example, `/product/[slug]/page`), or the literal route segment (for example, `/product/123`). Must be less than 1024 characters. This value is case-sensitive.
-- `type`: (optional) `'page'` or `'layout'` string to change the type of path to revalidate. If `path` contains a dynamic segment (for example, `/product/[slug]/page`), this parameter is required. If path refers to the literal route segment, e.g., `/product/1` for a dynamic page (e.g., `/product/[slug]/page`), you should not provide `type`.
+- `path`: 表示与要重新验证的数据关联的文件系统路径的字符串（例如，`/product/[slug]/page`），或字面路由段（例如，`/product/123`）。必须少于1024个字符。此值区分大小写。
+- `type`: （可选）`'page'` 或 `'layout'` 字符串，用于更改要重新验证的路径类型。如果 `path` 包含动态段（例如，`/product/[slug]/page`），则需要此参数。如果路径引用字面路由段，例如动态页面（例如，`/product/[slug]/page`）的 `/product/1`，则不应提供 `type`。
 
-## Returns
+## 返回值
 
-`revalidatePath` does not return any value.
+`revalidatePath` 不返回任何值。
+# 例子
 
-,## Examples
-
-### Revalidating A Specific URL
+## 重新验证特定URL
 
 ```ts
 import { revalidatePath } from 'next/cache'
 revalidatePath('/blog/post-1')
 ```
 
-This will revalidate one specific URL on the next page visit.
+这将在下一次页面访问时重新验证一个特定的URL。
 
-### Revalidating A Page Path
+## 重新验证页面路径
 
 ```ts
 import { revalidatePath } from 'next/cache'
 revalidatePath('/blog/[slug]', 'page')
-// or with route groups
+// 或者使用路由组
 revalidatePath('/(main)/post/[slug]', 'page')
 ```
 
-This will revalidate any URL that matches the provided `page` file on the next page visit. This will _not_ invalidate pages beneath the specific page. For example, `/blog/[slug]` won't invalidate `/blog/[slug]/[author]`.
+这将在下一次页面访问时重新验证匹配提供的`page`文件的任何URL。这将不会使特定页面下的页面失效。例如，`/blog/[slug]`不会使`/blog/[slug]/[author]`失效。
 
-### Revalidating A Layout Path
+## 重新验证布局路径
 
 ```ts
 import { revalidatePath } from 'next/cache'
 revalidatePath('/blog/[slug]', 'layout')
-// or with route groups
+// 或者使用路由组
 revalidatePath('/(main)/post/[slug]', 'layout')
 ```
 
-This will revalidate any URL that matches the provided `layout` file on the next page visit. This will cause pages beneath with the same layout to revalidate on the next visit. For example, in the above case, `/blog/[slug]/[another]` would also revalidate on the next visit.
+这将在下一次页面访问时重新验证匹配提供的`layout`文件的任何URL。这将导致具有相同布局的页面在下一次访问时重新验证。例如，在上述情况下，`/blog/[slug]/[another]`也将在下一次访问时重新验证。
 
-### Revalidating All Data
+## 重新验证所有数据
 
 ```ts
 import { revalidatePath } from 'next/cache'
@@ -66,9 +65,9 @@ import { revalidatePath } from 'next/cache'
 revalidatePath('/', 'layout')
 ```
 
-This will purge the Client-side Router Cache, and revalidate the Data Cache on the next page visit.
+这将清除客户端路由器缓存，并在下一次页面访问时重新验证数据缓存。
 
-### Server Action
+## 服务器操作
 
 ```ts filename="app/actions.ts" switcher
 'use server'
@@ -81,7 +80,7 @@ export default async function submit() {
 }
 ```
 
-### Route Handler
+## 路由处理器
 
 ```ts filename="app/api/revalidate/route.ts" switcher
 import { revalidatePath } from 'next/cache'

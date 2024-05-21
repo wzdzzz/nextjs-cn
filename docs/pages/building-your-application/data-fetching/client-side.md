@@ -1,17 +1,17 @@
 ---
-title: Client-side Fetching
-description: Learn about client-side data fetching, and how to use SWR, a data fetching React hook library that handles caching, revalidation, focus tracking, refetching on interval and more.
+title: 客户端数据获取
+description: 了解客户端数据获取，以及如何使用SWR，这是一个处理缓存、重新验证、焦点跟踪、定时重新获取等功能的React钩子库。
 ---
 
-Client-side data fetching is useful when your page doesn't require SEO indexing, when you don't need to pre-render your data, or when the content of your pages needs to update frequently. Unlike the server-side rendering APIs, you can use client-side data fetching at the component level.
+客户端数据获取在您的页面不需要SEO索引、不需要预渲染数据，或者页面内容需要频繁更新时非常有用。与服务器端渲染API不同，您可以在组件级别使用客户端数据获取。
 
-If done at the page level, the data is fetched at runtime, and the content of the page is updated as the data changes. When used at the component level, the data is fetched at the time of the component mount, and the content of the component is updated as the data changes.
+如果在页面级别执行，数据将在运行时获取，页面内容将随着数据变化而更新。当在组件级别使用时，数据将在组件挂载时获取，组件内容将随着数据变化而更新。
 
-It's important to note that using client-side data fetching can affect the performance of your application and the load speed of your pages. This is because the data fetching is done at the time of the component or pages mount, and the data is not cached.
+需要注意的是，使用客户端数据获取可能会影响您的应用程序性能和页面加载速度。这是因为数据获取是在组件或页面挂载时完成的，并且数据不会被缓存。
 
-## Client-side data fetching with useEffect
+## 使用useEffect进行客户端数据获取
 
-The following example shows how you can fetch data on the client side using the useEffect hook.
+以下示例展示了如何使用useEffect钩子在客户端获取数据。
 
 ```jsx
 import { useState, useEffect } from 'react'
@@ -41,13 +41,13 @@ function Profile() {
 }
 ```
 
-## Client-side data fetching with SWR
+## 使用SWR进行客户端数据获取
 
-The team behind Next.js has created a React hook library for data fetching called [**SWR**](https://swr.vercel.app/). It is **highly recommended** if you are fetching data on the client-side. It handles caching, revalidation, focus tracking, refetching on intervals, and more.
+Next.js团队创建了一个名为[**SWR**](https://swr.vercel.app/)的React钩子库，用于数据获取。如果您在客户端获取数据，强烈推荐使用它。它处理缓存、重新验证、焦点跟踪、定时重新获取等。
 
-Using the same example as above, we can now use SWR to fetch the profile data. SWR will automatically cache the data for us and will revalidate the data if it becomes stale.
+使用与上述相同的示例，我们现在可以使用SWR来获取个人资料数据。SWR将自动为我们缓存数据，并在数据变得过时时重新验证数据。
 
-For more information on using SWR, check out the [SWR docs](https://swr.vercel.app/docs/getting-started).
+有关使用SWR的更多信息，请查看[SWR文档](https://swr.vercel.app/docs/getting-started)。
 
 ```jsx
 import useSWR from 'swr'

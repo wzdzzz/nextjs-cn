@@ -1,83 +1,51 @@
----
-title: Intercepting Routes
-description: Use intercepting routes to load a new route within the current layout while masking the browser URL, useful for advanced routing patterns such as modals.
-related:
-  title: Next Steps
-  description: Learn how to use modals with Intercepted and Parallel Routes.
-  links:
-    - app/building-your-application/routing/parallel-routes
----
+# 拦截路由
 
-Intercepting routes allows you to load a route from another part of your application within the current layout. This routing paradigm can be useful when you want to display the content of a route without the user switching to a different context.
+拦截路由允许您在当前布局中从应用程序的另一部分加载路由。当您希望显示路由的内容而用户不需要切换到不同的上下文时，这种路由范例可能很有用。
 
-For example, when clicking on a photo in a feed, you can display the photo in a modal, overlaying the feed. In this case, Next.js intercepts the `/photo/123` route, masks the URL, and overlays it over `/feed`.
+例如，当点击动态中的一张照片时，您可以在模态框中显示该照片，覆盖动态。在这种情况下，Next.js 拦截了 `/photo/123` 路由，隐藏了 URL，并将其覆盖在 `/feed` 上。
 
-<Image
-  alt="Intercepting routes soft navigation"
-  srcLight="/docs/light/intercepting-routes-soft-navigate.png"
-  srcDark="/docs/dark/intercepting-routes-soft-navigate.png"
-  width="1600"
-  height="617"
-/>
+![拦截路由软导航](/docs/light/intercepting-routes-soft-navigate.png)
 
-However, when navigating to the photo by clicking a shareable URL or by refreshing the page, the entire photo page should render instead of the modal. No route interception should occur.
+然而，通过点击可共享的 URL 或刷新页面来浏览照片时，应该渲染整个照片页面而不是模态框。不应该发生路由拦截。
 
-<Image
-  alt="Intercepting routes hard navigation"
-  srcLight="/docs/light/intercepting-routes-hard-navigate.png"
-  srcDark="/docs/dark/intercepting-routes-hard-navigate.png"
-  width="1600"
-  height="604"
-/>
+![拦截路由硬导航](/docs/light/intercepting-routes-hard-navigate.png)
 
-## Convention
+## 约定
 
-Intercepting routes can be defined with the `(..)` convention, which is similar to relative path convention `../` but for segments.
+拦截路由可以使用 `(..)` 约定来定义，这类似于相对路径约定 `../`，但用于段。
 
-You can use:
+您可以使用：
 
-- `(.)` to match segments on the **same level**
-- `(..)` to match segments **one level above**
-- `(..)(..)` to match segments **two levels above**
-- `(...)` to match segments from the **root** `app` directory
+- `(.)` 匹配 **同一级别** 的段
+- `(..)` 匹配 **上一级** 的段
+- `(..)(..)` 匹配 **上两级** 的段
+- `(...)` 匹配从 **根** `app` 目录的段
 
-For example, you can intercept the `photo` segment from within the `feed` segment by creating a `(..)photo` directory.
+例如，您可以通过创建 `(..)photo` 目录来拦截 `feed` 段中的 `photo` 段。
 
-<Image
-  alt="Intercepting routes folder structure"
-  srcLight="/docs/light/intercepted-routes-files.png"
-  srcDark="/docs/dark/intercepted-routes-files.png"
-  width="1600"
-  height="604"
-/>
+![拦截路由文件夹结构](/docs/light/intercepted-routes-files.png)
 
-> Note that the `(..)` convention is based on _route segments_, not the file-system.
+> 注意，`(..)` 约定基于 _路由段_，而不是文件系统。
 
-## Examples
+## 示例
 
-### Modals
+### 模态框
 
-Intercepting Routes can be used together with [Parallel Routes](/docs/app/building-your-application/routing/parallel-routes) to create modals. This allows you to solve common challenges when building modals, such as:
+拦截路由可以与 [并行路由](/docs/app/building-your-application/routing/parallel-routes) 一起使用来创建模态框。这允许您解决构建模态框时的常见挑战，例如：
 
-- Making the modal content **shareable through a URL**.
-- **Preserving context** when the page is refreshed, instead of closing the modal.
-- **Closing the modal on backwards navigation** rather than going to the previous route.
-- **Reopening the modal on forwards navigation**.
+- 通过 URL **共享模态框内容**。
+- 页面刷新时 **保留上下文**，而不是关闭模态框。
+- 在向后导航时 **关闭模态框**，而不是转到上一个路由。
+- 在向前导航时 **重新打开模态框**。
 
-Consider the following UI pattern, where a user can open a photo modal from a gallery using client-side navigation, or navigate to the photo page directly from a shareable URL:
+考虑以下 UI 模式，用户可以从画廊中使用客户端导航打开照片模态框，或者直接从可共享的 URL 导航到照片页面：
 
-<Image
-  alt="Intercepting routes modal example"
-  srcLight="/docs/light/intercepted-routes-modal-example.png"
-  srcDark="/docs/dark/intercepted-routes-modal-example.png"
-  width="1600"
-  height="976"
-/>
+![拦截路由模态框示例](/docs/light/intercepted-routes-modal-example.png)
 
-In the above example, the path to the `photo` segment can use the `(..)` matcher since `@modal` is a slot and **not** a segment. This means that the `photo` route is only one segment level higher, despite being two file-system levels higher.
+在上面的示例中，由于 `@modal` 是一个插槽而 **不是** 一个段，因此 `photo` 段的路径可以使用 `(..)` 匹配器。这意味着尽管 `photo` 路由在文件系统上高两个级别，但它只比一个段级别高。
 
-See the [Parallel Routes](/docs/app/building-your-application/routing/parallel-routes#modals) documentation for a step-by-step example, or see our [image gallery example](https://github.com/vercel-labs/nextgram).
+请参阅 [并行路由](/docs/app/building-your-application/routing/parallel-routes#modals) 文档了解逐步示例，或查看我们的 [图片画廊示例](https://github.com/vercel-labs/nextgram)。
 
-> **Good to know:**
+> **须知：**
 >
-> - Other examples could include opening a login modal in a top navbar while also having a dedicated `/login` page, or opening a shopping cart in a side modal.
+> - 其他示例可能包括在顶部导航栏中打开登录模态框，同时还有一个专用的 `/login` 页面，或者在侧边栏中打开购物车模态框。

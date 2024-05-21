@@ -1,23 +1,23 @@
 ---
 title: generateImageMetadata
-description: Learn how to generate multiple images in a single Metadata API special file.
+description: 学习如何使用单个元数据API特殊文件生成多个图像。
 related:
   title: Next Steps
-  description: View all the Metadata API options.
+  description: 查看所有元数据API选项。
   links:
     - app/api-reference/file-conventions/metadata
     - app/building-your-application/optimizing/metadata
 ---
 
-You can use `generateImageMetadata` to generate different versions of one image or return multiple images for one route segment. This is useful for when you want to avoid hard-coding metadata values, such as for icons.
+您可以使用 `generateImageMetadata` 来生成一个图像的不同版本，或者为一个路由段返回多个图像。这在您想要避免硬编码元数据值时非常有用，例如对于图标。
 
-## Parameters
+## 参数
 
-`generateImageMetadata` function accepts the following parameters:
+`generateImageMetadata` 函数接受以下参数：
 
-#### `params` (optional)
+#### `params` (可选)
 
-An object containing the [dynamic route parameters](/docs/app/building-your-application/routing/dynamic-routes) object from the root segment down to the segment `generateImageMetadata` is called from.
+一个对象，包含从根段到调用 `generateImageMetadata` 的段的 [动态路由参数](/docs/app/building-your-application/routing/dynamic-routes) 对象。
 
 ```tsx filename="icon.tsx" switcher
 export function generateImageMetadata({
@@ -35,18 +35,17 @@ export function generateImageMetadata({ params }) {
 }
 ```
 
-| Route                           | URL         | `params`                  |
+| 路由                           | URL         | `params`                  |
 | ------------------------------- | ----------- | ------------------------- |
 | `app/shop/icon.js`              | `/shop`     | `undefined`               |
 | `app/shop/[slug]/icon.js`       | `/shop/1`   | `{ slug: '1' }`           |
 | `app/shop/[tag]/[item]/icon.js` | `/shop/1/2` | `{ tag: '1', item: '2' }` |
 | `app/shop/[...slug]/icon.js`    | `/shop/1/2` | `{ slug: ['1', '2'] }`    |
+## 返回值
 
-,## Returns
+`generateImageMetadata` 函数应该返回一个对象数组，包含图像的元数据，如 `alt` 和 `size`。此外，每个项目**必须**包括一个 `id` 值，该值将传递给图像生成函数的 props。
 
-The `generateImageMetadata` function should return an `array` of objects containing the image's metadata such as `alt` and `size`. In addition, each item **must** include an `id` value which will be passed to the props of the image generating function.
-
-| Image Metadata Object | Type                                |
+| 图像元数据对象 | 类型                                |
 | --------------------- | ----------------------------------- |
 | `id`                  | `string` (required)                 |
 | `alt`                 | `string`                            |
@@ -133,11 +132,11 @@ export default function Icon({ id }) {
 }
 ```
 
-### Examples
+### 示例
 
-#### Using external data
+#### 使用外部数据
 
-This example uses the `params` object and external data to generate multiple [Open Graph images](/docs/app/api-reference/file-conventions/metadata/opengraph-image) for a route segment.
+这个示例使用 `params` 对象和外部数据来为一个路由段生成多个 [Open Graph 图像](/docs/app/api-reference/file-conventions/metadata/opengraph-image)。
 
 ```tsx filename="app/products/[id]/opengraph-image.tsx" switcher
 import { ImageResponse } from 'next/og'
@@ -220,9 +219,8 @@ export default async function Image({ params, id }) {
   )
 }
 ```
+## 版本历史
 
-,## Version History
-
-| Version   | Changes                             |
-| --------- | ----------------------------------- |
-| `v13.3.0` | `generateImageMetadata` introduced. |
+| 版本   | 更改                               |
+| ------ | ---------------------------------- |
+| `v13.3.0` | 引入了 `generateImageMetadata`。 |

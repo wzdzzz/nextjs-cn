@@ -1,13 +1,13 @@
 ---
 title: notFound
-description: API Reference for the notFound function.
+description: notFound 函数的 API 参考。
 ---
 
-The `notFound` function allows you to render the [`not-found file`](/docs/app/api-reference/file-conventions/not-found) within a route segment as well as inject a `<meta name="robots" content="noindex" />` tag.
+`notFound` 函数允许你在路由段内渲染 [`not-found 文件`](/docs/app/api-reference/file-conventions/not-found) 并注入一个 `<meta name="robots" content="noindex" />` 标签。
 
 ## `notFound()`
 
-Invoking the `notFound()` function throws a `NEXT_NOT_FOUND` error and terminates rendering of the route segment in which it was thrown. Specifying a [**not-found** file](/docs/app/api-reference/file-conventions/not-found) allows you to gracefully handle such errors by rendering a Not Found UI within the segment.
+调用 `notFound()` 函数会抛出一个 `NEXT_NOT_FOUND` 错误并终止在其抛出的路由段的渲染。指定一个 [**not-found** 文件](/docs/app/api-reference/file-conventions/not-found) 允许你通过在段内渲染一个未找到用户界面来优雅地处理此类错误。
 
 ```jsx filename="app/user/[id]/page.js"
 import { notFound } from 'next/navigation'
@@ -29,10 +29,10 @@ export default async function Profile({ params }) {
 }
 ```
 
-> **Good to know**: `notFound()` does not require you to use `return notFound()` due to using the TypeScript [`never`](https://www.typescriptlang.org/docs/handbook/2/functions.html#never) type.
+> **须知**：由于使用了 TypeScript 的 [`never`](https://www.typescriptlang.org/docs/handbook/2/functions.html#never) 类型，`notFound()` 不需要你使用 `return notFound()`。
 
-## Version History
+## 版本历史
 
-| Version   | Changes                |
+| 版本   | 变化                |
 | --------- | ---------------------- |
-| `v13.0.0` | `notFound` introduced. |
+| `v13.0.0` | 引入了 `notFound`。 |

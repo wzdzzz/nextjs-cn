@@ -1,150 +1,155 @@
 ---
-title: Draft Mode
-description: Next.js has draft mode to toggle between static and dynamic pages. You can learn how it works with App Router here.
+title: 草稿模式
+description: Next.js 提供了草稿模式，可以在静态和动态页面之间切换。你可以在这里学习如何与应用路由一起使用。
 ---
+#  草稿模式
+静态渲染在页面从无头 CMS 获取数据时非常有用。然而，当你在无头 CMS 上撰写草稿并希望立即在页面上查看草稿时，这种方式就不太理想了。你希望 Next.js 在 **请求时** 而不是构建时渲染这些页面，并获取草稿内容而不是发布内容。你希望 Next.js 仅在这种特定情况下切换到 [动态渲染](/docs/app/building-your-application/rendering/server-components#dynamic-rendering)。
 
-Static rendering is useful when your pages fetch data from a headless CMS. However, it’s not ideal when you’re writing a draft on your headless CMS and want to view the draft immediately on your page. You’d want Next.js to render these pages at **request time** instead of build time and fetch the draft content instead of the published content. You’d want Next.js to switch to [dynamic rendering](/docs/app/building-your-application/rendering/server-components#dynamic-rendering) only for this specific case.
+Next.js 有一个名为 **草稿模式** 的功能，可以解决这个问题。以下是如何使用它的说明。
 
-Next.js has a feature called **Draft Mode** which solves this problem. Here are instructions on how to use it.
+## 第 1 步：创建并访问路由处理器
 
-## Step 1: Create and access the Route Handler
+首先，创建一个 [路由处理器](/docs/app/building-your-application/routing/route-handlers)。它的名字可以是任何你想要的，例如 `app/api/draft/route.ts`。
 
-First, create a [Route Handler](/docs/app/building-your-application/routing/route-handlers). It can have any name - e.g. `app/api/draft/route.ts`
-
-Then, import `draftMode` from `next/headers` and call the `enable()` method.
+然后，从 `next/headers` 导入 `draftMode` 并调用 `enable()` 方法。
 
 ```ts filename="app/api/draft/route.ts" switcher
-// route handler enabling draft mode
+// 启用草稿模式的路由处理器
 import { draftMode } from 'next/headers'
 
 export async function GET(request: Request) {
   draftMode().enable()
-  return new Response('Draft mode is enabled')
+  return new Response('草稿模式已启用')
 }
 ```
 
 ```js filename="app/api/draft/route.js" switcher
-// route handler enabling draft mode
+// 启用草稿模式的路由处理器
 import { draftMode } from 'next/headers'
 
 export async function GET(request) {
   draftMode().enable()
-  return new Response('Draft mode is enabled')
+  return new Response('草稿模式已启用')
 }
 ```
 
-This will set a **cookie** to enable draft mode. Subsequent requests containing this cookie will trigger **Draft Mode** changing the behavior for statically generated pages (more on this later).
+这将设置一个 **cookie** 以启用草稿模式。包含此 cookie 的后续请求将触发 **草稿模式**，改变静态生成页面的行为（稍后会有更多说明）。
 
-You can test this manually by visiting `/api/draft` and looking at your browser’s developer tools. Notice the `Set-Cookie` response header with a cookie named `__prerender_bypass`.
+你可以通过访问 `/api/draft` 并查看浏览器的开发者工具来手动测试这一点。注意响应头中的 `Set-Cookie` 与名为 `__prerender_bypass` 的 cookie。
 
-### Securely accessing it from your Headless CMS
+### 安全地从你的无头 CMS 访问它
 
-In practice, you’d want to call this Route Handler _securely_ from your headless CMS. The specific steps will vary depending on which headless CMS you’re using, but here are some common steps you could take.
+在实践中，你希望从你的无头 CMS 安全地调用这个路由处理器。具体步骤将根据你使用的无头 CMS 而有所不同，但这里有一些你可以采取的常见步骤。
 
-These steps assume that the headless CMS you’re using supports setting **custom draft URLs**. If it doesn’t, you can still use this method to secure your draft URLs, but you’ll need to construct and access the draft URL manually.
+这些步骤假设你使用的无头 CMS 支持设置 **自定义草稿 URL**。如果它不支持，你仍然可以使用这种方法来保护你的草稿 URL，但你需要手动构建和访问草稿 URL。
 
-**First**, you should create a **secret token string** using a token generator of your choice. This secret will only be known by your Next.js app and your headless CMS. This secret prevents people who don’t have access to your CMS from accessing draft URLs.
+**首先**，你应该使用你选择的令牌生成器创建一个 **秘密令牌字符串**。这个秘密只有你的 Next.js 应用程序和你的无头 CMS 知道。这个秘密可以防止没有访问你 CMS 的人访问草稿 URL。
 
-**Second**, if your headless CMS supports setting custom draft URLs, specify the following as the draft URL. This assumes that your Route Handler is located at `app/api/draft/route.ts`
+**其次**，如果你的无头 CMS 支持设置自定义草稿 URL，请将以下内容指定为草稿 URL。这假设你的路由处理器位于 `app/api/draft/route.ts`
 
-```bash filename="Terminal"
-https://<your-site>/api/draft?secret=<token>&slug=<path>
+
+```bash filename="终端"
+https://<你的站点>/api/draft?secret=<令牌>&slug=<path>
+
 ```
 
-- `<your-site>` should be your deployment domain.
-- `<token>` should be replaced with the secret token you generated.
-- `<path>` should be the path for the page that you want to view. If you want to view `/posts/foo`, then you should use `&slug=/posts/foo`.
+- `<你的站点>` 应该是你的部署域名。
+- `<令牌>` 应该替换为你生成的秘密令牌。
+- `<path>` 应该是你想要查看的页面的路径。如果你想查看 `/posts/foo`，那么你应该使用 `&slug=/posts/foo`。
 
-Your headless CMS might allow you to include a variable in the draft URL so that `<path>` can be set dynamically based on the CMS’s data like so: `&slug=/posts/{entry.fields.slug}`
+你的无头 CMS 可能允许你在草稿 URL 中包含一个变量，以便 `<path>` 可以根据 CMS 的数据动态设置，如下所示：`&slug=/posts/{entry.fields.slug}`
 
-**Finally**, in the Route Handler:
+**最后**，在路由处理器中：
 
-- Check that the secret matches and that the `slug` parameter exists (if not, the request should fail).
-- Call `draftMode.enable()` to set the cookie.
-- Then redirect the browser to the path specified by `slug`.
+- 检查秘密是否匹配并且 `slug` 参数是否存在（如果不存在，请求应该失败）。
+- 调用 `draftMode.enable()` 来设置 cookie。
+- 然后重定向浏览器到 `slug` 指定的路径。
+# route.ts
 
-,```ts filename="app/api/draft/route.ts" switcher
-// route handler with secret and slug
+```typescript
+// 带有密钥和别名的路由处理器
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function GET(request: Request) {
-  // Parse query string parameters
+  // 解析查询字符串参数
   const { searchParams } = new URL(request.url)
   const secret = searchParams.get('secret')
   const slug = searchParams.get('slug')
 
-  // Check the secret and next parameters
-  // This secret should only be known to this route handler and the CMS
+  // 检查密钥和next参数
+  // 此密钥应该只有此路由处理器和CMS知道
   if (secret !== 'MY_SECRET_TOKEN' || !slug) {
     return new Response('Invalid token', { status: 401 })
   }
 
-  // Fetch the headless CMS to check if the provided `slug` exists
-  // getPostBySlug would implement the required fetching logic to the headless CMS
+  // 从无头CMS获取数据以检查提供的`slug`是否存在
+  // getPostBySlug将实现所需的无头CMS获取逻辑
   const post = await getPostBySlug(slug)
 
-  // If the slug doesn't exist prevent draft mode from being enabled
+  // 如果别名不存在，则阻止启用草稿模式
   if (!post) {
     return new Response('Invalid slug', { status: 401 })
   }
 
-  // Enable Draft Mode by setting the cookie
+  // 通过设置cookie启用草稿模式
   draftMode().enable()
 
-  // Redirect to the path from the fetched post
-  // We don't redirect to searchParams.slug as that might lead to open redirect vulnerabilities
+  // 重定向到获取的帖子的路径
+  // 我们不重定向到searchParams.slug，因为这可能会导致开放重定向漏洞
   redirect(post.slug)
 }
 ```
 
-```js filename="app/api/draft/route.js" switcher
-// route handler with secret and slug
+# route.js
+
+```javascript
+// 带有密钥和别名的路由处理器
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function GET(request) {
-  // Parse query string parameters
+  // 解析查询字符串参数
   const { searchParams } = new URL(request.url)
   const secret = searchParams.get('secret')
   const slug = searchParams.get('slug')
 
-  // Check the secret and next parameters
-  // This secret should only be known to this route handler and the CMS
+  // 检查密钥和next参数
+  // 此密钥应该只有此路由处理器和CMS知道
   if (secret !== 'MY_SECRET_TOKEN' || !slug) {
     return new Response('Invalid token', { status: 401 })
   }
 
-  // Fetch the headless CMS to check if the provided `slug` exists
-  // getPostBySlug would implement the required fetching logic to the headless CMS
+  // 从无头CMS获取数据以检查提供的`slug`是否存在
+  // getPostBySlug将实现所需的无头CMS获取逻辑
   const post = await getPostBySlug(slug)
 
-  // If the slug doesn't exist prevent draft mode from being enabled
+  // 如果别名不存在，则阻止启用草稿模式
   if (!post) {
     return new Response('Invalid slug', { status: 401 })
   }
 
-  // Enable Draft Mode by setting the cookie
+  // 通过设置cookie启用草稿模式
   draftMode().enable()
 
-  // Redirect to the path from the fetched post
-  // We don't redirect to searchParams.slug as that might lead to open redirect vulnerabilities
+  // 重定向到获取的帖子的路径
+  // 我们不重定向到searchParams.slug，因为这可能会导致开放重定向漏洞
   redirect(post.slug)
 }
+
 ```
 
-If it succeeds, then the browser will be redirected to the path you want to view with the draft mode cookie.
+如果成功，那么浏览器将被重定向到您想要查看的带有草稿模式cookie的路径。
+## 步骤 2：更新页面
 
-,## Step 2: Update page
+下一步是更新您的页面以检查 `draftMode().isEnabled` 的值。
 
-The next step is to update your page to check the value of `draftMode().isEnabled`.
+如果您请求一个设置了 cookie 的页面，那么数据将在 **请求时** 获取（而不是在构建时）。
 
-If you request a page which has the cookie set, then data will be fetched at **request time** (instead of at build time).
-
-Furthermore, the value of `isEnabled` will be `true`.
+此外，`isEnabled` 的值将为 `true`。
 
 ```tsx filename="app/page.tsx" switcher
-// page that fetches data
+// 页面获取数据
 import { draftMode } from 'next/headers'
 
 async function getData() {
@@ -172,7 +177,7 @@ export default async function Page() {
 ```
 
 ```jsx filename="app/page.js" switcher
-// page that fetches data
+// 页面获取数据
 import { draftMode } from 'next/headers'
 
 async function getData() {
@@ -199,28 +204,28 @@ export default async function Page() {
 }
 ```
 
-That's it! If you access the draft Route Handler (with `secret` and `slug`) from your headless CMS or manually, you should now be able to see the draft content. And if you update your draft without publishing, you should be able to view the draft.
+就是这样！如果您通过无头 CMS 或手动访问草稿路由处理程序（带有 `secret` 和 `slug`），现在应该能够看到草稿内容。如果您更新草稿而没有发布，您应该能够查看草稿。
 
-Set this as the draft URL on your headless CMS or access manually, and you should be able to see the draft.
+将此设置为您的无头 CMS 上的草稿 URL 或手动访问，您应该能够看到草稿。
 
-```bash filename="Terminal"
+```bash filename="终端"
 https://<your-site>/api/draft?secret=<token>&slug=<path>
 ```
 
-## More Details
+## 更多细节
 
-### Clear the Draft Mode cookie
+### 清除草稿模式 cookie
 
-By default, the Draft Mode session ends when the browser is closed.
+默认情况下，草稿模式会话在浏览器关闭时结束。
 
-To clear the Draft Mode cookie manually, create a Route Handler that calls `draftMode().disable()`:
+要手动清除草稿模式 cookie，请创建一个调用 `draftMode().disable()` 的路由处理程序：
 
 ```ts filename="app/api/disable-draft/route.ts" switcher
 import { draftMode } from 'next/headers'
 
 export async function GET(request: Request) {
   draftMode().disable()
-  return new Response('Draft mode is disabled')
+  return new Response('草稿模式已禁用')
 }
 ```
 
@@ -229,16 +234,16 @@ import { draftMode } from 'next/headers'
 
 export async function GET(request) {
   draftMode().disable()
-  return new Response('Draft mode is disabled')
+  return new Response('草稿模式已禁用')
 }
 ```
 
-Then, send a request to `/api/disable-draft` to invoke the Route Handler. If calling this route using [`next/link`](/docs/app/api-reference/components/link), you must pass `prefetch={false}` to prevent accidentally deleting the cookie on prefetch.
+然后，发送请求到 `/api/disable-draft` 以调用路由处理程序。如果使用 [`next/link`](/docs/app/api-reference/components/link) 调用此路由，您必须传递 `prefetch={false}` 以防止在预取时意外删除 cookie。
 
-### Unique per `next build`
+### 每次 `next build` 唯一
 
-A new bypass cookie value will be generated each time you run `next build`.
+每次运行 `next build` 时，都会生成一个新的绕过 cookie 值。
 
-This ensures that the bypass cookie can’t be guessed.
+这确保了绕过 cookie 不能被猜测。
 
-> **Good to know**: To test Draft Mode locally over HTTP, your browser will need to allow third-party cookies and local storage access.
+> **须知**：要在 HTTP 上本地测试草稿模式，您的浏览器需要允许第三方 cookie 和本地存储访问。

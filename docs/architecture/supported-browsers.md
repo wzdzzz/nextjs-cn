@@ -1,9 +1,6 @@
----
-title: Supported Browsers
-description: Browser support and which JavaScript features are supported by Next.js.
----
+# 支持的浏览器
 
-Next.js supports **modern browsers** with zero configuration.
+Next.js支持**现代浏览器**，无需任何配置。
 
 - Chrome 64+
 - Edge 79+
@@ -13,7 +10,7 @@ Next.js supports **modern browsers** with zero configuration.
 
 ## Browserslist
 
-If you would like to target specific browsers or features, Next.js supports [Browserslist](https://browsersl.ist) configuration in your `package.json` file. Next.js uses the following Browserslist configuration by default:
+如果你想针对特定的浏览器或特性，Next.js支持在`package.json`文件中配置[Browserslist](https://browsersl.ist)。Next.js默认使用以下Browserslist配置：
 
 ```json filename="package.json"
 {
@@ -29,38 +26,38 @@ If you would like to target specific browsers or features, Next.js supports [Bro
 
 ## Polyfills
 
-We inject [widely used polyfills](https://github.com/vercel/next.js/blob/canary/packages/next-polyfill-nomodule/src/index.js), including:
+我们注入了[广泛使用的polyfills](https://github.com/vercel/next.js/blob/canary/packages/next-polyfill-nomodule/src/index.js)，包括：
 
-- [**fetch()**](https://developer.mozilla.org/docs/Web/API/Fetch_API) — Replacing: `whatwg-fetch` and `unfetch`.
-- [**URL**](https://developer.mozilla.org/docs/Web/API/URL) — Replacing: the [`url` package (Node.js API)](https://nodejs.org/api/url.html).
-- [**Object.assign()**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) — Replacing: `object-assign`, `object.assign`, and `core-js/object/assign`.
+- [**fetch()**](https://developer.mozilla.org/docs/Web/API/Fetch_API) — 替代：`whatwg-fetch`和`unfetch`。
+- [**URL**](https://developer.mozilla.org/docs/Web/API/URL) — 替代：[`url`包（Node.js API）](https://nodejs.org/api/url.html)。
+- [**Object.assign()**](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) — 替代：`object-assign`、`object.assign`和`core-js/object/assign`。
 
-If any of your dependencies include these polyfills, they’ll be eliminated automatically from the production build to avoid duplication.
+如果你的任何依赖项包括这些polyfills，它们将自动从生产构建中消除，以避免重复。
 
-In addition, to reduce bundle size, Next.js will only load these polyfills for browsers that require them. The majority of the web traffic globally will not download these polyfills.
+此外，为了减少捆绑包大小，Next.js将只为需要它们的浏览器加载这些polyfills。全球大部分网络流量将不会下载这些polyfills。
 
-### Custom Polyfills
+### 自定义Polyfills
 
-If your own code or any external npm dependencies require features not supported by your target browsers (such as IE 11), you need to add polyfills yourself.
+如果你自己的代码或任何外部npm依赖项需要目标浏览器（如IE 11）不支持的特性，你需要自己添加polyfills。
 
-In this case, you should add a top-level import for the **specific polyfill** you need in your [Custom `<App>`](/docs/pages/building-your-application/routing/custom-app) or the individual component.
+在这种情况下，你应该在[自定义`<App>`](/docs/pages/building-your-application/routing/custom-app)或单个组件中添加对**特定polyfill**的顶层导入。
 
-## JavaScript Language Features
+## JavaScript语言特性
 
-Next.js allows you to use the latest JavaScript features out of the box. In addition to [ES6 features](https://github.com/lukehoban/es6features), Next.js also supports:
+Next.js允许你开箱即用地使用最新的JavaScript特性。除了[ES6特性](https://github.com/lukehoban/es6features)外，Next.js还支持：
 
-- [Async/await](https://github.com/tc39/ecmascript-asyncawait) (ES2017)
-- [Object Rest/Spread Properties](https://github.com/tc39/proposal-object-rest-spread) (ES2018)
-- [Dynamic `import()`](https://github.com/tc39/proposal-dynamic-import) (ES2020)
-- [Optional Chaining](https://github.com/tc39/proposal-optional-chaining) (ES2020)
-- [Nullish Coalescing](https://github.com/tc39/proposal-nullish-coalescing) (ES2020)
-- [Class Fields](https://github.com/tc39/proposal-class-fields) and [Static Properties](https://github.com/tc39/proposal-static-class-features) (ES2022)
-- and more!
+- [Async/await](https://github.com/tc39/ecmascript-asyncawait)（ES2017）
+- [对象剩余/扩展属性](https://github.com/tc39/proposal-object-rest-spread)（ES2018）
+- [动态`import()`](https://github.com/tc39/proposal-dynamic-import)（ES2020）
+- [可选链](https://github.com/tc39/proposal-optional-chaining)（ES2020）
+- [空值合并](https://github.com/tc39/proposal-nullish-coalescing)（ES2020）
+- [类字段](https://github.com/tc39/proposal-class-fields)和[静态属性](https://github.com/tc39/proposal-static-class-features)（ES2022）
+- 等等！
 
-### TypeScript Features
+### TypeScript特性
 
-Next.js has built-in TypeScript support. [Learn more here](/docs/pages/building-your-application/configuring/typescript).
+Next.js内置了TypeScript支持。[在这里了解更多](/docs/pages/building-your-application/configuring/typescript)。
 
-### Customizing Babel Config (Advanced)
+### 自定义Babel配置（高级）
 
-You can customize babel configuration. [Learn more here](/docs/pages/building-your-application/configuring/babel).
+你可以自定义babel配置。[在这里了解更多](/docs/pages/building-your-application/configuring/babel)。

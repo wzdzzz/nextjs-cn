@@ -1,9 +1,9 @@
 ---
 title: unstable_noStore
-description: API Reference for the unstable_noStore function.
+description: unstable_noStore 函数的 API 参考。
 ---
 
-`unstable_noStore` can be used to declaratively opt out of static rendering and indicate a particular component should not be cached.
+`unstable_noStore` 可用于声明式地选择退出静态渲染，并指示特定组件不应被缓存。
 
 ```jsx
 import { unstable_noStore as noStore } from 'next/cache';
@@ -15,16 +15,16 @@ export default async function Component() {
 }
 ```
 
-> **Good to know**:
+> **须知**：
 >
-> - `unstable_noStore` is equivalent to `cache: 'no-store'` on a `fetch`
-> - `unstable_noStore` is preferred over `export const dynamic = 'force-dynamic'` as it is more granular and can be used on a per-component basis
+> - `unstable_noStore` 等同于在 `fetch` 上使用 `cache: 'no-store'`
+> - 相对于 `export const dynamic = 'force-dynamic'`，更推荐使用 `unstable_noStore`，因为它更细粒度，并且可以按组件使用
 
-- Using `unstable_noStore` inside [`unstable_cache`](/docs/app/api-reference/functions/unstable_cache) will not opt out of static generation. Instead, it will defer to the cache configuration to determine whether to cache the result or not.
+- 在 [`unstable_cache`](/docs/app/api-reference/functions/unstable_cache) 内部使用 `unstable_noStore` 不会退出静态生成。相反，它将遵循缓存配置来决定是否缓存结果。
 
-## Usage
+## 使用方法
 
-If you prefer not to pass additional options to `fetch`, like `cache: 'no-store'` or `next: { revalidate: 0 }`, you can use `noStore()` as a replacement for all of these use cases.
+如果你不想向 `fetch` 传递额外的选项，比如 `cache: 'no-store'` 或 `next: { revalidate: 0 }`，你可以使用 `noStore()` 作为这些用例的替代。
 
 ```jsx
 import { unstable_noStore as noStore } from 'next/cache';
@@ -36,8 +36,8 @@ export default async function Component() {
 }
 ```
 
-## Version History
+## 版本历史
 
-| Version   | Changes                        |
+| 版本   | 变更                        |
 | --------- | ------------------------------ |
-| `v14.0.0` | `unstable_noStore` introduced. |
+| `v14.0.0` | 引入了 `unstable_noStore`。 |

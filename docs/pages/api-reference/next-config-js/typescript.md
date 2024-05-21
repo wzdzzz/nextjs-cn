@@ -1,7 +1,3 @@
----
-title: typescript
-description: Next.js reports TypeScript errors by default. Learn to opt-out of this behavior here.
-source: app/api-reference/next-config-js/typescript
----
+# TypeScript
 
-{/* DO NOT EDIT. The content of this doc is generated from the source above. To edit the content of this page, navigate to the source page in your editor. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+须知：Next.js 默认会报告 TypeScript 错误。在这里学习如何选择退出这种行为。

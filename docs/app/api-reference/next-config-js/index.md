@@ -1,26 +1,26 @@
 ---
-title: next.config.js Options
-description: Learn how to configure your application with next.config.js.
+title: next.config.js 配置选项
+description: 学习如何通过 next.config.js 配置你的应用程序。
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 此文档的内容在应用和页面路由之间共享。你可以使用 `<PagesOnly>内容</PagesOnly>` 组件来添加特定于页面路由的内容。任何共享的内容都不应被包装在组件中。 */}
 
-Next.js can be configured through a `next.config.js` file in the root of your project directory (for example, by `package.json`) with a default export.
+Next.js 可以通过项目目录根（例如，`package.json` 旁边）的 `next.config.js` 文件进行配置，默认导出。
 
 ```js filename="next.config.js"
 // @ts-check
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  /* 配置选项在这里 */
 }
 
 module.exports = nextConfig
 ```
 
-`next.config.js` is a regular Node.js module, not a JSON file. It gets used by the Next.js server and build phases, and it's not included in the browser build.
+`next.config.js` 是一个常规的 Node.js 模块，而不是一个 JSON 文件。它被 Next.js 服务器和构建阶段使用，并且不会被包含在浏览器构建中。
 
-If you need [ECMAScript modules](https://nodejs.org/api/esm.html), you can use `next.config.mjs`:
+如果你需要 [ECMAScript 模块](https://nodejs.org/api/esm.html)，你可以使用 `next.config.mjs`：
 
 ```js filename="next.config.mjs"
 // @ts-check
@@ -29,13 +29,13 @@ If you need [ECMAScript modules](https://nodejs.org/api/esm.html), you can use `
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  /* config options here */
+  /* 配置选项在这里 */
 }
 
 export default nextConfig
 ```
 
-You can also use a function:
+你也可以使用一个函数：
 
 ```js filename="next.config.mjs"
 // @ts-check
@@ -45,13 +45,13 @@ export default (phase, { defaultConfig }) => {
    * @type {import('next').NextConfig}
    */
   const nextConfig = {
-    /* config options here */
+    /* 配置选项在这里 */
   }
   return nextConfig
 }
 ```
 
-Since Next.js 12.1.0, you can use an async function:
+自 Next.js 12.1.0 起，你可以使用一个异步函数：
 
 ```js filename="next.config.js"
 // @ts-check
@@ -61,13 +61,13 @@ module.exports = async (phase, { defaultConfig }) => {
    * @type {import('next').NextConfig}
    */
   const nextConfig = {
-    /* config options here */
+    /* 配置选项在这里 */
   }
   return nextConfig
 }
 ```
 
-`phase` is the current context in which the configuration is loaded. You can see the [available phases](https://github.com/vercel/next.js/blob/5e6b008b561caf2710ab7be63320a3d549474a5b/packages/next/shared/lib/constants.ts#L19-L23). Phases can be imported from `next/constants`:
+`phase` 是配置加载的当前上下文。你可以查看 [可用的阶段](https://github.com/vercel/next.js/blob/5e6b008b561caf2710ab7be63320a3d549474a5b/packages/next/shared/lib/constants.ts#L19-L23)。阶段可以从 `next/constants` 导入：
 
 ```js
 // @ts-check
@@ -77,20 +77,20 @@ const { PHASE_DEVELOPMENT_SERVER } = require('next/constants')
 module.exports = (phase, { defaultConfig }) => {
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
-      /* development only config options here */
+      /* 仅开发环境的配置选项在这里 */
     }
   }
 
   return {
-    /* config options for all phases except development here */
+    /* 除开发环境外所有阶段的配置选项在这里 */
   }
 }
 ```
 
-The commented lines are the place where you can put the configs allowed by `next.config.js`, which are [defined in this file](https://github.com/vercel/next.js/blob/canary/packages/next/src/server/config-shared.ts).
+注释行是你放置 `next.config.js` 允许的配置的地方，这些配置 [在此文件中定义](https://github.com/vercel/next.js/blob/canary/packages/next/src/server/config-shared.ts)。
 
-However, none of the configs are required, and it's not necessary to understand what each config does. Instead, search for the features you need to enable or modify in this section and they will show you what to do.
+然而，并不要求所有的配置，也没有必要理解每个配置的作用。相反，搜索你需要启用或修改的功能，它们会告诉你该怎么做。
 
-> Avoid using new JavaScript features not available in your target Node.js version. `next.config.js` will not be parsed by Webpack, Babel or TypeScript.
+> 避免使用在目标 Node.js 版本中不可用的新 JavaScript 特性。`next.config.js` 不会被 Webpack、Babel 或 TypeScript 解析。
 
-This page documents all the available configuration options:
+本页面记录了所有可用的配置选项：

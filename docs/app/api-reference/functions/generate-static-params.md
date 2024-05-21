@@ -1,12 +1,12 @@
 ---
 title: generateStaticParams
-description: API reference for the generateStaticParams function.
+description: generateStaticParams 函数的 API 参考。
 ---
 
-The `generateStaticParams` function can be used in combination with [dynamic route segments](/docs/app/building-your-application/routing/dynamic-routes) to [**statically generate**](/docs/app/building-your-application/rendering/server-components#static-rendering-default) routes at build time instead of on-demand at request time.
+`generateStaticParams` 函数可以与 [动态路由段](/docs/app/building-your-application/routing/dynamic-routes) 结合使用，以在构建时 [**静态生成**](/docs/app/building-your-application/rendering/server-components#static-rendering-default) 路由，而不是在请求时按需生成。
 
 ```jsx filename="app/blog/[slug]/page.js"
-// Return a list of `params` to populate the [slug] dynamic segment
+// 返回一个 `params` 列表来填充 [slug] 动态段
 export async function generateStaticParams() {
   const posts = await fetch('https://.../posts').then((res) => res.json())
 
@@ -15,52 +15,50 @@ export async function generateStaticParams() {
   }))
 }
 
-// Multiple versions of this page will be statically generated
-// using the `params` returned by `generateStaticParams`
+// 此页面的多个版本将使用 `generateStaticParams` 返回的 `params` 静态生成
 export default function Page({ params }) {
   const { slug } = params
   // ...
 }
 ```
 
-> **Good to know**
+> **须知**
 >
-> - You can use the [`dynamicParams`](/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams) segment config option to control what happens when a dynamic segment is visited that was not generated with `generateStaticParams`.
-> - During `next dev`, `generateStaticParams` will be called when you navigate to a route.
-> - During `next build`, `generateStaticParams` runs before the corresponding Layouts or Pages are generated.
-> - During revalidation (ISR), `generateStaticParams` will not be called again.
-> - `generateStaticParams` replaces the [`getStaticPaths`](/docs/pages/api-reference/functions/get-static-paths) function in the Pages Router.
+> - 您可以使用 [`dynamicParams`](/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams) 段配置选项来控制访问未通过 `generateStaticParams` 生成的动态段时会发生什么。
+> - 在 `next dev` 期间，当您导航到一个路由时，将调用 `generateStaticParams`。
+> - 在 `next build` 期间，`generateStaticParams` 在生成相应的布局或页面之前运行。
+> - 在重新验证（ISR）期间，将不会再次调用 `generateStaticParams`。
+> - `generateStaticParams` 替换了 Pages Router 中的 [`getStaticPaths`](/docs/pages/api-reference/functions/get-static-paths) 函数。
 
-## Parameters
+## 参数
 
-`options.params` (optional)
+`options.params` (可选)
 
-If multiple dynamic segments in a route use `generateStaticParams`, the child `generateStaticParams` function is executed once for each set of `params` the parent generates.
+如果路由中的多个动态段使用 `generateStaticParams`，则对于父 `generateStaticParams` 生成的每组 `params`，子 `generateStaticParams` 函数执行一次。
 
-The `params` object contains the populated `params` from the parent `generateStaticParams`, which can be used to [generate the `params` in a child segment](#multiple-dynamic-segments-in-a-route).
+`params` 对象包含从父 `generateStaticParams` 填充的 `params`，可用于 [在子段中生成 `params`](#multiple-dynamic-segments-in-a-route)。
 
-## Returns
+## 返回值
 
-`generateStaticParams` should return an array of objects where each object represents the populated dynamic segments of a single route.
+`generateStaticParams` 应返回一个对象数组，其中每个对象表示单个路由的填充动态段。
 
-- Each property in the object is a dynamic segment to be filled in for the route.
-- The properties name is the segment's name, and the properties value is what that segment should be filled in with.
+- 对象中的每个属性是一个要填充的动态段。
+- 属性名称是段的名称，属性值是该段应填充的值。
 
-| Example Route                    | `generateStaticParams` Return Type        |
+| 示例路由                    | `generateStaticParams` 返回类型        |
 | -------------------------------- | ----------------------------------------- |
 | `/product/[id]`                  | `{ id: string }[]`                        |
 | `/products/[category]/[product]` | `{ category: string, product: string }[]` |
 | `/products/[...slug]`            | `{ slug: string[] }[]`                    |
 
-## Single Dynamic Segment
+## 单个动态段
 
 ```tsx filename="app/product/[id]/page.tsx" switcher
 export function generateStaticParams() {
   return [{ id: '1' }, { id: '2' }, { id: '3' }]
 }
 
-// Three versions of this page will be statically generated
-// using the `params` returned by `generateStaticParams`
+// 将使用 `generateStaticParams` 返回的 `params` 静态生成此页面的三个版本
 // - /product/1
 // - /product/2
 // - /product/3
@@ -75,8 +73,7 @@ export function generateStaticParams() {
   return [{ id: '1' }, { id: '2' }, { id: '3' }]
 }
 
-// Three versions of this page will be statically generated
-// using the `params` returned by `generateStaticParams`
+// 将使用 `generateStaticParams` 返回的 `params` 静态生成此页面的三个版本
 // - /product/1
 // - /product/2
 // - /product/3
@@ -85,8 +82,7 @@ export default function Page({ params }) {
   // ...
 }
 ```
-
-,## Multiple Dynamic Segments
+## 多个动态段
 
 ```tsx filename="app/products/[category]/[product]/page.tsx" switcher
 export function generateStaticParams() {
@@ -97,8 +93,7 @@ export function generateStaticParams() {
   ]
 }
 
-// Three versions of this page will be statically generated
-// using the `params` returned by `generateStaticParams`
+// 使用 `generateStaticParams` 返回的 `params` 将静态生成此页面的三个版本
 // - /products/a/1
 // - /products/b/2
 // - /products/c/3
@@ -121,8 +116,7 @@ export function generateStaticParams() {
   ]
 }
 
-// Three versions of this page will be statically generated
-// using the `params` returned by `generateStaticParams`
+// 使用 `generateStaticParams` 返回的 `params` 将静态生成此页面的三个版本
 // - /products/a/1
 // - /products/b/2
 // - /products/c/3
@@ -132,15 +126,14 @@ export default function Page({ params }) {
 }
 ```
 
-## Catch-all Dynamic Segment
+## 通配符动态段
 
 ```tsx filename="app/product/[...slug]/page.tsx" switcher
 export function generateStaticParams() {
   return [{ slug: ['a', '1'] }, { slug: ['b', '2'] }, { slug: ['c', '3'] }]
 }
 
-// Three versions of this page will be statically generated
-// using the `params` returned by `generateStaticParams`
+// 使用 `generateStaticParams` 返回的 `params` 将静态生成此页面的三个版本
 // - /product/a/1
 // - /product/b/2
 // - /product/c/3
@@ -155,8 +148,7 @@ export function generateStaticParams() {
   return [{ slug: ['a', '1'] }, { slug: ['b', '2'] }, { slug: ['c', '3'] }]
 }
 
-// Three versions of this page will be statically generated
-// using the `params` returned by `generateStaticParams`
+// 使用 `generateStaticParams` 返回的 `params` 将静态生成此页面的三个版本
 // - /product/a/1
 // - /product/b/2
 // - /product/c/3
@@ -166,23 +158,25 @@ export default function Page({ params }) {
 }
 ```
 
-## Examples
 
-### Multiple Dynamic Segments in a Route
+## 示例
 
-You can generate params for dynamic segments above the current layout or page, but **not below**. For example, given the `app/products/[category]/[product]` route:
 
-- `app/products/[category]/[product]/page.js` can generate params for **both** `[category]` and `[product]`.
-- `app/products/[category]/layout.js` can **only** generate params for `[category]`.
+### 路由中的多个动态段
 
-There are two approaches to generating params for a route with multiple dynamic segments:
+您可以为当前布局或页面上方的动态段生成参数，但**不能**在下方。例如，给定 `app/products/[category]/[product]` 路由：
 
-### Generate params from the bottom up
+- `app/products/[category]/[product]/page.js` 可以为 **两个** `[category]` 和 `[product]` 生成参数。
+- `app/products/[category]/layout.js` 只能为 `[category]` 生成参数。
 
-Generate multiple dynamic segments from the child route segment.
+对于具有多个动态段的路由生成参数有两种方法：
+
+### 从底部向上生成参数
+
+从子路由段生成多个动态段。
 
 ```tsx filename="app/products/[category]/[product]/page.tsx" switcher
-// Generate segments for both [category] and [product]
+// 为 [category] 和 [product] 生成段
 export async function generateStaticParams() {
   const products = await fetch('https://.../products').then((res) => res.json())
 
@@ -202,7 +196,7 @@ export default function Page({
 ```
 
 ```jsx filename="app/products/[category]/[product]/page.js" switcher
-// Generate segments for both [category] and [product]
+// 为 [category] 和 [product] 生成段
 export async function generateStaticParams() {
   const products = await fetch('https://.../products').then((res) => res.json())
 
@@ -216,13 +210,12 @@ export default function Page({ params }) {
   // ...
 }
 ```
+### 从上到下生成参数
 
-,### Generate params from the top down
-
-Generate the parent segments first and use the result to generate the child segments.
+首先生成父段，然后使用结果生成子段。
 
 ```tsx filename="app/products/[category]/layout.tsx" switcher
-// Generate segments for [category]
+// 为 [category] 生成段
 export async function generateStaticParams() {
   const products = await fetch('https://.../products').then((res) => res.json())
 
@@ -237,7 +230,7 @@ export default function Layout({ params }: { params: { category: string } }) {
 ```
 
 ```jsx filename="app/products/[category]/layout.js" switcher
-// Generate segments for [category]
+// 为 [category] 生成段
 export async function generateStaticParams() {
   const products = await fetch('https://.../products').then((res) => res.json())
 
@@ -251,13 +244,12 @@ export default function Layout({ params }) {
 }
 ```
 
-A child route segment's `generateStaticParams` function is executed once for each segment a parent `generateStaticParams` generates.
+对于每个父 `generateStaticParams` 生成的段，子路由段的 `generateStaticParams` 函数都会执行一次。
 
-The child `generateStaticParams` function can use the `params` returned from the parent `generateStaticParams` function to dynamically generate its own segments.
+子 `generateStaticParams` 函数可以使用父 `generateStaticParams` 函数返回的 `params` 动态生成自己的段。
 
 ```tsx filename="app/products/[category]/[product]/page.tsx" switcher
-// Generate segments for [product] using the `params` passed from
-// the parent segment's `generateStaticParams` function
+// 使用从父段的 `generateStaticParams` 函数传递的 `params` 生成 [product] 的段
 export async function generateStaticParams({
   params: { category },
 }: {
@@ -282,8 +274,7 @@ export default function Page({
 ```
 
 ```jsx filename="app/products/[category]/[product]/page.js" switcher
-// Generate segments for [product] using the `params` passed from
-// the parent segment's `generateStaticParams` function
+// 使用从父段的 `generateStaticParams` 函数传递的 `params` 生成 [product] 的段
 export async function generateStaticParams({ params: { category } }) {
   const products = await fetch(
     `https://.../products?category=${category}`
@@ -299,14 +290,14 @@ export default function Page({ params }) {
 }
 ```
 
-> **Good to know**: `fetch` requests are automatically [memoized](/docs/app/building-your-application/caching#request-memoization) for the same data across all `generate`-prefixed functions, Layouts, Pages, and Server Components. React [`cache` can be used](/docs/app/building-your-application/caching#request-memoization) if `fetch` is unavailable.
+> **须知**：`fetch` 请求会自动针对所有 `generate` 前缀函数、布局、页面和服务器组件中相同的数据进行 [缓存](/docs/app/building-your-application/caching#request-memoization)。如果 `fetch` 不可用，可以使用 React [`cache`](/docs/app/building-your-application/caching#request-memoization)。
 
-### Generate only a subset of params
+### 生成参数的子集
 
-You can generate a subset of params for a route by returning an array of objects with only the dynamic segments you want to generate. Then, by using the [`dynamicParams`](/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams) segment config option, you can control what happens when a dynamic segment is visited that was not generated with `generateStaticParams`.
+你可以通过返回一个对象数组来生成路由的参数子集，这些对象只包含你想要生成的动态段。然后，通过使用 [`dynamicParams`](/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams) 段配置选项，你可以控制当访问未通过 `generateStaticParams` 生成的动态段时会发生什么。
 
 ```jsx filename="app/blog/[slug]/page.js"
-// All posts besides the top 10 will be a 404
+// 除了前 10 篇帖子外，所有帖子都将是 404
 export const dynamicParams = false
 
 export async function generateStaticParams() {
@@ -319,8 +310,8 @@ export async function generateStaticParams() {
 }
 ```
 
-## Version History
+## 版本历史
 
-| Version   | Changes                            |
+| 版本   | 变更                            |
 | --------- | ---------------------------------- |
-| `v13.0.0` | `generateStaticParams` introduced. |
+| `v13.0.0` | 引入 `generateStaticParams`。 |

@@ -1,11 +1,11 @@
 ---
-title: Custom Document
-description: Extend the default document markup added by Next.js.
+title: 自定义文档
+description: 扩展 Next.js 添加的默认文档标记。
 ---
 
-A custom `Document` can update the `<html>` and `<body>` tags used to render a [Page](/docs/pages/building-your-application/routing/pages-and-layouts).
+自定义的 `Document` 可以更新用于呈现[页面](/docs/pages/building-your-application/routing/pages-and-layouts)的 `<html>` 和 `<body>` 标签。
 
-To override the default `Document`, create the file `pages/_document` as shown below:
+要覆盖默认的 `Document`，请按照以下示例创建 `pages/_document` 文件：
 
 ```tsx filename="pages/_document.tsx" switcher
 import { Html, Head, Main, NextScript } from 'next/document'
@@ -39,22 +39,21 @@ export default function Document() {
 }
 ```
 
-> **Good to know**
+> **须知**
 >
-> - `_document` is only rendered on the server, so event handlers like `onClick` cannot be used in this file.
-> - `<Html>`, `<Head />`, `<Main />` and `<NextScript />` are required for the page to be properly rendered.
+> - `_document` 仅在服务器上渲染，因此不能在此文件中使用 `onClick` 等事件处理器。
+> - `<Html>`、`<Head />`、`<Main />` 和 `<NextScript />` 是正确渲染页面所必需的。
 
-## Caveats
+## 注意事项
 
-- The `<Head />` component used in `_document` is not the same as [`next/head`](/docs/pages/api-reference/components/head). The `<Head />` component used here should only be used for any `<head>` code that is common for all pages. For all other cases, such as `<title>` tags, we recommend using [`next/head`](/docs/pages/api-reference/components/head) in your pages or components.
-- React components outside of `<Main />` will not be initialized by the browser. Do _not_ add application logic here or custom CSS (like `styled-jsx`). If you need shared components in all your pages (like a menu or a toolbar), read [Layouts](/docs/pages/building-your-application/routing/pages-and-layouts#layout-pattern) instead.
-- `Document` currently does not support Next.js [Data Fetching methods](/docs/pages/building-your-application/data-fetching) like [`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props) or [`getServerSideProps`](/docs/pages/building-your-application/data-fetching/get-server-side-props).
+- 在 `_document` 中使用的 `<Head />` 组件与 [`next/head`](/docs/pages/api-reference/components/head) 不同。此处使用的 `<Head />` 组件仅应用于所有页面共有的 `<head>` 代码。对于其他情况，如 `<title>` 标签，我们建议在页面或组件中使用 [`next/head`](/docs/pages/api-reference/components/head)。
+- 在 `<Main />` 外部的 React 组件将不会被浏览器初始化。不要在这里添加应用逻辑或自定义 CSS（如 `styled-jsx`）。如果您需要在所有页面中共享组件（如菜单或工具栏），请阅读 [布局](/docs/pages/building-your-application/routing/pages-and-layouts#layout-pattern)。
+- `Document` 当前不支持 Next.js [数据获取方法](/docs/pages/building-your-application/data-fetching)，如 [`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props) 或 [`getServerSideProps`](/docs/pages/building-your-application/data-fetching/get-server-side-props)。
+## 自定义 `renderPage`
 
-,## Customizing `renderPage`
+自定义 `renderPage` 是高级操作，仅用于支持服务器端渲染的库，如 CSS-in-JS。对于内置的 `styled-jsx` 支持，这不是必需的。
 
-Customizing `renderPage` is advanced and only needed for libraries like CSS-in-JS to support server-side rendering. This is not needed for built-in `styled-jsx` support.
-
-**We do not recommend using this pattern.** Instead, consider [incrementally adopting](/docs/app/building-your-application/upgrading/app-router-migration) the App Router, which allows you to more easily fetch data for [pages and layouts](/docs/app/building-your-application/routing/layouts-and-templates).
+**我们不推荐使用这种模式。** 相反，考虑[逐步采用](/docs/app/building-your-application/upgrading/app-router-migration) App Router，这可以让您更轻松地获取[页面和布局](/docs/app/building-your-application/routing/layouts-and-templates)的数据。
 
 ```tsx filename="pages/_document.tsx" switcher
 import Document, {
@@ -72,16 +71,16 @@ class MyDocument extends Document {
   ): Promise<DocumentInitialProps> {
     const originalRenderPage = ctx.renderPage
 
-    // Run the React rendering logic synchronously
+    // 同步运行 React 渲染逻辑
     ctx.renderPage = () =>
       originalRenderPage({
-        // Useful for wrapping the whole react tree
+        // 有助于包装整个 React 树
         enhanceApp: (App) => App,
-        // Useful for wrapping in a per-page basis
+        // 有助于在每个页面的基础上包装
         enhanceComponent: (Component) => Component,
       })
 
-    // Run the parent `getInitialProps`, it now includes the custom `renderPage`
+    // 运行父级 `getInitialProps`，现在它包含了自定义的 `renderPage`
     const initialProps = await Document.getInitialProps(ctx)
 
     return initialProps
@@ -110,16 +109,16 @@ class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const originalRenderPage = ctx.renderPage
 
-    // Run the React rendering logic synchronously
+    // 同步运行 React 渲染逻辑
     ctx.renderPage = () =>
       originalRenderPage({
-        // Useful for wrapping the whole react tree
+        // 有助于包装整个 React 树
         enhanceApp: (App) => App,
-        // Useful for wrapping in a per-page basis
+        // 有助于在每个页面的基础上包装
         enhanceComponent: (Component) => Component,
       })
 
-    // Run the parent `getInitialProps`, it now includes the custom `renderPage`
+    // 运行父级 `getInitialProps`，现在它包含了自定义的 `renderPage`
     const initialProps = await Document.getInitialProps(ctx)
 
     return initialProps
@@ -141,7 +140,7 @@ class MyDocument extends Document {
 export default MyDocument
 ```
 
-> **Good to know**
+> **须知**
 >
-> - `getInitialProps` in `_document` is not called during client-side transitions.
-> - The `ctx` object for `_document` is equivalent to the one received in [`getInitialProps`](/docs/pages/api-reference/functions/get-initial-props#context-object), with the addition of `renderPage`.
+> - `_document` 中的 `getInitialProps` 在客户端转换期间不会被调用。
+> - `_document` 的 `ctx` 对象等同于在 [`getInitialProps`](/docs/pages/api-reference/functions/get-initial-props#context-object) 中接收到的对象，另外还包括了 `renderPage`。

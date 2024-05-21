@@ -1,65 +1,60 @@
----
-title: Static Site Generation (SSG)
-description: Use Static Site Generation (SSG) to pre-render pages at build time.
----
+# Static Site Generation (SSG)
+
+使用静态网站生成（SSG）在构建时预渲染页面。
 
 <details>
-  <summary>Examples</summary>
+  <summary>示例</summary>
 
-- [WordPress Example](https://github.com/vercel/next.js/tree/canary/examples/cms-wordpress)([Demo](https://next-blog-wordpress.vercel.app))
-- [Blog Starter using markdown files](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) ([Demo](https://next-blog-starter.vercel.app/))
-- [DatoCMS Example](https://github.com/vercel/next.js/tree/canary/examples/cms-datocms) ([Demo](https://next-blog-datocms.vercel.app/))
-- [TakeShape Example](https://github.com/vercel/next.js/tree/canary/examples/cms-takeshape) ([Demo](https://next-blog-takeshape.vercel.app/))
-- [Sanity Example](https://github.com/vercel/next.js/tree/canary/examples/cms-sanity) ([Demo](https://next-blog-sanity.vercel.app/))
-- [Prismic Example](https://github.com/vercel/next.js/tree/canary/examples/cms-prismic) ([Demo](https://next-blog-prismic.vercel.app/))
-- [Contentful Example](https://github.com/vercel/next.js/tree/canary/examples/cms-contentful) ([Demo](https://next-blog-contentful.vercel.app/))
-- [Strapi Example](https://github.com/vercel/next.js/tree/canary/examples/cms-strapi) ([Demo](https://next-blog-strapi.vercel.app/))
-- [Prepr Example](https://github.com/vercel/next.js/tree/canary/examples/cms-prepr) ([Demo](https://next-blog-prepr.vercel.app/))
-- [Agility CMS Example](https://github.com/vercel/next.js/tree/canary/examples/cms-agilitycms) ([Demo](https://next-blog-agilitycms.vercel.app/))
-- [Cosmic Example](https://github.com/vercel/next.js/tree/canary/examples/cms-cosmic) ([Demo](https://next-blog-cosmic.vercel.app/))
-- [ButterCMS Example](https://github.com/vercel/next.js/tree/canary/examples/cms-buttercms) ([Demo](https://next-blog-buttercms.vercel.app/))
-- [Storyblok Example](https://github.com/vercel/next.js/tree/canary/examples/cms-storyblok) ([Demo](https://next-blog-storyblok.vercel.app/))
-- [GraphCMS Example](https://github.com/vercel/next.js/tree/canary/examples/cms-graphcms) ([Demo](https://next-blog-graphcms.vercel.app/))
-- [Kontent Example](https://github.com/vercel/next.js/tree/canary/examples/cms-kontent-ai) ([Demo](https://next-blog-kontent.vercel.app/))
-- [Builder.io Example](https://github.com/vercel/next.js/tree/canary/examples/cms-builder-io) ([Demo](https://cms-builder-io.vercel.app/))
-- [TinaCMS Example](https://github.com/vercel/next.js/tree/canary/examples/cms-tina) ([Demo](https://cms-tina-example.vercel.app/))
-- [Static Tweet (Demo)](https://static-tweet.vercel.app/)
-- [Enterspeed Example](https://github.com/vercel/next.js/tree/canary/examples/cms-enterspeed) ([Demo](https://next-blog-demo.enterspeed.com/))
+- [WordPress 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-wordpress)([演示](https://next-blog-wordpress.vercel.app))
+- [使用 markdown 文件的博客启动器](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) ([演示](https://next-blog-starter.vercel.app/))
+- [DatoCMS 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-datocms) ([演示](https://next-blog-datocms.vercel.app/))
+- [TakeShape 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-takeshape) ([演示](https://next-blog-takeshape.vercel.app/))
+- [Sanity 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-sanity) ([演示](https://next-blog-sanity.vercel.app/))
+- [Prismic 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-prismic) ([演示](https://next-blog-prismic.vercel.app/))
+- [Contentful 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-contentful) ([演示](https://next-blog-contentful.vercel.app/))
+- [Strapi 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-strapi) ([演示](https://next-blog-strapi.vercel.app/))
+- [Prepr 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-prepr) ([演示](https://next-blog-prepr.vercel.app/))
+- [Agility CMS 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-agilitycms) ([演示](https://next-blog-agilitycms.vercel.app/))
+- [Cosmic 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-cosmic) ([演示](https://next-blog-cosmic.vercel.app/))
+- [ButterCMS 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-buttercms) ([演示](https://next-blog-buttercms.vercel.app/))
+- [Storyblok 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-storyblok) ([演示](https://next-blog-storyblok.vercel.app/))
+- [GraphCMS 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-graphcms) ([演示](https://next-blog-graphcms.vercel.app/))
+- [Kontent 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-kontent-ai) ([演示](https://next-blog-kontent.vercel.app/))
+- [Builder.io 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-builder-io) ([演示](https://cms-builder-io.vercel.app/))
+- [TinaCMS 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-tina) ([演示](https://cms-tina-example.vercel.app/))
+- [静态推文 (演示)](https://static-tweet.vercel.app/)
+- [Enterspeed 示例](https://github.com/vercel/next.js/tree/canary/examples/cms-enterspeed) ([演示](https://next-blog-demo.enterspeed.com/))
 
 </details>
 
-If a page uses **Static Generation**, the page HTML is generated at **build time**. That means in production, the page HTML is generated when you run `next build`. This HTML will then be reused on each request. It can be cached by a CDN.
+如果页面使用**静态生成**，页面的HTML将在**构建时**生成。这意味着在生产环境中，当你运行`next build`时，页面的HTML会被生成。然后，这个HTML将在每个请求中被重用。它可以被CDN缓存。
 
-In Next.js, you can statically generate pages **with or without data**. Let's take a look at each case.
+在Next.js中，你可以**有或没有数据**地静态生成页面。让我们看看每种情况。
 
-### Static Generation without data
+### 无数据的静态生成
 
-By default, Next.js pre-renders pages using Static Generation without fetching data. Here's an example:
+默认情况下，Next.js使用静态生成预渲染页面，而不需要获取数据。以下是一个例子：
 
 ```jsx
 function About() {
-  return <div>About</div>
+  return <div>关于</div>
 }
 
 export default About
 ```
 
-Note that this page does not need to fetch any external data to be pre-rendered. In cases like this, Next.js generates a single HTML file per page during build time.
+请注意，这个页面不需要获取任何外部数据就可以预渲染。在这种情况下，Next.js在构建时为每个页面生成一个单独的HTML文件。
 
-### Static Generation with data
+### 带数据的静态生成
 
-Some pages require fetching external data for pre-rendering. There are two scenarios, and one or both might apply. In each case, you can use these functions that Next.js provides:
+有些页面需要获取外部数据才能进行预渲染。有两种情况，可能
+# 场景 1：您的页面内容依赖于外部数据
 
-1. Your page **content** depends on external data: Use `getStaticProps`.
-2. Your page **paths** depend on external data: Use `getStaticPaths` (usually in addition to `getStaticProps`).
-
-,#### Scenario 1: Your page content depends on external data
-
-**Example**: Your blog page might need to fetch the list of blog posts from a CMS (content management system).
+**示例**：您的博客页面可能需要从一个内容管理系统（CMS）获取博客文章列表。
 
 ```jsx
-// TODO: Need to fetch `posts` (by calling some API endpoint)
-//       before this page can be pre-rendered.
+// TODO: 需要通过调用某个 API 端点获取 `posts`
+//       才能在预渲染之前获取到这些数据。
 export default function Blog({ posts }) {
   return (
     <ul>
@@ -71,21 +66,21 @@ export default function Blog({ posts }) {
 }
 ```
 
-To fetch this data on pre-render, Next.js allows you to `export` an `async` function called `getStaticProps` from the same file. This function gets called at build time and lets you pass fetched data to the page's `props` on pre-render.
+要在预渲染时获取这些数据，Next.js 允许您从同一个文件中导出一个名为 `getStaticProps` 的异步函数。这个函数在构建时被调用，允许您将获取到的数据传递给页面的 `props` 进行预渲染。
 
 ```jsx
 export default function Blog({ posts }) {
-  // Render posts...
+  // 渲染文章...
 }
 
-// This function gets called at build time
+// 这个函数在构建时被调用
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts
+  // 调用外部 API 端点获取文章
   const res = await fetch('https://.../posts')
   const posts = await res.json()
 
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
+  // 通过返回 { props: { posts } }，Blog 组件
+  // 将在构建时作为属性接收到 `posts`
   return {
     props: {
       posts,
@@ -94,81 +89,80 @@ export async function getStaticProps() {
 }
 ```
 
-To learn more about how `getStaticProps` works, check out the [Data Fetching documentation](/docs/pages/building-your-application/data-fetching/get-static-props).
+要了解更多关于 `getStaticProps` 如何工作的信息，请查看 [数据获取文档](/docs/pages/building-your-application/data-fetching/get-static-props)。
 
-#### Scenario 2: Your page paths depend on external data
+# 场景 2：您的页面路径依赖于外部数据
 
-Next.js allows you to create pages with **dynamic routes**. For example, you can create a file called `pages/posts/[id].js` to show a single blog post based on `id`. This will allow you to show a blog post with `id: 1` when you access `posts/1`.
+Next.js 允许您创建具有**动态路由**的页面。例如，您可以创建一个名为 `pages/posts/[id].js` 的文件，根据 `id` 显示单个博客文章。这将允许您在访问 `posts/1` 时显示 `id: 1` 的博客文章。
 
-> To learn more about dynamic routing, check the [Dynamic Routing documentation](/docs/pages/building-your-application/routing/dynamic-routes).
+> 要了解更多关于动态路由的信息，请查看 [动态路由文档](/docs/pages/building-your-application/routing/dynamic-routes)。
 
-However, which `id` you want to pre-render at build time might depend on external data.
+然而，您想要在构建时预渲染的 `id` 可能取决于外部数据。
 
-**Example**: suppose that you've only added one blog post (with `id: 1`) to the database. In this case, you'd only want to pre-render `posts/1` at build time.
+**示例**：假设您只向数据库中添加了一篇博客文章（`id: 1`）。在这种情况下，您只想在构建时预渲染 `posts/1`。
 
-Later, you might add the second post with `id: 2`. Then you'd want to pre-render `posts/2` as well.
+稍后，您可能会添加第二篇文章，`id: 2`。然后，您也想要预渲染 `posts/2`。
 
-So your page **paths** that are pre-rendered depend on external data. To handle this, Next.js lets you `export` an `async` function called `getStaticPaths` from a dynamic page (`pages/posts/[id].js` in this case). This function gets called at build time and lets you specify which paths you want to pre-render.
+因此，您的页面**路径**，即在构建时预渲染的路径，取决于外部数据。为了处理这个问题，Next.js 允许您从一个动态页面（在这种情况下是 `pages/posts/[id].js`）导出一个名为 `getStaticPaths` 的异步函数。这个函数在构建时被调用，允许您指定您想要预渲染的路径。
 
 ```jsx
-// This function gets called at build time
+// 这个函数在构建时被调用
 export async function getStaticPaths() {
-  // Call an external API endpoint to get posts
+  // 调用外部 API 端点获取文章
   const res = await fetch('https://.../posts')
   const posts = await res.json()
 
-  // Get the paths we want to pre-render based on posts
+  // 根据文章获取我们想要预渲染的路径
   const paths = posts.map((post) => ({
     params: { id: post.id },
   }))
 
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
+  // 我们将在构建时只预渲染这些路径。
+  // { fallback: false } 表示其他路由应该返回 404。
   return { paths, fallback: false }
 }
 ```
 
-Also in `pages/posts/[id].js`, you need to export `getStaticProps` so that you can fetch the data about the post with this `id` and use it to pre-render the page:
+同样在 `pages/posts/[id].js` 中，您需要导出 `getStaticProps`，以便您可以获取有关该 `id` 的文章数据并使用它来预渲染页面：
 
 ```jsx
 export default function Post({ post }) {
-  // Render post...
+  // 渲染文章...
 }
 
 export async function getStaticPaths() {
   // ...
 }
 
-// This also gets called at build time
+// 这个也在构建时被调用
 export async function getStaticProps({ params }) {
-  // params contains the post `id`.
-  // If the route is like /posts/1, then params.id is 1
+  // params 包含文章的 `id`。
+  // 如果路由是 /posts/1，那么 params.id 就是 1
   const res = await fetch(`https://.../posts/${params.id}`)
   const post = await res.json()
 
-  // Pass post data to the page via props
+  // 通过属性将文章数据传递给页面
   return { props: { post } }
 }
 ```
 
-To learn more about how `getStaticPaths` works, check out the [Data Fetching documentation](/docs/pages/building-your-application/data-fetching/get-static-paths).
+要了解更多关于 `getStaticPaths` 如何工作的信息，请查看 [数据获取文档](/docs/pages/building-your-application/data-fetching/get-static-paths)。
+### 何时使用静态生成？
 
-,### When should I use Static Generation?
+我们建议尽可能使用**静态生成**（带或不带数据），因为您的页面可以一次性构建并由CDN提供服务，这比每次请求都由服务器渲染页面要快得多。
 
-We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
+您可以为许多类型的页面使用静态生成，包括：
 
-You can use Static Generation for many types of pages, including:
+- 营销页面
+- 博客文章和作品集
+- 电子商务产品列表
+- 帮助和文档
 
-- Marketing pages
-- Blog posts and portfolios
-- E-commerce product listings
-- Help and documentation
+您应该问自己：“我能否在用户的请求之前预渲染这个页面？”如果答案是肯定的，那么您应该选择静态生成。
 
-You should ask yourself: "Can I pre-render this page **ahead** of a user's request?" If the answer is yes, then you should choose Static Generation.
+另一方面，如果无法在用户的请求之前预渲染页面，则静态生成**不是**一个好主意。也许您的页面显示了经常更新的数据，页面内容在每次请求中都会发生变化。
 
-On the other hand, Static Generation is **not** a good idea if you cannot pre-render a page ahead of a user's request. Maybe your page shows frequently updated data, and the page content changes on every request.
+在这种情况下，您可以执行以下操作之一：
 
-In cases like this, you can do one of the following:
-
-- Use Static Generation with **Client-side data fetching:** You can skip pre-rendering some parts of a page and then use client-side JavaScript to populate them. To learn more about this approach, check out the [Data Fetching documentation](/docs/pages/building-your-application/data-fetching/client-side).
-- Use **Server-Side Rendering:** Next.js pre-renders a page on each request. It will be slower because the page cannot be cached by a CDN, but the pre-rendered page will always be up-to-date. We'll talk about this approach below.
+- 使用**客户端数据获取**的静态生成：您可以跳过预渲染页面的某些部分，然后使用客户端JavaScript来填充它们。要了解有关此方法的更多信息，请查看[数据获取文档](/docs/pages/building-your-application/data-fetching/client-side)。
+- 使用**服务器端渲染**：Next.js会在每个请求上预渲染页面。由于页面不能由CDN缓存，因此速度会较慢，但预渲染的页面始终是最新的。我们将在下面讨论这种方法。

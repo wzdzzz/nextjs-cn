@@ -1,9 +1,9 @@
 ---
 title: unstable_cache
-description: API Reference for the unstable_cache function.
+description: unstable_cache函数的API参考。
 ---
 
-`unstable_cache` allows you to cache the results of expensive operations, like database queries, and reuse them across multiple requests.
+`unstable_cache`允许你缓存昂贵操作的结果，比如数据库查询，并在多个请求中重用它们。
 
 ```jsx
 import { getUser } from './data';
@@ -20,31 +20,31 @@ export default async function Component({ userID }) {
 }
 ```
 
-> **Good to know**:
+> **须知**：
 >
-> - Accessing dynamic data sources such as `headers` or `cookies` inside a cache scope is not supported. If you need this data inside a cached function use `headers` outside of the cached function and pass the required dynamic data in as an argument.
-> - This API uses Next.js' built-in [Data Cache](/docs/app/building-your-application/caching#data-cache) to persist the result across requests and deployments.
+> - 在缓存范围内访问动态数据源，如`headers`或`cookies`，是不支持的。如果你需要在缓存函数内部使用这些数据，请在缓存函数外部使用`headers`，并将所需的动态数据作为参数传递进去。
+> - 这个API使用了Next.js内置的[数据缓存](/docs/app/building-your-application/caching#data-cache)来跨请求和部署持久化结果。
 
-> **Warning**: This API is unstable and may change in the future. We will provide migration documentation and codemods, if needed, as this API stabilizes.
+> **警告**：这个API是不稳定的，将来可能会改变。随着这个API的稳定，我们将提供迁移文档和代码修改工具，如果需要的话。
 
-## Parameters
+## 参数
 
 ```jsx
 const data = unstable_cache(fetchData, keyParts, options)()
 ```
 
-- `fetchData`: This is an asynchronous function that fetches the data you want to cache. It must be a function that returns a `Promise`.
-- `keyParts`: This is an array that identifies the cached key. It must contain globally unique values that together identify the key of the data being cached. The cache key also includes the arguments passed to the function.
-- `options`: This is an object that controls how the cache behaves. It can contain the following properties:
-  - `tags`: An array of tags that can be used to control cache invalidation.
-  - `revalidate`: The number of seconds after which the cache should be revalidated. Omit or pass `false` to cache indefinitely or until matching `revalidateTag()` or `revalidatePath()` methods are called.
+- `fetchData`：这是一个异步函数，用于获取你想要缓存的数据。它必须是一个返回`Promise`的函数。
+- `keyParts`：这是一个数组，用于标识缓存的键。它必须包含全局唯一的值，这些值共同标识被缓存数据的键。缓存键还包括传递给函数的参数。
+- `options`：这是一个控制缓存行为的对象。它可以包含以下属性：
+  - `tags`：一个标签数组，可以用来控制缓存失效。
+  - `revalidate`：缓存应该重新验证的秒数。省略或传递`false`以无限期地缓存，或直到调用匹配的`revalidateTag()`或`revalidatePath()`方法。
 
-## Returns
+## 返回
 
-`unstable_cache` returns a function that when invoked, returns a Promise that resolves to the cached data. If the data is not in the cache, the provided function will be invoked, and its result will be cached and returned.
+`unstable_cache`返回一个函数，当调用时，返回一个解析为缓存数据的Promise。如果数据不在缓存中，将调用提供的函数，其结果将被缓存并返回。
 
-## Version History
+## 版本历史
 
-| Version   | Changes                      |
+| 版本   | 变化                      |
 | --------- | ---------------------------- |
-| `v14.0.0` | `unstable_cache` introduced. |
+| `v14.0.0` | 引入了`unstable_cache`。 |

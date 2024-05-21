@@ -1,35 +1,35 @@
 ---
 title: env
-description: Learn to add and access environment variables in your Next.js application at build time.
+description: 学习如何在构建时在您的 Next.js 应用程序中添加和访问环境变量。
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 此文档的内容在应用和页面路由器之间共享。您可以使用 `<PagesOnly>Content</PagesOnly>` 组件来添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
 
 <AppOnly>
 
-> Since the release of [Next.js 9.4](https://nextjs.org/blog/next-9-4) we now have a more intuitive and ergonomic experience for [adding environment variables](/docs/app/building-your-application/configuring/environment-variables). Give it a try!
+> 自从 [Next.js 9.4](https://nextjs.org/blog/next-9-4) 发布以来，我们现在有了一种更直观和符合人体工程学的 [添加环境变量](/docs/app/building-your-application/configuring/environment-variables) 的体验。试试看！
 
 </AppOnly>
 
 <PagesOnly>
 
-> Since the release of [Next.js 9.4](https://nextjs.org/blog/next-9-4) we now have a more intuitive and ergonomic experience for [adding environment variables](/docs/pages/building-your-application/configuring/environment-variables). Give it a try!
+> 自从 [Next.js 9.4](https://nextjs.org/blog/next-9-4) 发布以来，我们现在有了一种更直观和符合人体工程学的 [添加环境变量](/docs/pages/building-your-application/configuring/environment-variables) 的体验。试试看！
 
 </PagesOnly>
 
 <AppOnly>
 
-> **Good to know**: environment variables specified in this way will **always** be included in the JavaScript bundle, prefixing the environment variable name with `NEXT_PUBLIC_` only has an effect when specifying them [through the environment or .env files](/docs/app/building-your-application/configuring/environment-variables).
+> **须知**：以这种方式指定的环境变量将 **始终** 包含在 JavaScript 打包文件中，仅在通过环境或 .env 文件指定它们时，前缀环境变量名称 `NEXT_PUBLIC_` 才会生效。
 
 </AppOnly>
 
 <PagesOnly>
 
-> **Good to know**: environment variables specified in this way will **always** be included in the JavaScript bundle, prefixing the environment variable name with `NEXT_PUBLIC_` only has an effect when specifying them [through the environment or .env files](/docs/pages/building-your-application/configuring/environment-variables).
+> **须知**：以这种方式指定的环境变量将 **始终** 包含在 JavaScript 打包文件中，仅在通过环境或 .env 文件指定它们时，前缀环境变量名称 `NEXT_PUBLIC_` 才会生效。
 
 </PagesOnly>
 
-To add environment variables to the JavaScript bundle, open `next.config.js` and add the `env` config:
+要将环境变量添加到 JavaScript 打包文件中，请打开 `next.config.js` 并添加 `env` 配置：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -39,26 +39,26 @@ module.exports = {
 }
 ```
 
-Now you can access `process.env.customKey` in your code. For example:
+现在，您可以在代码中访问 `process.env.customKey`。例如：
 
 ```jsx
 function Page() {
-  return <h1>The value of customKey is: {process.env.customKey}</h1>
+  return <h1>customKey 的值是：{process.env.customKey}</h1>
 }
 
 export default Page
 ```
 
-Next.js will replace `process.env.customKey` with `'my-value'` at build time. Trying to destructure `process.env` variables won't work due to the nature of webpack [DefinePlugin](https://webpack.js.org/plugins/define-plugin/).
+Next.js 将在构建时将 `process.env.customKey` 替换为 `'my-value'`。由于 webpack [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) 的特性，尝试解构 `process.env` 变量将无法工作。
 
-For example, the following line:
+例如，以下代码行：
 
 ```jsx
-return <h1>The value of customKey is: {process.env.customKey}</h1>
+return <h1>customKey 的值是：{process.env.customKey}</h1>
 ```
 
-Will end up being:
+最终将变成：
 
 ```jsx
-return <h1>The value of customKey is: {'my-value'}</h1>
+return <h1>customKey 的值是：{'my-value'}</h1>
 ```

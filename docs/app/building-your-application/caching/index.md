@@ -22,9 +22,9 @@ Next.js 通过缓存渲染工作和数据请求来提高应用程序的性能并
 
 默认情况下，Next.js 将尽可能多地缓存以提高性能并降低成本。这意味着路由是**静态渲染**的，数据请求是**缓存**的，除非您选择退出。下面的图表显示了默认的缓存行为：当路由在构建时静态渲染，以及当静态路由首次被访问时。
 
-<Image
+<img
   alt="图表显示了 Next.js 中四种机制的默认缓存行为，包括在构建时和当路由首次被访问时的 HIT、MISS 和 SET。"
-  srcLight="/docs/light/caching-overview.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/caching-overview.png&w=3840&q=75"
   srcDark="/docs/dark/caching-overview.png"
   width="1600"
   height="1179"
@@ -36,9 +36,9 @@ Next.js 通过缓存渲染工作和数据请求来提高应用程序的性能并
 
 React 扩展了 [`fetch` API](#fetch)，以自动**记忆化**具有相同 URL 和选项的请求。这意味着你可以在 React 组件树中的多个地方调用相同的获取函数，而只需执行一次。
 
-<Image
+<img
   alt="去重的获取请求"
-  srcLight="/docs/light/deduplicated-fetch-requests.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/deduplicated-fetch-requests.png&w=3840&q=75"
   srcDark="/docs/dark/deduplicated-fetch-requests.png"
   width="1600"
   height="857"
@@ -76,9 +76,9 @@ const item = await getItem() // 缓存命中
 
 **请求记忆化如何工作**
 
-<Image
+<img
   alt="图表显示了在 React 渲染期间获取记忆化的工作方式。"
-  srcLight="/docs/light/request-memoization.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/request-memoization.png&w=3840&q=75"
   srcDark="/docs/dark/request-memoization.png"
   width="1600"
   height="742"
@@ -130,9 +130,9 @@ Next.js 内置了数据缓存，它能够**持久化**数据获取的结果，�
 
 **数据缓存的工作原理**
 
-<Image
+<img
   alt="图表展示了缓存和未缓存的 fetch 请求如何与数据缓存交互。缓存的请求存储在数据缓存中，并进行了记忆化，未缓存的请求从数据源获取，不存储在数据缓存中，并进行了记忆化。"
-  srcLight="/docs/light/data-cache.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/data-cache.png&w=3840&q=75"
   srcDark="/docs/dark/data-cache.png"
   width="1600"
   height="661"
@@ -176,9 +176,9 @@ fetch('https://...', { next: { revalidate: 3600 } })
 
 **基于时间的重新验证如何工作**
 
-<Image
+<img
   alt="图表显示了基于时间的重新验证的工作原理，在重新验证周期后，首次请求返回陈旧数据，然后重新验证数据。"
-  srcLight="/docs/light/time-based-revalidation.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/time-based-revalidation.png&w=3840&q=75"
   srcDark="/docs/dark/time-based-revalidation.png"
   width="1600"
   height="1252"
@@ -199,9 +199,9 @@ fetch('https://...', { next: { revalidate: 3600 } })
 
 **按需重新验证如何工作**
 
-<Image
+<img
   alt="图表显示了按需重新验证的工作原理，在重新验证请求后，数据缓存用新鲜数据更新。"
-  srcLight="/docs/light/on-demand-revalidation.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/on-demand-revalidation.png&w=3840&q=75"
   srcDark="/docs/dark/on-demand-revalidation.png"
   width="1600"
   height="1082"
@@ -268,9 +268,9 @@ Next.js 会在构建时自动渲染和缓存路由。这是一种优化，允许
 
 ### 2. 服务器上的 Next.js 缓存（全路由缓存）
 
-<Image
+<img
   alt="全路由缓存的默认行为，展示了 React 服务器组件负载和 HTML 如何在服务器上为静态渲染路由进行缓存。"
-  srcLight="/docs/light/full-route-cache.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/full-route-cache.png&w=3840&q=75"
   srcDark="/docs/dark/full-route-cache.png"
   width="1600"
   height="888"
@@ -302,9 +302,9 @@ React 服务器组件负载存储在客户端的 [路由器缓存](#router-cache
 
 这张图显示了静态和动态渲染路线之间的区别，以及缓存和未缓存数据的影响：
 
-<Image
+<img
   alt="静态和动态渲染如何影响完整路由缓存。静态路由在构建时或数据重新验证后被缓存，而动态路由从不被缓存"
-  srcLight="/docs/light/static-and-dynamic-routes.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/static-and-dynamic-routes.png&w=3840&q=75"
   srcDark="/docs/dark/static-and-dynamic-routes.png"
   width="1600"
   height="1314"
@@ -345,9 +345,9 @@ Next.js具有一个内存中的客户端缓存，用于存储React Server Compon
 
 **Router Cache的工作原理**
 
-<Image
+<img
   alt="How the Router cache works for static and dynamic routes, showing MISS and HIT for initial and subsequent navigations."
-  srcLight="/docs/light/router-cache.png"
+  src="https://nextjs.org/_next/image?url=/docs/light/router-cache.png&w=3840&q=75"
   srcDark="/docs/dark/router-cache.png"
   width="1600"
   height="1375"

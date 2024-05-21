@@ -1,55 +1,40 @@
----
-title: Route Handlers
-description: Create custom request handlers for a given route using the Web's Request and Response APIs.
-related:
-  title: API Reference
-  description: Learn more about the route.js file.
-  links:
-    - app/api-reference/file-conventions/route
----
+# 路由处理器
 
-Route Handlers allow you to create custom request handlers for a given route using the Web [Request](https://developer.mozilla.org/docs/Web/API/Request) and [Response](https://developer.mozilla.org/docs/Web/API/Response) APIs.
+路由处理器允许您使用 Web [Request](https://developer.mozilla.org/docs/Web/API/Request) 和 [Response](https://developer.mozilla.org/docs/Web/API/Response) API 为给定路由创建自定义请求处理器。
 
-<Image
-  alt="Route.js Special File"
-  srcLight="/docs/light/route-special-file.png"
-  srcDark="/docs/dark/route-special-file.png"
-  width="1600"
-  height="444"
-/>
+![Route.js 特殊文件](/docs/light/route-special-file.png)
 
-> **Good to know**: Route Handlers are only available inside the `app` directory. They are the equivalent of [API Routes](/docs/pages/building-your-application/routing/api-routes) inside the `pages` directory meaning you **do not** need to use API Routes and Route Handlers together.
+> **须知**：路由处理器仅在 `app` 目录中可用。它们等同于 `pages` 目录中的 [API Routes](/docs/pages/building-your-application/routing/api-routes)，这意味着您**不需要**同时使用 API Routes 和路由处理器。
 
-## Convention
+## 约定
 
-Route Handlers are defined in a [`route.js|ts` file](/docs/app/api-reference/file-conventions/route) inside the `app` directory:
+路由处理器在 `app` 目录中的 [`route.js|ts` 文件](/docs/app/api-reference/file-conventions/route) 中定义：
 
 ```ts filename="app/api/route.ts" switcher
-export const dynamic = 'force-dynamic' // defaults to auto
+export const dynamic = 'force-dynamic' // 默认为 auto
 export async function GET(request: Request) {}
 ```
 
 ```js filename="app/api/route.js" switcher
-export const dynamic = 'force-dynamic' // defaults to auto
+export const dynamic = 'force-dynamic' // 默认为 auto
 export async function GET(request) {}
 ```
 
-Route Handlers can be nested inside the `app` directory, similar to `page.js` and `layout.js`. But there **cannot** be a `route.js` file at the same route segment level as `page.js`.
+路由处理器可以嵌套在 `app` 目录中，类似于 `page.js` 和 `layout.js`。但是，与 `page.js` 相同路由段级别上**不能**有 `route.js` 文件。
 
-### Supported HTTP Methods
+### 支持的 HTTP 方法
 
-The following [HTTP methods](https://developer.mozilla.org/docs/Web/HTTP/Methods) are supported: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, and `OPTIONS`. If an unsupported method is called, Next.js will return a `405 Method Not Allowed` response.
+支持以下 [HTTP 方法](https://developer.mozilla.org/docs/Web/HTTP/Methods)：`GET`、`POST`、`PUT`、`PATCH`、`DELETE`、`HEAD` 和 `OPTIONS`。如果调用了不支持的方法，Next.js 将返回 `405 Method Not Allowed` 响应。
 
-### Extended `NextRequest` and `NextResponse` APIs
+### 扩展的 `NextRequest` 和 `NextResponse` API
 
-In addition to supporting native [Request](https://developer.mozilla.org/docs/Web/API/Request) and [Response](https://developer.mozilla.org/docs/Web/API/Response). Next.js extends them with
-[`NextRequest`](/docs/app/api-reference/functions/next-request) and [`NextResponse`](/docs/app/api-reference/functions/next-response) to provide convenient helpers for advanced use cases.
+除了支持原生的 [Request](https://developer.mozilla.org/docs/Web/API/Request) 和 [Response](https://developer.mozilla.org/docs/Web/API/Response)，Next.js 通过 [`NextRequest`](/docs/app/api-reference/functions/next-request) 和 [`NextResponse`](/docs/app/api-reference/functions/next-response) 对它们进行了扩展，以提供高级用例的便捷助手。
 
-## Behavior
+## 行为
 
-### Caching
+### 缓存
 
-Route Handlers are cached by default when using the `GET` method with the `Response` object.
+在使用 `Response` 对象的 `GET` 方法时，默认情况下会缓存路由处理器。
 
 ```ts filename="app/items/route.ts" switcher
 export async function GET() {
@@ -79,18 +64,19 @@ export async function GET() {
 }
 ```
 
-> **TypeScript Warning:** `Response.json()` is only valid from TypeScript 5.2. If you use a lower TypeScript version, you can use [`NextResponse.json()`](/docs/app/api-reference/functions/next-response#json) for typed responses instead.
+> **TypeScript 警告**：`Response.json()` 仅从 TypeScript 5.2 开始有效。如果您使用的是较低版本的 TypeScript，您可以使用 [`NextResponse.json()`](/docs/app/api-reference/functions/next-response#json) 代替，以获得类型化的响应。
+# Opting out of caching
 
-,### Opting out of caching
+## 退出缓存
 
-You can opt out of caching by:
+您可以通过以下方式退出缓存：
 
-- Using the `Request` object with the `GET` method.
-- Using any of the other HTTP methods.
-- Using [Dynamic Functions](#dynamic-functions) like `cookies` and `headers`.
-- The [Segment Config Options](#segment-config-options) manually specifies dynamic mode.
+- 使用带有`GET`方法的`Request`对象。
+- 使用其他任何HTTP方法。
+- 使用[动态函数](#dynamic-functions)，如`cookies`和`headers`。
+- [Segment Config Options](#segment-config-options)手动指定动态模式。
 
-For example:
+例如：
 
 ```ts filename="app/products/api/route.ts" switcher
 export async function GET(request: Request) {
@@ -124,7 +110,7 @@ export async function GET(request) {
 }
 ```
 
-Similarly, the `POST` method will cause the Route Handler to be evaluated dynamically.
+类似地，`POST`方法将导致路由处理器动态评估。
 
 ```ts filename="app/items/route.ts" switcher
 export async function POST() {
@@ -160,45 +146,44 @@ export async function POST() {
 }
 ```
 
-> **Good to know**: Like API Routes, Route Handlers can be used for cases like handling form submissions. A new abstraction for [handling forms and mutations](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) that integrates deeply with React is being worked on.
+> **须知**：像API路由一样，路由处理器可以用于处理表单提交等场景。正在开发一种新的抽象，用于[处理表单和变异](/docs/app/building-your-application/data-fetching/server-actions-and-mutations)，与React深度集成。
 
-### Route Resolution
+## Route Resolution
 
-You can consider a `route` the lowest level routing primitive.
+您可以将`route`视为最低级别的路由原语。
 
-- They **do not** participate in layouts or client-side navigations like `page`.
-- There **cannot** be a `route.js` file at the same route as `page.js`.
+- 它们**不**参与`page`这样的布局或客户端导航。
+- 同一路由下**不能**同时存在`route.js`文件和`page.js`文件。
 
-| Page                 | Route              | Result                       |
+| 页面                 | 路由              | 结果                       |
 | -------------------- | ------------------ | ---------------------------- |
-| `app/page.js`        | `app/route.js`     | <Cross size={18} /> Conflict |
-| `app/page.js`        | `app/api/route.js` | <Check size={18} /> Valid    |
-| `app/[user]/page.js` | `app/api/route.js` | <Check size={18} /> Valid    |
+| `app/page.js`        | `app/route.js`     | <Cross size={18} /> 冲突 |
+| `app/page.js`        | `app/api/route.js` | <Check size={18} /> 有效    |
+| `app/[user]/page.js` | `app/api/route.js` | <Check size={18} /> 有效    |
 
-Each `route.js` or `page.js` file takes over all HTTP verbs for that route.
+每个`route.js`或`page.js`文件都接管该路由的所有HTTP动词。
 
 ```jsx filename="app/page.js"
 export default function Page() {
   return <h1>Hello, Next.js!</h1>
 }
 
-// ❌ Conflict
+// ❌ 冲突
 // `app/route.js`
 export async function POST(request) {}
 ```
 
-## Examples
+# Examples
 
-The following examples show how to combine Route Handlers with other Next.js APIs and features.
+以下示例展示了如何将路由处理器与其他Next.js API和功能结合使用。
+### 重新验证缓存数据
 
-,### Revalidating Cached Data
-
-You can [revalidate cached data](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#revalidating-data) using the [`next.revalidate`](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#revalidating-data) option:
+您可以使用 [`next.revalidate`](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#revalidating-data) 选项来[重新验证缓存数据](/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#revalidating-data)：
 
 ```ts filename="app/items/route.ts" switcher
 export async function GET() {
   const res = await fetch('https://data.mongodb-api.com/...', {
-    next: { revalidate: 60 }, // Revalidate every 60 seconds
+    next: { revalidate: 60 }, // 每60秒重新验证一次
   })
   const data = await res.json()
 
@@ -209,7 +194,7 @@ export async function GET() {
 ```js filename="app/items/route.js" switcher
 export async function GET() {
   const res = await fetch('https://data.mongodb-api.com/...', {
-    next: { revalidate: 60 }, // Revalidate every 60 seconds
+    next: { revalidate: 60 }, // 每60秒重新验证一次
   })
   const data = await res.json()
 
@@ -217,21 +202,20 @@ export async function GET() {
 }
 ```
 
-Alternatively, you can use the [`revalidate` segment config option](/docs/app/api-reference/file-conventions/route-segment-config#revalidate):
+另外，您可以使用 [`revalidate` 段配置选项](/docs/app/api-reference/file-conventions/route-segment-config#revalidate)：
 
 ```ts
 export const revalidate = 60
 ```
+### 动态函数
 
-,### Dynamic Functions
-
-Route Handlers can be used with dynamic functions from Next.js, like [`cookies`](/docs/app/api-reference/functions/cookies) and [`headers`](/docs/app/api-reference/functions/headers).
+路由处理器可以使用Next.js中的动态函数，如[`cookies`](/docs/app/api-reference/functions/cookies)和[`headers`](/docs/app/api-reference/functions/headers)。
 
 #### Cookies
 
-You can read or set cookies with [`cookies`](/docs/app/api-reference/functions/cookies) from `next/headers`. This server function can be called directly in a Route Handler, or nested inside of another function.
+您可以使用来自`next/headers`的[`cookies`](/docs/app/api-reference/functions/cookies)读取或设置cookies。这个服务器函数可以直接在路由处理器中调用，或者嵌套在另一个函数内部。
 
-Alternatively, you can return a new `Response` using the [`Set-Cookie`](https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie) header.
+另外，您可以使用[`Set-Cookie`](https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie)头返回一个新的`Response`。
 
 ```ts filename="app/api/route.ts" switcher
 import { cookies } from 'next/headers'
@@ -261,7 +245,7 @@ export async function GET(request) {
 }
 ```
 
-You can also use the underlying Web APIs to read cookies from the request ([`NextRequest`](/docs/app/api-reference/functions/next-request)):
+您也可以使用底层的Web API从请求中读取cookies（[`NextRequest`](/docs/app/api-reference/functions/next-request)）：
 
 ```ts filename="app/api/route.ts" switcher
 import { type NextRequest } from 'next/server'
@@ -279,9 +263,9 @@ export async function GET(request) {
 
 #### Headers
 
-You can read headers with [`headers`](/docs/app/api-reference/functions/headers) from `next/headers`. This server function can be called directly in a Route Handler, or nested inside of another function.
+您可以使用来自`next/headers`的[`headers`](/docs/app/api-reference/functions/headers)读取头信息。这个服务器函数可以直接在路由处理器中调用，或者嵌套在另一个函数内部。
 
-This `headers` instance is read-only. To set headers, you need to return a new `Response` with new `headers`.
+这个`headers`实例是只读的。要设置头信息，您需要返回一个新的带有新`headers`的`Response`。
 
 ```ts filename="app/api/route.ts" switcher
 import { headers } from 'next/headers'
@@ -311,7 +295,7 @@ export async function GET(request) {
 }
 ```
 
-You can also use the underlying Web APIs to read headers from the request ([`NextRequest`](/docs/app/api-reference/functions/next-request)):
+您也可以使用底层的Web API从请求中读取头信息（[`NextRequest`](/docs/app/api-reference/functions/next-request)）：
 
 ```ts filename="app/api/route.ts" switcher
 import { type NextRequest } from 'next/server'
@@ -327,7 +311,7 @@ export async function GET(request) {
 }
 ```
 
-### Redirects
+### 重定向
 
 ```ts filename="app/api/route.ts" switcher
 import { redirect } from 'next/navigation'
@@ -344,37 +328,36 @@ export async function GET(request) {
   redirect('https://nextjs.org/')
 }
 ```
+### 动态路由片段
 
-,### Dynamic Route Segments
+> 我们建议在继续之前阅读[定义路由](/docs/app/building-your-application/routing/defining-routes)页面。
 
-> We recommend reading the [Defining Routes](/docs/app/building-your-application/routing/defining-routes) page before continuing.
-
-Route Handlers can use [Dynamic Segments](/docs/app/building-your-application/routing/dynamic-routes) to create request handlers from dynamic data.
+路由处理器可以使用[动态片段](/docs/app/building-your-application/routing/dynamic-routes)从动态数据创建请求处理器。
 
 ```ts filename="app/items/[slug]/route.ts" switcher
 export async function GET(
   request: Request,
   { params }: { params: { slug: string } }
 ) {
-  const slug = params.slug // 'a', 'b', or 'c'
+  const slug = params.slug // 'a', 'b', 或 'c'
 }
 ```
 
 ```js filename="app/items/[slug]/route.js" switcher
 export async function GET(request, { params }) {
-  const slug = params.slug // 'a', 'b', or 'c'
+  const slug = params.slug // 'a', 'b', 或 'c'
 }
 ```
 
-| Route                       | Example URL | `params`        |
+| 路由                       | 示例 URL | `params`        |
 | --------------------------- | ----------- | --------------- |
 | `app/items/[slug]/route.js` | `/items/a`  | `{ slug: 'a' }` |
 | `app/items/[slug]/route.js` | `/items/b`  | `{ slug: 'b' }` |
 | `app/items/[slug]/route.js` | `/items/c`  | `{ slug: 'c' }` |
 
-### URL Query Parameters
+### URL查询参数
 
-The request object passed to the Route Handler is a `NextRequest` instance, which has [some additional convenience methods](/docs/app/api-reference/functions/next-request#nexturl), including for more easily handling query parameters.
+传递给路由处理器的请求对象是一个`NextRequest`实例，它有一些[额外的便利方法](/docs/app/api-reference/functions/next-request#nexturl)，包括更容易地处理查询参数。
 
 ```ts filename="app/api/search/route.ts" switcher
 import { type NextRequest } from 'next/server'
@@ -382,7 +365,7 @@ import { type NextRequest } from 'next/server'
 export function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const query = searchParams.get('query')
-  // query is "hello" for /api/search?query=hello
+  // 对于/api/search?query=hello，query是"hello"
 }
 ```
 
@@ -390,13 +373,12 @@ export function GET(request: NextRequest) {
 export function GET(request) {
   const searchParams = request.nextUrl.searchParams
   const query = searchParams.get('query')
-  // query is "hello" for /api/search?query=hello
+  // 对于/api/search?query=hello，query是"hello"
 }
 ```
+### 流式传输
 
-,### Streaming
-
-Streaming is commonly used in combination with Large Language Models (LLMs), such as OpenAI, for AI-generated content. Learn more about the [AI SDK](https://sdk.vercel.ai/docs/introduction).
+流式传输通常与大型语言模型（LLMs）结合使用，如OpenAI，用于AI生成的内容。了解更多关于[AI SDK](https://sdk.vercel.ai/docs/introduction)的信息。
 
 ```ts filename="app/api/chat/route.ts" switcher
 import { openai } from '@ai-sdk/openai'
@@ -428,7 +410,7 @@ export async function POST(req: Request) {
 }
 ```
 
-These abstractions use the Web APIs to create a stream. You can also use the underlying Web APIs directly.
+这些抽象使用Web API创建一个流。您也可以直接使用底层的Web API。
 
 ```ts filename="app/api/route.ts" switcher
 // https://developer.mozilla.org/docs/Web/API/ReadableStream#convert_async_iterator_to_stream
@@ -510,9 +492,9 @@ export async function GET() {
 }
 ```
 
-### Request Body
+### 请求体
 
-You can read the `Request` body using the standard Web API methods:
+您可以使用标准的Web API方法读取`Request`体：
 
 ```ts filename="app/items/route.ts" switcher
 export async function POST(request: Request) {
@@ -527,10 +509,9 @@ export async function POST(request) {
   return Response.json({ res })
 }
 ```
+# Request Body FormData
 
-,### Request Body FormData
-
-You can read the `FormData` using the `request.formData()` function:
+您可以使用 `request.formData()` 函数读取 `FormData`：
 
 ```ts filename="app/items/route.ts" switcher
 export async function POST(request: Request) {
@@ -550,11 +531,11 @@ export async function POST(request) {
 }
 ```
 
-Since `formData` data are all strings, you may want to use [`zod-form-data`](https://www.npmjs.com/zod-form-data) to validate the request and retrieve data in the format you prefer (e.g. `number`).
+由于 `formData` 数据都是字符串，您可能希望使用 [`zod-form-data`](https://www.npmjs.com/zod-form-data) 来验证请求并按您喜欢的格式（例如 `number`）检索数据。
 
-### CORS
+# CORS
 
-You can set CORS headers for a specific Route Handler using the standard Web API methods:
+您可以使用标准 Web API 方法为特定的路由处理器设置 CORS 标头：
 
 ```ts filename="app/api/route.ts" switcher
 export const dynamic = 'force-dynamic' // defaults to auto
@@ -586,20 +567,20 @@ export async function GET(request) {
 }
 ```
 
-> **Good to know**:
+> **须知**：
 >
-> - To add CORS headers to multiple Route Handlers, you can use [Middleware](/docs/app/building-your-application/routing/middleware#cors) or the [`next.config.js` file](/docs/app/api-reference/next-config-js/headers#cors).
-> - Alternatively, see our [CORS example](https://github.com/vercel/examples/blob/main/edge-functions/cors/lib/cors.ts) package.
+> - 要为多个路由处理器添加 CORS 标头，您可以使用 [中间件](/docs/app/building-your-application/routing/middleware#cors) 或 [`next.config.js` 文件](/docs/app/api-reference/next-config-js/headers#cors)。
+> - 另外，请参阅我们的 [CORS 示例](https://github.com/vercel/examples/blob/main/edge-functions/cors/lib/cors.ts) 包。
 
-### Webhooks
+# Webhooks
 
-You can use a Route Handler to receive webhooks from third-party services:
+您可以使用路由处理器接收来自第三方服务的 Webhooks：
 
 ```ts filename="app/api/route.ts" switcher
 export async function POST(request: Request) {
   try {
     const text = await request.text()
-    // Process the webhook payload
+    // 处理 webhook 负载
   } catch (error) {
     return new Response(`Webhook error: ${error.message}`, {
       status: 400,
@@ -616,7 +597,7 @@ export async function POST(request: Request) {
 export async function POST(request) {
   try {
     const text = await request.text()
-    // Process the webhook payload
+    // 处理 webhook 负载
   } catch (error) {
     return new Response(`Webhook error: ${error.message}`, {
       status: 400,
@@ -629,14 +610,13 @@ export async function POST(request) {
 }
 ```
 
-Notably, unlike API Routes with the Pages Router, you do not need to use `bodyParser` to use any additional configuration.
+值得注意的是，与使用页面路由器的 API 路由不同，您不需要使用 `bodyParser` 进行任何额外的配置。
+### 非UI响应
 
-,### Non-UI Responses
-
-You can use Route Handlers to return non-UI content. Note that [`sitemap.xml`](/docs/app/api-reference/file-conventions/metadata/sitemap#generating-a-sitemap-using-code-js-ts), [`robots.txt`](/docs/app/api-reference/file-conventions/metadata/robots#generate-a-robots-file), [`app icons`](/docs/app/api-reference/file-conventions/metadata/app-icons#generate-icons-using-code-js-ts-tsx), and [open graph images](/docs/app/api-reference/file-conventions/metadata/opengraph-image) all have built-in support.
+您可以使用路由处理器返回非UI内容。请注意，[`sitemap.xml`](/docs/app/api-reference/file-conventions/metadata/sitemap#generating-a-sitemap-using-code-js-ts)、[`robots.txt`](/docs/app/api-reference/file-conventions/metadata/robots#generate-a-robots-file)、[`应用图标`](/docs/app/api-reference/file-conventions/metadata/app-icons#generate-icons-using-code-js-ts-tsx)和[开放图象](/docs/app/api-reference/file-conventions/metadata/opengraph-image)都有内置支持。
 
 ```ts filename="app/rss.xml/route.ts" switcher
-export const dynamic = 'force-dynamic' // defaults to auto
+export const dynamic = 'force-dynamic' // 默认为auto
 
 export async function GET() {
   return new Response(
@@ -660,7 +640,7 @@ export async function GET() {
 ```
 
 ```js filename="app/rss.xml/route.js" switcher
-export const dynamic = 'force-dynamic' // defaults to auto
+export const dynamic = 'force-dynamic' // 默认为auto
 
 export async function GET() {
   return new Response(`<?xml version="1.0" encoding="UTF-8" ?>
@@ -676,9 +656,9 @@ export async function GET() {
 }
 ```
 
-### Segment Config Options
+### 段配置选项
 
-Route Handlers use the same [route segment configuration](/docs/app/api-reference/file-conventions/route-segment-config) as pages and layouts.
+路由处理器使用与页面和布局相同的[路由段配置](/docs/app/api-reference/file-conventions/route-segment-config)。
 
 ```ts filename="app/items/route.ts" switcher
 export const dynamic = 'auto'
@@ -698,4 +678,4 @@ export const runtime = 'nodejs'
 export const preferredRegion = 'auto'
 ```
 
-See the [API reference](/docs/app/api-reference/file-conventions/route-segment-config) for more details.
+有关更多详细信息，请查看[API参考](/docs/app/api-reference/file-conventions/route-segment-config)。

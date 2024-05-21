@@ -1,9 +1,9 @@
 ---
 title: draftMode
-description: API Reference for the draftMode function.
+description: draftMode 函数的 API 参考。
 ---
 
-The `draftMode` function allows you to detect [Draft Mode](/docs/app/building-your-application/configuring/draft-mode) inside a [Server Component](/docs/app/building-your-application/rendering/server-components).
+`draftMode` 函数允许您在 [Server Component](/docs/app/building-your-application/rendering/server-components) 内检测 [Draft Mode](/docs/app/building-your-application/configuring/draft-mode)。
 
 ```jsx filename="app/page.js"
 import { draftMode } from 'next/headers'
@@ -12,15 +12,15 @@ export default function Page() {
   const { isEnabled } = draftMode()
   return (
     <main>
-      <h1>My Blog Post</h1>
-      <p>Draft Mode is currently {isEnabled ? 'Enabled' : 'Disabled'}</p>
+      <h1>我的博客文章</h1>
+      <p>草稿模式当前是 {isEnabled ? '启用' : '禁用'}</p>
     </main>
   )
 }
 ```
 
-## Version History
+## 版本历史
 
-| Version   | Changes                 |
+| 版本   | 变更                 |
 | --------- | ----------------------- |
-| `v13.4.0` | `draftMode` introduced. |
+| `v13.4.0` | 引入了 `draftMode`。 |

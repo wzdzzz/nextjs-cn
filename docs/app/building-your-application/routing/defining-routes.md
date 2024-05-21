@@ -1,49 +1,28 @@
----
-title: Defining Routes
-description: Learn how to create your first route in Next.js.
-related:
-  description: Learn more about creating pages and layouts.
-  links:
-    - app/building-your-application/routing/pages
----
+# 定义路由
 
-> We recommend reading the [Routing Fundamentals](/docs/app/building-your-application/routing) page before continuing.
+了解如何在Next.js中创建您的第一条路由。
 
-This page will guide you through how to define and organize routes in your Next.js application.
+## 创建路由
 
-## Creating Routes
+Next.js 使用基于文件系统的路由器，其中**文件夹**用于定义路由。
 
-Next.js uses a file-system based router where **folders** are used to define routes.
+每个文件夹代表一个[**路由段**](/docs/app/building-your-application/routing#route-segments)，映射到一个**URL**段。要创建[嵌套路由](/docs/app/building-your-application/routing#nested-routes)，您可以将文件夹相互嵌套。
 
-Each folder represents a [**route** segment](/docs/app/building-your-application/routing#route-segments) that maps to a **URL** segment. To create a [nested route](/docs/app/building-your-application/routing#nested-routes), you can nest folders inside each other.
+![路由段到路径段](https://nextjs.org/_next/image?url=/docs/light/route-segments-to-path-segments.png&w=3840&q=75)
 
-<Image
-  alt="Route segments to path segments"
-  srcLight="/docs/light/route-segments-to-path-segments.png"
-  srcDark="/docs/dark/route-segments-to-path-segments.png"
-  width="1600"
-  height="594"
-/>
+一个特殊的[`page.js`文件](/docs/app/building-your-application/routing/pages)用于使路由段公开可访问。
 
-A special [`page.js` file](/docs/app/building-your-application/routing/pages) is used to make route segments publicly accessible.
+![定义路由](https://nextjs.org/_next/image?url=/docs/light/defining-routes.png&w=3840&q=75)
 
-<Image
-  alt="Defining Routes"
-  srcLight="/docs/light/defining-routes.png"
-  srcDark="/docs/dark/defining-routes.png"
-  width="1600"
-  height="687"
-/>
+在这个例子中，`/dashboard/analytics` URL路径不是公开可访问的，因为它没有相应的`page.js`文件。这个文件夹可以用来存储组件、样式表、图像或其他共同定位的文件。
 
-In this example, the `/dashboard/analytics` URL path is _not_ publicly accessible because it does not have a corresponding `page.js` file. This folder could be used to store components, stylesheets, images, or other colocated files.
+> **须知**：`.js`、`.jsx`或`.tsx`文件扩展名可以用于特殊文件。
 
-> **Good to know**: `.js`, `.jsx`, or `.tsx` file extensions can be used for special files.
+## 创建UI
 
-## Creating UI
+使用[特殊文件约定](/docs/app/building-your-application/routing#file-conventions)为每个路由段创建UI。最常见的是[页面](/docs/app/building-your-application/routing/pages)用于显示特定于路由的UI，以及[布局](/docs/app/building-your-application/routing/layouts-and-templates#layouts)用于显示跨多个路由共享的UI。
 
-[Special file conventions](/docs/app/building-your-application/routing#file-conventions) are used to create UI for each route segment. The most common are [pages](/docs/app/building-your-application/routing/pages) to show UI unique to a route, and [layouts](/docs/app/building-your-application/routing/layouts-and-templates#layouts) to show UI that is shared across multiple routes.
-
-For example, to create your first page, add a `page.js` file inside the `app` directory and export a React component:
+例如，要创建您的第一个页面，请在`app`目录中添加一个`page.js`文件，并导出一个React组件：
 
 ```tsx filename="app/page.tsx" switcher
 export default function Page() {

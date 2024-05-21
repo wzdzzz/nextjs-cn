@@ -1,21 +1,17 @@
----
-title: eslint
-description: Next.js reports ESLint errors and warnings during builds by default. Learn how to opt-out of this behavior here.
----
+# eslint
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+Next.js 默认在构建过程中报告 ESLint 错误和警告。如需禁用此行为，请参考以下说明。
 
-When ESLint is detected in your project, Next.js fails your **production build** (`next build`) when errors are present.
+当在项目中检测到 ESLint 时，如果存在错误，Next.js 将失败您的**生产构建**（`next build`）。
 
-If you'd like Next.js to produce production code even when your application has ESLint errors, you can disable the built-in linting step completely. This is not recommended unless you already have ESLint configured to run in a separate part of your workflow (for example, in CI or a pre-commit hook).
+如果您希望即使应用程序存在 ESLint 错误，Next.js 也能生成生产代码，您可以完全禁用内置的 linting 步骤。除非您已经在工作流程的其他部分（例如，在 CI 或 pre-commit 钩子中）配置了 ESLint 的运行，否则不建议这样做。
 
-Open `next.config.js` and enable the `ignoreDuringBuilds` option in the `eslint` config:
+打开 `next.config.js` 并在 `eslint` 配置中启用 `ignoreDuringBuilds` 选项：
 
 ```js filename="next.config.js"
 module.exports = {
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
+    // 警告：这允许即使项目存在 ESLint 错误，生产构建也能成功完成。
     ignoreDuringBuilds: true,
   },
 }

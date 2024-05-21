@@ -1,22 +1,22 @@
 ---
-title: Forms and Mutations
-nav_title: Forms and Mutations
-description: Learn how to handle form submissions and data mutations with Next.js.
+title: 表单和变异
+nav_title: 表单和变异
+description: 学习如何在 Next.js 中处理表单提交和数据变异。
 ---
 
-Forms enable you to create and update data in web applications. Next.js provides a powerful way to handle form submissions and data mutations using **API Routes**.
+表单使您能够在 Web 应用程序中创建和更新数据。Next.js 提供了一种强大的方式，使用 **API Routes** 来处理表单提交和数据变异。
 
-> **Good to know:**
+> **须知：**
 >
-> - We will soon recommend [incrementally adopting](/docs/app/building-your-application/upgrading/app-router-migration) the App Router and using [Server Actions](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) for handling form submissions and data mutations. Server Actions allow you to define asynchronous server functions that can be called directly from your components, without needing to manually create an API Route.
-> - API Routes [do not specify CORS headers](https://developer.mozilla.org/docs/Web/HTTP/CORS), meaning they are same-origin only by default.
-> - Since API Routes run on the server, we're able to use sensitive values (like API keys) through [Environment Variables](/docs/pages/building-your-application/configuring/environment-variables) without exposing them to the client. This is critical for the security of your application.
+> - 我们很快将推荐[逐步采用](/docs/app/building-your-application/upgrading/app-router-migration)App Router，并使用[Server Actions](/docs/app/building-your-application/data-fetching/server-actions-and-mutations)来处理表单提交和数据变异。Server Actions 允许您定义可以从组件直接调用的异步服务器函数，无需手动创建 API Route。
+> - API Routes [不指定 CORS 标头](https://developer.mozilla.org/docs/Web/HTTP/CORS)，这意味着它们默认情况下仅允许同源请求。
+> - 由于 API Routes 在服务器上运行，我们可以通过[环境变量](/docs/pages/building-your-application/configuring/environment-variables)使用敏感值（如 API 密钥），而不会暴露给客户端。这对您的应用程序的安全性至关重要。
 
-## Examples
+## 示例
 
-### Server-only form
+### 仅限服务器的表单
 
-With the Pages Router, you need to manually create API endpoints to handle securely mutating data on the server.
+使用 Pages Router，您需要手动创建 API 端点来安全地处理服务器上的数据变异。
 
 ```ts filename="pages/api/submit.ts" switcher
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -39,7 +39,7 @@ export default function handler(req, res) {
 }
 ```
 
-Then, call the API Route from the client with an event handler:
+然后，使用事件处理器从客户端调用 API Route：
 
 ```tsx filename="pages/index.tsx" switcher
 import { FormEvent } from 'react'
@@ -54,7 +54,7 @@ export default function Page() {
       body: formData,
     })
 
-    // Handle response if necessary
+    // 如有必要，处理响应
     const data = await response.json()
     // ...
   }
@@ -62,7 +62,7 @@ export default function Page() {
   return (
     <form onSubmit={onSubmit}>
       <input type="text" name="name" />
-      <button type="submit">Submit</button>
+      <button type="submit">提交</button>
     </form>
   )
 }
@@ -79,7 +79,7 @@ export default function Page() {
       body: formData,
     })
 
-    // Handle response if necessary
+    // 如有必要，处理响应
     const data = await response.json()
     // ...
   }
@@ -87,17 +87,16 @@ export default function Page() {
   return (
     <form onSubmit={onSubmit}>
       <input type="text" name="name" />
-      <button type="submit">Submit</button>
+      <button type="submit">提交</button>
     </form>
   )
 }
 ```
+## 表单验证
 
-,## Form validation
+我们建议使用 HTML 验证，如 `required` 和 `type="email"` 进行基本的客户端表单验证。
 
-We recommend using HTML validation like `required` and `type="email"` for basic client-side form validation.
-
-For more advanced server-side validation, you can use a schema validation library like [zod](https://zod.dev/) to validate the form fields before mutating the data:
+对于更高级的服务器端验证，您可以使用模式验证库，如 [zod](https://zod.dev/)，在变异数据之前验证表单字段：
 
 ```ts filename="pages/api/submit.ts" switcher
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -129,9 +128,9 @@ export default async function handler(req, res) {
 }
 ```
 
-### Error handling
+### 错误处理
 
-You can use React state to show an error message when a form submission fails:
+您可以使用 React 状态在表单提交失败时显示错误消息：
 
 ```tsx filename="pages/index.tsx" switcher
 import React, { useState, FormEvent } from 'react'
@@ -143,7 +142,7 @@ export default function Page() {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setIsLoading(true)
-    setError(null) // Clear previous errors when a new request starts
+    setError(null) // 在新请求开始时清除之前的错误
 
     try {
       const formData = new FormData(event.currentTarget)
@@ -156,11 +155,11 @@ export default function Page() {
         throw new Error('Failed to submit the data. Please try again.')
       }
 
-      // Handle response if necessary
+      // 如有必要，处理响应
       const data = await response.json()
       // ...
     } catch (error) {
-      // Capture the error message to display to the user
+      // 捕获错误消息以显示给用户
       setError(error.message)
       console.error(error)
     } finally {
@@ -192,7 +191,7 @@ export default function Page() {
   async function onSubmit(event) {
     event.preventDefault()
     setIsLoading(true)
-    setError(null) // Clear previous errors when a new request starts
+    setError(null) // 在新请求开始时清除之前的错误
 
     try {
       const formData = new FormData(event.currentTarget)
@@ -205,11 +204,11 @@ export default function Page() {
         throw new Error('Failed to submit the data. Please try again.')
       }
 
-      // Handle response if necessary
+      // 如有必要，处理响应
       const data = await response.json()
       // ...
     } catch (error) {
-      // Capture the error message to display to the user
+      // 捕获错误消息以显示给用户
       setError(error.message)
       console.error(error)
     } finally {
@@ -230,10 +229,9 @@ export default function Page() {
   )
 }
 ```
+## 显示加载状态
 
-,## Displaying loading state
-
-You can use React state to show a loading state when a form is submitting on the server:
+当表单在服务器上提交时，可以使用React状态来显示加载状态：
 
 ```tsx filename="pages/index.tsx" switcher
 import React, { useState, FormEvent } from 'react'
@@ -243,7 +241,7 @@ export default function Page() {
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setIsLoading(true) // Set loading to true when the request starts
+    setIsLoading(true) // 请求开始时将加载设置为true
 
     try {
       const formData = new FormData(event.currentTarget)
@@ -252,14 +250,14 @@ export default function Page() {
         body: formData,
       })
 
-      // Handle response if necessary
+      // 如有必要，处理响应
       const data = await response.json()
       // ...
     } catch (error) {
-      // Handle error if necessary
+      // 如有必要，处理错误
       console.error(error)
     } finally {
-      setIsLoading(false) // Set loading to false when the request completes
+      setIsLoading(false) // 请求完成时将加载设置为false
     }
   }
 
@@ -267,7 +265,7 @@ export default function Page() {
     <form onSubmit={onSubmit}>
       <input type="text" name="name" />
       <button type="submit" disabled={isLoading}>
-        {isLoading ? 'Loading...' : 'Submit'}
+        {isLoading ? '加载中...' : '提交'}
       </button>
     </form>
   )
@@ -282,7 +280,7 @@ export default function Page() {
 
   async function onSubmit(event) {
     event.preventDefault()
-    setIsLoading(true) // Set loading to true when the request starts
+    setIsLoading(true) // 请求开始时将加载设置为true
 
     try {
       const formData = new FormData(event.currentTarget)
@@ -291,14 +289,14 @@ export default function Page() {
         body: formData,
       })
 
-      // Handle response if necessary
+      // 如有必要，处理响应
       const data = await response.json()
       // ...
     } catch (error) {
-      // Handle error if necessary
+      // 如有必要，处理错误
       console.error(error)
     } finally {
-      setIsLoading(false) // Set loading to false when the request completes
+      setIsLoading(false) // 请求完成时将加载设置为false
     }
   }
 
@@ -306,16 +304,16 @@ export default function Page() {
     <form onSubmit={onSubmit}>
       <input type="text" name="name" />
       <button type="submit" disabled={isLoading}>
-        {isLoading ? 'Loading...' : 'Submit'}
+        {isLoading ? '加载中...' : '提交'}
       </button>
     </form>
   )
 }
 ```
 
-### Redirecting
+### 重定向
 
-If you would like to redirect the user to a different route after a mutation, you can [`redirect`](/docs/pages/building-your-application/routing/api-routes#response-helpers) to any absolute or relative URL:
+如果你想在变异操作后将用户重定向到不同的路由，你可以使用[`redirect`](/docs/pages/building-your-application/routing/api-routes#response-helpers)到任何绝对或相对URL：
 
 ```ts filename="pages/api/submit.ts" switcher
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -336,9 +334,10 @@ export default async function handler(req, res) {
 }
 ```
 
-### Setting cookies
 
-You can set cookies inside an API Route using the `setHeader` method on the response:
+### 设置cookies
+
+你可以在API路由中使用响应上的`setHeader`方法来设置cookies：
 
 ```ts filename="pages/api/cookie.ts" switcher
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -348,20 +347,21 @@ export default async function handler(
   res: NextApiResponse
 ) {
   res.setHeader('Set-Cookie', 'username=lee; Path=/; HttpOnly')
-  res.status(200).send('Cookie has been set.')
+  res.status(200).send('Cookie已设置。')
 }
 ```
 
 ```js filename="pages/api/cookie.js" switcher
 export default async function handler(req, res) {
   res.setHeader('Set-Cookie', 'username=lee; Path=/; HttpOnly')
-  res.status(200).send('Cookie has been set.')
+  res.status(200).send('Cookie已设置。')
 }
 ```
 
-### Reading cookies
 
-You can read cookies inside an API Route using the [`cookies`](/docs/pages/building-your-application/routing/api-routes#request-helpers) request helper:
+### 读取cookies
+
+你可以在API路由中使用[`cookies`](/docs/pages/building-your-application/routing/api-routes#request-helpers)请求助手来读取cookies：
 
 ```ts filename="pages/api/cookie.ts" switcher
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -381,10 +381,9 @@ export default async function handler(req, res) {
   // ...
 }
 ```
+### 删除 cookies
 
-,### Deleting cookies
-
-You can delete cookies inside an API Route using the `setHeader` method on the response:
+您可以在 API 路由中使用响应对象的 `setHeader` 方法来删除 cookies：
 
 ```ts filename="pages/api/cookie.ts" switcher
 import type { NextApiRequest, NextApiResponse } from 'next'

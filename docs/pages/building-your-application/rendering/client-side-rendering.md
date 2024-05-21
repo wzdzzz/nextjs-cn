@@ -1,8 +1,8 @@
 ---
-title: Client-side Rendering (CSR)
-description: Learn how to implement client-side rendering in the Pages Router.
+title: 客户端渲染 (CSR)
+description: 学习如何在 Pages Router 中实现客户端渲染。
 related:
-  description: Learn about the alternative rendering methods in Next.js.
+  description: 了解 Next.js 中的替代渲染方法。
   links:
     - pages/building-your-application/rendering/server-side-rendering
     - pages/building-your-application/rendering/static-site-generation
@@ -10,16 +10,16 @@ related:
     - app/building-your-application/routing/loading-ui-and-streaming
 ---
 
-In Client-Side Rendering (CSR) with React, the browser downloads a minimal HTML page and the JavaScript needed for the page. The JavaScript is then used to update the DOM and render the page. When the application is first loaded, the user may notice a slight delay before they can see the full page, this is because the page isn't fully rendered until all the JavaScript is downloaded, parsed, and executed.
+在 React 中使用客户端渲染 (CSR) 时，浏览器会下载一个最小的 HTML 页面和页面所需的 JavaScript。然后使用 JavaScript 更新 DOM 并渲染页面。当应用程序首次加载时，用户可能会注意到在看到完整页面之前有轻微的延迟，这是因为在下载、解析并执行所有 JavaScript 之前，页面并未完全渲染。
 
-After the page has been loaded for the first time, navigating to other pages on the same website is typically faster, as only necessary data needs to be fetched, and JavaScript can re-render parts of the page without requiring a full page refresh.
+页面首次加载后，在同一网站上导航到其他页面通常是更快的，因为只需要获取必要的数据，JavaScript 可以重新渲染页面的部分内容，而不需要完整的页面刷新。
 
-In Next.js, there are two ways you can implement client-side rendering:
+在 Next.js 中，有两种实现客户端渲染的方法：
 
-1. Using React's `useEffect()` hook inside your pages instead of the server-side rendering methods ([`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props) and [`getServerSideProps`](/docs/pages/building-your-application/data-fetching/get-server-side-props)).
-2. Using a data fetching library like [SWR](https://swr.vercel.app/) or [TanStack Query](https://tanstack.com/query/latest/) to fetch data on the client (recommended).
+1. 在页面中使用 React 的 `useEffect()` 钩子，而不是服务器端渲染方法（[`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props) 和 [`getServerSideProps`](/docs/pages/building-your-application/data-fetching/get-server-side-props)）。
+2. 使用数据获取库，如 [SWR](https://swr.vercel.app/) 或 [TanStack Query](https://tanstack.com/query/latest/) 在客户端获取数据（推荐）。
 
-Here's an example of using `useEffect()` inside a Next.js page:
+以下是在 Next.js 页面中使用 `useEffect()` 的示例：
 
 ```jsx filename="pages/index.js"
 import React, { useState, useEffect } from 'react'
@@ -38,18 +38,19 @@ export function Page() {
     }
 
     fetchData().catch((e) => {
-      // handle the error as needed
+      // 根据需要处理错误
       console.error('An error occurred while fetching the data: ', e)
     })
   }, [])
 
   return <p>{data ? `Your data: ${data}` : 'Loading...'}</p>
 }
+
 ```
 
-In the example above, the component starts by rendering `Loading...`. Then, once the data is fetched, it re-renders and displays the data.
+在上面的示例中，组件首先渲染 `Loading...`。然后，一旦获取了数据，它就会重新渲染并显示数据。
 
-Although fetching data in a `useEffect` is a pattern you may see in older React Applications, we recommend using a data-fetching library for better performance, caching, optimistic updates, and more. Here's a minimum example using [SWR](https://swr.vercel.app/) to fetch data on the client:
+尽管在 `useEffect` 中获取数据是您可能在旧版 React 应用程序中看到的一种模式，但我们建议使用数据获取库以获得更好的性能、缓存、乐观更新等。以下是使用 [SWR](https://swr.vercel.app/) 在客户端获取数据的最小示例：
 
 ```jsx filename="pages/index.js"
 import useSWR from 'swr'
@@ -65,8 +66,9 @@ export function Page() {
 
   return <p>Your Data: {data}</p>
 }
-,```
+```
+# 须知
 
-> **Good to know**:
+> **须知**：
 >
-> Keep in mind that CSR can impact SEO. Some search engine crawlers might not execute JavaScript and therefore only see the initial empty or loading state of your application. It can also lead to performance issues for users with slower internet connections or devices, as they need to wait for all the JavaScript to load and run before they can see the full page. Next.js promotes a hybrid approach that allows you to use a combination of [server-side rendering](/docs/pages/building-your-application/rendering/server-side-rendering), [static site generation](/docs/pages/building-your-application/rendering/static-site-generation), and client-side rendering, **depending on the needs of each page** in your application. In the App Router, you can also use [Loading UI with Suspense](/docs/app/building-your-application/routing/loading-ui-and-streaming) to show a loading indicator while the page is being rendered.
+> 请注意，CSR（客户端渲染）可能会影响SEO（搜索引擎优化）。一些搜索引擎爬虫可能不会执行JavaScript，因此只能看到应用程序的初始空状态或加载状态。对于使用较慢互联网连接或设备的用户体验，这还可能导致性能问题，因为他们需要等待所有JavaScript加载并运行后才能查看完整页面。Next.js提倡采用混合方法，允许您使用[服务器端渲染](/docs/pages/building-your-application/rendering/server-side-rendering)、[静态网站生成](/docs/pages/building-your-application/rendering/static-site-generation)和客户端渲染的组合，**根据应用程序中每个页面的需求**。在App Router中，您还可以使用[使用Suspense加载UI](/docs/app/building-your-application/routing/loading-ui-and-streaming)，在页面渲染时显示加载指示器。

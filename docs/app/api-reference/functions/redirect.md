@@ -1,48 +1,47 @@
 ---
-title: redirect
-description: API Reference for the redirect function.
+title: 重定向
+description: 重定向函数的API参考。
 related:
   links:
     - app/api-reference/functions/permanentRedirect
 ---
 
-The `redirect` function allows you to redirect the user to another URL. `redirect` can be used in [Server Components](/docs/app/building-your-application/rendering/server-components), [Route Handlers](/docs/app/building-your-application/routing/route-handlers), and [Server Actions](/docs/app/building-your-application/data-fetching/server-actions-and-mutations).
+`redirect` 函数允许您将用户重定向到另一个URL。`redirect` 可以在 [Server Components](/docs/app/building-your-application/rendering/server-components)、[Route Handlers](/docs/app/building-your-application/routing/route-handlers) 和 [Server Actions](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) 中使用。
 
-When used in a [streaming context](/docs/app/building-your-application/routing/loading-ui-and-streaming#what-is-streaming), this will insert a meta tag to emit the redirect on the client side. When used in a server action, it will serve a 303 HTTP redirect response to the caller. Otherwise, it will serve a 307 HTTP redirect response to the caller.
+在 [streaming context](/docs/app/building-your-application/routing/loading-ui-and-streaming#what-is-streaming) 中使用时，这将在客户端插入一个 meta 标签以发出重定向。在 Server Action 中使用时，它将向调用者提供 303 HTTP 重定向响应。否则，它将向调用者提供 307 HTTP 重定向响应。
 
-If a resource doesn't exist, you can use the [`notFound` function](/docs/app/api-reference/functions/not-found) instead.
+如果资源不存在，您可以使用 [`notFound` 函数](/docs/app/api-reference/functions/not-found) 代替。
 
-> **Good to know**:
+> **须知**：
 >
-> - In Server Actions and Route Handlers, `redirect` should be called after the `try/catch` block.
-> - If you prefer to return a 308 (Permanent) HTTP redirect instead of 307 (Temporary), you can use the [`permanentRedirect` function](/docs/app/api-reference/functions/permanentRedirect) instead.
+> - 在 Server Actions 和 Route Handlers 中，`redirect` 应在 `try/catch` 块之后调用。
+> - 如果您希望返回 308（永久）HTTP 重定向而不是 307（临时），您可以使用 [`permanentRedirect` 函数](/docs/app/api-reference/functions/permanentRedirect) 代替。
 
-## Parameters
+## 参数
 
-The `redirect` function accepts two arguments:
+`redirect` 函数接受两个参数：
 
 ```js
 redirect(path, type)
 ```
 
-| Parameter | Type                                                          | Description                                                 |
-| --------- | ------------------------------------------------------------- | ----------------------------------------------------------- |
-| `path`    | `string`                                                      | The URL to redirect to. Can be a relative or absolute path. |
-| `type`    | `'replace'` (default) or `'push'` (default in Server Actions) | The type of redirect to perform.                            |
+| 参数   | 类型                                                           | 描述                                                     |
+| ------ | ------------------------------------------------------------- | -------------------------------------------------------- |
+| `path` | `string`                                                      | 要重定向到的URL。可以是相对路径或绝对路径。           |
+| `type` | `'replace'`（默认）或 `'push'`（在 Server Actions 中默认） | 要执行的重定向类型。                                   |
 
-By default, `redirect` will use `push` (adding a new entry to the browser history stack) in [Server Actions](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) and `replace` (replacing the current URL in the browser history stack) everywhere else. You can override this behavior by specifying the `type` parameter.
+默认情况下，`redirect` 将在 [Server Actions](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) 中使用 `push`（向浏览器历史记录栈中添加新条目）并在其他地方使用 `replace`（替换浏览器历史记录栈中的当前URL）。您可以通过指定 `type` 参数来覆盖此行为。
 
-The `type` parameter has no effect when used in Server Components.
+在 Server Components 中使用时，`type` 参数无效。
 
-## Returns
+## 返回值
 
-`redirect` does not return any value.
+`redirect` 不返回任何值。
+## 示例
 
-,## Example
+### 服务器组件
 
-### Server Component
-
-Invoking the `redirect()` function throws a `NEXT_REDIRECT` error and terminates rendering of the route segment in which it was thrown.
+调用 `redirect()` 函数会抛出一个 `NEXT_REDIRECT` 错误，并终止在其被抛出的路由段的渲染。
 
 ```jsx filename="app/team/[id]/page.js"
 import { redirect } from 'next/navigation'
@@ -63,11 +62,11 @@ export default async function Profile({ params }) {
 }
 ```
 
-> **Good to know**: `redirect` does not require you to use `return redirect()` as it uses the TypeScript [`never`](https://www.typescriptlang.org/docs/handbook/2/functions.html#never) type.
+> **须知**：`redirect` 不需要你使用 `return redirect()`，因为它使用了 TypeScript 的 [`never`](https://www.typescriptlang.org/docs/handbook/2/functions.html#never) 类型。
 
-### Client Component
+### 客户端组件
 
-`redirect` can be used in a Client Component through a Server Action. If you need to use an event handler to redirect the user, you can use the [`useRouter`](/docs/app/api-reference/functions/use-router) hook.
+`redirect` 可以通过服务器操作在客户端组件中使用。如果你需要使用事件处理器来重定向用户，你可以使用 [`useRouter`](/docs/app/api-reference/functions/use-router) 钩子。
 
 ```tsx filename="app/client-redirect.tsx" switcher
 'use client'
@@ -78,7 +77,7 @@ export function ClientRedirect() {
   return (
     <form action={navigate}>
       <input type="text" name="id" />
-      <button>Submit</button>
+      <button>提交</button>
     </form>
   )
 }
@@ -93,7 +92,7 @@ export function ClientRedirect() {
   return (
     <form action={navigate}>
       <input type="text" name="id" />
-      <button>Submit</button>
+      <button>提交</button>
     </form>
   )
 }
@@ -119,25 +118,25 @@ export async function navigate(data) {
 }
 ```
 
-## FAQ
+## 常见问题解答
 
-### Why does `redirect` use 307 and 308?
+### 为什么 `redirect` 使用 307 和 308？
 
-When using `redirect()` you may notice that the status codes used are `307` for a temporary redirect, and `308` for a permanent redirect. While traditionally a `302` was used for a temporary redirect, and a `301` for a permanent redirect, many browsers changed the request method of the redirect, from a `POST` to `GET` request when using a `302`, regardless of the origins request method.
+使用 `redirect()` 时，你可能会注意到使用的是 `307` 表示临时重定向，`308` 表示永久重定向。虽然传统上使用 `302` 表示临时重定向，`301` 表示永久重定向，但许多浏览器在遇到 `302` 时，无论原始请求方法是什么，都会将重定向的请求方法从 `POST` 改为 `GET`。
 
-Taking the following example of a redirect from `/users` to `/people`, if you make a `POST` request to `/users` to create a new user, and are conforming to a `302` temporary redirect, the request method will be changed from a `POST` to a `GET` request. This doesn't make sense, as to create a new user, you should be making a `POST` request to `/people`, and not a `GET` request.
+以下面从 `/users` 重定向到 `/people` 的示例为例，如果你向 `/users` 发送一个 `POST` 请求来创建一个新用户，并遵循 `302` 临时重定向，请求方法将从 `POST` 更改为 `GET`。这没有意义，因为创建一个新用户，你应该向 `/people` 发送一个 `POST` 请求，而不是 `GET` 请求。
 
-The introduction of the `307` status code means that the request method is preserved as `POST`.
+引入 `307` 状态码意味着请求方法将保持为 `POST`。
 
-- `302` - Temporary redirect, will change the request method from `POST` to `GET`
-- `307` - Temporary redirect, will preserve the request method as `POST`
+- `302` - 临时重定向，将请求方法从 `POST` 改为 `GET`
+- `307` - 临时重定向，将保持请求方法为 `POST`
 
-The `redirect()` method uses a `307` by default, instead of a `302` temporary redirect, meaning your requests will _always_ be preserved as `POST` requests.
+`redirect()` 方法默认使用 `307`，而不是 `302` 临时重定向，这意味着你的请求将始终作为 `POST` 请求被保留。
 
-[Learn more](https://developer.mozilla.org/docs/Web/HTTP/Redirections) about HTTP Redirects.
+[了解更多](https://developer.mozilla.org/docs/Web/HTTP/Redirections) 关于 HTTP 重定向的信息。
 
-## Version History
+## 版本历史
 
-| Version   | Changes                |
+| 版本   | 变更                |
 | --------- | ---------------------- |
-| `v13.0.0` | `redirect` introduced. |
+| `v13.0.0` | 引入了 `redirect`。 |

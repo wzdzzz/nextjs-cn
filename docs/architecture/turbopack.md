@@ -1,13 +1,10 @@
----
-title: Turbopack
-description: Turbopack is an incremental bundler optimized for JavaScript and TypeScript, written in Rust, and built into Next.js.
----
+# Turbopack
 
-[Turbopack](https://turbo.build/pack) (beta) is an incremental bundler optimized for JavaScript and TypeScript, written in Rust, and built into Next.js.
+Turbopack 是一个为 JavaScript 和 TypeScript 优化的增量打包器，使用 Rust 编写，并内置于 Next.js 中。
 
-## Usage
+## 使用方法
 
-Turbopack can be used in Next.js in both the `pages` and `app` directories for faster local development. To enable Turbopack, use the `--turbo` flag when running the Next.js development server.
+Turbopack 可以在 Next.js 的 `pages` 和 `app` 目录中使用，以实现更快的本地开发。要启用 Turbopack，请在运行 Next.js 开发服务器时使用 `--turbo` 标志。
 
 ```json filename="package.json" highlight={3}
 {
@@ -20,43 +17,43 @@ Turbopack can be used in Next.js in both the `pages` and `app` directories for f
 }
 ```
 
-## Supported features
+## 支持的功能
 
-Turbopack in Next.js requires zero-configuration for most users and can be extended for more advanced use cases. To learn more about the currently supported features for Turbopack, view the [API Reference](/docs/app/api-reference/next-config-js/turbo).
+Next.js 中的 Turbopack 对大多数用户来说不需要任何配置，并且可以扩展以用于更高级的用例。要了解更多关于 Turbopack 当前支持的功能，请查看 [API 参考](/docs/app/api-reference/next-config-js/turbo)。
 
-## Unsupported features
+## 不支持的功能
 
-Turbopack currently only supports `next dev` and does not support `next build`. We are currently working on support for builds as we move closer towards stability.
+Turbopack 目前仅支持 `next dev`，不支持 `next build`。随着我们接近稳定性，我们目前正在努力支持构建。
 
-These features are currently not supported:
+目前不支持以下功能：
 
-- [`webpack()`](/docs/app/api-reference/next-config-js/webpack) configuration in `next.config.js`
-  - Turbopack replaces Webpack, this means that webpack configuration is not supported.
-  - To configure Turbopack, [see the documentation](/docs/app/api-reference/next-config-js/turbo).
-  - A subset of [Webpack loaders](/docs/app/api-reference/next-config-js/turbo#webpack-loaders) are supported in Turbopack.
+- [`webpack()`](/docs/app/api-reference/next-config-js/webpack) 配置在 `next.config.js` 中
+  - Turbopack 取代了 Webpack，这意味着不支持 Webpack 配置。
+  - 要配置 Turbopack，请[查看文档](/docs/app/api-reference/next-config-js/turbo)。
+  - Turbopack 支持 [Webpack 加载器](/docs/app/api-reference/next-config-js/turbo#webpack-loaders)的一个子集。
 - Babel (`.babelrc`)
-  - Turbopack leverages the [SWC](/docs/architecture/nextjs-compiler#why-swc) compiler for all transpilation and optimizations. This means that Babel is not included by default.
-  - If you have a `.babelrc` file, you might no longer need it because Next.js includes common Babel plugins as SWC transforms that can be enabled. You can read more about this in the [compiler documentation](docs/architecture/nextjs-compiler#supported-features).
-  - If you still need to use Babel after verifying your particular use case is not covered, you can leverage Turbopack's [support for custom webpack loaders](/docs/app/api-reference/next-config-js/turbo#webpack-loaders) to include `babel-loader`.
-- Creating a root layout automatically in App Router.
-  - This behavior is currently not supported since it changes input files, instead, an error will be shown for you manually add a root layout in the desired location.
-- `@next/font` (legacy font support).
-  - `@next/font` is deprecated in favor of `next/font`. [`next/font`](/docs/app/building-your-application/optimizing/fonts) is fully supported with Turbopack.
-- `new Worker('file', import.meta.url)`.
-  - We are planning to implement this in the future.
-- [Relay transforms](/docs/architecture/nextjs-compiler#relay)
-  - We are planning to implement this in the future.
+  - Turbopack 利用 [SWC](/docs/architecture/nextjs-compiler#why-swc) 编译器进行所有转译和优化。这意味着默认情况下不包括 Babel。
+  - 如果您有一个 `.babelrc` 文件，您可能不再需要它，因为 Next.js 包括了可以启用的常见的 Babel 插件作为 SWC 转换。您可以在[编译器文档](docs/architecture/nextjs-compiler#supported-features)中了解更多信息。
+  - 如果在确认您的特定用例没有被覆盖后，您仍然需要使用 Babel，您可以利用 Turbopack 的[对自定义 webpack 加载器的支持](/docs/app/api-reference/next-config-js/turbo#webpack-loaders)来包含 `babel-loader`。
+- 在 App Router 中自动创建根布局。
+  - 由于这种行为会更改输入文件，所以目前不支持，相反，会显示一个错误，提示您手动在所需位置添加根布局。
+- `@next/font`（旧版字体支持）。
+  - `@next/font` 已被 `next/font` 取代。[`next/font`](/docs/app/building-your-application/optimizing/fonts) 完全支持 Turbopack。
+- `new Worker('file', import.meta.url)`。
+  - 我们计划将来实现这一点。
+- [Relay 转换](/docs/architecture/nextjs-compiler#relay)
+  - 我们计划将来实现这一点。
 - `experimental.nextScriptWorkers`
-  - We are planning to implement this in the future.
-- [AMP](/docs/pages/building-your-application/configuring/amp).
-  - We are currently not planning to support AMP in Next.js with Turbopack.
+  - 我们计划将来实现这一点。
+- [AMP](/docs/pages/building-your-application/configuring/amp)。
+  - 我们目前不打算在 Next.js 中使用 Turbopack 支持 AMP。
 - Yarn PnP
-  - We are currently not planning to support Yarn PnP in Next.js with Turbopack.
+  - 我们目前不打算在 Next.js 中使用 Turbopack 支持 Yarn PnP。
 - [`experimental.urlImports`](/docs/app/api-reference/next-config-js/urlImports)
-  - We are currently not planning to support `experimental.urlImports` in Next.js with Turbopack.
+  - 我们目前不打算在 Next.js 中使用 Turbopack 支持 `experimental.urlImports`。
 
-## Generating Trace Files
+## 生成 Trace 文件
 
-Trace files allow the Next.js team to investigate and improve performance metrics and memory usage. To generate a trace file, append `NEXT_TURBOPACK_TRACING=1` to the `next dev --turbo` command, this will generate a `.next/trace.log` file.
+Trace 文件允许 Next.js 团队调查和改进性能指标和内存使用情况。要生成 trace 文件，请将 `NEXT_TURBOPACK_TRACING=1` 附加到 `next dev --turbo` 命令中，这将生成一个 `.next/trace.log` 文件。
 
-When reporting issues related to Turbopack performance and memory usage, please include the trace file in your [GitHub](https://github.com/vercel/next.js) issue.
+在报告与 Turbopack 性能和内存使用相关的的问题时，请在您的 [GitHub](https://github.com/vercel/next.js) 问题中包含 trace 文件。

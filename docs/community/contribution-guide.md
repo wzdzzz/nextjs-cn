@@ -1,42 +1,38 @@
----
-title: Docs Contribution Guide
-nav_title: Contribution Guide
-description: Learn how to contribute to Next.js Documentation
----
+# 文档贡献指南
 
-Welcome to the Next.js Docs Contribution Guide! We're excited to have you here.
+欢迎来到Next.js文档贡献指南！我们很高兴你来到这里。
 
-This page provides instructions on how to edit the Next.js documentation. Our goal is to ensure that everyone in the community feels empowered to contribute and improve our docs.
+本页面提供了如何编辑Next.js文档的说明。我们的目标是确保社区中的每个人都感到有能力贡献和改进我们的文档。
 
-## Why Contribute?
+## 为什么要贡献？
 
-Open-source work is never done, and neither is documentation. Contributing to docs is a good way for beginners to get involved in open-source and for experienced developers to clarify more complex topics while sharing their knowledge with the community.
+开源工作永无止境，文档工作也是如此。为文档贡献是初学者参与开源的好方式，也是经验丰富的开发人员澄清更复杂主题的同时与社区分享知识的方式。
 
-By contributing to the Next.js docs, you're helping us build a more robust learning resource for all developers. Whether you've found a typo, a confusing section, or you've realized that a particular topic is missing, your contributions are welcomed and appreciated.
+通过为Next.js文档贡献，你正在帮助我们为所有开发人员构建更强大的学习资源。无论你发现了一个错别字、一个令人困惑的部分，还是你意识到缺少某个特定主题，你的贡献都是受欢迎和受赞赏的。
 
-## How to Contribute
+## 如何贡献
 
-The docs content can be found on the [Next.js repo](https://github.com/vercel/next.js/tree/canary/docs). To contribute, you can edit the files directly on GitHub or clone the repo and edit the files locally.
+文档内容可以在[Next.js仓库](https://github.com/vercel/next.js/tree/canary/docs)中找到。要贡献，你可以直接在GitHub上编辑文件，或者克隆仓库并在本地编辑文件。
 
-### GitHub Workflow
+### GitHub工作流程
 
-If you're new to GitHub, we recommend reading the [GitHub Open Source Guide](https://opensource.guide/how-to-contribute/#opening-a-pull-request) to learn how to fork a repository, create a branch, and submit a pull request.
+如果你对GitHub不熟悉，我们建议你阅读[GitHub开源指南](https://opensource.guide/how-to-contribute/#opening-a-pull-request)，了解如何分叉仓库、创建分支和提交拉取请求。
 
-> **Good to know**: The underlying docs code lives in a private codebase that is synced to the Next.js public repo. This means that you can't preview the docs locally. However, you'll see your changes on [nextjs.org](https://nextjs.org/docs) after merging a pull request.
+> **须知**：底层文档代码位于一个私有代码库中，该代码库与Next.js公共仓库同步。这意味着你无法在本地预览文档。然而，在合并拉取请求后，你将在[nextjs.org](https://nextjs.org/docs)上看到你的更改。
 
-### Writing MDX
+### 编写MDX
 
-The docs are written in [MDX](https://mdxjs.com/), a markdown format that supports JSX syntax. This allows us to embed React components in the docs. See the [GitHub Markdown Guide](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) for a quick overview of markdown syntax.
+文档是用[MDX](https://mdxjs.com/)编写的，这是一种支持JSX语法的markdown格式。这允许我们在文档中嵌入React组件。有关markdown语法的快速概览，请参见[GitHub Markdown指南](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)。
 
 ### VSCode
 
-#### Previewing Changes Locally
+#### 本地预览更改
 
-VSCode has a built-in markdown previewer that you can use to see your edits locally. To enable the previewer for MDX files, you'll need to add a configuration option to your user settings.
+VSCode具有内置的markdown预览器，你可以使用它在本地查看你的编辑。要为MDX文件启用预览器，你需要在用户设置中添加一个配置选项。
 
-Open the command palette (`⌘ + ⇧ + P` on Mac or `Ctrl + Shift + P` on Windows) and search from `Preferences: Open User Settings (JSON)`.
+打开命令面板（在Mac上为`⌘ + ⇧ + P`，在Windows上为`Ctrl + Shift + P`），并搜索`Preferences: Open User Settings (JSON)`。
 
-Then, add the following line to your `settings.json` file:
+然后，将以下行添加到你的`settings.json`文件中：
 
 ```json filename="settings.json"
 {
@@ -46,31 +42,30 @@ Then, add the following line to your `settings.json` file:
 }
 ```
 
-Next, open the command palette again, and search for `Markdown: Preview File` or `Markdown: Open Preview to the Side`. This will open a preview window where you can see your formatted changes.
+接下来，再次打开命令面板，并搜索`Markdown: Preview File`或`Markdown: Open Preview to the Side`。这将打开一个预览窗口，你可以在其中查看你格式化后的更改。
 
-#### Extensions
+#### 扩展
 
-We also recommend the following extensions for VSCode users:
+我们还推荐VSCode用户使用以下扩展：
 
-- [MDX](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx): Intellisense and syntax highlighting for MDX.
-- [Grammarly](https://marketplace.visualstudio.com/items?itemName=znck.grammarly): Grammar and spell checker.
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode): Format MDX files on save.
+- [MDX](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx)：MDX的Intellisense和语法高亮。
+- [Grammarly](https://marketplace.visualstudio.com/items?itemName=znck.grammarly)：语法和拼写检查器。
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)：在保存时格式化MDX文件。
 
-### Review Process
+### 审核流程
 
-Once you've submitted your contribution, the Next.js or Developer Experience teams will review your changes, provide feedback, and merge the pull request when it's ready.
+一旦你提交了你的贡献，Next.js或开发体验团队将审查你的更改，提供反馈，并在准备好时合并拉取请求。
 
-Please let us know if you have any questions or need further assistance in your PR's comments. Thank you for contributing to the Next.js docs and being a part of our community!
+如果你有任何问题或需要在你的PR评论中进一步的帮助，请告诉我们。感谢你对Next.js文档的贡献，并成为我们社区的一部分！
 
-> **Tip:** Run `pnpm prettier-fix` to run Prettier before submitting your PR.
+> **提示**：在提交你的PR之前运行`pnpm prettier-fix`来运行Prettier。
+# 文件结构
 
-,## File Structure
+文档使用**文件系统路由**。在[`/docs`](https://github.com/vercel/next.js/tree/canary/docs)中的每个文件夹和文件都代表一个路由段。这些段用于生成URL路径、导航和面包屑。
 
-The docs use **file-system routing**. Each folder and files inside [`/docs`](https://github.com/vercel/next.js/tree/canary/docs) represent a route segment. These segments are used to generate the URL paths, navigation, and breadcrumbs.
+文件结构反映了您在网站上看到的导航，并且默认情况下，导航项是按字母顺序排序的。然而，我们可以通过在文件夹或文件名前添加两位数编号（`00-`）来改变这些项的顺序。
 
-The file structure reflects the navigation that you see on the site, and by default, navigation items are sorted alphabetically. However, we can change the order of the items by prepending a two-digit number (`00-`) to the folder or file name.
-
-For example, in the [functions API Reference](/docs/app/api-reference/functions), the pages are sorted alphabetically because it makes it easier for developers to find a specific function:
+例如，在[函数API参考](/docs/app/api-reference/functions)中，页面是按字母顺序排序的，因为这使得开发人员更容易找到特定的函数：
 
 ```txt
 03-functions
@@ -80,7 +75,7 @@ For example, in the [functions API Reference](/docs/app/api-reference/functions)
 └── ...
 ```
 
-But, in the [routing section](/docs/app/building-your-application/routing), the files are prefixed with a two-digit number, sorted in the order developers should learn these concepts:
+但在[路由部分](/docs/app/building-your-application/routing)中，文件名前缀为两位数，按照开发人员应该学习这些概念的顺序排序：
 
 ```txt
 02-routing
@@ -90,111 +85,108 @@ But, in the [routing section](/docs/app/building-your-application/routing), the 
 └── ...
 ```
 
-To quickly find a page, you can use `⌘ + P` (Mac) or `Ctrl + P` (Windows) to open the search bar on VSCode. Then, type the slug of the page you're looking for. E.g. `defining-routes`
+要快速找到页面，您可以使用`⌘ + P`（Mac）或`Ctrl + P`（Windows）在VSCode中打开搜索栏。然后，输入您要查找的页面的slug。例如`defining-routes`
 
-> **Why not use a manifest?**
+> **为什么不使用清单？**
 >
-> We considered using a manifest file (another popular way to generate the docs navigation), but we found that a manifest would quickly get out of sync with the files. File-system routing forces us to think about the structure of the docs and feels more native to Next.js.
+> 我们考虑过使用清单文件（另一种流行的生成文档导航的方法），但我们发现清单很快就会与文件脱节。文件系统路由迫使我们思考文档的结构，感觉更符合Next.js的风格。
 
-## Metadata
+# 元数据
 
-Each page has a metadata block at the top of the file separated by three dashes.
+每个页面在文件顶部都有一个元数据块，由三个破折号分隔。
 
-### Required Fields
+### 必填字段
 
-The following fields are **required**:
+以下是**必填**字段：
 
-| Field         | Description                                                                  |
+| 字段         | 描述                                                                  |
 | ------------- | ---------------------------------------------------------------------------- |
-| `title`       | The page's `<h1>` title, used for SEO and OG Images.                         |
-| `description` | The page's description, used in the `<meta name="description">` tag for SEO. |
+| `title`       | 页面的`<h1>`标题，用于SEO和OG图片。                         |
+| `description` | 页面的描述，用于`<meta name="description">`标签进行SEO。 |
 
 ```yaml filename="required-fields.mdx"
 ---
-title: Page Title
-description: Page Description
+title: 页面标题
+description: 页面描述
 ---
 ```
 
-It's good practice to limit the page title to 2-3 words (e.g. Optimizing Images) and the description to 1-2 sentences (e.g. Learn how to optimize images in Next.js).
+将页面标题限制在2-3个词（例如优化图片）和描述限制在1-2句话（例如了解如何在Next.js中优化图片）是一个好的实践。
 
-### Optional Fields
+### 可选字段
 
-The following fields are **optional**:
+以下是**可选**字段：
 
-| Field       | Description                                                                                                                                        |
+| 字段       | 描述                                                                                                                                        |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `nav_title` | Overrides the page's title in the navigation. This is useful when the page's title is too long to fit. If not provided, the `title` field is used. |
-| `source`    | Pulls content into a shared page. See [Shared Pages](#shared-pages).                                                                               |
-| `related`   | A list of related pages at the bottom of the document. These will automatically be turned into cards. See [Related Links](#related-links).         |
+| `nav_title` | 覆盖导航中的页面标题。当页面标题太长不适合时很有用。如果没有提供，将使用`title`字段。 |
+| `source`    | 将内容拉入共享页面。见[共享页面](#shared-pages)。                                                                               |
+| `related`   | 文档底部的相关页面列表。这些将自动转换为卡片。见[相关链接](#related-links)。         |
 
 ```yaml filename="optional-fields.mdx"
 ---
-nav_title: Nav Item Title
+nav_title: 导航项标题
 source: app/building-your-application/optimizing/images
 related:
-  description: See the image component API reference.
+  description: 查看图片组件API参考。
   links:
     - app/api-reference/components/image
 ---
 ```
+# `App` 和 `Pages` 文档
 
-,## `App` and `Pages` Docs
+由于 **App Router** 和 **Pages Router** 中的大部分功能完全不同，它们的文档分别放在不同的部分（`02-app` 和 `03-pages`）。然而，它们之间也有一些共同的功能。
 
-Since most of the features in the **App Router** and **Pages Router** are completely different, their docs for each are kept in separate sections (`02-app` and `03-pages`). However, there are a few features that are shared between them.
+### 共享页面
 
-### Shared Pages
-
-To avoid content duplication and risk the content becoming out of sync, we use the `source` field to pull content from one page into another. For example, the `<Link>` component behaves _mostly_ the same in **App** and **Pages**. Instead of duplicating the content, we can pull the content from `app/.../link.mdx` into `pages/.../link.mdx`:
+为了避免内容重复以及内容不同步的风险，我们使用 `source` 字段从一个页面拉取内容到另一个页面。例如，`<Link>` 组件在 **App** 和 **Pages** 中的行为几乎相同。我们不需要重复内容，而是可以从 `app/.../link.mdx` 拉取内容到 `pages/.../link.mdx`：
 
 ```mdx filename="app/.../link.mdx"
 ---
 title: <Link>
-description: API reference for the <Link> component.
+description: <Link> 组件的 API 参考。
 ---
 
-This API reference will help you understand how to use the props
-and configuration options available for the Link Component.
+这份 API 参考将帮助您了解如何使用 Link 组件的属性和配置选项。
 ```
 
 ```mdx filename="pages/.../link.mdx"
 ---
 title: <Link>
-description: API reference for the <Link> component.
+description: <Link> 组件的 API 参考。
 source: app/api-reference/components/link
 ---
 
-{/* DO NOT EDIT THIS PAGE. */}
-{/* The content of this page is pulled from the source above. */}
+{/* 不要编辑此页面。 */}
+{/* 此页面的内容是从上面的源拉取的。 */}
 ```
 
-We can therefore edit the content in one place and have it reflected in both sections.
+因此，我们可以在一个地方编辑内容，并在两个部分中反映出来。
 
-### Shared Content
+### 共享内容
 
-In shared pages, sometimes there might be content that is **App Router** or **Pages Router** specific. For example, the `<Link>` component has a `shallow` prop that is only available in **Pages** but not in **App**.
+在共享页面中，有时可能会有特定于 **App Router** 或 **Pages Router** 的内容。例如，`<Link>` 组件有一个 `shallow` 属性，仅在 **Pages** 中可用，而在 **App** 中不可用。
 
-To make sure the content only shows in the correct router, we can wrap content blocks in an `<AppOnly>` or `<PagesOnly>` components:
+为了确保内容只在正确的路由器中显示，我们可以将内容块包装在 `<AppOnly>` 或 `<PagesOnly>` 组件中：
 
 ```mdx filename="app/.../link.mdx"
-This content is shared between App and Pages.
+这部分内容在 App 和 Pages 之间共享。
 
 <PagesOnly>
 
-This content will only be shown on the Pages docs.
+这部分内容只会在 Pages 文档中显示。
 
 </PagesOnly>
 
-This content is shared between App and Pages.
+这部分内容在 App 和 Pages 之间共享。
 ```
 
-You'll likely use these components for examples and code blocks.
+您可能会使用这些组件来展示示例和代码块。
+# Code Blocks
 
-,## Code Blocks
+代码块应包含一个可复制粘贴的最小工作示例。这意味着代码应该能够在没有任何额外配置的情况下运行。
 
-Code blocks should contain a minimum working example that can be copied and pasted. This means that the code should be able to run without any additional configuration.
-
-For example, if you're showing how to use the `<Link>` component, you should include the `import` statement and the `<Link>` component itself.
+例如，如果您要展示如何使用`<Link>`组件，您应该包括`import`语句和`<Link>`组件本身。
 
 ```tsx filename="app/page.tsx"
 import Link from 'next/link'
@@ -204,11 +196,11 @@ export default function Page() {
 }
 ```
 
-Always run examples locally before committing them. This will ensure that the code is up-to-date and working.
+在提交之前，始终在本地运行示例。这将确保代码是最新的并且可以正常工作。
 
-### Language and Filename
+### 语言和文件名
 
-Code blocks should have a header that includes the language and the `filename`. Add a `filename` prop to render a special Terminal icon that helps orientate users where to input the command. For example:
+代码块应该有一个标题，包括语言和`filename`。添加一个`filename`属性以呈现一个特殊的终端图标，帮助用户定位在哪里输入命令。例如：
 
 ````mdx filename="code-example.mdx"
 ```bash filename="Terminal"
@@ -216,22 +208,22 @@ npx create-next-app
 ```
 ````
 
-Most examples in the docs are written in `tsx` and `jsx`, and a few in `bash`. However, you can use any supported language, here's the [full list](https://github.com/shikijs/shiki/blob/main/docs/languages.md#all-languages).
+文档中的大多数示例都是用`tsx`和`jsx`编写的，还有一些是用`bash`编写的。但是，您可以使用任何支持的语言，这是[完整列表](https://github.com/shikijs/shiki/blob/main/docs/languages.md#all-languages)。
 
-When writing JavaScript code blocks, we use the following language and extension combinations.
+编写JavaScript代码块时，我们使用以下语言和扩展名组合。
 
-|                                | Language | Extension |
-| ------------------------------ | -------- | --------- |
-| JavaScript files with JSX code | ```jsx   | .js       |
-| JavaScript files without JSX   | ```js    | .js       |
-| TypeScript files with JSX      | ```tsx   | .tsx      |
-| TypeScript files without JSX   | ```ts    | .ts       |
+|                                | 语言   | 扩展名    |
+| ------------------------------ | ------ | --------- |
+| 包含JSX代码的JavaScript文件   | ```jsx | .js       |
+| 不包含JSX的JavaScript文件     | ```js  | .js       |
+| 包含JSX的TypeScript文件       | ```tsx | .tsx      |
+| 不包含JSX的TypeScript文件     | ```ts  | .ts       |
 
-### TS and JS Switcher
+### TS和JS切换器
 
-Add a language switcher to toggle between TypeScript and JavaScript. Code blocks should be TypeScript first with a JavaScript version to accommodate users.
+添加一个语言切换器，在TypeScript和JavaScript之间切换。代码块应该是TypeScript优先，并提供JavaScript版本以适应用户。
 
-Currently, we write TS and JS examples one after the other, and link them with `switcher` prop:
+目前，我们先后编写TS和JS示例，并使用`switcher`属性将它们链接起来：
 
 ````mdx filename="code-example.mdx"
 ```tsx filename="app/page.tsx" switcher
@@ -243,13 +235,13 @@ Currently, we write TS and JS examples one after the other, and link them with `
 ```
 ````
 
-> **Good to know**: We plan to automatically compile TypeScript snippets to JavaScript in the future. In the meantime, you can use [transform.tools](https://transform.tools/typescript-to-javascript).
+> **须知**：我们计划将来自动将TypeScript代码片段编译为JavaScript。与此同时，您可以使用[transform.tools](https://transform.tools/typescript-to-javascript)。
 
-### Line Highlighting
+### 行高亮
 
-Code lines can be highlighted. This is useful when you want to draw attention to a specific part of the code. You can highlight lines by passing a number to the `highlight` prop.
+可以高亮显示代码行。当您想要引起对代码的特定部分的注意时，这非常有用。您可以通过将数字传递给`highlight`属性来高亮显示行。
 
-**Single Line:** `highlight={1}`
+**单行**：`highlight={1}`
 
 ```tsx filename="app/page.tsx" {1}
 import Link from 'next/link'
@@ -259,7 +251,7 @@ export default function Page() {
 }
 ```
 
-**Multiple Lines:** `highlight={1,3}`
+**多行**：`highlight={1,3}`
 
 ```tsx filename="app/page.tsx" highlight={1,3}
 import Link from 'next/link'
@@ -269,7 +261,7 @@ export default function Page() {
 }
 ```
 
-**Range of Lines:** `highlight={1-5}`
+**行范围**：`highlight={1-5}`
 
 ```tsx filename="app/page.tsx" highlight={1-5}
 import Link from 'next/link'
@@ -279,25 +271,25 @@ export default function Page() {
 }
 ```
 
-## Icons
+# Icons
 
-The following icons are available for use in the docs:
+以下是文档中可用的图标：
 
 ```mdx filename="mdx-icon.mdx"
 <Check size={18} />
 <Cross size={18} />
 ```
 
-**Output:**
+**输出：**
 
 <Check size={18} />
 <Cross size={18} />
 
-We do not use emojis in the docs.
+我们不在文档中使用表情符号。
 
-## Notes
+# Notes
 
-For information that is important but not critical, use notes. Notes are a good way to add information without distracting the user from the main content.
+对于重要但不关键的信息，请使用注释。注释是添加信息的好方法，不会分散用户对主要内容的注意力。
 
 ```mdx filename="notes.mdx"
 > **Good to know**: This is a single line note.
@@ -308,28 +300,29 @@ For information that is important but not critical, use notes. Notes are a good 
 > - There are sometimes multiple items worth knowing or keeping in mind.
 ```
 
-**Output:**
+**输出：**
 
-> **Good to know**: This is a single line note.
+> **须知**：这是单行注释。
 
-> **Good to know**:
+> **须知**：
 >
-> - We also use this format for multi-line notes.
-> - There are sometimes multiple item worths knowing or keeping in mind.
+> - 我们还使用这种格式进行多行注释。
+> - 有时有多个项目值得了解或记住。
+# Related Links
 
-,## Related Links
+## 相关链接
 
-Related Links guide the user's learning journey by adding links to logical next steps.
+相关链接通过添加到逻辑下一步的链接来指导用户的学习旅程。
 
-- Links will be displayed in cards under the main content of the page.
-- Links will be automatically generated for pages that have child pages. For example, the [Optimizing](/docs/app/building-your-application/optimizing) section has links to all of its child pages.
+- 链接将在页面主要内容下的卡片中显示。
+- 对于具有子页面的页面，链接将自动生成。例如，[优化](/docs/app/building-your-application/optimizing)部分有指向其所有子页面的链接。
 
-Create related links using the `related` field in the page's metadata.
+使用页面元数据中的`related`字段创建相关链接。
 
 ```yaml filename="example.mdx"
 ---
 related:
-  description: Learn how to quickly get started with your first application.
+  description: 学习如何快速开始使用您的第一个应用程序。
   links:
     - app/building-your-application/routing/defining-routes
     - app/building-your-application/data-fetching
@@ -337,73 +330,72 @@ related:
 ---
 ```
 
-### Nested Fields
+### 嵌套字段
 
-| Field         | Required? | Description                                                                                                                                               |
-| ------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `title`       | Optional  | The title of the card list. Defaults to **Next Steps**.                                                                                                   |
-| `description` | Optional  | The description of the card list.                                                                                                                         |
-| `links`       | Required  | A list of links to other doc pages. Each list item should be a relative URL path (without a leading slash) e.g. `app/api-reference/file-conventions/page` |
+| 字段         | 必需？ | 描述                                                                                                                  |
+| ------------ | ------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `title`      | 可选   | 卡片列表的标题。默认为**下一步**。                                                                                         |
+| `description`| 可选   | 卡片列表的描述。                                                                                                       |
+| `links`      | 必需   | 指向其他文档页面的链接列表。每个列表项应该是一个相对URL路径（不带前导斜杠）例如`app/api-reference/file-conventions/page` |
 
 ## Diagrams
 
-Diagrams are a great way to explain complex concepts. We use [Figma](https://www.figma.com/) to create diagrams, following Vercel's design guide.
+## 图表
 
-The diagrams currently live in the `/public` folder in our private Next.js site. If you'd like to update or add a diagram, please open a [GitHub issue](https://github.com/vercel/next.js/issues/new?assignees=&labels=template%3A+documentation&projects=&template=4.docs_request.yml&title=Docs%3A+) with your ideas.
+图表是解释复杂概念的好方法。我们使用[Figma](https://www.figma.com/)创建图表，遵循Vercel的设计指南。
+
+图表目前位于我们私有Next.js站点的`/public`文件夹中。如果您想更新或添加图表，请打开一个[GitHub issue](https://github.com/vercel/next.js/issues/new?assignees=&labels=template%3A+documentation&projects=&template=4.docs_request.yml&title=Docs%3A+)与您的想法。
 
 ## Custom Components and HTML
 
-These are the React Components available for the docs: `<Image />` (next/image), `<PagesOnly />`, `<AppOnly />`, `<Cross />`, and `<Check />`. We do not allow raw HTML in the docs besides the `<details>` tag.
+## 自定义组件和HTML
 
-If you have ideas for new components, please open a [GitHub issue](https://github.com/vercel/next.js/issues/new/choose).
+这些是文档中可用的React组件：`<Image />` (next/image), `<PagesOnly />`, `<AppOnly />`, `<Cross />`, 和 `<Check />`。我们不允许在文档中使用除了`<details>`标签之外的原始HTML。
 
-,## Style Guide
+如果您有新组件的想法，请打开一个[GitHub issue](https://github.com/vercel/next.js/issues/new/choose)。
+# Style Guide
 
-This section contains guidelines for writing docs for those who are new to technical writing.
+### 页面模板
 
-### Page Templates
+虽然我们没有严格的页面模板，但你会看到文档中反复出现的页面部分：
 
-While we don't have a strict template for pages, there are page sections you'll see repeated across the docs:
+- **概述：** 页面的第一段应该告诉用户这个功能是什么以及它的用途。然后是最小工作示例或其API引用。
+- **约定：** 如果功能有约定，应该在这里解释。
+- **示例**：展示该功能如何与不同的用例一起使用。
+- **API表格**：API页面应该在页面顶部有一个概述表，并有跳转到各节的链接（如果可能的话）。
+- **下一步（相关链接）**：添加相关页面的链接，以指导用户的学习旅程。
 
-- **Overview:** The first paragraph of a page should tell the user what the feature is and what it's used for. Followed by a minimum working example or its API reference.
-- **Convention:** If the feature has a convention, it should be explained here.
-- **Examples**: Show how the feature can be used with different use cases.
-- **API Tables**: API Pages should have an overview table at the of the page with jump-to-section links (when possible).
-- **Next Steps (Related Links)**: Add links to related pages to guide the user's learning journey.
+根据需要随意添加这些部分。
 
-Feel free to add these sections as needed.
+### 页面类型
 
-### Page Types
+文档页面也分为两类：概念性和参考性。
 
-Docs pages are also split into two categories: Conceptual and Reference.
+- **概念性** 页面用于解释一个概念或功能。它们通常比参考页面更长，包含更多信息。在Next.js文档中，概念页面位于**构建你的应用**部分。
+- **参考** 页面用于解释特定的API。它们通常更短，更专注。在Next.js文档中，参考页面位于**API参考**部分。
 
-- **Conceptual** pages are used to explain a concept or feature. They are usually longer and contain more information than reference pages. In the Next.js docs, conceptual pages are found in the **Building Your Application** section.
-- **Reference** pages are used to explain a specific API. They are usually shorter and more focused. In the Next.js docs, reference pages are found in the **API Reference** section.
+> **须知**：根据你正在贡献的页面，你可能需要遵循不同的声音和风格。例如，概念页面更具指导性，使用“你”这个词来称呼用户。参考页面更技术性，它们使用更多命令性的词语，如“创建、更新、接受”，并且倾向于省略“你”这个词。
 
-> **Good to know**: Depending on the page you're contributing to, you may need to follow a different voice and style. For example, conceptual pages are more instructional and use the word _you_ to address the user. Reference pages are more technical, they use more imperative words like "create, update, accept" and tend to omit the word _you_.
+### 语气
 
-### Voice
+以下是一些指导方针，以保持文档的一致风格和语气：
 
-Here are some guidelines to maintain a consistent style and voice across the docs:
+- 写出清晰、简洁的句子。避免离题。
+  - 如果你发现自己使用了很多逗号，考虑将句子拆分成多个句子或使用列表。
+  - 用更简单的词替换复杂的词。例如，使用“use”而不是“utilize”。
+- 注意使用“this”这个词。它可能是模糊和令人困惑的，如果不清楚，不要害怕重复句子的主语。
+  - 例如，“Next.js uses React”而不是“Next.js uses this”。
+- 使用主动语态而不是被动语态。主动句更容易阅读。
+  - 例如，“Next.js uses React”而不是“React is used by Next.js”。如果你发现自己使用了“was”和“by”这样的词，你可能正在使用被动语态。
+- 避免使用“easy”、“quick”、“simple”、“just”等词语。这是主观的，可能会让用户感到沮丧。
+- 避免使用否定词，如“don't”、“can't”、“won't”等。这可能会让读者感到沮丧。
+  - 例如，“你可以使用`Link`组件在页面之间创建链接”而不是“不要使用`<a>`标签在页面之间创建链接”。
+- 使用第二人称（你/你的）。这更个人化，更有吸引力。
+- 使用性别中立的语言。在提到受众时，使用“developers”、“users”或“readers”。
+- 如果添加代码示例，请确保它们格式正确且可工作。
 
-- Write clear, concise sentences. Avoid tangents.
-  - If you find yourself using a lot of commas, consider breaking the sentence into multiple sentences or use a list.
-  - Swap out complex words for simpler ones. For example, _use_ instead of _utilize_.
-- Be mindful with the word _this_. It can be ambiguous and confusing, don't be afraid to repeat the subject of the sentence if unclear.
-  - For example, _Next.js uses React_ instead of _Next.js uses this_.
-- Use an active voice instead of passive. An active sentence is easier to read.
-  - For example, _Next.js uses React_ instead of _React is used by Next.js_. If you find yourself using words like _was_ and _by_ you may be using a passive voice.
-- Avoid using words like _easy_, _quick_, _simple_, _just_, etc. This is subjective and can be discouraging to users.
-- Avoid negative words like _don't_, _can't_, _won't_, etc. This can be discouraging to readers.
-  - For example, _"You can use the `Link` component to create links between pages"_ instead of _"Don't use the `<a>` tag to create links between pages"_.
-- Write in second person (you/your). This is more personal and engaging.
-- Use gender-neutral language. Use _developers_, _users_, or _readers_, when referring to the audience.
-- If adding code examples, ensure they are properly formatted and working.
-
-While these guidelines are not exhaustive, they should help you get started. If you'd like to dive deeper into technical writing, check out the [Google Technical Writing Course](https://developers.google.com/tech-writing/overview).
+虽然这些指导方针不是详尽无遗的，但它们应该可以帮助你开始。如果你想深入了解技术写作，请查看[Google技术写作课程](https://developers.google.com/tech-writing/overview)。
 
 ---
 
-Thank you for contributing to the docs and being part of the Next.js community!
-
-{/* To do: Latest Contributors Component */}
+感谢你对文档的贡献，成为Next.js社区的一部分！

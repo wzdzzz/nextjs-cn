@@ -1,51 +1,51 @@
 ---
-title: Version 11
-description: Upgrade your Next.js Application from Version 10 to Version 11.
+title: 版本 11
+description: 将您的 Next.js 应用程序从版本 10 升级到版本 11。
 ---
 
-To upgrade to version 11, run the following command:
+要升级到版本 11，请运行以下命令：
 
-```bash filename="Terminal"
+```bash filename="终端"
 npm i next@11 react@17 react-dom@17
 ```
 
-```bash filename="Terminal"
+```bash filename="终端"
 yarn add next@11 react@17 react-dom@17
 ```
 
-```bash filename="Terminal"
+```bash filename="终端"
 pnpm up next@11 react@17 react-dom@17
 ```
 
-```bash filename="Terminal"
+```bash filename="终端"
 bun add next@11 react@17 react-dom@17
 ```
 
-> **Good to know:** If you are using TypeScript, ensure you also upgrade `@types/react` and `@types/react-dom` to their corresponding versions.
+> **须知：** 如果您正在使用 TypeScript，请确保也将 `@types/react` 和 `@types/react-dom` 升级到相应的版本。
 
 ### Webpack 5
 
-Webpack 5 is now the default for all Next.js applications. If you did not have a custom webpack configuration, your application is already using webpack 5. If you do have a custom webpack configuration, you can refer to the [Next.js webpack 5 documentation](/docs/messages/webpack5) for upgrade guidance.
+Webpack 5 现在是所有 Next.js 应用程序的默认配置。如果您没有自定义 webpack 配置，您的应用程序已经在使用 webpack 5。如果您有自定义 webpack 配置，可以参考 [Next.js webpack 5 文档](/docs/messages/webpack5) 进行升级指导。
 
-### Cleaning the `distDir` is now a default
+### 清理 `distDir` 现在是默认行为
 
-The build output directory (defaults to `.next`) is now cleared by default except for the Next.js caches. You can refer to [the cleaning `distDir` RFC](https://github.com/vercel/next.js/discussions/6009) for more information.
+构建输出目录（默认为 `.next`）现在默认情况下会被清除，除了 Next.js 缓存之外。您可以查看 [清理 `distDir` RFC](https://github.com/vercel/next.js/discussions/6009) 以获取更多信息。
 
-If your application was relying on this behavior previously you can disable the new default behavior by adding the `cleanDistDir: false` flag in `next.config.js`.
+如果您的应用程序之前依赖于此行为，您可以通过在 `next.config.js` 中添加 `cleanDistDir: false` 标志来禁用此新默认行为。
 
-### `PORT` is now supported for `next dev` and `next start`
+### `PORT` 现在支持 `next dev` 和 `next start`
 
-Next.js 11 supports the `PORT` environment variable to set the port the application runs on. Using `-p`/`--port` is still recommended but if you were prohibited from using `-p` in any way you can now use `PORT` as an alternative:
+Next.js 11 支持使用 `PORT` 环境变量来设置应用程序运行的端口。尽管仍然推荐使用 `-p`/`--port`，但如果由于某种原因您无法使用 `-p`，现在可以使用 `PORT` 作为替代方案：
 
-Example:
+示例：
 
 ```
 PORT=4000 next start
 ```
 
-### `next.config.js` customization to import images
+### `next.config.js` 自定义以导入图片
 
-Next.js 11 supports static image imports with `next/image`. This new feature relies on being able to process image imports. If you previously added the `next-images` or `next-optimized-images` packages you can either move to the new built-in support using `next/image` or disable the feature:
+Next.js 11 支持使用 `next/image` 静态导入图片。这项新功能依赖于能够处理图片导入。如果您之前添加了 `next-images` 或 `next-optimized-images` 包，您可以要么迁移到使用 `next/image` 的新内置支持，要么禁用该特性：
 
 ```js filename="next.config.js"
 module.exports = {
@@ -55,45 +55,44 @@ module.exports = {
 }
 ```
 
-### Remove `super.componentDidCatch()` from `pages/_app.js`
+### 从 `pages/_app.js` 中移除 `super.componentDidCatch()`
 
-The `next/app` component's `componentDidCatch` was deprecated in Next.js 9 as it's no longer needed and has since been a no-op. In Next.js 11, it was removed.
+`next/app` 组件的 `componentDidCatch` 在 Next.js 9 中已被弃用，因为它不再需要，并且自此以后一直无操作。在 Next.js 11 中，它已被移除。
 
-If your `pages/_app.js` has a custom `componentDidCatch` method you can remove `super.componentDidCatch` as it is no longer needed.
+如果您的 `pages/_app.js` 有一个自定义的 `componentDidCatch` 方法，您可以移除 `super.componentDidCatch`，因为它不再需要。
 
-### Remove `Container` from `pages/_app.js`
+### 从 `pages/_app.js` 中移除 `Container`
 
-This export was deprecated in Next.js 9 as it's no longer needed and has since been a no-op with a warning during development. In Next.js 11 it was removed.
+这个导出在 Next.js 9 中已被弃用，因为它不再需要，并且在开发期间一直带有警告。在 Next.js 11 中它已被移除。
 
-If your `pages/_app.js` imports `Container` from `next/app` you can remove `Container` as it was removed. Learn more in [the documentation](/docs/messages/app-container-deprecated).
+如果您的 `pages/_app.js` 从 `next/app` 导入了 `Container`，您可以移除 `Container`，因为它已被移除。在 [文档](/docs/messages/app-container-deprecated) 中了解更多。
 
-### Remove `props.url` usage from page components
+### 从页面组件中移除 `props.url` 使用
 
-This property was deprecated in Next.js 4 and has since shown a warning during development. With the introduction of `getStaticProps` / `getServerSideProps` these methods already disallowed the usage of `props.url`. In Next.js 11, it was removed completely.
+这个属性在 Next.js 4 中已被弃用，并且自此以后在开发期间一直显示警告。随着 `getStaticProps` / `getServerSideProps` 的引入，这些方法已经不允许使用 `props.url`。在 Next.js 11 中，它被完全移除。
 
-You can learn more in [the documentation](/docs/messages/url-deprecated).
+您可以在 [文档](/docs/messages/url-deprecated) 中了解更多。
 
-### Remove `unsized` property on `next/image`
+### 从 `next/image` 中移除 `unsized` 属性
 
-The `unsized` property on `next/image` was deprecated in Next.js 10.0.1. You can use `layout="fill"` instead. In Next.js 11 `unsized` was removed.
+`next/image` 上的 `unsized` 属性在 Next.js 10.0.1 中已被弃用。您可以改用 `layout="fill"`。在 Next.js 11 中 `unsized` 已被移除。
 
-### Remove `modules` property on `next/dynamic`
+### 从 `next/dynamic` 中移除 `modules` 属性
 
-The `modules` and `render` option for `next/dynamic` were deprecated in Next.js 9.5. This was done in order to make the `next/dynamic` API closer to `React.lazy`. In Next.js 11, the `modules` and `render` options were removed.
+`next/dynamic` 的 `modules` 和 `render` 选项在 Next.js 9.5 中已被弃用。这样做是为了使 `next/dynamic` API 更接近 `React.lazy`。在 Next.js 11 中，`modules` 和 `render` 选项已被移除。
 
-This option hasn't been mentioned in the documentation since Next.js 8 so it's less likely that your application is using it.
+自从 Next.js 8 以来，这个选项就没有在文档中提到，所以您的应用程序使用它的可能性较小。
 
-If your application does use `modules` and `render` you can refer to [the documentation](/docs/messages/next-dynamic-modules).
+如果您的应用程序确实使用了 `modules` 和 `render`，您可以查看 [文档](/docs/messages/next-dynamic-modules)。
+### 移除 `Head.rewind`
 
-,### Remove `Head.rewind`
+`Head.rewind` 自 Next.js 9.5 起就已无操作，而在 Next.js 11 中已被移除。您可以安全地移除对 `Head.rewind` 的使用。
 
-`Head.rewind` has been a no-op since Next.js 9.5, in Next.js 11 it was removed. You can safely remove your usage of `Head.rewind`.
+### 默认排除 Moment.js 语言环境
 
-### Moment.js locales excluded by default
+Moment.js 默认包含了许多语言环境的翻译。Next.js 现在会自动默认排除这些语言环境，以优化使用 Moment.js 的应用程序的打包大小。
 
-Moment.js includes translations for a lot of locales by default. Next.js now automatically excludes these locales by default to optimize bundle size for applications using Moment.js.
-
-To load a specific locale use this snippet:
+要加载特定的语言环境，请使用以下代码片段：
 
 ```js
 import moment from 'moment'
@@ -102,11 +101,11 @@ import 'moment/locale/ja'
 moment.locale('ja')
 ```
 
-You can opt-out of this new default by adding `excludeDefaultMomentLocales: false` to `next.config.js` if you do not want the new behavior, do note it's highly recommended to not disable this new optimization as it significantly reduces the size of Moment.js.
+如果您不希望使用这种新默认行为，可以通过在 `next.config.js` 中添加 `excludeDefaultMomentLocales: false` 来选择退出，但请注意，强烈建议不要禁用这种新的优化，因为它显著减少了 Moment.js 的大小。
 
-### Update usage of `router.events`
+### 更新 `router.events` 的使用
 
-In case you're accessing `router.events` during rendering, in Next.js 11 `router.events` is no longer provided during pre-rendering. Ensure you're accessing `router.events` in `useEffect`:
+如果您在渲染期间访问 `router.events`，在 Next.js 11 中，`router.events` 在预渲染期间不再提供。确保您在 `useEffect` 中访问 `router.events`：
 
 ```js
 useEffect(() => {
@@ -120,29 +119,28 @@ useEffect(() => {
 
   router.events.on('routeChangeStart', handleRouteChange)
 
-  // If the component is unmounted, unsubscribe
-  // from the event with the `off` method:
+  // 如果组件被卸载，使用 `off` 方法从事件中取消订阅：
   return () => {
     router.events.off('routeChangeStart', handleRouteChange)
   }
 }, [router])
 ```
 
-If your application uses `router.router.events` which was an internal property that was not public please make sure to use `router.events` as well.
+如果您的应用程序使用了 `router.router.events`，这是一个不是公开属性的内部属性，请确保也使用 `router.events`。
 
-## React 16 to 17
+### React 16 升级到 17
 
-React 17 introduced a new [JSX Transform](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html) that brings a long-time Next.js feature to the wider React ecosystem: Not having to `import React from 'react'` when using JSX. When using React 17 Next.js will automatically use the new transform. This transform does not make the `React` variable global, which was an unintended side-effect of the previous Next.js implementation. A [codemod is available](/docs/pages/building-your-application/upgrading/codemods#add-missing-react-import) to automatically fix cases where you accidentally used `React` without importing it.
+React 17 引入了一个新的 [JSX Transform](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)，它将长期以来 Next.js 的特性带到了更广泛的 React 生态系统中：在使用 JSX 时不必 `import React from 'react'`。当使用 React 17 时，Next.js 将自动使用新的转换。这个转换不会使 `React` 变量全局化，这是之前 Next.js 实现的一个意外副作用。[有一个 codemod 可用](/docs/pages/building-your-application/upgrading/codemods#add-missing-react-import) 来自动修复您不小心在没有导入的情况下使用了 `React` 的情况。
 
-Most applications already use the latest version of React, with Next.js 11 the minimum React version has been updated to 17.0.2.
+大多数应用程序已经使用了最新版本的 React，随着 Next.js 11 的发布，React 的最低版本已更新为 17.0.2。
 
-To upgrade you can run the following command:
+要升级，您可以运行以下命令：
 
 ```
 npm install react@latest react-dom@latest
 ```
 
-Or using `yarn`:
+或者使用 `yarn`：
 
 ```
 yarn add react@latest react-dom@latest

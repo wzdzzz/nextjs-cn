@@ -1,11 +1,11 @@
 ---
 title: robots.txt
-description: API Reference for robots.txt file.
+description: robots.txt文件的API参考。
 ---
 
-Add or generate a `robots.txt` file that matches the [Robots Exclusion Standard](https://en.wikipedia.org/wiki/Robots.txt#Standard) in the **root** of `app` directory to tell search engine crawlers which URLs they can access on your site.
+在`app`目录的**根**目录中添加或生成一个符合[Robots Exclusion Standard](https://en.wikipedia.org/wiki/Robots.txt#Standard)的`robots.txt`文件，以告诉搜索引擎爬虫它们可以访问您网站上的哪些URL。
 
-## Static `robots.txt`
+## 静态`robots.txt`
 
 ```txt filename="app/robots.txt"
 User-Agent: *
@@ -15,9 +15,9 @@ Disallow: /private/
 Sitemap: https://acme.com/sitemap.xml
 ```
 
-## Generate a Robots file
+## 生成Robots文件
 
-Add a `robots.js` or `robots.ts` file that returns a [`Robots` object](#robots-object).
+添加一个`robots.js`或`robots.ts`文件，该文件返回一个[`Robots`对象](#robots对象)。
 
 ```ts filename="app/robots.ts" switcher
 import { MetadataRoute } from 'next'
@@ -47,7 +47,7 @@ export default function robots() {
 }
 ```
 
-Output:
+输出：
 
 ```txt
 User-Agent: *
@@ -57,9 +57,9 @@ Disallow: /private/
 Sitemap: https://acme.com/sitemap.xml
 ```
 
-### Customizing specific user agents
+### 定制特定用户代理
 
-You can customise how individual search engine bots crawl your site by passing an array of user agents to the `rules` property. For example:
+您可以通过将用户代理数组传递给`rules`属性，定制个别搜索引擎爬虫如何爬取您的网站。例如：
 
 ```ts filename="app/robots.ts" switcher
 import type { MetadataRoute } from 'next'
@@ -101,7 +101,7 @@ export default function robots() {
 }
 ```
 
-Output:
+输出：
 
 ```txt
 User-Agent: Googlebot
@@ -117,7 +117,7 @@ Disallow: /
 Sitemap: https://acme.com/sitemap.xml
 ```
 
-### Robots object
+### Robots对象
 
 ```tsx
 type Robots = {
@@ -139,8 +139,10 @@ type Robots = {
 }
 ```
 
-## Version History
+## 版本历史
 
-| Version   | Changes              |
+| 版本   | 变更              |
 | --------- | -------------------- |
-| `v13.3.0` | `robots` introduced. |
+| `v13.3.0` | 引入了`robots`。 |
+
+---

@@ -1,35 +1,35 @@
 ---
 title: NextResponse
-description: API Reference for NextResponse.
+description: NextResponse的API参考文档。
 ---
 
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
+{/* 本文档的内容在应用和页面路由器之间共享。您可以使用`<PagesOnly>Content</PagesOnly>`组件添加特定于页面路由器的内容。任何共享的内容都不应被包装在组件中。 */}
 
-NextResponse extends the [Web Response API](https://developer.mozilla.org/docs/Web/API/Response) with additional convenience methods.
+NextResponse在[Web Response API](https://developer.mozilla.org/docs/Web/API/Response)的基础上扩展了额外的便利方法。
 
 ## `cookies`
 
-Read or mutate the [`Set-Cookie`](https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie) header of the response.
+读取或修改响应的[`Set-Cookie`](https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie)头部。
 
 ### `set(name, value)`
 
-Given a name, set a cookie with the given value on the response.
+给定一个名称，为响应设置一个具有给定值的cookie。
 
 ```ts
-// Given incoming request /home
+// 给定传入请求 /home
 let response = NextResponse.next()
-// Set a cookie to hide the banner
+// 设置一个cookie以隐藏横幅
 response.cookies.set('show-banner', 'false')
-// Response will have a `Set-Cookie:show-banner=false;path=/home` header
+// 响应将具有一个`Set-Cookie:show-banner=false;path=/home`头部
 return response
 ```
 
 ### `get(name)`
 
-Given a cookie name, return the value of the cookie. If the cookie is not found, `undefined` is returned. If multiple cookies are found, the first one is returned.
+给定一个cookie名称，返回cookie的值。如果未找到cookie，则返回`undefined`。如果找到多个cookie，则返回第一个。
 
 ```ts
-// Given incoming request /home
+// 给定传入请求 /home
 let response = NextResponse.next()
 // { name: 'show-banner', value: 'false', Path: '/home' }
 response.cookies.get('show-banner')
@@ -37,34 +37,34 @@ response.cookies.get('show-banner')
 
 ### `getAll()`
 
-Given a cookie name, return the values of the cookie. If no name is given, return all cookies on the response.
+给定一个cookie名称，返回cookie的值。如果没有指定名称，则返回响应上的所有cookie。
 
 ```ts
-// Given incoming request /home
+// 给定传入请求 /home
 let response = NextResponse.next()
 // [
 //   { name: 'experiments', value: 'new-pricing-page', Path: '/home' },
 //   { name: 'experiments', value: 'winter-launch', Path: '/home' },
 // ]
 response.cookies.getAll('experiments')
-// Alternatively, get all cookies for the response
+// 或者，获取响应的所有cookie
 response.cookies.getAll()
 ```
 
 ### `delete(name)`
 
-Given a cookie name, delete the cookie from the response.
+给定一个cookie名称，从响应中删除cookie。
 
 ```ts
-// Given incoming request /home
+// 给定传入请求 /home
 let response = NextResponse.next()
-// Returns true for deleted, false is nothing is deleted
+// 返回已删除的true，如果没有删除则返回false
 response.cookies.delete('experiments')
 ```
 
 ## `json()`
 
-Produce a response with the given JSON body.
+生成一个具有给定JSON正文的响应。
 
 ```ts filename="app/api/route.ts" switcher
 import { NextResponse } from 'next/server'
@@ -84,7 +84,7 @@ export async function GET(request) {
 
 ## `redirect()`
 
-Produce a response that redirects to a [URL](https://developer.mozilla.org/docs/Web/API/URL).
+生成一个重定向到[URL](https://developer.mozilla.org/docs/Web/API/URL)的响应。
 
 ```ts
 import { NextResponse } from 'next/server'
@@ -92,34 +92,33 @@ import { NextResponse } from 'next/server'
 return NextResponse.redirect(new URL('/new', request.url))
 ```
 
-The [URL](https://developer.mozilla.org/docs/Web/API/URL) can be created and modified before being used in the `NextResponse.redirect()` method. For example, you can use the `request.nextUrl` property to get the current URL, and then modify it to redirect to a different URL.
+可以在`NextResponse.redirect()`方法中使用之前创建和修改[URL](https://developer.mozilla.org/docs/Web/API/URL)。例如，您可以使用`request.nextUrl`属性获取当前URL，然后修改它以重定向到不同的URL。
 
 ```ts
 import { NextResponse } from 'next/server'
 
-// Given an incoming request...
+// 给定一个传入请求...
 const loginUrl = new URL('/login', request.url)
-// Add ?from=/incoming-url to the /login URL
+// 在/login URL上添加`?from=/incoming-url`
 loginUrl.searchParams.set('from', request.nextUrl.pathname)
-// And redirect to the new URL
+// 然后重定向到新的URL
 return NextResponse.redirect(loginUrl)
 ```
 
 ## `rewrite()`
 
-Produce a response that rewrites (proxies) the given [URL](https://developer.mozilla.org/docs/Web/API/URL) while preserving the original URL.
+生成一个重写（代理）给定[URL](https://developer.mozilla.org/docs/Web/API/URL)的响应，同时保留原始URL。
 
 ```ts
 import { NextResponse } from 'next/server'
 
-// Incoming request: /about, browser shows /about
-// Rewritten request: /proxy, browser shows /about
+// 传入请求：/about，浏览器显示 /about
+// 重写请求：/proxy，浏览器显示 /about
 return NextResponse.rewrite(new URL('/proxy', request.url))
 ```
+## next()
 
-,## `next()`
-
-The `next()` method is useful for Middleware, as it allows you to return early and continue routing.
+`next()` 方法对于中间件非常有用，因为它允许您提前返回并继续路由。
 
 ```ts
 import { NextResponse } from 'next/server'
@@ -127,19 +126,19 @@ import { NextResponse } from 'next/server'
 return NextResponse.next()
 ```
 
-You can also forward `headers` when producing the response:
+您还可以在生成响应时转发 `headers`：
 
 ```ts
 import { NextResponse } from 'next/server'
 
-// Given an incoming request...
+// 给定一个传入请求...
 const newHeaders = new Headers(request.headers)
-// Add a new header
+// 添加一个新头
 newHeaders.set('x-version', '123')
-// And produce a response with the new headers
+// 并使用新头生成响应
 return NextResponse.next({
   request: {
-    // New request headers
+    // 新的请求头
     headers: newHeaders,
   },
 })

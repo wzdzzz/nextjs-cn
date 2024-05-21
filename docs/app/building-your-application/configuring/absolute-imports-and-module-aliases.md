@@ -1,38 +1,36 @@
 ---
-title: Absolute Imports and Module Path Aliases
-description: Configure module path aliases that allow you to remap certain import paths.
+title: 绝对导入和模块路径别名
+description: 配置模块路径别名，允许您重新映射某些导入路径。
 ---
-
-{/* The content of this doc is shared between the app and pages router. You can use the `<PagesOnly>Content</PagesOnly>` component to add content that is specific to the Pages Router. Any shared content should not be wrapped in a component. */}
-
+# 绝对导入和模块路径别名
 <details>
-  <summary>Examples</summary>
+  <summary>示例</summary>
 
-- [Absolute Imports and Aliases](https://github.com/vercel/next.js/tree/canary/examples/with-absolute-imports)
+- [绝对导入和别名](https://github.com/vercel/next.js/tree/canary/examples/with-absolute-imports)
 
 </details>
 
-Next.js has in-built support for the `"paths"` and `"baseUrl"` options of `tsconfig.json` and `jsconfig.json` files.
+Next.js 内置支持 `tsconfig.json` 和 `jsconfig.json` 文件中的 `"paths"` 和 `"baseUrl"` 选项。
 
-These options allow you to alias project directories to absolute paths, making it easier to import modules. For example:
+这些选项允许您将项目目录别名为绝对路径，使导入模块更加容易。例如：
 
 ```tsx
-// before
+// 之前
 import { Button } from '../../../components/button'
 
-// after
+// 之后
 import { Button } from '@/components/button'
 ```
 
-> **Good to know**: `create-next-app` will prompt to configure these options for you.
+> **须知**：`create-next-app` 会提示您为您配置这些选项。
 
-## Absolute Imports
+## 绝对导入
 
-The `baseUrl` configuration option allows you to import directly from the root of the project.
+`baseUrl` 配置选项允许您直接从项目的根目录导入。
 
-An example of this configuration:
+此配置的一个示例：
 
-```json filename="tsconfig.json or jsconfig.json"
+```json filename="tsconfig.json 或 jsconfig.json"
 {
   "compilerOptions": {
     "baseUrl": "."
@@ -42,13 +40,13 @@ An example of this configuration:
 
 ```tsx filename="components/button.tsx" switcher
 export default function Button() {
-  return <button>Click me</button>
+  return <button>点击我</button>
 }
 ```
 
 ```jsx filename="components/button.js" switcher
 export default function Button() {
-  return <button>Click me</button>
+  return <button>点击我</button>
 }
 ```
 
@@ -58,7 +56,7 @@ import Button from 'components/button'
 export default function HomePage() {
   return (
     <>
-      <h1>Hello World</h1>
+      <h1>你好，世界</h1>
       <Button />
     </>
   )
@@ -71,20 +69,20 @@ import Button from 'components/button'
 export default function HomePage() {
   return (
     <>
-      <h1>Hello World</h1>
+      <h1>你好，世界</h1>
       <Button />
     </>
   )
 }
 ```
 
-## Module Aliases
+## 模块别名
 
-In addition to configuring the `baseUrl` path, you can use the `"paths"` option to "alias" module paths.
+除了配置 `baseUrl` 路径外，您还可以使用 `"paths"` 选项来“别名”模块路径。
 
-For example, the following configuration maps `@/components/*` to `components/*`:
+例如，以下配置将 `@/components/*` 映射到 `components/*`：
 
-```json filename="tsconfig.json or jsconfig.json"
+```json filename="tsconfig.json 或 jsconfig.json"
 {
   "compilerOptions": {
     "baseUrl": ".",
@@ -97,13 +95,13 @@ For example, the following configuration maps `@/components/*` to `components/*`
 
 ```tsx filename="components/button.tsx" switcher
 export default function Button() {
-  return <button>Click me</button>
+  return <button>点击我</button>
 }
 ```
 
 ```jsx filename="components/button.js" switcher
 export default function Button() {
-  return <button>Click me</button>
+  return <button>点击我</button>
 }
 ```
 
@@ -113,7 +111,7 @@ import Button from '@/components/button'
 export default function HomePage() {
   return (
     <>
-      <h1>Hello World</h1>
+      <h1>你好，世界</h1>
       <Button />
     </>
   )
@@ -126,17 +124,17 @@ import Button from '@/components/button'
 export default function HomePage() {
   return (
     <>
-      <h1>Hello World</h1>
+      <h1>你好，世界</h1>
       <Button />
     </>
   )
 }
 ```
 
-Each of the `"paths"` are relative to the `baseUrl` location. For example:
+每个 `"paths"` 都是相对于 `baseUrl` 位置的。例如：
 
 ```json
-// tsconfig.json or jsconfig.json
+// tsconfig.json 或 jsconfig.json
 {
   "compilerOptions": {
     "baseUrl": "src/",
@@ -157,7 +155,7 @@ import Helper from 'utils/helper'
 export default function HomePage() {
   return (
     <Helper>
-      <h1>Hello World</h1>
+      <h1>你好，世界</h1>
       <Button />
     </Helper>
   )

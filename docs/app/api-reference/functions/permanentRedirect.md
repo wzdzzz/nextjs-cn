@@ -1,43 +1,43 @@
 ---
 title: permanentRedirect
-description: API Reference for the permanentRedirect function.
+description: permanentRedirect 函数的 API 参考。
 related:
   links:
     - app/api-reference/functions/redirect
 ---
 
-The `permanentRedirect` function allows you to redirect the user to another URL. `permanentRedirect` can be used in Server Components, Client Components, [Route Handlers](/docs/app/building-your-application/routing/route-handlers), and [Server Actions](/docs/app/building-your-application/data-fetching/server-actions-and-mutations).
+`permanentRedirect` 函数允许您将用户重定向到另一个 URL。`permanentRedirect` 可以在 Server Components、Client Components、[路由处理器](/docs/app/building-your-application/routing/route-handlers)和[服务器操作](/docs/app/building-your-application/data-fetching/server-actions-and-mutations)中使用。
 
-When used in a streaming context, this will insert a meta tag to emit the redirect on the client side. When used in a server action, it will serve a 303 HTTP redirect response to the caller. Otherwise, it will serve a 308 (Permanent) HTTP redirect response to the caller.
+在流式传输上下文中使用时，这将插入一个 meta 标签以在客户端上发出重定向。在服务器操作中使用时，它将向调用者提供 303 HTTP 重定向响应。否则，它将向调用者提供 308（永久）HTTP 重定向响应。
 
-If a resource doesn't exist, you can use the [`notFound` function](/docs/app/api-reference/functions/not-found) instead.
+如果资源不存在，您可以使用 [`notFound` 函数](/docs/app/api-reference/functions/not-found)代替。
 
-> **Good to know**: If you prefer to return a 307 (Temporary) HTTP redirect instead of 308 (Permanent), you can use the [`redirect` function](/docs/app/api-reference/functions/redirect) instead.
+> **须知**：如果您更喜欢返回 307（临时）HTTP 重定向而不是 308（永久），您可以使用 [`redirect` 函数](/docs/app/api-reference/functions/redirect)代替。
 
-## Parameters
+## 参数
 
-The `permanentRedirect` function accepts two arguments:
+`permanentRedirect` 函数接受两个参数：
 
 ```js
 permanentRedirect(path, type)
 ```
 
-| Parameter | Type                                                          | Description                                                 |
-| --------- | ------------------------------------------------------------- | ----------------------------------------------------------- |
-| `path`    | `string`                                                      | The URL to redirect to. Can be a relative or absolute path. |
-| `type`    | `'replace'` (default) or `'push'` (default in Server Actions) | The type of redirect to perform.                            |
+| 参数   | 类型                                                           | 描述                                                     |
+| ------ | ------------------------------------------------------------- | -------------------------------------------------------- |
+| `path` | `string`                                                      | 要重定向到的 URL。可以是相对路径或绝对路径。           |
+| `type` | `'replace'`（默认）或 `'push'`（在服务器操作中的默认值） | 要执行的重定向类型。                                   |
 
-By default, `permanentRedirect` will use `push` (adding a new entry to the browser history stack) in [Server Actions](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) and `replace` (replacing the current URL in the browser history stack) everywhere else. You can override this behavior by specifying the `type` parameter.
+默认情况下，`permanentRedirect` 将在 [服务器操作](/docs/app/building-your-application/data-fetching/server-actions-and-mutations) 中使用 `push`（向浏览器历史记录栈中添加新条目）并在其他地方使用 `replace`（替换浏览器历史记录栈中的当前 URL）。您可以通过指定 `type` 参数来覆盖此行为。
 
-The `type` parameter has no effect when used in Server Components.
+在 Server Components 中使用时，`type` 参数无效。
 
-## Returns
+## 返回值
 
-`permanentRedirect` does not return any value.
+`permanentRedirect` 不返回任何值。
 
-## Example
+## 示例
 
-Invoking the `permanentRedirect()` function throws a `NEXT_REDIRECT` error and terminates rendering of the route segment in which it was thrown.
+调用 `permanentRedirect()` 函数会抛出一个 `NEXT_REDIRECT` 错误并终止在其被抛出的路由段的渲染。
 
 ```jsx filename="app/team/[id]/page.js"
 import { permanentRedirect } from 'next/navigation'
@@ -58,4 +58,4 @@ export default async function Profile({ params }) {
 }
 ```
 
-> **Good to know**: `permanentRedirect` does not require you to use `return permanentRedirect()` as it uses the TypeScript [`never`](https://www.typescriptlang.org/docs/handbook/2/functions.html#never) type.
+> **须知**：`permanentRedirect` 不需要您使用 `return permanentRedirect()`，因为它使用了 TypeScript [`never`](https://www.typescriptlang.org/docs/handbook/2/functions.html#never) 类型。

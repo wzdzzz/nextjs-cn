@@ -1,13 +1,13 @@
 ---
 title: serverActions
-description: Configure Server Actions behavior in your Next.js application.
+description: 在您的 Next.js 应用程序中配置服务器操作行为。
 ---
 
-Options for configuring Server Actions behavior in your Next.js application.
+在您的 Next.js 应用程序中配置服务器操作行为的选项。
 
 ## `allowedOrigins`
 
-A list of extra safe origin domains from which Server Actions can be invoked. Next.js compares the origin of a Server Action request with the host domain, ensuring they match to prevent CSRF attacks. If not provided, only the same origin is allowed.
+服务器操作可以被调用的额外安全源域名列表。Next.js 将服务器操作请求的源与主机域进行比较，确保它们匹配以防止跨站请求伪造（CSRF）攻击。如果没有提供，只允许相同源。
 
 ```js filename="next.config.js"
 /** @type {import('next').NextConfig} */
@@ -23,9 +23,9 @@ module.exports = {
 
 ## `bodySizeLimit`
 
-By default, the maximum size of the request body sent to a Server Action is 1MB, to prevent the consumption of excessive server resources in parsing large amounts of data, as well as potential DDoS attacks.
+默认情况下，发送到服务器操作的请求体的最大大小为 1MB，以防止在解析大量数据时消耗过多的服务器资源，以及潜在的分布式拒绝服务（DDoS）攻击。
 
-However, you can configure this limit using the `serverActions.bodySizeLimit` option. It can take the number of bytes or any string format supported by bytes, for example `1000`, `'500kb'` or `'3mb'`.
+然而，您可以使用 `serverActions.bodySizeLimit` 选项配置此限制。它可以采用字节数或任何由 bytes 支持的字符串格式，例如 `1000`，`'500kb'` 或 `'3mb'`。
 
 ```js filename="next.config.js"
 /** @type {import('next').NextConfig} */
@@ -39,9 +39,9 @@ module.exports = {
 }
 ```
 
-## Enabling Server Actions (v13)
+## 启用服务器操作 (v13)
 
-Server Actions became a stable feature in Next.js 14, and are enabled by default. However, if you are using an earlier version of Next.js, you can enable them by setting `experimental.serverActions` to `true`.
+服务器操作在 Next.js 14 中成为了一个稳定特性，默认已启用。然而，如果您使用的是 Next.js 的早期版本，您可以通过将 `experimental.serverActions` 设置为 `true` 来启用它们。
 
 ```js filename="next.config.js"
 /** @type {import('next').NextConfig} */

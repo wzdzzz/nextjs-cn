@@ -1,78 +1,77 @@
 ---
-title: Migrating from Create React App
-description: Learn how to migrate your existing React application from Create React App to Next.js.
+title: 从 Create React App 迁移到 Next.js
+description: 学习如何将现有的 React 应用程序从 Create React App 迁移到 Next.js。
 ---
+# 从 Create React App 迁移到 Next.js
+本指南将帮助您将现有的 Create React App 网站迁移到 Next.js。
 
-This guide will help you migrate an existing Create React App site to Next.js.
+## 为什么转换？
 
-## Why Switch?
+您可能想要从 Create React App 转换到 Next.js 的几个原因：
 
-There are several reasons why you might want to switch from Create React App to Next.js:
+### 初始页面加载时间慢
 
-### Slow initial page loading time
+Create React App 仅使用客户端 React。仅客户端应用程序，也称为单页应用程序（SPA），通常会遇到初始页面加载时间慢的问题。这有几个原因：
 
-Create React App uses purely client-side React. Client-side only applications, also known as single-page applications (SPAs), often experience slow initial page loading time. This happens due to a couple of reasons:
+1. 浏览器需要等待 React 代码和整个应用程序捆绑包下载并运行后，您的代码才能发送请求加载数据。
+2. 随着您添加的每个新功能和依赖项，您的应用程序代码也会增长。
 
-1. The browser needs to wait for the React code and your entire application bundle to download and run before your code is able to send requests to load data.
-2. Your application code grows with every new feature and dependency you add.
+### 没有自动代码分割
 
-### No automatic code splitting
+通过代码分割可以部分管理慢速加载时间的问题。然而，如果您尝试手动进行代码分割，往往会使性能变得更糟。手动代码分割时，很容易不经意地引入网络瀑布流。Next.js 提供了内置于其路由器中的自动代码分割。
 
-The previous issue of slow loading times can be somewhat managed with code splitting. However, if you try to do code splitting manually, you'll often make performance worse. It's easy to inadvertently introduce network waterfalls when code-splitting manually. Next.js provides automatic code splitting built into its router.
+### 网络瀑布流
 
-### Network waterfalls
+应用程序进行顺序的客户端-服务器请求以获取数据是性能不佳的常见原因之一。在 SPA 中获取数据的一个常见模式是最初呈现一个占位符，然后在组件挂载后获取数据。不幸的是，这意味着直到父组件完成加载自己的数据后，获取数据的子组件才能开始获取。
 
-A common cause of poor performance occurs when applications make sequential client-server requests to fetch data. One common pattern for data fetching in an SPA is to initially render a placeholder, and then fetch data after the component has mounted. Unfortunately, this means that a child component that fetches data can't start fetching until the parent component has finished loading its own data.
+虽然 Next.js 支持客户端获取数据，但它还允许您将数据获取转移到服务器上，这可以消除客户端-服务器瀑布流。
 
-While fetching data on the client is supported with Next.js, it also gives you the option to shift data fetching to the server, which can eliminate client-server waterfalls.
+### 快速和有意图的加载状态
 
-### Fast and intentional loading states
+通过内置的 [React Suspense 流式处理](/docs/app/building-your-application/routing/loading-ui-and-streaming#streaming-with-suspense) 支持，您可以更有意图地决定您希望 UI 的哪些部分首先加载以及加载顺序，而不会引入网络瀑布流。
 
-With built-in support for [streaming through React Suspense](/docs/app/building-your-application/routing/loading-ui-and-streaming#streaming-with-suspense), you can be more intentional about which parts of your UI you want to load first and in what order without introducing network waterfalls.
+这使您能够构建加载速度更快的页面，并消除 [布局偏移](https://vercel.com/blog/how-core-web-vitals-affect-seo)。
 
-This enables you to build pages that are faster to load and eliminate [layout shifts](https://vercel.com/blog/how-core-web-vitals-affect-seo).
+### 选择数据获取策略
 
-### Choose the data fetching strategy
+根据您的需求，Next.js 允许您在页面和组件基础上选择您的数据获取策略。您可以决定在构建时获取，在服务器上的请求时获取，或在客户端获取。例如，您可以在构建时从您的 CMS 获取数据并呈现您的博客文章，然后可以有效地在 CDN 上进行缓存。
 
-Depending on your needs, Next.js allows you to choose your data fetching strategy on a page and component basis. You can decide to fetch at build time, at request time on the server, or on the client. For example, you can fetch data from your CMS and render your blog posts at build time, which can then be efficiently cached on a CDN.
+### 中间件
 
-### Middleware
+[Next.js 中间件](/docs/app/building-your-application/routing/middleware) 允许您在请求完成之前在服务器上运行代码。这在避免用户访问仅经过身份验证的页面时出现未经身份验证的内容闪烁特别有用，方法是将用户重定向到登录页面。中间件还适用于实验和 [国际化](/docs/app/building-your-application/routing/internationalization)。
 
-[Next.js Middleware](/docs/app/building-your-application/routing/middleware) allows you to run code on the server before a request is completed. This is especially useful to avoid having a flash of unauthenticated content when the user visits an authenticated-only page by redirecting the user to a login page. The middleware is also useful for experimentation and [internationalization](/docs/app/building-your-application/routing/internationalization).
+### 内置优化
 
-### Built-in Optimizations
+[图片](/docs/app/building-your-application/optimizing/images)、[字体](/docs/app/building-your-application/optimizing/fonts) 和 [第三方脚本](/docs/app/building-your-application/optimizing/scripts) 通常对应用程序的性能有显著影响。Next.js 提供了自动为您优化这些的内置组件。
 
-[Images](/docs/app/building-your-application/optimizing/images), [fonts](/docs/app/building-your-application/optimizing/fonts), and [third-party scripts](/docs/app/building-your-application/optimizing/scripts) often have significant impact on an application's performance. Next.js comes with built-in components that automatically optimize those for you.
+## 迁移步骤
 
-## Migration Steps
+我们进行此迁移的目标是尽快获得一个可工作的 Next.js 应用程序，这样您就可以逐步采用 Next.js 功能。首先，我们将保持它作为一个纯粹的客户端应用程序（SPA），而不迁移您现有的路由器。这有助于最小化在迁移过程中遇到问题的机会并减少合并冲突。
+### 安装 Next.js 依赖
 
-Our goal with this migration is to get a working Next.js application as quickly as possible, so that you can then adopt Next.js features incrementally. To begin with, we'll keep it as a purely client-side application (SPA) without migrating your existing router. This helps minimize the chances of encountering issues during the migration process and reduces merge conflicts.
+首先，你需要将 `next` 安装为依赖项：
 
-,### Step 1: Install the Next.js Dependency
-
-The first thing you need to do is to install `next` as a dependency:
-
-```bash filename="Terminal"
+```bash filename="终端"
 npm install next@latest
 ```
 
-### Step 2: Create the Next.js Configuration File
+### 创建 Next.js 配置文件
 
-Create a `next.config.mjs` at the root of your project. This file will hold your [Next.js configuration options](/docs/app/api-reference/next-config-js).
+在你的项目根目录创建一个 `next.config.mjs` 文件。这个文件将包含你的 [Next.js 配置选项](/docs/app/api-reference/next-config-js)。
 
 ```js filename="next.config.mjs"
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // Outputs a Single-Page Application (SPA).
-  distDir: './dist', // Changes the build output directory to `./dist/`.
+  output: 'export', // 输出一个单页应用程序 (SPA)。
+  distDir: './dist', // 将构建输出目录更改为 `./dist/`。
 }
 
 export default nextConfig
 ```
 
-### Step 3: Update TypeScript Configuration
+### 更新 TypeScript 配置
 
-If you're using TypeScript, you need to update your `tsconfig.json` file with the following changes to make it compatible with Next.js:
+如果你正在使用 TypeScript，你需要更新你的 `tsconfig.json` 文件，以使它与 Next.js 兼容：
 
 ```json filename="tsconfig.json"
 {
@@ -110,18 +109,17 @@ If you're using TypeScript, you need to update your `tsconfig.json` file with th
 }
 ```
 
-You can find more information about configuring TypeScript on the [Next.js docs](/docs/app/building-your-application/configuring/typescript#typescript-plugin).
+你可以在 [Next.js 文档](/docs/app/building-your-application/configuring/typescript#typescript-plugin) 中找到更多关于配置 TypeScript 的信息。
+### 第 4 步：创建根布局
 
-,### Step 4: Create the Root Layout
+Next.js [App Router](/docs/app) 应用程序必须包含一个 [根布局](/docs/app/building-your-application/routing/layouts-and-templates#root-layout-required) 文件，这是一个 [React Server Component](/docs/app/building-your-application/rendering/server-components)，将包裹你应用程序中的所有页面。此文件定义在 `app` 目录的顶层。
 
-A Next.js [App Router](/docs/app) application must include a [root layout](/docs/app/building-your-application/routing/layouts-and-templates#root-layout-required) file, which is a [React Server Component](/docs/app/building-your-application/rendering/server-components) that will wrap all pages in your application. This file is defined at the top level of the `app` directory.
+在 CRA 应用程序中，与根布局文件最接近的等效项是 `index.html` 文件，其中包含你的 `<html>`、`<head>` 和 `<body>` 标签。
 
-The closest equivalent to the root layout file in a CRA application is the `index.html` file, which contains your `<html>`, `<head>`, and `<body>` tags.
+在这一步中，你将把你的 `index.html` 文件转换成一个根布局文件：
 
-In this step, you'll convert your `index.html` file into a root layout file:
-
-1. Create a new `app` directory in your `src` directory.
-2. Create a new `layout.tsx` file inside that `app` directory:
+1. 在你的 `src` 目录中创建一个新的 `app` 目录。
+2. 在那个 `app` 目录内创建一个新的 `layout.tsx` 文件：
 
 ```tsx filename="app/layout.tsx" switcher
 export default function RootLayout({
@@ -139,9 +137,9 @@ export default function RootLayout({ children }) {
 }
 ```
 
-> **Good to know**: `.js`, `.jsx`, or `.tsx` extensions can be used for Layout files.
+> **须知**：布局文件可以使用 `.js`、`.jsx` 或 `.tsx` 扩展名。
 
-Copy the content of your `index.html` file into the previously created `<RootLayout>` component while replacing the `body.div#root` and `body.script` tags with `<div id="root">{children}</div>`:
+将你的 `index.html` 文件的内容复制到之前创建的 `<RootLayout>` 组件中，同时将 `body.div#root` 和 `body.script` 标签替换为 `<div id="root">{children}</div>`：
 
 ```tsx filename="app/layout.tsx" switcher
 export default function RootLayout({
@@ -185,11 +183,10 @@ export default function RootLayout({ children }) {
 }
 ```
 
-> **Good to know**: We'll ignore the [manifest file](/docs/app/api-reference/file-conventions/metadata), additional iconography other than the favicon, and [testing configuration](/docs/app/building-your-application/testing), but if these are requirements, Next.js also supports these options.
+> **须知**：我们将忽略 [清单文件](/docs/app/api-reference/file-conventions/metadata)、除了 favicon 之外的额外图标，以及 [测试配置](/docs/app/building-your-application/testing)，但如果这些是需求，Next.js 也支持这些选项。
+### 第5步：元数据
 
-,### Step 5: Metadata
-
-Next.js already includes by default the [meta charset](https://developer.mozilla.org/docs/Web/HTML/Element/meta#charset) and [meta viewport](https://developer.mozilla.org/docs/Web/HTML/Viewport_meta_tag) tags, so you can safely remove those from your `<head>`:
+Next.js 默认包含了 [meta charset](https://developer.mozilla.org/docs/Web/HTML/Element/meta#charset) 和 [meta viewport](https://developer.mozilla.org/docs/Web/HTML/Viewport_meta_tag) 标签，因此你可以安全地从 `<head>` 中移除这些标签：
 
 ```tsx filename="app/layout.tsx" switcher
 export default function RootLayout({
@@ -229,7 +226,7 @@ export default function RootLayout({ children }) {
 }
 ```
 
-Any [metadata files](/docs/app/building-your-application/optimizing/metadata#file-based-metadata) such as `favicon.ico`, `icon.png`, `robots.txt` are automatically added to the application `<head>` tag as long as you have them placed into the top level of the `app` directory. After moving [all supported files](/docs/app/building-your-application/optimizing/metadata#file-based-metadata) into the `app` directory you can safely delete their `<link>` tags:
+任何 [元数据文件](/docs/app/building-your-application/optimizing/metadata#file-based-metadata)，如 `favicon.ico`、`icon.png`、`robots.txt`，只要你将它们放置在 `app` 目录的顶层，它们就会被自动添加到应用程序的 `<head>` 标签中。将 [所有支持的文件](/docs/app/building-your-application/optimizing/metadata#file-based-metadata) 移动到 `app` 目录后，你可以安全地删除它们的 `<link>` 标签：
 
 ```tsx filename="app/layout.tsx" switcher
 export default function RootLayout({
@@ -267,7 +264,7 @@ export default function RootLayout({ children }) {
 }
 ```
 
-Finally, Next.js can manage your last `<head>` tags with the [Metadata API](/docs/app/building-your-application/optimizing/metadata). Move your final metadata info into an exported [`metadata` object](/docs/app/api-reference/functions/generate-metadata#metadata-object):
+最后，Next.js 可以使用 [元数据 API](/docs/app/building-your-application/optimizing/metadata) 管理你最后的 `<head>` 标签。将你最终的元数据信息移动到一个导出的 [`metadata` 对象](/docs/app/api-reference/functions/generate-metadata#metadata-object) 中：
 
 ```tsx filename="app/layout.tsx" switcher
 import type { Metadata } from 'next'
@@ -309,13 +306,12 @@ export default function RootLayout({ children }) {
 }
 ```
 
-With the above changes, you shifted from declaring everything in your `index.html` to using Next.js' convention-based approach built into the framework ([Metadata API](/docs/app/building-your-application/optimizing/metadata)). This approach enables you to more easily improve your SEO and web shareability of your pages.
+通过上述更改，你从在 `index.html` 中声明所有内容转变为使用 Next.js 内置的基于约定的方法 ([元数据 API](/docs/app/building-your-application/optimizing/metadata))。这种方法使你能够更轻松地提高你的页面的 SEO 和网络共享性。
+### 第6步：样式
 
-,### Step 6: Styles
+像Create React App一样，Next.js内置了对[CSS Modules](/docs/app/building-your-application/styling/css-modules)的支持。
 
-Like Create React App, Next.js has built-in support for [CSS Modules](/docs/app/building-your-application/styling/css-modules).
-
-If you're using a global CSS file, import it into your `app/layout.tsx` file:
+如果你正在使用全局CSS文件，请将其导入到你的`app/layout.tsx`文件中：
 
 ```tsx filename="app/layout.tsx" switcher
 import '../index.css'
@@ -323,13 +319,13 @@ import '../index.css'
 // ...
 ```
 
-If you're using Tailwind, you'll need to install `postcss` and `autoprefixer`:
+如果你正在使用Tailwind，你需要安装`postcss`和`autoprefixer`：
 
-```bash filename="Terminal"
+```bash filename="终端"
 npm install postcss autoprefixer
 ```
 
-Then, create a `postcss.config.js` file at the root of your project:
+然后，在项目根目录创建一个`postcss.config.js`文件：
 
 ```js filename="postcss.config.js"
 module.exports = {
@@ -339,18 +335,17 @@ module.exports = {
   },
 }
 ```
+### 第7步：创建入口页面
 
-,### Step 7: Create the Entrypoint Page
+在 Next.js 中，你可以通过创建一个 `page.tsx` 文件来声明你的应用程序的入口点。在 CRA 中，这个文件的最接近等价物是你的 `src/index.tsx` 文件。在这一步中，你将设置你的应用程序的入口点。
 
-On Next.js you declare an entrypoint for your application by creating a `page.tsx` file. The closest equivalent of this file on CRA is your `src/index.tsx` file. In this step, you’ll set up the entry point of your application.
+**在你的 `app` 目录中创建一个 `[[...slug]]` 目录。**
 
-**Create a `[[...slug]]` directory in your `app` directory.**
+由于本指南的目标是首先将我们的 Next.js 设置为 SPA（单页应用程序），你需要你的页面入口点捕获应用程序的所有可能路由。为此，在 `app` 目录中创建一个新的 `[[...slug]]` 目录。
 
-Since this guide is aiming to first set up our Next.js as an SPA (Single Page Application), you need your page entry point to catch all possible routes of your application. For that, create a new `[[...slug]]` directory in your `app` directory.
+这个目录被称为[可选的全捕获路由段](/docs/app/building-your-application/routing/dynamic-routes#optional-catch-all-segments)。Next.js 使用基于文件系统的路由器，其中[目录用于定义路由](/docs/app/building-your-application/routing/defining-routes#creating-routes)。这个特殊目录将确保你的应用程序的所有路由都将被定向到其包含的 `page.tsx` 文件。
 
-This directory is what is called an [optional catch-all route segment](/docs/app/building-your-application/routing/dynamic-routes#optional-catch-all-segments). Next.js uses a file-system based router where [directories are used to define routes](/docs/app/building-your-application/routing/defining-routes#creating-routes). This special directory will make sure that all routes of your application will be directed to its containing `page.tsx` file.
-
-**Create a new `page.tsx` file inside the `app/[[...slug]]` directory with the following content:**
+**在 `app/[[...slug]]` 目录中创建一个新的 `page.tsx` 文件，内容如下：**
 
 ```tsx filename="app/[[...slug]]/page.tsx" switcher
 import '../../index.css'
@@ -360,7 +355,7 @@ export function generateStaticParams() {
 }
 
 export default function Page() {
-  return '...' // We'll update this
+  return '...' // 我们将更新这个
 }
 ```
 
@@ -372,15 +367,15 @@ export function generateStaticParams() {
 }
 
 export default function Page() {
-  return '...' // We'll update this
+  return '...' // 我们将更新这个
 }
 ```
 
-This file is a [Server Component](/docs/app/building-your-application/rendering/server-components). When you run `next build`, the file is prerendered into a static asset. It does _not_ require any dynamic code.
+这个文件是一个[服务器组件](/docs/app/building-your-application/rendering/server-components)。当你运行 `next build` 时，该文件被预渲染为静态资源。它不需要任何动态代码。
 
-This file imports our global CSS and tells [`generateStaticParams`](/docs/app/api-reference/functions/generate-static-params) we are only going to generate one route, the index route at `/`.
+这个文件导入了我们的全局 CSS，并告诉 [`generateStaticParams`](/docs/app/api-reference/functions/generate-static-params) 我们只打算生成一个路由，即 `/` 上的索引路由。
 
-Now, let's move the rest of our CRA application which will run client-only.
+现在，让我们移动我们的 CRA 应用程序的其余部分，它将仅在客户端运行。
 
 ```tsx filename="app/[[...slug]]/client.tsx" switcher
 'use client'
@@ -408,15 +403,15 @@ export function ClientOnly() {
 }
 ```
 
-This file is a [Client Component](/docs/app/building-your-application/rendering/client-components), defined by the `'use client'` directive. Client Components are still [prerendered to HTML](/docs/app/building-your-application/rendering/client-components#how-are-client-components-rendered) on the server before being sent to the client.
+这个文件是一个[客户端组件](/docs/app/building-your-application/rendering/client-components)，由 `'use client'` 指令定义。客户端组件仍然在服务器上[预渲染为 HTML](/docs/app/building-your-application/rendering/client-components#how-are-client-components-rendered)，然后发送到客户端。
 
-Since we want a client-only application to start, we can configure Next.js to disable prerendering from the `App` component down.
+由于我们想要一个仅在客户端启动的应用程序，我们可以配置 Next.js 以禁用从 `App` 组件向下的预渲染。
 
 ```tsx
 const App = dynamic(() => import('../../App'), { ssr: false })
 ```
 
-Now, update your entrypoint page to use the new component:
+现在，更新你的入口页面以使用新的组件：
 
 ```tsx filename="app/[[...slug]]/page.tsx" switcher
 import '../../index.css'
@@ -443,10 +438,9 @@ export default function Page() {
   return <ClientOnly />
 }
 ```
+### 第8步：更新静态图像导入
 
-,### Step 8: Update Static Image Imports
-
-Next.js handles static image imports slightly different from CRA. With CRA, importing an image file will return its public URL as a string:
+Next.js 处理静态图像导入的方式与 CRA（Create React App）略有不同。在 CRA 中，导入一个图像文件会返回其公共 URL 的字符串：
 
 ```tsx filename="App.tsx"
 import image from './img.png'
@@ -456,45 +450,45 @@ export default function App() {
 }
 ```
 
-With Next.js, static image imports return an object. The object can then be used directly with the Next.js [`<Image>` component](/docs/app/api-reference/components/image), or you can use the object's `src` property with your existing `<img>` tag.
+在 Next.js 中，静态图像导入返回一个对象。然后，该对象可以直接与 Next.js 的 [`<Image>` 组件](/docs/app/api-reference/components/image) 使用，或者您可以使用对象的 `src` 属性与现有的 `<img>` 标签一起使用。
 
-The `<Image>` component has the added benefits of [automatic image optimization](/docs/app/building-your-application/optimizing/images). The `<Image>` component automatically sets the `width` and `height` attributes of the resulting `<img>` based on the image's dimensions. This prevents layout shifts when the image loads. However, this can cause issues if your app contains images with only one of their dimensions being styled without the other styled to `auto`. When not styled to `auto`, the dimension will default to the `<img>` dimension attribute's value, which can cause the image to appear distorted.
+`<Image>` 组件具有 [自动图像优化](/docs/app/building-your-application/optimizing/images) 的额外好处。`<Image>` 组件会自动根据图像的尺寸设置生成的 `<img>` 的 `width` 和 `height` 属性。这可以防止图像加载时发生布局偏移。然而，如果您的应用程序中包含的图像只有一个维度被样式化，而另一个没有被样式化为 `auto`，这可能会导致问题。当没有被样式化为 `auto` 时，该维度将默认为 `<img>` 维度属性的值，这可能会导致图像出现扭曲。
 
-Keeping the `<img>` tag will reduce the amount of changes in your application and prevent the above issues. You can then optionally later migrate to the `<Image>` component to take advantage of optimizing images by [configuring a loader](/docs/app/building-your-application/optimizing/images#loaders), or moving to the default Next.js server which has automatic image optimization.
+保留 `<img>` 标签将减少您的应用程序中的更改量，并防止上述问题。然后，您可以选择稍后迁移到 `<Image>` 组件，通过 [配置加载器](/docs/app/building-your-application/optimizing/images#loaders) 或移动到具有自动图像优化的默认 Next.js 服务器，以利用优化图像的优势。
 
-**Convert absolute import paths for images imported from `/public` into relative imports:**
+**将从 `/public` 导入的图像的绝对导入路径转换为相对导入：**
 
 ```tsx
-// Before
+// 之前
 import logo from '/logo.png'
 
-// After
+// 之后
 import logo from '../public/logo.png'
 ```
 
-**Pass the image `src` property instead of the whole image object to your `<img>` tag:**
+**将图像的 `src` 属性而不是整个图像对象传递给您的 `<img>` 标签：**
 
 ```tsx
-// Before
+// 之前
 <img src={logo} />
 
-// After
+// 之后
 <img src={logo.src} />
 ```
 
-Alternatively, you can reference the public URL for the image asset based on the filename. For example, `public/logo.png` will serve the image at `/logo.png` for your application, which would be the `src` value.
+或者，您可以参考基于文件名的公共 URL 来引用图像资产。例如，`public/logo.png` 将为您的应用程序在 `/logo.png` 处提供图像，这将是 `src` 值。
 
-> **Warning:** If you're using TypeScript, you might encounter type errors when accessing the `src` property. You can safely ignore those for now. They will be fixed by the end of this guide.
+> **警告：** 如果您使用的是 TypeScript，您在访问 `src` 属性时可能会遇到类型错误。您现在可以安全地忽略这些错误。它们将在本指南结束时被修复。
 
-### Step 9: Migrate the Environment Variables
+### 第9步：迁移环境变量
 
-Next.js has support for `.env` [environment variables](/docs/app/building-your-application/configuring/environment-variables) similar to CRA.
+Next.js 支持与 CRA 类似的 `.env` [环境变量](/docs/app/building-your-application/configuring/environment-variables)。
 
-The main difference is the prefix used to expose environment variables on the client-side. Change all environment variables with the `REACT_APP_` prefix to `NEXT_PUBLIC_`.
+主要的区别是在客户端公开环境变量时使用的前缀。将所有带有 `REACT_APP_` 前缀的环境变量更改为 `NEXT_PUBLIC_`。
 
-### Step 10: Update Scripts in `package.json`
+### 第10步：更新 `package.json` 中的脚本
 
-You should now be able to run your application to test if you successfully migrated to Next.js. But before that, you need to update your `scripts` in your `package.json` with Next.js related commands, and add `.next`, `next-env.d.ts`, and `dist` to your `.gitignore` file:
+现在您应该能够运行您的应用程序来测试您是否成功迁移到 Next.js。但在此之前，您需要使用 Next.js 相关的命令更新 `package.json` 中的 `scripts`，并在您的 `.gitignore` 文件中添加 `.next`、`next-env.d.ts` 和 `dist`：
 
 ```json filename="package.json"
 {
@@ -513,36 +507,35 @@ next-env.d.ts
 dist
 ```
 
-Now run `npm run dev`, and open [`http://localhost:3000`](http://localhost:3000). You should see your application now running on Next.js.
+现在运行 `npm run dev`，并打开 [`http://localhost:3000`](http://localhost:3000)。您应该看到您的应用程序现在正在 Next.js 上运行。
 
-### Step 11: Clean Up
+### 第11步：清理
 
-You can now clean up your codebase from Create React App related artifacts:
+现在您可以从 Create React App 相关的工件中清理您的代码库：
 
-- Delete `src/index.tsx`
-- Delete `public/index.html`
-- Delete `reportWebVitals` setup
-- Uninstall CRA dependencies (`react-scripts`)
+- 删除 `src/index.tsx`
+- 删除 `public/index.html`
+- 删除 `reportWebVitals` 设置
+- 卸载 CRA 依赖项（`react-scripts`）
+## 打包器兼容性
 
-,## Bundler Compatibility
+Create React App 和 Next.js 默认都使用 webpack 进行打包。
 
-Create React App and Next.js both default to using webpack for bundling.
+当将您的 CRA 应用程序迁移到 Next.js 时，您可能有一个自定义的 webpack 配置想要迁移。Next.js 支持提供 [自定义 webpack 配置](/docs/app/api-reference/next-config-js/webpack)。
 
-When migrating your CRA application to Next.js, you might have a custom webpack configuration you're looking to migrate. Next.js supports providing a [custom webpack configuration](/docs/app/api-reference/next-config-js/webpack).
+此外，Next.js 通过 `next dev --turbo` 支持 [Turbopack](/docs/app/api-reference/next-config-js/turbo) 以提高您的本地开发性能。Turbopack 还支持一些 [webpack 加载器](/docs/app/api-reference/next-config-js/turbo)，以实现兼容性和逐步采用。
 
-Further, Next.js has support for [Turbopack](/docs/app/api-reference/next-config-js/turbo) through `next dev --turbo` to improve your local dev performance. Turbopack supports some [webpack loaders](/docs/app/api-reference/next-config-js/turbo) as well for compatibility and incremental adoption.
+## 下一步
 
-## Next Steps
+如果一切按计划进行，您现在应该有一个作为单页应用程序运行的 Next.js 应用程序。然而，您还没有充分利用 Next.js 的大部分优势，但您现在可以开始进行增量更改以获得所有优势。以下是您可能想要接下来做的事情：
 
-If everything went according to plan, you now have a functioning Next.js application running as a single-page application. However, you aren't yet taking advantage of most of Next.js' benefits, but you can now start making incremental changes to reap all the benefits. Here's what you might want to do next:
+- 从 React Router 迁移到 [Next.js App Router](/docs/app/building-your-application/routing) 以获得：
+  - 自动代码分割
+  - [流式服务器渲染](/docs/app/building-your-application/routing/loading-ui-and-streaming)
+  - [React 服务器组件](/docs/app/building-your-application/rendering/server-components)
+- 使用 `<Image>` 组件 [优化图片](/docs/app/building-your-application/optimizing/images)
+- 使用 `next/font` [优化字体](/docs/app/building-your-application/optimizing/fonts)
+- 使用 `<Script>` 组件 [优化第三方脚本](/docs/app/building-your-application/optimizing/scripts)
+- [更新您的 ESLint 配置以支持 Next.js 规则](/docs/app/building-your-application/configuring/eslint)
 
-- Migrate from React Router to the [Next.js App Router](/docs/app/building-your-application/routing) to get:
-  - Automatic code splitting
-  - [Streaming Server-Rendering](/docs/app/building-your-application/routing/loading-ui-and-streaming)
-  - [React Server Components](/docs/app/building-your-application/rendering/server-components)
-- [Optimize images with the `<Image>` component](/docs/app/building-your-application/optimizing/images)
-- [Optimize fonts with `next/font`](/docs/app/building-your-application/optimizing/fonts)
-- [Optimize third-party scripts with the `<Script>` component](/docs/app/building-your-application/optimizing/scripts)
-- [Update your ESLint configuration to support Next.js rules](/docs/app/building-your-application/configuring/eslint)
-
-> **Good to know:** Using a static export [does not currently support](https://github.com/vercel/next.js/issues/54393) using the `useParams` hook.
+> **须知：** 使用静态导出 [目前不支持](https://github.com/vercel/next.js/issues/54393) 使用 `useParams` 钩子。
