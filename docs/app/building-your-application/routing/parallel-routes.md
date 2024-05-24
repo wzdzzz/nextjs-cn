@@ -4,13 +4,13 @@
 
 例如，考虑一个仪表板，您可以使用平行路由同时渲染`team`和`analytics`页面：
 
-![Parallel Routes Diagram](/docs/light/parallel-routes.png)
+![Parallel Routes Diagram](https://nextjs.org/_next/image?url=/docs/light/parallel-routes.png&w=3840&q=75)
 
 ## 插槽
 
 平行路由是使用命名的**插槽**创建的。插槽使用`@folder`约定来定义。例如，以下文件结构定义了两个插槽：`@analytics`和`@team`：
 
-![Parallel Routes File-system Structure](/docs/light/parallel-routes-file-system.png)
+![Parallel Routes File-system Structure](https://nextjs.org/_next/image?url=/docs/light/parallel-routes-file-system.png&w=3840&q=75)
 
 插槽作为属性传递给共享的父布局。对于上面的例子，`app/layout.js`中的组件现在接受`@analytics`和`@team`插槽属性，并可以与`children`属性并行渲染：
 
@@ -70,7 +70,7 @@ export default function Layout({ children, team, analytics }) {
 
 考虑以下文件夹结构。`@team`插槽有一个`/settings`页面，但`@analytics`没有。
 
-![Parallel Routes unmatched routes](/docs/light/parallel-routes-unmatched-routes.png)
+![Parallel Routes unmatched routes](https://nextjs.org/_next/image?url=/docs/light/parallel-routes-unmatched-routes.png&w=3840&q=75)
 
 当导航到`/settings`时，`@team`插槽将呈现`/settings`页面，同时保持`@analytics`插槽当前活动的页面。
 
@@ -112,7 +112,7 @@ export default function Layout({ auth }) {
 
 您可以使用并行路由根据某些条件（例如用户角色）有条件地呈现路由。例如，为`/admin`或`/user`角色呈现不同的仪表板页面：
 
-![Conditional routes diagram](/docs/light/conditional-routes-ui.png)
+![Conditional routes diagram](https://nextjs.org/_next/image?url=/docs/light/conditional-routes-ui.png&w=3840&q=75)
 
 ```tsx filename="app/dashboard/layout.tsx" switcher
 import { checkUserRole } from '@/lib/auth'
@@ -143,7 +143,7 @@ export default function Layout({ user, admin }) {
 
 例如，`@analytics`插槽有两个子页面：`/page-views`和`/visitors`。
 
-![Analytics slot with two subpages and a layout](/docs/light/parallel-routes-tab-groups.png)
+![Analytics slot with two subpages and a layout](https://nextjs.org/_next/image?url=/docs/light/parallel-routes-tab-groups.png&w=3840&q=75)
 
 在`@analytics`内部，创建一个[`layout`](/docs/app/building-your-application/routing/layouts-and-templates)文件，以便在两个页面之间共享标签：
 
@@ -189,11 +189,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 考虑以下UI模式，用户可以从布局中使用客户端导航打开登录对话框，或者访问单独的`/login`页面：
 
-![Parallel Routes Diagram](/docs/light/parallel-routes-auth-modal.png)
+![Parallel Routes Diagram](https://nextjs.org/_next/image?url=/docs/light/parallel-routes-auth-modal.png&w=3840&q=75)
 
 要实现此模式，请先创建一个`/login`路由，渲染您的**主要**登录页面。
 
-![Parallel Routes Diagram](/docs/light/parallel-routes-modal-login-page.png)
+![Parallel Routes Diagram](https://nextjs.org/_next/image?url=/docs/light/parallel-routes-modal-login-page.png&w=3840&q=75)
 
 ```tsx filename="app/login/page.tsx" switcher
 import { Login } from '@/app/ui/login'
@@ -402,6 +402,6 @@ export default function CatchAll() {
 
 并行路由可以独立流式传输，允许您为每个路由定义独立的加载和错误状态：
 
-![并行路由启用自定义错误和加载状态](/docs/light/parallel-routes-cinematic-universe.png)
+![并行路由启用自定义错误和加载状态](https://nextjs.org/_next/image?url=/docs/light/parallel-routes-cinematic-universe.png&w=3840&q=75)
 
 请参阅[加载界面](/docs/app/building-your-application/routing/loading-ui-and-streaming)和[错误处理](/docs/app/building-your-application/routing/error-handling)文档以获取更多信息。

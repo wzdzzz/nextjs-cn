@@ -14,7 +14,7 @@
 - 使用原生[History API](#using-the-native-history-api)
 
 本页将介绍如何使用这些选项，并更深入地探讨导航的工作原理。
-# `<Link>` 组件
+## `<Link>` 组件
 
 `<Link>` 是一个内置组件，它扩展了 HTML `<a>` 标签，提供了[预取](#2-prefetching)和客户端路由导航功能。这是在 Next.js 中推荐的主要方式，用于在不同路由之间进行导航。
 
@@ -152,7 +152,7 @@ const router = useRouter()
 
 router.push('/dashboard', { scroll: false })
 ```
-# `useRouter()` 钩子
+## `useRouter()` 钩子
 
 `useRouter` 钩子允许你从 [客户端组件](/docs/app/building-your-application/rendering/client-components) 中以编程方式更改路由。
 
@@ -176,7 +176,7 @@ export default function Page() {
 
 > **推荐**：除非有特定要求使用 `useRouter`，否则使用 `<Link>` 组件在路由之间导航。
 
-# `redirect` 函数
+## `redirect` 函数
 
 对于 [服务器组件](/docs/app/building-your-application/rendering/server-components)，改用 `redirect` 函数。
 
@@ -227,7 +227,7 @@ export default async function Profile({ params }) {
 > - 如果你想在渲染过程之前进行重定向，请使用 [`next.config.js`](/docs/app/building-your-application/routing/redirecting#redirects-in-nextconfigjs) 或 [中间件](/docs/app/building-your-application/routing/redirecting#nextresponseredirect-in-middleware)。
 
 要获取更多信息，请参见 [`redirect` API 参考](/docs/app/api-reference/functions/redirect)。
-# 使用原生History API
+## 使用原生History API
 
 Next.js 允许您使用原生的 [`window.history.pushState`](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) 和 [`window.history.replaceState`](https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState) 方法来更新浏览器的历史记录堆栈，而无需重新加载页面。
 
@@ -333,16 +333,16 @@ export function LocaleSwitcher() {
 }
 ```
 
-# 路由和导航的工作原理
+## 路由和导航的工作原理
 
 App Router 使用混合方法进行路由和导航。在服务器上，您的应用程序代码会根据路由段自动进行 [代码拆分](#1-code-splitting)。在客户端，Next.js 会 [预取](#2-prefetching) 和 [缓存](#3-caching) 路由段。这意味着，当用户导航到新路由时，浏览器不会重新加载页面，只有变化的路由段会重新渲染 - 从而改善导航体验和性能。
-# Code Splitting
+### 1.Code Splitting
 
 代码分割允许你将应用程序代码分割成更小的包，由浏览器下载和执行。这减少了每次请求传输的数据量和执行时间，从而提高了性能。
 
 [服务器组件](/docs/app/building-your-application/rendering/server-components)允许你的应用程序代码按路由段自动进行代码分割。这意味着只有在导航时才加载当前路由所需的代码。
 
-# Prefetching
+### 2.Prefetching
 
 预取是一种在用户访问之前在后台预加载路由的方式。
 
@@ -361,7 +361,7 @@ Next.js 中有两种预取路由的方式：
 >
 > - 在开发环境中不启用预取，只有在生产环境中启用。
 
-# Caching
+### 3.Caching
 
 Next.js 有一个称为 [Router Cache](/docs/app/building-your-application/caching#router-cache) 的**内存客户端缓存**。当用户在应用程序中导航时，[预取](#2-prefetching)的路由段和访问过的路由的 React Server Component Payload 被存储在缓存中。
 
@@ -369,7 +369,7 @@ Next.js 有一个称为 [Router Cache](/docs/app/building-your-application/cachi
 
 了解更多关于 [Router Cache](/docs/app/building-your-application/caching#router-cache) 如何工作以及如何配置它。
 
-# Partial Rendering
+### 4.Partial Rendering
 
 部分渲染意味着只有在导航时发生变化的路由段会在客户端重新渲染，任何共享的段都会保留。
 
@@ -379,14 +379,14 @@ Next.js 有一个称为 [Router Cache](/docs/app/building-your-application/cachi
 
 没有部分渲染，每次导航都会导致客户端上整个页面重新渲染。只渲染变化的部分减少了传输的数据量和执行时间，从而提高了性能。
 
-# Soft Navigation
+### 5.Soft Navigation
 
 浏览器在页面间导航时执行“硬导航”。Next.js App Router 启用页面间的“软导航”，确保只有发生变化的路由段被重新渲染（部分渲染）。这使得在导航期间可以保留客户端 React 状态。
 
-# Back and Forward Navigation
+### 6.Back and Forward Navigation
 
 默认情况下，Next.js 会保持向后和向前导航时的滚动位置，并在 [Router Cache](/docs/app/building-your-application/caching#router-cache) 中重用路由段。
-# 7. `pages/` 与 `app/` 之间的路由
+### 7. `pages/` 与 `app/` 之间的路由
 
 当逐步从 `pages/` 迁移到 `app/` 时，Next.js 路由器将自动处理两者之间的硬导航。为了检测从 `pages/` 到 `app/` 的过渡，有一个客户端路由器过滤器，它利用应用路由的概率性检查，这有时可能导致误报。默认情况下，这种情况应该非常罕见，因为我们将误报的可能性配置为 0.01%。这种可能性可以通过 `next.config.js` 中的 `experimental.clientRouterFilterAllowedRate` 选项进行自定义。需要注意的是，降低误报率会增加客户端捆绑包中生成的过滤器的大小。
 

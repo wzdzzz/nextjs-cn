@@ -2,7 +2,7 @@
 
 路由处理器允许您使用 Web [Request](https://developer.mozilla.org/docs/Web/API/Request) 和 [Response](https://developer.mozilla.org/docs/Web/API/Response) API 为给定路由创建自定义请求处理器。
 
-![Route.js 特殊文件](/docs/light/route-special-file.png)
+![Route.js 特殊文件](https://nextjs.org/_next/image?url=/docs/light/route-special-file.png&w=3840&q=75)
 
 > **须知**：路由处理器仅在 `app` 目录中可用。它们等同于 `pages` 目录中的 [API Routes](/docs/pages/building-your-application/routing/api-routes)，这意味着您**不需要**同时使用 API Routes 和路由处理器。
 

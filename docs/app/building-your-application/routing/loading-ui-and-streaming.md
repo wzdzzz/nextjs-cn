@@ -2,7 +2,7 @@
 
 `loading.js` 特殊文件帮助您使用 [React Suspense](https://react.dev/reference/react/Suspense) 创建有意义的加载界面。通过这种约定，您可以在路由段的内容加载时显示来自服务器的[即时加载状态](#即时加载状态)。一旦渲染完成，新内容将自动替换。
 
-![加载界面](/docs/light/loading-ui.png)
+![加载界面](https://nextjs.org/_next/image?url=/docs/light/loading-ui.png&w=3840&q=75)
 
 ## 即时加载状态
 
@@ -10,7 +10,7 @@
 
 通过在文件夹内添加 `loading.js` 文件来创建加载状态。
 
-![loading.js 特殊文件](/docs/light/loading-special-file.png)
+![loading.js 特殊文件](https://nextjs.org/_next/image?url=/docs/light/loading-special-file.png&w=3840&q=75)
 
 ```tsx filename="app/dashboard/loading.tsx" switcher
 export default function Loading() {
@@ -28,7 +28,7 @@ export default function Loading() {
 
 在同一文件夹中，`loading.js` 将嵌套在 `layout.js` 中。它将自动包装 `page.js` 文件及以下的任何子级在一个 `<Suspense>` 边界内。
 
-![loading.js 概览](/docs/light/loading-overview.png)
+![loading.js 概览](https://nextjs.org/_next/image?url=/docs/light/loading-overview.png&w=3840&q=75)
 
 > **须知**：
 >
@@ -57,25 +57,25 @@ export default function Loading() {
 4. 使用生成的HTML和CSS显示非交互式用户界面。
 5. 最后，React [激活](https://react.dev/reference/react-dom/client/hydrateRoot#hydrating-server-rendered-html)用户界面使其可交互。
 
-![图表显示无流式传输的服务器渲染](/docs/light/server-rendering-without-streaming-chart.png)
+![图表显示无流式传输的服务器渲染](https://nextjs.org/_next/image?url=/docs/light/server-rendering-without-streaming-chart.png&w=3840&q=75)
 
 这些步骤是顺序的和阻塞的，这意味着服务器只有在所有数据都被获取后才能渲染页面的HTML。而且，在客户端，React只有在页面的所有组件代码都被下载后才能激活UI。
 
 React和Next.js的SSR通过尽快向用户显示非交互式页面来帮助提高感知的加载性能。
 
-![无流式传输的服务器渲染](/docs/light/server-rendering-without-streaming.png)
+![无流式传输的服务器渲染](https://nextjs.org/_next/image?url=/docs/light/server-rendering-without-streaming.png&w=3840&q=75)
 
 然而，由于服务器上的所有数据获取都需要完成才能向用户显示页面，它仍然可能很慢。
 
 **流式传输**允许你将页面的HTML分解为更小的块，并逐步从服务器向客户端发送这些块。
 
-![服务器渲染与流式传输工作原理](/docs/light/server-rendering-with-streaming.png)
+![服务器渲染与流式传输工作原理](https://nextjs.org/_next/image?url=/docs/light/server-rendering-with-streaming.png&w=3840&q=75)
 
 这使得页面的部分可以更快地显示，而无需等待所有数据加载后再渲染任何UI。
 
 流式传输与React的组件模型很好地配合，因为每个组件都可以被视为一个块。具有较高优先级（例如产品信息）或不依赖数据的组件可以先发送（例如布局），React可以更早地开始激活。具有较低优先级（例如评论、相关产品）的组件可以在其数据被获取后在同一服务器请求中发送。
 
-![图表显示流式传输的服务器渲染](/docs/light/server-rendering-with-streaming-chart.png)
+![图表显示流式传输的服务器渲染](https://nextjs.org/_next/image?url=/docs/light/server-rendering-with-streaming-chart.png&w=3840&q=75)
 
 当你想要防止长时间的数据请求阻塞页面渲染时，流式传输特别有益，因为它可以减少[首字节时间（TTFB）](https://web.dev/ttfb/)和[首次内容绘制（FCP）](https://web.dev/first-contentful-paint/)。它还有助于提高[可交互时间（TTI）](https://developer.chrome.com/en/docs/lighthouse/performance/interactive/)，特别是在较慢的设备上。
 # Example

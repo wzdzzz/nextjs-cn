@@ -4,11 +4,11 @@
 
 例如，当点击动态中的一张照片时，您可以在模态框中显示该照片，覆盖动态。在这种情况下，Next.js 拦截了 `/photo/123` 路由，隐藏了 URL，并将其覆盖在 `/feed` 上。
 
-![拦截路由软导航](/docs/light/intercepting-routes-soft-navigate.png)
+![拦截路由软导航](https://nextjs.org/_next/image?url=/docs/light/intercepting-routes-soft-navigate.png&w=3840&q=75)
 
 然而，通过点击可共享的 URL 或刷新页面来浏览照片时，应该渲染整个照片页面而不是模态框。不应该发生路由拦截。
 
-![拦截路由硬导航](/docs/light/intercepting-routes-hard-navigate.png)
+![拦截路由硬导航](https://nextjs.org/_next/image?url=/docs/light/intercepting-routes-hard-navigate.png&w=3840&q=75)
 
 ## 约定
 
@@ -23,7 +23,7 @@
 
 例如，您可以通过创建 `(..)photo` 目录来拦截 `feed` 段中的 `photo` 段。
 
-![拦截路由文件夹结构](/docs/light/intercepted-routes-files.png)
+![拦截路由文件夹结构](https://nextjs.org/_next/image?url=/docs/light/intercepted-routes-files.png&w=3840&q=75)
 
 > 注意，`(..)` 约定基于 _路由段_，而不是文件系统。
 
@@ -40,7 +40,7 @@
 
 考虑以下 UI 模式，用户可以从画廊中使用客户端导航打开照片模态框，或者直接从可共享的 URL 导航到照片页面：
 
-![拦截路由模态框示例](/docs/light/intercepted-routes-modal-example.png)
+![拦截路由模态框示例](https://nextjs.org/_next/image?url=/docs/light/intercepted-routes-modal-example.png&w=3840&q=75)
 
 在上面的示例中，由于 `@modal` 是一个插槽而 **不是** 一个段，因此 `photo` 段的路径可以使用 `(..)` 匹配器。这意味着尽管 `photo` 路由在文件系统上高两个级别，但它只比一个段级别高。
 

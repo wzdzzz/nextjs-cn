@@ -27,14 +27,14 @@
 
 使用服务器组件和[嵌套布局](/docs/app/building-your-application/routing/layouts-and-templates)，您可以立即渲染不需要特定数据的页面部分，并为正在获取数据的页面部分显示[加载状态](/docs/app/building-your-application/routing/loading-ui-and-streaming)。这意味着用户不必等待整个页面加载完毕才能开始与其交互。
 
-![Server Rendering with Streaming](/docs/light/server-rendering-with-streaming.png)
+![Server Rendering with Streaming](https://nextjs.org/_next/image?url=/docs/light/server-rendering-with-streaming.png&w=3840&q=75)
 
 要了解更多关于流式传输和Suspense的信息，请查看[加载UI](/docs/app/building-your-application/routing/loading-ui-and-streaming)和[流式传输和Suspense](/docs/app/building-your-application/routing/loading-ui-and-streaming#streaming-with-suspense)页面。
 # Parallel and sequential data fetching
 
 在React组件中获取数据时，您需要了解两种数据获取模式：并行和顺序。
 
-![Sequential and Parallel Data Fetching](/docs/light/sequential-parallel-data-fetching.png)
+![Sequential and Parallel Data Fetching](https://nextjs.org/_next/image?url=/docs/light/sequential-parallel-data-fetching.png&w=3840&q=75)
 
 - 使用**顺序数据获取**时，路由中的请求相互依赖，因此会创建瀑布流。在某些情况下，您可能希望采用这种模式，因为一个获取依赖于另一个获取的结果，或者您希望在进行下一个获取之前满足某个条件以节省资源。然而，这种行为也可能是无意的，导致加载时间更长。
 - 使用**并行数据获取**时，路由中的请求会立即启动并同时加载数据。这减少了客户端-服务器瀑布流和加载数据所需的总时间。

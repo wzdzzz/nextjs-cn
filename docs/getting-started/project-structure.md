@@ -11,9 +11,9 @@
 ![路由段到路径段](https://nextjs.org/_next/image?url=/docs/light/top-level-folders.png&w=3840&q=75)
 
 |                                                                          |                                    |
-| ------------------------------------------------------------------------ | ---------------------------------- |
-| [`app`](/docs/app/building-your-application/routing)                     | 应用路由                         |
-| [`pages`](/docs/pages/building-your-application/routing)                 | 页面路由                       |
+|--------------------------------------------------------------------------| ---------------------------------- |
+| [`app`](/docs/app/building-your-application/routing/)                    | 应用路由                         |
+| [`pages`](/docs/pages/building-your-application/routing/)                | 页面路由                       |
 | [`public`](/docs/app/building-your-application/optimizing/static-assets) | 要服务的静态资产         |
 | [`src`](/docs/app/building-your-application/configuring/src-directory)   | 可选的应用源文件夹 |
 
@@ -40,7 +40,7 @@
 
 ## `app` 路由约定
 
-以下是用于在 [`app` 路由](/docs/app) 中定义路由和处理元数据的文件约定。
+以下是用于在 [`app` 路由](/docs/app/) 中定义路由和处理元数据的文件约定。
 ### Routing Files
 
 | 说明 | 文件扩展名 | 用途 |
@@ -57,10 +57,10 @@
 
 ### Nested Routes
 
-| 说明 | 用途 |
-| --- | --- |
-| [`folder`](/docs/app/building-your-application/routing#route-segments) | 路由片段 |
-| [`folder/folder`](/docs/app/building-your-application/routing#nested-routes) | 嵌套路由片段 |
+| 说明                                                                            | 用途 |
+|-------------------------------------------------------------------------------| --- |
+| [`folder`](/docs/app/building-your-application/routing/#route-segments)       | 路由片段 |
+| [`folder/folder`](/docs/app/building-your-application/routing/#nested-routes) | 嵌套路由片段 |
 
 ### Dynamic Routes
 
@@ -117,7 +117,7 @@
 
 ## `pages` 路由约定
 
-以下是用于定义 [`pages` 路由器](/docs/pages) 中路由的文件约定。
+以下是用于定义 [`pages` 路由器](/docs/pages/) 中路由的文件约定。
 ### Special Files
 
 |                                                                                                             |                     |                   |

@@ -16,15 +16,15 @@
 
 然而，即使路由结构是通过文件夹定义的，一个路由**不是公开可访问**的，直到向路由段添加了 `page.js` 或 `route.js` 文件。
 
-![一个图表显示了在向路由段添加page.js或route.js文件之前，路由不是公开可访问的](/docs/light/project-organization-not-routable.png)
+![一个图表显示了在向路由段添加page.js或route.js文件之前，路由不是公开可访问的](https://nextjs.org/_next/image?url=/docs/light/project-organization-not-routable.png&w=3840&q=75)
 
 而且，即使路由被公开访问，也只有 `page.js` 或 `route.js` 返回的**内容**被发送到客户端。
 
-![一个图表显示了page.js和route.js文件如何使路由公开可访问](/docs/light/project-organization-routable.png)
+![一个图表显示了page.js和route.js文件如何使路由公开可访问](https://nextjs.org/_next/image?url=/docs/light/project-organization-routable.png&w=3840&q=75)
 
 这意味着**项目文件**可以在 `app` 目录中的路由段内**安全地共置**，而不会被意外地路由。
 
-![一个图表显示了共置的项目文件即使在段包含page.js或route.js文件时也不是可路由的](/docs/light/project-organization-colocation.png)
+![一个图表显示了共置的项目文件即使在段包含page.js或route.js文件时也不是可路由的](https://nextjs.org/_next/image?url=/docs/light/project-organization-colocation.png&w=3840&q=75)
 
 > **须知**：
 >
@@ -40,7 +40,7 @@ Next.js提供了多种功能来帮助您组织项目。
 
 这表示该文件夹是一个私有的实现细节，不应被路由系统考虑，从而**使该文件夹及其所有子文件夹退出路由**。
 
-![使用私有文件夹的示例文件夹结构](/docs/light/project-organization-private-folders.png)
+![使用私有文件夹的示例文件夹结构](https://nextjs.org/_next/image?url=/docs/light/project-organization-private-folders.png&w=3840&q=75)
 
 由于`app`目录中的文件默认可以[安全地共存](#safe-colocation-by-default)，因此不需要私有文件夹来进行共存。然而，它们可能对以下情况很有用：
 
@@ -61,7 +61,7 @@ Next.js提供了多种功能来帮助您组织项目。
 
 这表示该文件夹用于组织目的，**不应包含**在路由的URL路径中。
 
-![使用路由组的示例文件夹结构](/docs/light/project-organization-route-groups.png)
+![使用路由组的示例文件夹结构](https://nextjs.org/_next/image?url=/docs/light/project-organization-route-groups.png&w=3840&q=75)
 
 路由组很有用，用于：
 
@@ -74,7 +74,7 @@ Next.js提供了多种功能来帮助您组织项目。
 
 Next.js支持将应用程序代码（包括`app`）存储在可选的[`src`目录](/docs/app/building-your-application/configuring/src-directory)中。这将应用程序代码与主要位于项目根目录的大多数项目配置文件分开。
 
-![带有`src`目录的示例文件夹结构](/docs/light/project-organization-src-directory.png)
+![带有`src`目录的示例文件夹结构](https://nextjs.org/_next/image?url=/docs/light/project-organization-src-directory.png&w=3840&q=75)
 
 ### 模块路径别名
 
@@ -99,16 +99,16 @@ import { Button } from '@/components/button'
 
 这种策略将所有应用程序代码存储在**项目根目录**的共享文件夹中，并将`app`目录纯粹用于路由目的。
 
-![An example folder structure with project files outside of app](/docs/light/project-organization-project-root.png)
+![An example folder structure with project files outside of app](https://nextjs.org/_next/image?url=/docs/light/project-organization-project-root.png&w=3840&q=75)
 
 ### 在`app`内的顶级文件夹中存储项目文件
 
 这种策略将所有应用程序代码存储在**`app`目录的根目录**的共享文件夹中。
 
-![An example folder structure with project files inside app](/docs/light/project-organization-app-root.png)
+![An example folder structure with project files inside app](https://nextjs.org/_next/image?url=/docs/light/project-organization-app-root.png&w=3840&q=75)
 
 ### 按功能或路由拆分项目文件
 
 这种策略将全局共享的应用程序代码存储在根`app`目录中，并将更具体的应用程序代码**拆分**到使用它们的路由段中。
 
-![An example folder structure with project files split by feature or route](/docs/light/project-organization-app-root-split.png)
+![An example folder structure with project files split by feature or route](https://nextjs.org/_next/image?url=/docs/light/project-organization-app-root-split.png&w=3840&q=75)

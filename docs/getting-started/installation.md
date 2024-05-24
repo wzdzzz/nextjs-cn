@@ -1,13 +1,5 @@
 # 安装
 
-创建一个新的Next.js应用程序，使用 `create-next-app`。设置TypeScript，样式，并配置您的 `next.config.js` 文件。
-
-相关：
-  标题：下一步
-  描述：了解您的Next.js项目中的文件和文件夹。
-  链接：
-    - getting-started/project-structure
-
 系统要求：
 
 - [Node.js 18.17](https://nodejs.org/) 或更高版本。
@@ -70,6 +62,7 @@ npm install next@latest react@latest react-dom@latest
 - `build`：运行 [`next build`](/docs/app/api-reference/next-cli#build) 以构建应用程序以供生产使用。
 - `start`：运行 [`next start`](/docs/app/api-reference/next-cli#production) 以启动Next.js生产服务器。
 - `lint`：运行 [`next lint`](/docs/app/api-reference/next-cli#lint) 以设置Next.js的内置ESLint配置。
+
 ### 创建目录
 
 Next.js 使用文件系统路由，这意味着你的应用程序中的路由是由你的文件结构决定的。

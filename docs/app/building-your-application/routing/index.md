@@ -6,14 +6,14 @@
 
 首先，您将看到这些术语在文档中被使用。这里有一个快速参考：
 
-![Component Tree的术语](/docs/light/terminology-component-tree.png)
+![Component Tree的术语](https://nextjs.org/_next/image?url=/docs/light/terminology-component-tree.png&w=3840&q=75)
 
 - **树(Tree)**: 可视化层次结构的惯例。例如，具有父组件和子组件的组件树，文件夹结构等。
 - **子树(Subtree)**: 从新根（第一）开始到叶子（最后）结束的树的一部分。
 - **根(Root)**: 树或子树中的第一个节点，例如根布局。
 - **叶子(Leaf)**: 在子树中没有子节点的节点，例如URL路径中的最后一个段。
 
-![URL解剖学的术语](/docs/light/terminology-url-anatomy.png)
+![URL解剖学的术语](https://nextjs.org/_next/image?url=/docs/light/terminology-url-anatomy.png&w=3840&q=75)
 
 - **URL段(URL Segment)**: 由斜杠分隔的URL路径的一部分。
 - **URL路径(URL Path)**: 位于域之后的URL部分（由段组成）。
@@ -26,7 +26,7 @@ App路由器在名为`app`的新目录中工作。`app`目录与`pages`目录一
 
 > **须知**: App路由器优先于Pages路由器。跨目录的路由不应解析为相同的URL路径，并将导致构建时错误以防止冲突。
 
-![Next.js App目录](/docs/light/next-router-directories.png)
+![Next.js App目录](https://nextjs.org/_next/image?url=/docs/light/next-router-directories.png&w=3840&q=75)
 
 默认情况下，`app`内部的组件是[React Server Components](/docs/app/building-your-application/rendering/server-components)。这是一种性能优化，并允许您轻松采用它们，您也可以使用[Client Components](/docs/app/building-your-application/rendering/client-components)。
 
@@ -43,8 +43,8 @@ Next.js使用基于文件系统的路由器，其中：
 
 路由中的每个文件夹代表一个**路由段**。每个路由段都映射到URL路径中的相应**段**。
 
-![路由段如何映射到URL段](/docs/light/route-segments-to-path-segments.png)
-# Nested Routes
+![路由段如何映射到URL段](https://nextjs.org/_next/image?url=/docs/light/route-segments-to-path-segments.png&w=3840&q=75)
+## Nested Routes
 
 要创建一个嵌套路由，你可以将文件夹相互嵌套。例如，你可以通过在`app`目录中嵌套两个新文件夹来添加一个新的`/dashboard/settings`路由。
 
@@ -83,22 +83,22 @@ Next.js 提供了一组特殊文件来创建具有特定行为的嵌套路由的
 - `not-found.js`（React错误边界）
 - `page.js`或嵌套的`layout.js`
 
-![Component Hierarchy for File Conventions](/docs/light/file-conventions-component-hierarchy.png)
+![Component Hierarchy for File Conventions](https://nextjs.org/_next/image?url=/docs/light/file-conventions-component-hierarchy.png&w=3840&q=75)
 
 在嵌套路由中，一个部分的组件将被嵌套**在**其父部分的组件**里面**。
 
-![Nested File Conventions Component Hierarchy](/docs/light/nested-file-conventions-component-hierarchy.png)
-# Colocation
+![Nested File Conventions Component Hierarchy](https://nextjs.org/_next/image?url=/docs/light/nested-file-conventions-component-hierarchy.png&w=3840&q=75)
+## Colocation
 
 除了特殊文件，您还可以选择将您自己的文件（例如组件、样式、测试等）放置在`app`目录中的文件夹内。
 
 这是因为虽然文件夹定义了路由，但只有通过`page.js`或`route.js`返回的内容才是公开可访问的。
 
-![一个带有共位文件的示例文件夹结构](/docs/light/project-organization-colocation.png)
+![一个带有共位文件的示例文件夹结构](https://nextjs.org/_next/image?url=/docs/light/project-organization-colocation.png&w=3840&q=75)
 
 了解更多关于[项目组织和共位](/docs/app/building-your-application/routing/colocation)。
 
-# Advanced Routing Patterns
+## Advanced Routing Patterns
 
 App Router还提供了一套约定，帮助您实现更高级的路由模式。这些包括：
 
@@ -107,6 +107,6 @@ App Router还提供了一套约定，帮助您实现更高级的路由模式。�
 
 这些模式允许您构建更丰富和更复杂的UI，使那些历史上对于小团队和个人开发者来说难以实现的功能民主化。
 
-# Next Steps
+## Next Steps
 
 现在您已经了解了Next.js路由的基础知识，请按照下面的链接创建您的第一条路由：

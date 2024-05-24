@@ -9,7 +9,7 @@
 
 通过在路由段内添加 `error.js` 文件并导出一个 React 组件来创建错误 UI：
 
-![error.js 特殊文件](/docs/light/error-special-file.png)
+![error.js 特殊文件](https://nextjs.org/_next/image?url=/docs/light/error-special-file.png&w=3840&q=75)
 
 ```tsx filename="app/dashboard/error.tsx" switcher
 'use client' // 错误组件必须是客户端组件
@@ -73,7 +73,7 @@ export default function Error({ error, reset }) {
 
 ### `error.js` 的工作原理
 
-![How error.js works](/docs/light/error-overview.png)
+![How error.js works](https://nextjs.org/_next/image?url=/docs/light/error-overview.png&w=3840&q=75)
 
 - `error.js` 自动创建一个 [React Error Boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)，该边界 **包裹** 一个嵌套子段或 `page.js` 组件。
 - 从 `error.js` 文件导出的 React 组件用作 **后备** 组件。
@@ -123,7 +123,7 @@ export default function Error({ error, reset }) {
 
 例如，具有两个段的嵌套路由，这两个段都包含 `layout.js` 和 `error.js` 文件，它们在以下简化的组件层次结构中被渲染：
 
-![嵌套错误组件层次结构](/docs/light/nested-error-component-hierarchy.png)
+![嵌套错误组件层次结构](https://nextjs.org/_next/image?url=/docs/light/nested-error-component-hierarchy.png&w=3840&q=75)
 
 嵌套组件层次结构对嵌套路由中 `error.js` 文件的行为有影响：
 

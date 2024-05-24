@@ -3,6 +3,7 @@ title: <链接>
 description: 使用内置的 `next/link` 组件启用快速的客户端导航。
 ---
 
+# 链接
 
 <PagesOnly>
 

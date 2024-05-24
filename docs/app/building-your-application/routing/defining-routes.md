@@ -29,9 +29,3 @@ export default function Page() {
   return <h1>Hello, Next.js!</h1>
 }
 ```
-
-```jsx filename="app/page.js" switcher
-export default function Page() {
-  return <h1>Hello, Next.js!</h1>
-}
-```

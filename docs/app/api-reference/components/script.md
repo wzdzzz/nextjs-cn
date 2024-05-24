@@ -3,6 +3,7 @@ title: <Script> 组件
 description: 使用内置的 `next/script` 组件优化 Next.js 应用中的第三方脚本。
 ---
 
+# Script
 
 
 本 API 参考将帮助您了解 Script 组件可用的 [props](#props)。有关特性和用法，请参见 [优化脚本](/docs/app/building-your-application/optimizing/scripts) 页面。
