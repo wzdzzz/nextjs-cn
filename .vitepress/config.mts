@@ -5,6 +5,7 @@ export default defineConfig({
   title: "next.js 中文文档",
   description: "next.js 中文文档",
   ignoreDeadLinks: true,
+  base: '/nextjs-cn/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -33,7 +34,6 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
     ],
-    base: '/nextjs-cn/',
     sidebar:
       [
         {
