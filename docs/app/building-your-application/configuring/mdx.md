@@ -408,6 +408,7 @@ export default function Page() {
 ```
 
 </PagesOnly>
+
 ### 共享布局
 
 <AppOnly>
@@ -537,7 +538,7 @@ export default function MDXPage({ children }) {
 }
 ```
 
-</PagesOnly >
+</PagesOnly>
 
 须知：在使用 Tailwind typography 插件时，确保您的项目配置正确，以便插件能够正确地应用样式。
 ## Frontmatter

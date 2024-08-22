@@ -1,8 +1,4 @@
----
-title: 升级到版本9
-nav_title: 版本9
-description: 将您的Next.js应用程序从版本8升级到版本9。
----
+# 升级到版本9
 
 要升级到版本9，请运行以下命令：
 
@@ -34,7 +30,7 @@ Next.js 9的动态路由在[Vercel](https://vercel.com/)上是**自动配置的*
 
 ## 检查您的自定义App文件（`pages/_app.js`）
 
-如果您之前复制了[自定义<App>](/docs/pages/building-your-application/routing/custom-app)示例，您可能可以移除您的`getInitialProps`。
+如果您之前复制了[自定义App](/docs/pages/building-your-application/routing/custom-app)示例，您可能可以移除您的`getInitialProps`。
 
 尽可能从`pages/_app.js`中移除`getInitialProps`对于利用Next.js的新特性来说很重要！
 

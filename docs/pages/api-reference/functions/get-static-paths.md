@@ -1,7 +1,4 @@
----
-title: getStaticPaths
-description: `getStaticPaths`的API参考。了解如何使用`getStaticPaths`获取数据并生成静态页面。
----
+# getStaticPaths
 
 当从使用[动态路由](/docs/pages/building-your-application/routing/dynamic-routes)的页面导出一个名为`getStaticPaths`的函数时，Next.js将静态预渲染`getStaticPaths`指定的所有路径。
 

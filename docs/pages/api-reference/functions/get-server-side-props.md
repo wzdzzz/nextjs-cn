@@ -1,7 +1,4 @@
----
-title: getServerSideProps
-description: `getServerSideProps` 的 API 参考。了解如何在 Next.js 中每个请求获取数据。
----
+# getServerSideProps
 
 当从一个页面导出一个名为 `getServerSideProps`（服务器端渲染）的函数时，Next.js 将在每个请求上使用 `getServerSideProps` 返回的数据预渲染该页面。这在您想要获取经常变化的数据，并希望页面更新以显示最新数据时非常有用。
 
