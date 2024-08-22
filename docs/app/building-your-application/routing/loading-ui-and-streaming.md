@@ -78,7 +78,7 @@ React和Next.js的SSR通过尽快向用户显示非交互式页面来帮助提�
 ![图表显示流式传输的服务器渲染](https://nextjs.org/_next/image?url=/docs/light/server-rendering-with-streaming-chart.png&w=3840&q=75)
 
 当你想要防止长时间的数据请求阻塞页面渲染时，流式传输特别有益，因为它可以减少[首字节时间（TTFB）](https://web.dev/ttfb/)和[首次内容绘制（FCP）](https://web.dev/first-contentful-paint/)。它还有助于提高[可交互时间（TTI）](https://developer.chrome.com/en/docs/lighthouse/performance/interactive/)，特别是在较慢的设备上。
-# Example
+### Example
 
 `<Suspense>` 通过包装执行异步操作的组件（例如获取数据），在操作进行时显示回退UI（例如骨架，旋转器），然后在操作完成后替换为您的组件。
 
@@ -125,7 +125,7 @@ export default function Posts() {
 
 有关更多Suspense示例和用例，请参见[React文档](https://react.dev/reference/react/Suspense)。
 
-# SEO
+### SEO
 
 - Next.js将在流式传输UI到客户端之前等待[`generateMetadata`](/docs/app/api-reference/functions/generate-metadata)中的数据获取完成。这保证了流式响应的第一部分包括`<head>`标签。
 - 由于流式传输是服务器渲染的，因此不会影响SEO。您可以使用Google的[Rich Results Test](https://search.google.com/test/rich-results)工具查看您的页面对Google网络爬虫的显示情况，并查看序列化HTML（[source](https://web.dev/rendering-on-the-web/#seo-considerations)）。

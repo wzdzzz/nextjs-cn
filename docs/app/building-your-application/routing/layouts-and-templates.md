@@ -2,6 +2,7 @@
 title: 布局和模板
 description: 在Next.js中创建你的第一个共享布局。
 ---
+# 布局和模板
 
 特殊的文件[layout.js](#layouts)和[template.js](#templates)允许你在[路由](/docs/app/building-your-application/routing/defining-routes#creating-routes)之间创建共享的UI。本页将指导你如何以及何时使用这些特殊文件。
 
@@ -162,9 +163,9 @@ export default function Template({ children }) {
   <Template key={routeParam}>{children}</Template>
 </Layout>
 ```
-# Examples
+## Examples
 
-## Metadata
+### Metadata
 
 您可以使用[Metadata APIs](/docs/app/building-your-application/optimizing/metadata)修改`<head>`HTML元素，如`title`和`meta`。
 
@@ -196,7 +197,7 @@ export default function Page() {
 
 在[API参考](/docs/app/api-reference/functions/generate-metadata)中了解更多可用的元数据选项。
 
-## Active Nav Links
+### Active Nav Links
 
 您可以使用[usePathname()](/docs/app/api-reference/functions/use-pathname)钩子来确定导航链接是否处于活动状态。
 

@@ -50,7 +50,7 @@ export default defineConfig({
           ]
         },
         {
-          "text": "App",
+          "text": "App Router",
           "link": "/docs/app/",
           "collapsed": false,
           "items": [
@@ -924,7 +924,7 @@ export default defineConfig({
           ]
         },
         {
-          "text": "Pages",
+          "text": "Pages Router",
           "link": "/docs/pages/",
           "collapsed": true,
           "items": [

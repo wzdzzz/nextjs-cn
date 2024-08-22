@@ -75,7 +75,7 @@ export default async function Page({ params: { lang } }) {
 ```
 
 根布局也可以嵌套在新文件夹中（例如 `app/[lang]/layout.js`）。
-# Localization
+## Localization
 
 根据用户首选语言环境或本地化更改显示内容并不是Next.js特有的。下面描述的模式同样适用于任何网络应用程序。
 

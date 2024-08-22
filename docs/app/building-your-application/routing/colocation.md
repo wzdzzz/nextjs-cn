@@ -30,7 +30,7 @@
 >
 > - 这与 `pages` 目录不同，`pages` 中的任何文件都被视为路由。
 > - 你**可以**在 `app` 中共置你的项目文件，但**不必**这么做。如果你愿意，你可以[将它们放在 `app` 目录之外](#store-project-files-outside-of-app)。
-# Project organization features
+## 项目组织特点
 
 Next.js提供了多种功能来帮助您组织项目。
 
@@ -87,7 +87,7 @@ import { Button } from '../../../components/button'
 // after
 import { Button } from '@/components/button'
 ```
-# 项目组织策略
+## 项目组织策略
 
 在Next.js项目中组织自己的文件和文件夹没有“正确”或“错误”的方式。
 

@@ -293,7 +293,7 @@ export default function Page() {
   )
 }
 ```
-## `onReady`
+### `onReady`
 
 > **警告：** `onReady` 尚未支持 Server Components，只能在 Client Components 中使用。
 
@@ -388,7 +388,7 @@ export default function Page() {
 
 </PagesOnly>
 
-## `onError`
+### `onError`
 
 > **警告：** `onError` 尚未支持 Server Components，只能在 Client Components 中使用。`onError` 不能与 `beforeInteractive` 加载策略一起使用。
 

@@ -27,9 +27,7 @@ Middleware在缓存内容和匹配路由之前运行。有关更多详细信息�
 在项目的根目录中使用文件`middleware.ts`（或`.js`）来定义Middleware。例如，与`pages`或`app`同级，或者如果适用的话，在`src`内部。
 
 > **注意**：虽然每个项目只支持一个`middleware.ts`文件，但您仍然可以模块化地组织您的middleware逻辑。将middleware功能拆分为单独的`.ts`或`.js`文件，并将它们导入到您的主`middleware.ts`文件中。这允许更清晰地管理特定于路由的middleware，这些middleware在`middleware.ts`中集中控制。通过强制使用单个middleware文件，它简化了配置，防止了潜在的冲突，并避免了多个middleware层，从而优化了性能。
-# Example
-
-## 中间件示例
+## Example
 
 ```ts filename="middleware.ts" switcher
 import { NextResponse } from 'next/server'
@@ -192,7 +190,7 @@ export function middleware(request) {
   }
 }
 ```
-# NextResponse
+## NextResponse
 
 `NextResponse` API 允许您：
 
@@ -220,7 +218,7 @@ export function middleware(request) {
 
 </PagesOnly>
 
-# 使用 Cookies
+## 使用 Cookies
 
 Cookies 是常规的头部。在 `Request` 中，它们存储在 `Cookie` 头部。在 `Response` 中，它们在 `Set-Cookie` 头部。Next.js 提供了一种方便的方式来访问和操作这些 Cookie，通过 `NextRequest` 和 `NextResponse` 上的 `cookies` 扩展。
 
@@ -438,7 +436,8 @@ export const config = {
 > **须知：** 您可以在[路由处理器](/docs/app/building-your-application/routing/route-handlers#cors)中为个别路由配置CORS头。
 
 </AppOnly>
-# 生成响应
+
+## 生成响应
 
 你可以直接从中间件返回一个`Response`或`NextResponse`实例来做出响应。（这自[Next.js v13.1.0](https://nextjs.org/blog/next-13-1#nextjs-advanced-middleware)起可用）
 
@@ -558,11 +557,11 @@ export default async function middleware(req) {
   // 没有这个标志，它将被规范化为 /hello
 }
 ```
-# Runtime
+## Runtime
 
 中间件目前仅支持[Edge runtime](/docs/app/building-your-application/rendering/edge-and-nodejs-runtimes)。Node.js运行时无法使用。
 
-# Version History
+## Version History
 
 | 版本   | 变更                                                                                       |
 | --------- | --------------------------------------------------------------------------------------------- |

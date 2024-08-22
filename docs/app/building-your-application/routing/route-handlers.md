@@ -65,9 +65,8 @@ export async function GET() {
 ```
 
 > **TypeScript 警告**：`Response.json()` 仅从 TypeScript 5.2 开始有效。如果您使用的是较低版本的 TypeScript，您可以使用 [`NextResponse.json()`](/docs/app/api-reference/functions/next-response#json) 代替，以获得类型化的响应。
-# Opting out of caching
 
-## 退出缓存
+### 退出缓存
 
 您可以通过以下方式退出缓存：
 
@@ -148,7 +147,7 @@ export async function POST() {
 
 > **须知**：像API路由一样，路由处理器可以用于处理表单提交等场景。正在开发一种新的抽象，用于[处理表单和变异](/docs/app/building-your-application/data-fetching/server-actions-and-mutations)，与React深度集成。
 
-## Route Resolution
+### Route Resolution
 
 您可以将`route`视为最低级别的路由原语。
 
@@ -173,7 +172,7 @@ export default function Page() {
 export async function POST(request) {}
 ```
 
-# Examples
+## Examples
 
 以下示例展示了如何将路由处理器与其他Next.js API和功能结合使用。
 ### 重新验证缓存数据
@@ -509,7 +508,7 @@ export async function POST(request) {
   return Response.json({ res })
 }
 ```
-# Request Body FormData
+### Request Body FormData
 
 您可以使用 `request.formData()` 函数读取 `FormData`：
 
@@ -533,7 +532,7 @@ export async function POST(request) {
 
 由于 `formData` 数据都是字符串，您可能希望使用 [`zod-form-data`](https://www.npmjs.com/zod-form-data) 来验证请求并按您喜欢的格式（例如 `number`）检索数据。
 
-# CORS
+### CORS
 
 您可以使用标准 Web API 方法为特定的路由处理器设置 CORS 标头：
 
@@ -572,7 +571,7 @@ export async function GET(request) {
 > - 要为多个路由处理器添加 CORS 标头，您可以使用 [中间件](/docs/app/building-your-application/routing/middleware#cors) 或 [`next.config.js` 文件](/docs/app/api-reference/next-config-js/headers#cors)。
 > - 另外，请参阅我们的 [CORS 示例](https://github.com/vercel/examples/blob/main/edge-functions/cors/lib/cors.ts) 包。
 
-# Webhooks
+### Webhooks
 
 您可以使用路由处理器接收来自第三方服务的 Webhooks：
 

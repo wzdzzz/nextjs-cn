@@ -2,6 +2,7 @@
 title: 路由分组
 description: 路由分组可用于将您的Next.js应用程序划分为不同的部分。
 ---
+# 路由分组
 
 在`app`目录中，嵌套文件夹通常映射到URL路径。然而，您可以将一个文件夹标记为**路由分组**，以防止文件夹被包含在路由的URL路径中。
 
@@ -17,9 +18,9 @@ description: 路由分组可用于将您的Next.js应用程序划分为不同的
 ## 约定
 
 可以通过将文件夹名称括在括号中来创建路由分组：`(folderName)`
-# Examples
+## Examples
 
-## 组织路由而不改变URL路径
+### 组织路由而不改变URL路径
 
 要在不影响URL的情况下组织路由，请创建一个组来保持相关路由在一起。括号中的文件夹将从URL中省略（例如`(marketing)`或`(shop)`）。
 
@@ -29,13 +30,13 @@ description: 路由分组可用于将您的Next.js应用程序划分为不同的
 
 ![Route Groups with Multiple Layouts](https://nextjs.org/_next/image?url=/docs/light/route-group-multiple-layouts.png&w=3840&q=75)
 
-## 将特定段选择到布局中
+### 将特定段选择到布局中
 
 要将特定路由选择到布局中，请创建一个新的路由组（例如`(shop)`），并将共享相同布局的路由移动到该组中（例如`account`和`cart`）。组外的路由将不共享布局（例如`checkout`）。
 
 ![Route Groups with Opt-in Layouts](https://nextjs.org/_next/image?url=/docs/light/route-group-opt-in-layouts.png&w=3840&q=75)
 
-## 创建多个根布局
+### 创建多个根布局
 
 要创建多个[root layouts](/docs/app/building-your-application/routing/layouts-and-templates#root-layout-required)，请删除顶层`layout.js`文件，并在每个路由组内添加一个`layout.js`文件。这对于将应用程序划分为具有完全不同的UI或体验的部分非常有用。需要在每个根布局中添加`<html>`和`<body>`标签。
 

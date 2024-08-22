@@ -257,7 +257,7 @@ export default function Page() {
 >
 > - 用于拦截路由的约定，例如`(.)`，取决于您的文件系统结构。请参阅[拦截路由约定](/docs/app/building-your-application/routing/intercepting-routes#convention)。
 > - 通过将`<Modal>`功能与对话框内容(`<Login>`)分开，您可以确保对话框内的任何内容，例如[表单](/docs/app/building-your-application/data-fetching/server-actions-and-mutations#forms)，都是服务器组件。有关更多信息，请参见[交错客户端和服务器组件](/docs/app/building-your-application/rendering/composition-patterns#supported-pattern-passing-server-components-to-client-components-as-props)。
-# 开启模态框
+#### 开启模态框
 
 现在，您可以利用Next.js路由器来打开和关闭模态框。这确保了当模态框打开时，URL会正确更新，并且在向前和向后导航时也会更新。
 
@@ -303,7 +303,7 @@ export default function Layout({ auth, children }) {
 
 当用户点击`<Link>`时，将打开模态框而不是导航到`/login`页面。然而，在刷新或初次加载时，导航到`/login`将带领用户前往主登录页面。
 
-# 关闭模态框
+#### 关闭模态框
 
 您可以通过调用`router.back()`或使用`Link`组件来关闭模态框。
 

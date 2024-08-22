@@ -254,35 +254,36 @@ export default function Page() {
 </PagesOnly>
 
 <PagesOnly>
-# 其他属性
 
-## `legacyBehavior`
+## 其他属性
+
+### `legacyBehavior`
 
 不再需要将 `<a>` 元素作为 `<Link>` 的子元素。添加 `legacyBehavior` 属性以使用旧版行为，或者移除 `<a>` 以升级。[有一个 codemod 可用](/docs/app/building-your-application/upgrading/codemods#new-link) 来自动升级你的代码。
 
 > **须知**：当 `legacyBehavior` 未设置为 `true` 时，所有 [`anchor`](https://developer.mozilla.org/docs/Web/HTML/Element/a) 标签属性也可以传递给 `next/link`，如 `className`、`onClick` 等。
 
-## `passHref`
+### `passHref`
 
 强制 `Link` 将其 `href` 属性传递给其子元素。默认为 `false`
 
-## `scroll`
+### `scroll`
 
 导航后滚动到页面顶部。默认为 `true`
 
-## `shallow`
+### `shallow`
 
 更新当前页面的路径，而不会重新运行 [`getStaticProps`](/docs/pages/building-your-application/data-fetching/get-static-props)、[`getServerSideProps`](/docs/pages/building-your-application/data-fetching/get-server-side-props) 或 [`getInitialProps`](/docs/pages/api-reference/functions/get-initial-props)。默认为 `false`
 
-## `locale`
+### `locale`
 
 活动的语言环境会自动添加到前面。`locale` 允许提供不同的语言环境。当为 `false` 时，`href` 必须包含语言环境，因为默认行为被禁用。
 
 </PagesOnly>
 
-# 示例
+## 示例
 
-## 链接到动态路由
+### 链接到动态路由
 
 对于动态路由，使用模板文字来创建链接的路径可能会很有帮助。
 
@@ -333,7 +334,7 @@ function Page({ posts }) {
 </AppOnly>
 
 
-## 如果子元素是一个包装了 `<a>` 标签的自定义组件
+### 如果子元素是一个包装了 `<a>` 标签的自定义组件
 
 <AppOnly>
 
@@ -369,6 +370,7 @@ export default NavLink
 
 - 如果你正在使用 [emotion](https://emotion.sh/) 的 JSX pragma 特性 (`@jsx jsx`)，即使你直接使用 `<a>` 标签，也必须使用 `passHref`。
 - 组件应该支持 `onClick` 属性以正确触发导航
+
 ### 如果子组件是函数组件
 
 如果 `Link` 的子组件是函数组件，除了使用 `passHref` 和 `legacyBehavior`，您还必须使用 [`React.forwardRef`](https://react.dev/reference/react/forwardRef) 包装该组件：
